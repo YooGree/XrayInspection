@@ -35,7 +35,7 @@ namespace MaskManager
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
          //   Application.Run(new MainFrm());
-          Application.Run(new PopUp.MainForm());
+          Application.Run(new PopUp.CS_MainForm());
         }
     }
 }

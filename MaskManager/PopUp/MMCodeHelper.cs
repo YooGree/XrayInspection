@@ -43,7 +43,8 @@ namespace MaskManager.PopUp
             else
             {
                 dtgCode.Visible = false;
-                btnClose.Click += BtnOK_Click;
+                //btnClose.Click += BtnOK_Click;
+                btnClose.Click += BtnClose_Click;
                 this.Size = new Size(300, 220);
             }
             mtxtKey.maskTextBoxKeyDownEvent += MtxtKey_KeyDown;
@@ -74,8 +75,9 @@ namespace MaskManager.PopUp
                     ProcedureName = "SelectUser";
                     lblTitle.Text = "LOG IN";
                     mtxtKey.ucLabelText = "사용자명/ID";
-                    btnOK.Visible = false;
-                    btnClose.Text = "확인";
+                    btnOK.Text = "확인";
+                    //btnOK.Visible = false;
+                    //btnClose.Text = "확인";
                     break;
                 default:
                     break;
@@ -189,10 +191,10 @@ namespace MaskManager.PopUp
         /// <param name="e"></param>
         private void MMCodeHelper_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (LogInYN && string.IsNullOrWhiteSpace(ReturnCodeValue))
-            {
-                e.Cancel = true;
-            }
+            //if (LogInYN && string.IsNullOrWhiteSpace(ReturnCodeValue))
+            //{
+            //    e.Cancel = true;
+            //}
         }
     }
 }

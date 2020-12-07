@@ -36,16 +36,8 @@ namespace MaskManager.PopUp
             lblTitle.MouseMove += ParentsPop_MouseMove;
             lblTitle.MouseDown += ParentsPop_MouseDown;
             lblTitle.MouseDoubleClick += LblTitle_MouseDoubleClick;
-            lblTitle.Controls.Add(btnMini);
-            btnMini.Dock = DockStyle.Right;
-            btnMini.Click += BtnMini_Click;
             this.DoubleBuffered = true;
             this.SetStyle(ControlStyles.ResizeRedraw, true);
-        }
-
-        private void BtnMini_Click(object sender, EventArgs e)
-        {
-            this.WindowState = FormWindowState.Minimized;
         }
 
         /// <summary>

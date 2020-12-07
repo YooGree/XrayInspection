@@ -1,6 +1,6 @@
 ﻿namespace MaskManager.PopUp
 {
-    partial class MainForm
+    partial class CS_MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,13 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CS_MainForm));
             this.p_Report = new System.Windows.Forms.Panel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -98,18 +98,18 @@
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.MMStoredInfoPage = new MaskManager.TabPages.MMStoredInfo();
+            this.panelSetting = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnMaskInfo = new System.Windows.Forms.Button();
             this.p_LogoMicube = new System.Windows.Forms.Panel();
-            this.p_LogoSem = new System.Windows.Forms.Panel();
             this.btnReport = new System.Windows.Forms.Button();
             this.btnMain = new System.Windows.Forms.Button();
-            this.btnClose = new System.Windows.Forms.Button();
             this.btnDB = new System.Windows.Forms.Button();
             this.btnScrap = new System.Windows.Forms.Button();
             this.btnInsp = new System.Windows.Forms.Button();
             this.btnMaskInfoCancel = new System.Windows.Forms.Button();
             this.btnRegister = new System.Windows.Forms.Button();
-            this.btnBase = new System.Windows.Forms.Button();
-            this.btnMaskInfo = new System.Windows.Forms.Button();
+            this.btnSetting = new System.Windows.Forms.Button();
             this.tableLayoutPanel3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -133,9 +133,9 @@
             // 
             // lblTitle
             // 
-            this.lblTitle.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.lblTitle.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.lblTitle.Size = new System.Drawing.Size(1077, 22);
+            this.lblTitle.Margin = new System.Windows.Forms.Padding(2);
+            this.lblTitle.Padding = new System.Windows.Forms.Padding(2);
+            this.lblTitle.Size = new System.Drawing.Size(1077, 30);
             // 
             // p_Report
             // 
@@ -143,7 +143,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.p_Report.Location = new System.Drawing.Point(0, 75);
-            this.p_Report.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.p_Report.Margin = new System.Windows.Forms.Padding(2);
             this.p_Report.Name = "p_Report";
             this.p_Report.Size = new System.Drawing.Size(1077, 529);
             this.p_Report.TabIndex = 31;
@@ -193,29 +193,29 @@
             // 
             this.dataGridView2.AllowUserToAddRows = false;
             this.dataGridView2.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(249)))));
-            this.dataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(249)))));
+            this.dataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle13;
             this.dataGridView2.BackgroundColor = System.Drawing.Color.White;
             this.dataGridView2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridView2.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dataGridView2.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.LightSteelBlue;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle14.BackColor = System.Drawing.Color.LightSteelBlue;
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle14.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle14;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.SteelBlue;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.SteelBlue;
+            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle15;
             this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView2.EnableHeadersVisualStyles = false;
             this.dataGridView2.Location = new System.Drawing.Point(3, 3);
@@ -260,29 +260,29 @@
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(249)))));
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(249)))));
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle16;
             this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.LightSteelBlue;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle17.BackColor = System.Drawing.Color.LightSteelBlue;
+            dataGridViewCellStyle17.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle17.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle17;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.SteelBlue;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.SteelBlue;
+            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle18;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridView1.EnableHeadersVisualStyles = false;
@@ -391,7 +391,7 @@
             this.p_Main.Controls.Add(this.groupBox5);
             this.p_Main.Controls.Add(this.groupBox6);
             this.p_Main.Location = new System.Drawing.Point(0, 75);
-            this.p_Main.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.p_Main.Margin = new System.Windows.Forms.Padding(2);
             this.p_Main.Name = "p_Main";
             this.p_Main.Size = new System.Drawing.Size(1077, 529);
             this.p_Main.TabIndex = 32;
@@ -401,9 +401,9 @@
             this.groupBox7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox7.Controls.Add(this.txt_MaskNum);
             this.groupBox7.Location = new System.Drawing.Point(813, 0);
-            this.groupBox7.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox7.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox7.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox7.Size = new System.Drawing.Size(261, 44);
             this.groupBox7.TabIndex = 6;
             this.groupBox7.TabStop = false;
@@ -431,9 +431,9 @@
             this.groupBox4.Controls.Add(this.tlpUser);
             this.groupBox4.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.groupBox4.Location = new System.Drawing.Point(815, 430);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox4.Size = new System.Drawing.Size(259, 46);
             this.groupBox4.TabIndex = 5;
             this.groupBox4.TabStop = false;
@@ -450,7 +450,7 @@
             this.tlpUser.Controls.Add(this.btnLogIn, 1, 0);
             this.tlpUser.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpUser.Location = new System.Drawing.Point(2, 18);
-            this.tlpUser.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tlpUser.Margin = new System.Windows.Forms.Padding(2);
             this.tlpUser.Name = "tlpUser";
             this.tlpUser.RowCount = 1;
             this.tlpUser.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -477,7 +477,7 @@
             this.btnLogIn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnLogIn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnLogIn.Location = new System.Drawing.Point(222, 2);
-            this.btnLogIn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnLogIn.Margin = new System.Windows.Forms.Padding(2);
             this.btnLogIn.Name = "btnLogIn";
             this.btnLogIn.Size = new System.Drawing.Size(31, 22);
             this.btnLogIn.TabIndex = 1;
@@ -489,9 +489,9 @@
             this.groupBox3.Controls.Add(this.tableLayoutPanel4);
             this.groupBox3.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.groupBox3.Location = new System.Drawing.Point(815, 287);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox3.Size = new System.Drawing.Size(259, 142);
             this.groupBox3.TabIndex = 4;
             this.groupBox3.TabStop = false;
@@ -517,7 +517,7 @@
             this.tableLayoutPanel4.Controls.Add(this.lblCountWarning, 2, 3);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(2, 18);
-            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 4;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
@@ -533,7 +533,7 @@
             this.pnlEmpty.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pnlEmpty.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlEmpty.Location = new System.Drawing.Point(2, 2);
-            this.pnlEmpty.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pnlEmpty.Margin = new System.Windows.Forms.Padding(2);
             this.pnlEmpty.Name = "pnlEmpty";
             this.pnlEmpty.Size = new System.Drawing.Size(110, 26);
             this.pnlEmpty.TabIndex = 0;
@@ -544,7 +544,7 @@
             this.pnlUsing.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pnlUsing.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlUsing.Location = new System.Drawing.Point(2, 32);
-            this.pnlUsing.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pnlUsing.Margin = new System.Windows.Forms.Padding(2);
             this.pnlUsing.Name = "pnlUsing";
             this.pnlUsing.Size = new System.Drawing.Size(110, 26);
             this.pnlUsing.TabIndex = 1;
@@ -555,7 +555,7 @@
             this.pnlStock.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pnlStock.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlStock.Location = new System.Drawing.Point(2, 62);
-            this.pnlStock.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pnlStock.Margin = new System.Windows.Forms.Padding(2);
             this.pnlStock.Name = "pnlStock";
             this.pnlStock.Size = new System.Drawing.Size(110, 26);
             this.pnlStock.TabIndex = 2;
@@ -566,7 +566,7 @@
             this.pnlWarning.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pnlWarning.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlWarning.Location = new System.Drawing.Point(2, 92);
-            this.pnlWarning.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pnlWarning.Margin = new System.Windows.Forms.Padding(2);
             this.pnlWarning.Name = "pnlWarning";
             this.pnlWarning.Size = new System.Drawing.Size(110, 28);
             this.pnlWarning.TabIndex = 3;
@@ -665,9 +665,9 @@
             this.groupBox5.Controls.Add(this.panel3);
             this.groupBox5.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.groupBox5.Location = new System.Drawing.Point(815, 46);
-            this.groupBox5.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox5.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox5.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox5.Size = new System.Drawing.Size(259, 239);
             this.groupBox5.TabIndex = 3;
             this.groupBox5.TabStop = false;
@@ -678,7 +678,7 @@
             this.panel3.Controls.Add(this.tableLayoutPanel5);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(2, 18);
-            this.panel3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel3.Margin = new System.Windows.Forms.Padding(2);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(255, 219);
             this.panel3.TabIndex = 0;
@@ -711,7 +711,7 @@
             this.tableLayoutPanel5.Controls.Add(this.lblDataModelCode, 1, 1);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 10;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.0001F));
@@ -966,9 +966,9 @@
             this.groupBox6.Controls.Add(this.panel2);
             this.groupBox6.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.groupBox6.Location = new System.Drawing.Point(3, 2);
-            this.groupBox6.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox6.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox6.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox6.Size = new System.Drawing.Size(808, 521);
             this.groupBox6.TabIndex = 2;
             this.groupBox6.TabStop = false;
@@ -979,7 +979,7 @@
             this.panel2.Controls.Add(this.MMStoredInfoPage);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(2, 18);
-            this.panel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel2.Margin = new System.Windows.Forms.Padding(2);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(804, 501);
             this.panel2.TabIndex = 0;
@@ -995,29 +995,60 @@
             this.MMStoredInfoPage.Size = new System.Drawing.Size(804, 501);
             this.MMStoredInfoPage.TabIndex = 0;
             // 
+            // panelSetting
+            // 
+            this.panelSetting.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelSetting.Location = new System.Drawing.Point(0, 75);
+            this.panelSetting.Margin = new System.Windows.Forms.Padding(2);
+            this.panelSetting.Name = "panelSetting";
+            this.panelSetting.Size = new System.Drawing.Size(1077, 529);
+            this.panelSetting.TabIndex = 31;
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.panel1.AutoSize = true;
+            this.panel1.BackgroundImage = global::MaskManager.Properties.Resources.chosun_label;
+            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.panel1.Location = new System.Drawing.Point(11, 683);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(192, 58);
+            this.panel1.TabIndex = 37;
+            // 
+            // btnMaskInfo
+            // 
+            this.btnMaskInfo.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.btnMaskInfo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnMaskInfo.FlatAppearance.BorderColor = System.Drawing.Color.LightSlateGray;
+            this.btnMaskInfo.FlatAppearance.BorderSize = 0;
+            this.btnMaskInfo.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
+            this.btnMaskInfo.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro;
+            this.btnMaskInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMaskInfo.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btnMaskInfo.ForeColor = System.Drawing.Color.Black;
+            this.btnMaskInfo.Image = ((System.Drawing.Image)(resources.GetObject("btnMaskInfo.Image")));
+            this.btnMaskInfo.Location = new System.Drawing.Point(195, 29);
+            this.btnMaskInfo.Margin = new System.Windows.Forms.Padding(2);
+            this.btnMaskInfo.Name = "btnMaskInfo";
+            this.btnMaskInfo.Size = new System.Drawing.Size(92, 33);
+            this.btnMaskInfo.TabIndex = 35;
+            this.btnMaskInfo.Text = "생산 진행";
+            this.btnMaskInfo.UseVisualStyleBackColor = false;
+            // 
             // p_LogoMicube
             // 
             this.p_LogoMicube.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.p_LogoMicube.AutoSize = true;
             this.p_LogoMicube.BackgroundImage = global::MaskManager.Properties.Resources.mic;
             this.p_LogoMicube.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.p_LogoMicube.Location = new System.Drawing.Point(744, 650);
-            this.p_LogoMicube.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.p_LogoMicube.Location = new System.Drawing.Point(735, 683);
+            this.p_LogoMicube.Margin = new System.Windows.Forms.Padding(2);
             this.p_LogoMicube.Name = "p_LogoMicube";
             this.p_LogoMicube.Size = new System.Drawing.Size(331, 58);
             this.p_LogoMicube.TabIndex = 34;
-            // 
-            // p_LogoSem
-            // 
-            this.p_LogoSem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.p_LogoSem.AutoSize = true;
-            this.p_LogoSem.BackgroundImage = global::MaskManager.Properties.Resources.sem;
-            this.p_LogoSem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.p_LogoSem.Location = new System.Drawing.Point(2, 650);
-            this.p_LogoSem.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.p_LogoSem.Name = "p_LogoSem";
-            this.p_LogoSem.Size = new System.Drawing.Size(303, 58);
-            this.p_LogoSem.TabIndex = 33;
             // 
             // btnReport
             // 
@@ -1033,7 +1064,7 @@
             this.btnReport.Image = global::MaskManager.Properties.Resources.substract_rev;
             this.btnReport.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnReport.Location = new System.Drawing.Point(107, 608);
-            this.btnReport.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnReport.Margin = new System.Windows.Forms.Padding(2);
             this.btnReport.Name = "btnReport";
             this.btnReport.Size = new System.Drawing.Size(99, 33);
             this.btnReport.TabIndex = 30;
@@ -1054,33 +1085,12 @@
             this.btnMain.Image = global::MaskManager.Properties.Resources.substract_rev;
             this.btnMain.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnMain.Location = new System.Drawing.Point(5, 608);
-            this.btnMain.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnMain.Margin = new System.Windows.Forms.Padding(2);
             this.btnMain.Name = "btnMain";
             this.btnMain.Size = new System.Drawing.Size(97, 33);
             this.btnMain.TabIndex = 29;
             this.btnMain.Text = "보관관리";
             this.btnMain.UseVisualStyleBackColor = false;
-            // 
-            // btnClose
-            // 
-            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClose.BackColor = System.Drawing.Color.SlateGray;
-            this.btnClose.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnClose.FlatAppearance.BorderColor = System.Drawing.Color.LightSlateGray;
-            this.btnClose.FlatAppearance.BorderSize = 4;
-            this.btnClose.FlatAppearance.MouseDownBackColor = System.Drawing.Color.SlateGray;
-            this.btnClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSlateGray;
-            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClose.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.btnClose.Image = global::MaskManager.Properties.Resources.close;
-            this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(976, 29);
-            this.btnClose.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(93, 33);
-            this.btnClose.TabIndex = 28;
-            this.btnClose.Text = "     닫기";
-            this.btnClose.UseVisualStyleBackColor = false;
             // 
             // btnDB
             // 
@@ -1095,7 +1105,7 @@
             this.btnDB.ForeColor = System.Drawing.Color.Black;
             this.btnDB.Image = ((System.Drawing.Image)(resources.GetObject("btnDB.Image")));
             this.btnDB.Location = new System.Drawing.Point(558, 29);
-            this.btnDB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnDB.Margin = new System.Windows.Forms.Padding(2);
             this.btnDB.Name = "btnDB";
             this.btnDB.Size = new System.Drawing.Size(92, 33);
             this.btnDB.TabIndex = 27;
@@ -1115,7 +1125,7 @@
             this.btnScrap.ForeColor = System.Drawing.Color.Black;
             this.btnScrap.Image = ((System.Drawing.Image)(resources.GetObject("btnScrap.Image")));
             this.btnScrap.Location = new System.Drawing.Point(484, 29);
-            this.btnScrap.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnScrap.Margin = new System.Windows.Forms.Padding(2);
             this.btnScrap.Name = "btnScrap";
             this.btnScrap.Size = new System.Drawing.Size(70, 33);
             this.btnScrap.TabIndex = 26;
@@ -1135,7 +1145,7 @@
             this.btnInsp.ForeColor = System.Drawing.Color.Black;
             this.btnInsp.Image = ((System.Drawing.Image)(resources.GetObject("btnInsp.Image")));
             this.btnInsp.Location = new System.Drawing.Point(387, 29);
-            this.btnInsp.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnInsp.Margin = new System.Windows.Forms.Padding(2);
             this.btnInsp.Name = "btnInsp";
             this.btnInsp.Size = new System.Drawing.Size(92, 33);
             this.btnInsp.TabIndex = 25;
@@ -1155,7 +1165,7 @@
             this.btnMaskInfoCancel.ForeColor = System.Drawing.Color.Black;
             this.btnMaskInfoCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnMaskInfoCancel.Image")));
             this.btnMaskInfoCancel.Location = new System.Drawing.Point(292, 29);
-            this.btnMaskInfoCancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnMaskInfoCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnMaskInfoCancel.Name = "btnMaskInfoCancel";
             this.btnMaskInfoCancel.Size = new System.Drawing.Size(92, 33);
             this.btnMaskInfoCancel.TabIndex = 24;
@@ -1175,91 +1185,72 @@
             this.btnRegister.ForeColor = System.Drawing.Color.Black;
             this.btnRegister.Image = ((System.Drawing.Image)(resources.GetObject("btnRegister.Image")));
             this.btnRegister.Location = new System.Drawing.Point(100, 29);
-            this.btnRegister.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnRegister.Margin = new System.Windows.Forms.Padding(2);
             this.btnRegister.Name = "btnRegister";
             this.btnRegister.Size = new System.Drawing.Size(92, 33);
             this.btnRegister.TabIndex = 23;
             this.btnRegister.Text = "신규 등록";
             this.btnRegister.UseVisualStyleBackColor = false;
             // 
-            // btnBase
+            // btnSetting
             // 
-            this.btnBase.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.btnBase.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnBase.FlatAppearance.BorderColor = System.Drawing.Color.LightSlateGray;
-            this.btnBase.FlatAppearance.BorderSize = 0;
-            this.btnBase.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
-            this.btnBase.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro;
-            this.btnBase.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBase.Font = new System.Drawing.Font("맑은 고딕", 10F);
-            this.btnBase.ForeColor = System.Drawing.Color.Black;
-            this.btnBase.Image = ((System.Drawing.Image)(resources.GetObject("btnBase.Image")));
-            this.btnBase.Location = new System.Drawing.Point(3, 29);
-            this.btnBase.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.btnBase.Name = "btnBase";
-            this.btnBase.Size = new System.Drawing.Size(92, 33);
-            this.btnBase.TabIndex = 22;
-            this.btnBase.Text = "기준정보";
-            this.btnBase.UseVisualStyleBackColor = false;
+            this.btnSetting.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.btnSetting.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSetting.FlatAppearance.BorderColor = System.Drawing.Color.LightSlateGray;
+            this.btnSetting.FlatAppearance.BorderSize = 0;
+            this.btnSetting.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
+            this.btnSetting.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro;
+            this.btnSetting.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSetting.Font = new System.Drawing.Font("맑은 고딕", 10F);
+            this.btnSetting.ForeColor = System.Drawing.Color.Black;
+            this.btnSetting.Image = ((System.Drawing.Image)(resources.GetObject("btnSetting.Image")));
+            this.btnSetting.Location = new System.Drawing.Point(0, 34);
+            this.btnSetting.Margin = new System.Windows.Forms.Padding(2);
+            this.btnSetting.Name = "btnSetting";
+            this.btnSetting.Size = new System.Drawing.Size(92, 33);
+            this.btnSetting.TabIndex = 36;
+            this.btnSetting.Text = "환경설정";
+            this.btnSetting.UseVisualStyleBackColor = false;
             // 
-            // btnMaskInfo
-            // 
-            this.btnMaskInfo.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.btnMaskInfo.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnMaskInfo.FlatAppearance.BorderColor = System.Drawing.Color.LightSlateGray;
-            this.btnMaskInfo.FlatAppearance.BorderSize = 0;
-            this.btnMaskInfo.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
-            this.btnMaskInfo.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro;
-            this.btnMaskInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMaskInfo.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btnMaskInfo.ForeColor = System.Drawing.Color.Black;
-            this.btnMaskInfo.Image = ((System.Drawing.Image)(resources.GetObject("btnMaskInfo.Image")));
-            this.btnMaskInfo.Location = new System.Drawing.Point(195, 29);
-            this.btnMaskInfo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.btnMaskInfo.Name = "btnMaskInfo";
-            this.btnMaskInfo.Size = new System.Drawing.Size(92, 33);
-            this.btnMaskInfo.TabIndex = 35;
-            this.btnMaskInfo.Text = "생산 진행";
-            this.btnMaskInfo.UseVisualStyleBackColor = false;
-            // 
-            // MainForm
+            // CS_MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1077, 752);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.btnSetting);
             this.Controls.Add(this.btnMaskInfo);
             this.Controls.Add(this.p_LogoMicube);
-            this.Controls.Add(this.p_LogoSem);
             this.Controls.Add(this.p_Main);
             this.Controls.Add(this.p_Report);
-            this.Controls.Add(this.btnReport);
+            this.Controls.Add(this.panelSetting);
             this.Controls.Add(this.btnMain);
-            this.Controls.Add(this.btnClose);
+            this.Controls.Add(this.btnReport);
             this.Controls.Add(this.btnDB);
             this.Controls.Add(this.btnScrap);
             this.Controls.Add(this.btnInsp);
             this.Controls.Add(this.btnMaskInfoCancel);
             this.Controls.Add(this.btnRegister);
-            this.Controls.Add(this.btnBase);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.Name = "MainForm";
-            this.Text = "Mask Manager";
+            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Name = "CS_MainForm";
+            this.Text = "조선내화";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Controls.SetChildIndex(this.btnBase, 0);
             this.Controls.SetChildIndex(this.btnRegister, 0);
             this.Controls.SetChildIndex(this.btnMaskInfoCancel, 0);
             this.Controls.SetChildIndex(this.btnInsp, 0);
             this.Controls.SetChildIndex(this.btnScrap, 0);
             this.Controls.SetChildIndex(this.btnDB, 0);
-            this.Controls.SetChildIndex(this.btnClose, 0);
-            this.Controls.SetChildIndex(this.btnMain, 0);
             this.Controls.SetChildIndex(this.btnReport, 0);
+            this.Controls.SetChildIndex(this.btnMain, 0);
+            this.Controls.SetChildIndex(this.panelSetting, 0);
             this.Controls.SetChildIndex(this.p_Report, 0);
             this.Controls.SetChildIndex(this.p_Main, 0);
-            this.Controls.SetChildIndex(this.p_LogoSem, 0);
             this.Controls.SetChildIndex(this.p_LogoMicube, 0);
             this.Controls.SetChildIndex(this.btnMaskInfo, 0);
+            this.Controls.SetChildIndex(this.btnSetting, 0);
+            this.Controls.SetChildIndex(this.panel1, 0);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
@@ -1287,13 +1278,11 @@
         }
 
         #endregion
-        public System.Windows.Forms.Button btnBase;
         public System.Windows.Forms.Button btnRegister;
         public System.Windows.Forms.Button btnMaskInfoCancel;
         public System.Windows.Forms.Button btnInsp;
         public System.Windows.Forms.Button btnScrap;
         public System.Windows.Forms.Button btnDB;
-        public System.Windows.Forms.Button btnClose;
         public System.Windows.Forms.Button btnMain;
         public System.Windows.Forms.Button btnReport;
         private System.Windows.Forms.Panel p_Report;
@@ -1355,12 +1344,14 @@
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Panel panel2;
         private TabPages.MMStoredInfo MMStoredInfoPage;
-        private System.Windows.Forms.Panel p_LogoSem;
         private System.Windows.Forms.Panel p_LogoMicube;
         private System.Windows.Forms.GroupBox groupBox7;
         private UserControls.MaskTextBox txt_MaskNum;
         private System.Windows.Forms.Label lblModelCode;
         private System.Windows.Forms.Label lblDataModelCode;
         public System.Windows.Forms.Button btnMaskInfo;
+        private System.Windows.Forms.Panel panel1;
+        public System.Windows.Forms.Button btnSetting;
+        private System.Windows.Forms.Panel panelSetting;
     }
 }

@@ -30,15 +30,31 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainFrm));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
+            this.tsmUser = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmVender = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmDurable = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmEquipment = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmStorage = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.MMStoredInfoTabPage = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.tlpUser = new System.Windows.Forms.TableLayoutPanel();
             this.lblCrrUser = new System.Windows.Forms.Label();
+            this.btnLogIn = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.pnlEmpty = new System.Windows.Forms.Panel();
+            this.pnlUsing = new System.Windows.Forms.Panel();
+            this.pnlStock = new System.Windows.Forms.Panel();
+            this.pnlWarning = new System.Windows.Forms.Panel();
             this.lblEmpty = new System.Windows.Forms.Label();
             this.lblUsing = new System.Windows.Forms.Label();
             this.lblStock = new System.Windows.Forms.Label();
@@ -70,24 +86,12 @@
             this.lblDataDescription = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.MMManagedReportTabPage = new System.Windows.Forms.TabPage();
-            this.btnLogIn = new System.Windows.Forms.Button();
-            this.pnlEmpty = new System.Windows.Forms.Panel();
-            this.pnlUsing = new System.Windows.Forms.Panel();
-            this.pnlStock = new System.Windows.Forms.Panel();
-            this.pnlWarning = new System.Windows.Forms.Panel();
-            this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
-            this.tsmUser = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmVender = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmDurable = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmEquipment = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmStorage = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
             this.MMStoredInfoPage = new MaskManager.TabPages.MMStoredInfo();
+            this.MMManagedReportTabPage = new System.Windows.Forms.TabPage();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.MMStoredInfoTabPage.SuspendLayout();
@@ -113,22 +117,125 @@
             this.toolStripButton3,
             this.toolStripButton4,
             this.toolStripSeparator2,
-            this.toolStripButton5});
+            this.toolStripButton5,
+            this.toolStripLabel1,
+            this.toolStripLabel2,
+            this.toolStripLabel3,
+            this.toolStripLabel4});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1006, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(1006, 25);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripSplitButton1
+            // 
+            this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripSplitButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmUser,
+            this.tsmVender,
+            this.tsmDurable,
+            this.tsmEquipment,
+            this.tsmStorage});
+            this.toolStripSplitButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton1.Image")));
+            this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripSplitButton1.Name = "toolStripSplitButton1";
+            this.toolStripSplitButton1.Size = new System.Drawing.Size(71, 22);
+            this.toolStripSplitButton1.Text = "기준정보";
+            // 
+            // tsmUser
+            // 
+            this.tsmUser.Name = "tsmUser";
+            this.tsmUser.Size = new System.Drawing.Size(122, 22);
+            this.tsmUser.Text = "사용자";
+            this.tsmUser.Click += new System.EventHandler(this.tsmUser_Click);
+            // 
+            // tsmVender
+            // 
+            this.tsmVender.Name = "tsmVender";
+            this.tsmVender.Size = new System.Drawing.Size(122, 22);
+            this.tsmVender.Text = "제작업체";
+            this.tsmVender.Click += new System.EventHandler(this.TsmVender_Click);
+            // 
+            // tsmDurable
+            // 
+            this.tsmDurable.Name = "tsmDurable";
+            this.tsmDurable.Size = new System.Drawing.Size(122, 22);
+            this.tsmDurable.Text = "모델";
+            this.tsmDurable.Click += new System.EventHandler(this.TsmDurable_Click);
+            // 
+            // tsmEquipment
+            // 
+            this.tsmEquipment.Name = "tsmEquipment";
+            this.tsmEquipment.Size = new System.Drawing.Size(122, 22);
+            this.tsmEquipment.Text = "설비";
+            this.tsmEquipment.Click += new System.EventHandler(this.TsmEquipment_Click);
+            // 
+            // tsmStorage
+            // 
+            this.tsmStorage.Name = "tsmStorage";
+            this.tsmStorage.Size = new System.Drawing.Size(122, 22);
+            this.tsmStorage.Text = "적치대";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(91, 22);
+            this.toolStripButton1.Text = "Mask 신규등록";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(87, 22);
+            this.toolStripButton2.Text = "생산정보 입력";
+            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
+            // 
+            // toolStripButton3
+            // 
+            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
+            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton3.Name = "toolStripButton3";
+            this.toolStripButton3.Size = new System.Drawing.Size(59, 22);
+            this.toolStripButton3.Text = "세척검사";
+            this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
+            // 
+            // toolStripButton4
+            // 
+            this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
+            this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton4.Name = "toolStripButton4";
+            this.toolStripButton4.Size = new System.Drawing.Size(35, 22);
+            this.toolStripButton4.Text = "폐기";
+            this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripButton5
+            // 
+            this.toolStripButton5.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton5.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton5.Image")));
+            this.toolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton5.Name = "toolStripButton5";
+            this.toolStripButton5.Size = new System.Drawing.Size(55, 22);
+            this.toolStripButton5.Text = "DB 관리";
+            this.toolStripButton5.Click += new System.EventHandler(this.ToolStripButton5_Click);
             // 
             // tabControl1
             // 
@@ -136,10 +243,10 @@
             this.tabControl1.Controls.Add(this.MMStoredInfoTabPage);
             this.tabControl1.Controls.Add(this.MMManagedReportTabPage);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 27);
+            this.tabControl1.Location = new System.Drawing.Point(0, 25);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1006, 694);
+            this.tabControl1.Size = new System.Drawing.Size(1006, 696);
             this.tabControl1.TabIndex = 1;
             // 
             // MMStoredInfoTabPage
@@ -152,7 +259,7 @@
             this.MMStoredInfoTabPage.Location = new System.Drawing.Point(4, 4);
             this.MMStoredInfoTabPage.Name = "MMStoredInfoTabPage";
             this.MMStoredInfoTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.MMStoredInfoTabPage.Size = new System.Drawing.Size(998, 665);
+            this.MMStoredInfoTabPage.Size = new System.Drawing.Size(998, 670);
             this.MMStoredInfoTabPage.TabIndex = 0;
             this.MMStoredInfoTabPage.Text = "보관관리정보";
             // 
@@ -178,12 +285,12 @@
             this.tlpUser.Controls.Add(this.lblCrrUser, 0, 0);
             this.tlpUser.Controls.Add(this.btnLogIn, 1, 0);
             this.tlpUser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tlpUser.Location = new System.Drawing.Point(3, 23);
+            this.tlpUser.Location = new System.Drawing.Point(3, 19);
             this.tlpUser.Name = "tlpUser";
             this.tlpUser.RowCount = 1;
             this.tlpUser.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpUser.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpUser.Size = new System.Drawing.Size(240, 45);
+            this.tlpUser.Size = new System.Drawing.Size(240, 49);
             this.tlpUser.TabIndex = 0;
             // 
             // lblCrrUser
@@ -193,10 +300,21 @@
             this.lblCrrUser.ForeColor = System.Drawing.Color.Blue;
             this.lblCrrUser.Location = new System.Drawing.Point(3, 0);
             this.lblCrrUser.Name = "lblCrrUser";
-            this.lblCrrUser.Size = new System.Drawing.Size(189, 45);
+            this.lblCrrUser.Size = new System.Drawing.Size(189, 49);
             this.lblCrrUser.TabIndex = 0;
             this.lblCrrUser.Text = "label1";
             this.lblCrrUser.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnLogIn
+            // 
+            this.btnLogIn.BackgroundImage = global::MaskManager.Properties.Resources.user;
+            this.btnLogIn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnLogIn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnLogIn.Location = new System.Drawing.Point(198, 3);
+            this.btnLogIn.Name = "btnLogIn";
+            this.btnLogIn.Size = new System.Drawing.Size(39, 43);
+            this.btnLogIn.TabIndex = 1;
+            this.btnLogIn.UseVisualStyleBackColor = true;
             // 
             // groupBox3
             // 
@@ -229,15 +347,55 @@
             this.tableLayoutPanel2.Controls.Add(this.lblCountStock, 2, 2);
             this.tableLayoutPanel2.Controls.Add(this.lblCountWarning, 2, 3);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 23);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 19);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 4;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(240, 203);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(240, 207);
             this.tableLayoutPanel2.TabIndex = 0;
+            // 
+            // pnlEmpty
+            // 
+            this.pnlEmpty.BackgroundImage = global::MaskManager.Properties.Resources.Rack_White;
+            this.pnlEmpty.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pnlEmpty.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlEmpty.Location = new System.Drawing.Point(3, 3);
+            this.pnlEmpty.Name = "pnlEmpty";
+            this.pnlEmpty.Size = new System.Drawing.Size(102, 45);
+            this.pnlEmpty.TabIndex = 0;
+            // 
+            // pnlUsing
+            // 
+            this.pnlUsing.BackgroundImage = global::MaskManager.Properties.Resources.Rack_Blue;
+            this.pnlUsing.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pnlUsing.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlUsing.Location = new System.Drawing.Point(3, 54);
+            this.pnlUsing.Name = "pnlUsing";
+            this.pnlUsing.Size = new System.Drawing.Size(102, 45);
+            this.pnlUsing.TabIndex = 1;
+            // 
+            // pnlStock
+            // 
+            this.pnlStock.BackgroundImage = global::MaskManager.Properties.Resources.Rack_Green;
+            this.pnlStock.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pnlStock.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlStock.Location = new System.Drawing.Point(3, 105);
+            this.pnlStock.Name = "pnlStock";
+            this.pnlStock.Size = new System.Drawing.Size(102, 45);
+            this.pnlStock.TabIndex = 2;
+            // 
+            // pnlWarning
+            // 
+            this.pnlWarning.BackgroundImage = global::MaskManager.Properties.Resources.Rack_Red;
+            this.pnlWarning.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pnlWarning.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlWarning.Location = new System.Drawing.Point(3, 156);
+            this.pnlWarning.Name = "pnlWarning";
+            this.pnlWarning.Size = new System.Drawing.Size(102, 48);
+            this.pnlWarning.TabIndex = 3;
             // 
             // lblEmpty
             // 
@@ -245,7 +403,7 @@
             this.lblEmpty.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lblEmpty.Location = new System.Drawing.Point(111, 0);
             this.lblEmpty.Name = "lblEmpty";
-            this.lblEmpty.Size = new System.Drawing.Size(78, 50);
+            this.lblEmpty.Size = new System.Drawing.Size(78, 51);
             this.lblEmpty.TabIndex = 4;
             this.lblEmpty.Text = "비어있음";
             this.lblEmpty.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -254,9 +412,9 @@
             // 
             this.lblUsing.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblUsing.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lblUsing.Location = new System.Drawing.Point(111, 50);
+            this.lblUsing.Location = new System.Drawing.Point(111, 51);
             this.lblUsing.Name = "lblUsing";
-            this.lblUsing.Size = new System.Drawing.Size(78, 50);
+            this.lblUsing.Size = new System.Drawing.Size(78, 51);
             this.lblUsing.TabIndex = 5;
             this.lblUsing.Text = "사용중";
             this.lblUsing.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -265,9 +423,9 @@
             // 
             this.lblStock.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblStock.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lblStock.Location = new System.Drawing.Point(111, 100);
+            this.lblStock.Location = new System.Drawing.Point(111, 102);
             this.lblStock.Name = "lblStock";
-            this.lblStock.Size = new System.Drawing.Size(78, 50);
+            this.lblStock.Size = new System.Drawing.Size(78, 51);
             this.lblStock.TabIndex = 6;
             this.lblStock.Text = "보관중";
             this.lblStock.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -276,9 +434,9 @@
             // 
             this.lblWarning.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblWarning.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lblWarning.Location = new System.Drawing.Point(111, 150);
+            this.lblWarning.Location = new System.Drawing.Point(111, 153);
             this.lblWarning.Name = "lblWarning";
-            this.lblWarning.Size = new System.Drawing.Size(78, 53);
+            this.lblWarning.Size = new System.Drawing.Size(78, 54);
             this.lblWarning.TabIndex = 7;
             this.lblWarning.Text = "사용제한횟수 임박";
             this.lblWarning.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -288,34 +446,34 @@
             this.lblCountEmpty.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblCountEmpty.Location = new System.Drawing.Point(195, 0);
             this.lblCountEmpty.Name = "lblCountEmpty";
-            this.lblCountEmpty.Size = new System.Drawing.Size(42, 50);
+            this.lblCountEmpty.Size = new System.Drawing.Size(42, 51);
             this.lblCountEmpty.TabIndex = 8;
             this.lblCountEmpty.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblCountUsing
             // 
             this.lblCountUsing.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblCountUsing.Location = new System.Drawing.Point(195, 50);
+            this.lblCountUsing.Location = new System.Drawing.Point(195, 51);
             this.lblCountUsing.Name = "lblCountUsing";
-            this.lblCountUsing.Size = new System.Drawing.Size(42, 50);
+            this.lblCountUsing.Size = new System.Drawing.Size(42, 51);
             this.lblCountUsing.TabIndex = 9;
             this.lblCountUsing.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblCountStock
             // 
             this.lblCountStock.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblCountStock.Location = new System.Drawing.Point(195, 100);
+            this.lblCountStock.Location = new System.Drawing.Point(195, 102);
             this.lblCountStock.Name = "lblCountStock";
-            this.lblCountStock.Size = new System.Drawing.Size(42, 50);
+            this.lblCountStock.Size = new System.Drawing.Size(42, 51);
             this.lblCountStock.TabIndex = 10;
             this.lblCountStock.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblCountWarning
             // 
             this.lblCountWarning.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblCountWarning.Location = new System.Drawing.Point(195, 150);
+            this.lblCountWarning.Location = new System.Drawing.Point(195, 153);
             this.lblCountWarning.Name = "lblCountWarning";
-            this.lblCountWarning.Size = new System.Drawing.Size(42, 53);
+            this.lblCountWarning.Size = new System.Drawing.Size(42, 54);
             this.lblCountWarning.TabIndex = 11;
             this.lblCountWarning.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -335,9 +493,9 @@
             // 
             this.panel2.Controls.Add(this.tableLayoutPanel1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(3, 23);
+            this.panel2.Location = new System.Drawing.Point(3, 19);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(240, 295);
+            this.panel2.Size = new System.Drawing.Size(240, 299);
             this.panel2.TabIndex = 0;
             // 
             // tableLayoutPanel1
@@ -377,7 +535,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(240, 295);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(240, 299);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // lblCleanInsp
@@ -397,7 +555,7 @@
             this.lblDescription.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lblDescription.Location = new System.Drawing.Point(6, 259);
             this.lblDescription.Name = "lblDescription";
-            this.lblDescription.Size = new System.Drawing.Size(121, 33);
+            this.lblDescription.Size = new System.Drawing.Size(121, 37);
             this.lblDescription.TabIndex = 7;
             this.lblDescription.Text = "Mask 사양정보";
             this.lblDescription.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -565,7 +723,7 @@
             this.lblDataDescription.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lblDataDescription.Location = new System.Drawing.Point(136, 259);
             this.lblDataDescription.Name = "lblDataDescription";
-            this.lblDataDescription.Size = new System.Drawing.Size(98, 33);
+            this.lblDataDescription.Size = new System.Drawing.Size(98, 37);
             this.lblDataDescription.TabIndex = 17;
             this.lblDataDescription.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -578,7 +736,7 @@
             this.groupBox1.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(735, 659);
+            this.groupBox1.Size = new System.Drawing.Size(735, 666);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "보관함";
@@ -587,171 +745,10 @@
             // 
             this.panel1.Controls.Add(this.MMStoredInfoPage);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 23);
+            this.panel1.Location = new System.Drawing.Point(3, 19);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(729, 633);
+            this.panel1.Size = new System.Drawing.Size(729, 644);
             this.panel1.TabIndex = 0;
-            // 
-            // MMManagedReportTabPage
-            // 
-            this.MMManagedReportTabPage.AutoScroll = true;
-            this.MMManagedReportTabPage.Location = new System.Drawing.Point(4, 4);
-            this.MMManagedReportTabPage.Name = "MMManagedReportTabPage";
-            this.MMManagedReportTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.MMManagedReportTabPage.Size = new System.Drawing.Size(998, 665);
-            this.MMManagedReportTabPage.TabIndex = 1;
-            this.MMManagedReportTabPage.Text = "관리대장";
-            this.MMManagedReportTabPage.UseVisualStyleBackColor = true;
-            // 
-            // btnLogIn
-            // 
-            this.btnLogIn.BackgroundImage = global::MaskManager.Properties.Resources.user;
-            this.btnLogIn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnLogIn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnLogIn.Location = new System.Drawing.Point(198, 3);
-            this.btnLogIn.Name = "btnLogIn";
-            this.btnLogIn.Size = new System.Drawing.Size(39, 39);
-            this.btnLogIn.TabIndex = 1;
-            this.btnLogIn.UseVisualStyleBackColor = true;
-            // 
-            // pnlEmpty
-            // 
-            this.pnlEmpty.BackgroundImage = global::MaskManager.Properties.Resources.Rack_White;
-            this.pnlEmpty.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pnlEmpty.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlEmpty.Location = new System.Drawing.Point(3, 3);
-            this.pnlEmpty.Name = "pnlEmpty";
-            this.pnlEmpty.Size = new System.Drawing.Size(102, 44);
-            this.pnlEmpty.TabIndex = 0;
-            // 
-            // pnlUsing
-            // 
-            this.pnlUsing.BackgroundImage = global::MaskManager.Properties.Resources.Rack_Blue;
-            this.pnlUsing.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pnlUsing.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlUsing.Location = new System.Drawing.Point(3, 53);
-            this.pnlUsing.Name = "pnlUsing";
-            this.pnlUsing.Size = new System.Drawing.Size(102, 44);
-            this.pnlUsing.TabIndex = 1;
-            // 
-            // pnlStock
-            // 
-            this.pnlStock.BackgroundImage = global::MaskManager.Properties.Resources.Rack_Green;
-            this.pnlStock.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pnlStock.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlStock.Location = new System.Drawing.Point(3, 103);
-            this.pnlStock.Name = "pnlStock";
-            this.pnlStock.Size = new System.Drawing.Size(102, 44);
-            this.pnlStock.TabIndex = 2;
-            // 
-            // pnlWarning
-            // 
-            this.pnlWarning.BackgroundImage = global::MaskManager.Properties.Resources.Rack_Red;
-            this.pnlWarning.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pnlWarning.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlWarning.Location = new System.Drawing.Point(3, 153);
-            this.pnlWarning.Name = "pnlWarning";
-            this.pnlWarning.Size = new System.Drawing.Size(102, 47);
-            this.pnlWarning.TabIndex = 3;
-            // 
-            // toolStripSplitButton1
-            // 
-            this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripSplitButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmUser,
-            this.tsmVender,
-            this.tsmDurable,
-            this.tsmEquipment,
-            this.tsmStorage});
-            this.toolStripSplitButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton1.Image")));
-            this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripSplitButton1.Name = "toolStripSplitButton1";
-            this.toolStripSplitButton1.Size = new System.Drawing.Size(88, 24);
-            this.toolStripSplitButton1.Text = "기준정보";
-            // 
-            // tsmUser
-            // 
-            this.tsmUser.Name = "tsmUser";
-            this.tsmUser.Size = new System.Drawing.Size(144, 26);
-            this.tsmUser.Text = "사용자";
-            this.tsmUser.Click += new System.EventHandler(this.tsmUser_Click);
-            // 
-            // tsmVender
-            // 
-            this.tsmVender.Name = "tsmVender";
-            this.tsmVender.Size = new System.Drawing.Size(144, 26);
-            this.tsmVender.Text = "제작업체";
-            this.tsmVender.Click += new System.EventHandler(this.TsmVender_Click);
-            // 
-            // tsmDurable
-            // 
-            this.tsmDurable.Name = "tsmDurable";
-            this.tsmDurable.Size = new System.Drawing.Size(144, 26);
-            this.tsmDurable.Text = "모델";
-            this.tsmDurable.Click += new System.EventHandler(this.TsmDurable_Click);
-            // 
-            // tsmEquipment
-            // 
-            this.tsmEquipment.Name = "tsmEquipment";
-            this.tsmEquipment.Size = new System.Drawing.Size(144, 26);
-            this.tsmEquipment.Text = "설비";
-            this.tsmEquipment.Click += new System.EventHandler(this.TsmEquipment_Click);
-            // 
-            // tsmStorage
-            // 
-            this.tsmStorage.Name = "tsmStorage";
-            this.tsmStorage.Size = new System.Drawing.Size(144, 26);
-            this.tsmStorage.Text = "적치대";
-            // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(114, 24);
-            this.toolStripButton1.Text = "Mask 신규등록";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
-            // 
-            // toolStripButton2
-            // 
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(108, 24);
-            this.toolStripButton2.Text = "생산정보 입력";
-            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
-            // 
-            // toolStripButton3
-            // 
-            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
-            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(73, 24);
-            this.toolStripButton3.Text = "세척검사";
-            this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
-            // 
-            // toolStripButton4
-            // 
-            this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
-            this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton4.Name = "toolStripButton4";
-            this.toolStripButton4.Size = new System.Drawing.Size(43, 24);
-            this.toolStripButton4.Text = "폐기";
-            this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
-            // 
-            // toolStripButton5
-            // 
-            this.toolStripButton5.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton5.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton5.Image")));
-            this.toolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton5.Name = "toolStripButton5";
-            this.toolStripButton5.Size = new System.Drawing.Size(68, 24);
-            this.toolStripButton5.Text = "DB 관리";
-            this.toolStripButton5.Click += new System.EventHandler(this.ToolStripButton5_Click);
             // 
             // MMStoredInfoPage
             // 
@@ -759,8 +756,43 @@
             this.MMStoredInfoPage.Location = new System.Drawing.Point(0, 0);
             this.MMStoredInfoPage.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MMStoredInfoPage.Name = "MMStoredInfoPage";
-            this.MMStoredInfoPage.Size = new System.Drawing.Size(729, 633);
+            this.MMStoredInfoPage.Size = new System.Drawing.Size(729, 644);
             this.MMStoredInfoPage.TabIndex = 0;
+            // 
+            // MMManagedReportTabPage
+            // 
+            this.MMManagedReportTabPage.AutoScroll = true;
+            this.MMManagedReportTabPage.Location = new System.Drawing.Point(4, 4);
+            this.MMManagedReportTabPage.Name = "MMManagedReportTabPage";
+            this.MMManagedReportTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.MMManagedReportTabPage.Size = new System.Drawing.Size(998, 668);
+            this.MMManagedReportTabPage.TabIndex = 1;
+            this.MMManagedReportTabPage.Text = "관리대장";
+            this.MMManagedReportTabPage.UseVisualStyleBackColor = true;
+            // 
+            // toolStripLabel1
+            // 
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(55, 22);
+            this.toolStripLabel1.Text = "환경설정";
+            // 
+            // toolStripLabel2
+            // 
+            this.toolStripLabel2.Name = "toolStripLabel2";
+            this.toolStripLabel2.Size = new System.Drawing.Size(31, 22);
+            this.toolStripLabel2.Text = "판독";
+            // 
+            // toolStripLabel3
+            // 
+            this.toolStripLabel3.Name = "toolStripLabel3";
+            this.toolStripLabel3.Size = new System.Drawing.Size(55, 22);
+            this.toolStripLabel3.Text = "이력조회";
+            // 
+            // toolStripLabel4
+            // 
+            this.toolStripLabel4.Name = "toolStripLabel4";
+            this.toolStripLabel4.Size = new System.Drawing.Size(31, 22);
+            this.toolStripLabel4.Text = "현황";
             // 
             // MainFrm
             // 
@@ -850,6 +882,10 @@
         private System.Windows.Forms.Label lblCountUsing;
         private System.Windows.Forms.Label lblCountStock;
         private System.Windows.Forms.Label lblCountWarning;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel2;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel3;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel4;
     }
 }
 

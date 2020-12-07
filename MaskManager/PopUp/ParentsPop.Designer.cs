@@ -30,7 +30,6 @@
         {
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.btnMini = new System.Windows.Forms.Button();
             this.pnlHeader.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,24 +57,10 @@
             this.lblTitle.Text = "TITLE";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // btnMini
-            // 
-            this.btnMini.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnMini.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnMini.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMini.Location = new System.Drawing.Point(258, 50);
-            this.btnMini.Name = "btnMini";
-            this.btnMini.Size = new System.Drawing.Size(27, 30);
-            this.btnMini.TabIndex = 2;
-            this.btnMini.TabStop = false;
-            this.btnMini.Text = "--";
-            this.btnMini.UseVisualStyleBackColor = false;
-            // 
             // ParentsPop
             // 
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(384, 270);
-            this.Controls.Add(this.btnMini);
             this.Controls.Add(this.pnlHeader);
             this.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -91,6 +76,5 @@
 
         private System.Windows.Forms.Panel pnlHeader;
         public System.Windows.Forms.Label lblTitle;
-        private System.Windows.Forms.Button btnMini;
     }
 }

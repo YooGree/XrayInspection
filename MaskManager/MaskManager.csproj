@@ -108,6 +108,12 @@
     <Compile Include="PopUp\DBConnSettingPop.Designer.cs">
       <DependentUpon>DBConnSettingPop.cs</DependentUpon>
     </Compile>
+    <Compile Include="PopUp\CS_MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PopUp\CS_MainForm.Designer.cs">
+      <DependentUpon>CS_MainForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="PopUp\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -174,6 +180,12 @@
     </Compile>
     <Compile Include="TabPages\EquipmentTabPageControl.Designer.cs">
       <DependentUpon>EquipmentTabPageControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TabPages\CS_Setting.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TabPages\CS_Setting.Designer.cs">
+      <DependentUpon>CS_Setting.cs</DependentUpon>
     </Compile>
     <Compile Include="TabPages\MMManagedReportControl.cs">
       <SubType>UserControl</SubType>
@@ -259,9 +271,13 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainFrm.resx">
       <DependentUpon>MainFrm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="PopUp\DBConnSettingPop.resx">
       <DependentUpon>DBConnSettingPop.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PopUp\CS_MainForm.resx">
+      <DependentUpon>CS_MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PopUp\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -297,6 +313,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TabPages\EquipmentTabPageControl.resx">
       <DependentUpon>EquipmentTabPageControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TabPages\CS_Setting.resx">
+      <DependentUpon>CS_Setting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TabPages\MMManagedReportControl.resx">
       <DependentUpon>MMManagedReportControl.cs</DependentUpon>
@@ -387,6 +406,7 @@
     <Content Include="LogConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\chosun_label.png" />
     <Content Include="Resources\Minimize-Window-icon.png" />
     <None Include="Resources\substract_rev.png" />
     <None Include="Resources\Rack_White_New.png" />

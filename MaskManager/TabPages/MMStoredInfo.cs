@@ -96,7 +96,7 @@ namespace MaskManager.TabPages
         {
             if (MainDataSet != null)
             {
-                RackList = MainDataSet.Tables[1];
+                //RackList = MainDataSet.Tables[1];
             }
 
             tlpRack.Hide();
