@@ -1,4 +1,5 @@
 ﻿using MaskManager.TabPages;
+using MaskManager.UserControls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -42,6 +43,8 @@ namespace MaskManager.PopUp
         private enum selectedType
         {
             Setting, // 환경설정
+            AIJubgmentInfo, // AI 판정정보
+            AIJubgmentHistory, // AI 판정이력
             Report,
             Main
         }
@@ -64,15 +67,22 @@ namespace MaskManager.PopUp
                     panelSetting.BringToFront();
                     btnSetting.Font = CommonFuction.BoldFont;
                 }
+                // 판정정보 화면 보여주기
+                else if (value == selectedType.AIJubgmentInfo)
+                {
+                    panelAIjubgmentInfo.BringToFront();
+                    btnAIJubgmentInfo.Font = CommonFuction.BoldFont;
+                }
+                // 판정이력 화면 보여주기
+                else if (value == selectedType.AIJubgmentHistory)
+                {
+                    panelAIjubgmentHistory.BringToFront();
+                    btnAIJubgmentHistory.Font = CommonFuction.BoldFont;
+                }
                 else if (value == selectedType.Report)
                 {
                     p_Report.BringToFront();
                     btnReport.Font = CommonFuction.BoldFont;
-                }
-                else if (value == selectedType.Main)
-                {
-                    p_Main.BringToFront();
-                    btnMain.Font = CommonFuction.BoldFont;
                 }
             }
         }
@@ -94,31 +104,27 @@ namespace MaskManager.PopUp
             base.OnLoad(e);
             SetEvent();
             System.Configuration.AppSettingsReader temp = new System.Configuration.AppSettingsReader();
-            lblCrrUser.Text = CommonFuction.GetUserName(Program.CurrentUser);
+
             if (string.IsNullOrEmpty(Program.CurrentUser))
             {
                 BtnLogIn_Click(null, null);
             }
-            //MMManagedReportControl = new MMManagedReportControl();
-           // MMManagedReportTabPage.Controls.Add(mMManagedReportControl);
-            ResetRackStatus(true);
-            this.txt_MaskNum.txtText.CharacterCasing = CharacterCasing.Upper;
         }
 
         private void SetEvent()
         {
-            btnLogIn.Click += BtnLogIn_Click;
             btnRegister.Click += Btn_Register_Click;
             btnMaskInfo.Click += Btn_MaskInfo_Click;
             btnInsp.Click += Btn_Insp_Click;
             btnScrap.Click += Btn_Scrap_Click;
             btnDB.Click += Btn_DB_Click;
-            btnSetting.Click += BtnSetting_Click;
-            btnMain.Click += Btn_Main_Click;
+
+            btnSetting.Click += BtnMenu_Click;
+            btnAIJubgmentInfo.Click += BtnMenu_Click;
+            btnAIJubgmentHistory.Click += BtnMenu_Click;
+
             btnReport.Click += Btn_Report_Click;
             btnMaskInfoCancel.Click += BtnMaskInfoCancel_Click;
-            txt_MaskNum.txtText.KeyDown += TxtText_KeyDown;
-            txt_MaskNum.txtText.KeyPress += TxtText_KeyPress;
             //tsmStorage.Click += TsmStorage_Click;
             //toolStripButton1.Click += ToolStripButton1_Click;
         }
@@ -128,7 +134,7 @@ namespace MaskManager.PopUp
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void BtnSetting_Click(object sender, EventArgs e)
+        private void BtnMenu_Click(object sender, EventArgs e)
         {
             var tag = ((Button)sender).Tag;
             this.SelectedType = (selectedType)tag;
@@ -139,73 +145,73 @@ namespace MaskManager.PopUp
         /// 2019-05-27 황지희 일련번호로 상태 변경 추가 
         /// </summary>
 
-        private void TxtText_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            CommonFuction.TypingOnlyEngNum(sender, e, txt_MaskNum);
-        }
+        //private void TxtText_KeyPress(object sender, KeyPressEventArgs e)
+        //{
+        //    CommonFuction.TypingOnlyEngNum(sender, e, txt_MaskNum);
+        //}
 
 
-        private void TxtText_KeyDown(object sender, KeyEventArgs e)
-        {
-            string sMaskNum = (sender as TextBox).Text.ToString();
+        //private void TxtText_KeyDown(object sender, KeyEventArgs e)
+        //{
+        //    string sMaskNum = (sender as TextBox).Text.ToString();
 
-            if (e.KeyCode == Keys.Enter)
-            {
-                if (CommonFuction.IsNullOrWhiteSpace(sMaskNum))
-                {
-                    CustomMessageBox.Show(MessageBoxButtons.OK, "ERROR", txt_MaskNum.ucLabelText + "를 입력하세요.");
-                    return;
-                }
+        //    if (e.KeyCode == Keys.Enter)
+        //    {
+        //        if (CommonFuction.IsNullOrWhiteSpace(sMaskNum))
+        //        {
+        //            CustomMessageBox.Show(MessageBoxButtons.OK, "ERROR", txt_MaskNum.ucLabelText + "를 입력하세요.");
+        //            return;
+        //        }
 
-                try
-                {
-                    DataSet ds = new DataSet();
+        //        try
+        //        {
+        //            DataSet ds = new DataSet();
 
-                    ds = conn.CallSelectProcedure_ds(ProcedureName3, new SqlParameter[] { new SqlParameter("durable_id", sMaskNum) });
+        //            ds = conn.CallSelectProcedure_ds(ProcedureName3, new SqlParameter[] { new SqlParameter("durable_id", sMaskNum) });
 
-                    if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
-                    {
-                        DataRow dr = ds.Tables[0].Rows[0];
-                        if (dr["WORKSTATE"].Equals("WORKSTATE_WAIT") && dr["STATE"].Equals("STATE_ACTIVE"))
-                        {
-                            if (CustomMessageBox.Show(MessageBoxButtons.OKCancel, "", "상태 변경하시겠습니까?") == DialogResult.OK)
-                            {
-                                Dictionary<string, object> args = new Dictionary<string, object>();
-                                args.Add("@DURABLEID", sMaskNum);
-                                args.Add("@WORKSTATE", "WORKSTATE_USING");
+        //            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+        //            {
+        //                DataRow dr = ds.Tables[0].Rows[0];
+        //                if (dr["WORKSTATE"].Equals("WORKSTATE_WAIT") && dr["STATE"].Equals("STATE_ACTIVE"))
+        //                {
+        //                    if (CustomMessageBox.Show(MessageBoxButtons.OKCancel, "", "상태 변경하시겠습니까?") == DialogResult.OK)
+        //                    {
+        //                        Dictionary<string, object> args = new Dictionary<string, object>();
+        //                        args.Add("@DURABLEID", sMaskNum);
+        //                        args.Add("@WORKSTATE", "WORKSTATE_USING");
 
-                                conn.CallNonSelectProcedure(ProcedureName4, conn.GetSqlParameters(args));
+        //                        conn.CallNonSelectProcedure(ProcedureName4, conn.GetSqlParameters(args));
 
-                                CustomMessageBox.Show(MessageBoxButtons.OK, "SAVE", "저장하였습니다.");
+        //                        CustomMessageBox.Show(MessageBoxButtons.OK, "SAVE", "저장하였습니다.");
 
-                                txt_MaskNum.txtText.ResetText();
-                                txt_MaskNum.Focus();
-                                ResetRackStatus(true);
-                            }
-                        }
-                        else
-                        {
-                            CustomMessageBox.Show(MessageBoxButtons.OK, "ERROR", "해당 LOT의 상태를 변경할 수 없습니다.");
-                            txt_MaskNum.txtText.ResetText();
-                            txt_MaskNum.Focus();
-                            return;
-                        }
-                    }
-                    else
-                    {
-                        CustomMessageBox.Show(MessageBoxButtons.OK, "ERROR", "해당 MASK 일련번호가 없습니다.");
-                        txt_MaskNum.txtText.ResetText();
-                        txt_MaskNum.Focus();
-                        return;
-                    }
-                }
-                catch (Exception ee)
-                {
-                    LogFactory.Log(ee);
-                    CustomMessageBox.Show(MessageBoxButtons.OK, "확인", "문제가 발생했습니다. 로그를 확인하세요.");
-                }
-            }
-        }
+        //                        txt_MaskNum.txtText.ResetText();
+        //                        txt_MaskNum.Focus();
+        //                        ResetRackStatus(true);
+        //                    }
+        //                }
+        //                else
+        //                {
+        //                    CustomMessageBox.Show(MessageBoxButtons.OK, "ERROR", "해당 LOT의 상태를 변경할 수 없습니다.");
+        //                    txt_MaskNum.txtText.ResetText();
+        //                    txt_MaskNum.Focus();
+        //                    return;
+        //                }
+        //            }
+        //            else
+        //            {
+        //                CustomMessageBox.Show(MessageBoxButtons.OK, "ERROR", "해당 MASK 일련번호가 없습니다.");
+        //                txt_MaskNum.txtText.ResetText();
+        //                txt_MaskNum.Focus();
+        //                return;
+        //            }
+        //        }
+        //        catch (Exception ee)
+        //        {
+        //            LogFactory.Log(ee);
+        //            CustomMessageBox.Show(MessageBoxButtons.OK, "확인", "문제가 발생했습니다. 로그를 확인하세요.");
+        //        }
+        //    }
+        //}
 
         /////////////////////////////////////////////////// BUTTON EVENT ///////////////////////////////////////
         private void Btn_Base_Click(object sender, EventArgs e)
@@ -275,7 +281,6 @@ namespace MaskManager.PopUp
             DBConnSettingPop mms = new DBConnSettingPop();
             mms.WindowState = FormWindowState.Normal;
             mms.ShowDialog();
-            ResetRackStatus(false);
         }
 
         private void BtnLogIn_Click(object sender, EventArgs e)
@@ -288,22 +293,15 @@ namespace MaskManager.PopUp
             //2O19-05-15 황지희 관리자인 경우만 DB관리 버튼 VISIBLE 되도록수정 
             if (Program.CurrentUser.Equals("testadmin"))
             {
-                lblCrrUser.Text = CodeHelper.ReturnNameValue;
+                //lblCrrUser.Text = CodeHelper.ReturnNameValue;
                 btnDB.Visible = true;
 
             } else
             {
                 //2019-05-14 황지희 사용자 이름으로 보여주게 변경
-                lblCrrUser.Text = CommonFuction.GetUserName(Program.CurrentUser);
+                //lblCrrUser.Text = CommonFuction.GetUserName(Program.CurrentUser);
                 btnDB.Visible = false;
             }
-        }
-
-
-        private void Btn_Main_Click(object sender, EventArgs e)
-        {
-            var tag = ((Button)sender).Tag;
-            this.SelectedType = (selectedType)tag;
         }
 
         private void Btn_Report_Click(object sender, EventArgs e)
@@ -320,81 +318,6 @@ namespace MaskManager.PopUp
         //    ResetRackStatus(true);
         //}
 
-        public void ResetRackStatus(bool InitYN)
-        {
-            MMStoredInfoPage.GetData();
-            if (InitYN) MMStoredInfoPage.Initialization();
-            MMStoredInfoPage.DrawRacks();
-            SetRackReport();
-        }
-
-        private void SetRackReport()
-        {
-            try
-            {
-                DataSet ds = conn.CallSelectProcedure_ds(ProcedureName2, conn.GetSqlParameters(new Dictionary<string, object>()));
-                if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
-                {
-                    DataRow dr = ds.Tables[0].Rows[0];
-
-                    lblCountEmpty.Text = dr["EMPTY"].ToString();
-                    lblCountStock.Text = dr["STOCK"].ToString();
-                    lblCountUsing.Text = dr["RUN"].ToString();
-                    lblCountWarning.Text = dr["WARNING"].ToString();
-                }
-            }
-            catch (Exception e)
-            {
-                LogFactory.Log(e);
-            }
-        }
-
-        public string SetMaskDatas(string RackId)
-        {
-            DataSet ds = new DataSet();
-
-            ds = conn.CallSelectProcedure_ds(ProcedureName, new SqlParameter[] { new SqlParameter("rackid", RackId) });
-
-            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
-            {
-                DataRow dr = ds.Tables[0].Rows[0];
-                lblDataMaskID.Text = dr["durableid"].ToString();
-                lblDataModelCode.Text = dr["durableproductid"].ToString();
-                lblDataModelName.Text = dr["durableproductname"].ToString();
-                lblDataRackID.Text = dr["equipmentid"].ToString();
-                lblDataInputInsp.Text = dr["inputresult"].ToString();
-                if (!CommonFuction.IsNullOrWhiteSpace(dr["inputdate"]))
-                {
-                    lblDataInputDate.Text = dr["inputdate"].ToString();
-                }
-                else
-                {
-                    lblDataInputDate.Text = "";
-                }
-                if (!CommonFuction.IsNullOrWhiteSpace(dr["usedate"]))
-                {
-                    lblDataRecentUse.Text = dr["usedate"].ToString();
-                }
-                else
-                {
-                    lblDataRecentUse.Text = "";
-                }
-                if ((int)dr["totuseqty"] > 0)
-                {
-                    lblDataTotalUse.Text = dr["totuseqty"].ToString();
-                }
-                else
-                {
-                    lblDataTotalUse.Text = "";
-                }
-                lblDataCleanInsp.Text = dr["cleanresult"].ToString();
-                lblDataDescription.Text = dr["description"].ToString();
-
-            }
-
-            return ds.Tables.Count.ToString();
-        }
-
         #region 사용자 정의 함수
 
         /// <summary>
@@ -403,17 +326,32 @@ namespace MaskManager.PopUp
         private void InitializeControlSetting()
         {
             Caption = "제조데이터 분석기반 - 조선내화";
+            FooterText = "최초 접속시간 : " + DateTime.Now.ToString();
 
-            btnList = new List<Button>() { btnSetting, btnReport, btnMain };
+            // 초기화면 환경설정화면으로 세팅
+            panelSetting.BringToFront();
 
-            MMManagedReportControl Report = new MMManagedReportControl();
-            p_Report.Controls.Add(Report);
+            btnList = new List<Button>() { btnSetting, btnAIJubgmentInfo, btnAIJubgmentHistory, btnReport };
+
+            // 환경설정화면 판넬에 세팅
             CS_Setting Setting = new CS_Setting();
             panelSetting.Controls.Add(Setting);
 
+            // AI 판정정보화면 판넬에 세팅 
+            CS_AIjubgmentInfo AIjubgmentInfo = new CS_AIjubgmentInfo();
+            panelAIjubgmentInfo.Controls.Add(AIjubgmentInfo);
+
+            // AI 판정이력화면 판넬에 세팅 
+            CS_AIjubgmentHistory AIjubgmentHistory = new CS_AIjubgmentHistory();
+            panelAIjubgmentHistory.Controls.Add(AIjubgmentHistory);
+
+            MMManagedReportControl Report = new MMManagedReportControl();
+            p_Report.Controls.Add(Report);
+
             btnSetting.Tag = selectedType.Setting; // 환경설정
+            btnAIJubgmentInfo.Tag = selectedType.AIJubgmentInfo; // AI 판정정보
+            btnAIJubgmentHistory.Tag = selectedType.AIJubgmentHistory; // AI 판정이력
             btnReport.Tag = selectedType.Report;
-            btnMain.Tag = selectedType.Main;
         }
 
         #endregion

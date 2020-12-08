@@ -19,6 +19,9 @@ namespace MaskManager.PopUp
     /// </summary>
     public partial class ParentsPop : Form
     {
+        /// <summary>
+        /// Header Get,Set 메서드
+        /// </summary>
         public string Caption
         {
             get { return lblTitle.Text; }
@@ -27,6 +30,31 @@ namespace MaskManager.PopUp
                 lblTitle.Text = value;
             }
         }
+
+        /// <summary>
+        /// Footer Text Get,Set 메서드
+        /// </summary>
+        public string FooterText
+        {
+            get { return lblFooter.Text; }
+            set
+            {
+                lblFooter.Text = value;
+            }
+        }
+
+        /// <summary>
+        /// Footer Panel Get,Set 메서드
+        /// </summary>
+        public Panel Footer
+        {
+            get { return panelFooter; }
+            set
+            {
+                panelFooter = value;
+            }
+        }
+
         private Point mousePoint;
 
         public ParentsPop()

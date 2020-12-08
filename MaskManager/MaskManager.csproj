@@ -169,6 +169,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="TabPages\CS_AIjubgmentHistory.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TabPages\CS_AIjubgmentHistory.Designer.cs">
+      <DependentUpon>CS_AIjubgmentHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TabPages\CS_AIjubgmentInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TabPages\CS_AIjubgmentInfo.Designer.cs">
+      <DependentUpon>CS_AIjubgmentInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="TabPages\DurableProdTabPageControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -307,6 +319,12 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TabPages\CS_AIjubgmentHistory.resx">
+      <DependentUpon>CS_AIjubgmentHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TabPages\CS_AIjubgmentInfo.resx">
+      <DependentUpon>CS_AIjubgmentInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TabPages\DurableProdTabPageControl.resx">
       <DependentUpon>DurableProdTabPageControl.cs</DependentUpon>

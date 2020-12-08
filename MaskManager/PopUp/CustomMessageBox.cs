@@ -23,6 +23,7 @@ namespace MaskManager.PopUp
             InitializeComponent();
 
             this.Caption = Caption;
+            this.Footer.Visible = false;
             label1.Text = Contents;
             label1.TextAlign = ContentAlignment.MiddleLeft;
 

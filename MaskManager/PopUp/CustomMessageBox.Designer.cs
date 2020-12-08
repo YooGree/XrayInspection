@@ -42,6 +42,10 @@
             this.lblTitle.Size = new System.Drawing.Size(445, 30);
             this.lblTitle.TabIndex = 27;
             // 
+            // lblFooter
+            // 
+            this.lblFooter.Size = new System.Drawing.Size(445, 30);
+            // 
             // label1
             // 
             this.label1.Location = new System.Drawing.Point(152, 53);
@@ -63,7 +67,7 @@
             this.panel1.Controls.Add(this.btnSave);
             this.panel1.Controls.Add(this.btnCancel);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 147);
+            this.panel1.Location = new System.Drawing.Point(0, 117);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(445, 53);
             this.panel1.TabIndex = 2;
