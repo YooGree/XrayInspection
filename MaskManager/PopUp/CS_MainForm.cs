@@ -113,11 +113,9 @@ namespace MaskManager.PopUp
 
         private void SetEvent()
         {
-            btnRegister.Click += Btn_Register_Click;
             btnMaskInfo.Click += Btn_MaskInfo_Click;
             btnInsp.Click += Btn_Insp_Click;
             btnScrap.Click += Btn_Scrap_Click;
-            btnDB.Click += Btn_DB_Click;
 
             btnSetting.Click += BtnMenu_Click;
             btnAIJubgmentInfo.Click += BtnMenu_Click;
@@ -285,23 +283,23 @@ namespace MaskManager.PopUp
 
         private void BtnLogIn_Click(object sender, EventArgs e)
         {
-            MMCodeHelper CodeHelper = new MMCodeHelper("LOGIN");
-            CodeHelper.WindowState = FormWindowState.Normal;
-            CodeHelper.ShowDialog();
-            Program.CurrentUser = CodeHelper.ReturnCodeValue;
+            //MMCodeHelper CodeHelper = new MMCodeHelper("LOGIN");
+            //CodeHelper.WindowState = FormWindowState.Normal;
+            //CodeHelper.ShowDialog();
+            //Program.CurrentUser = CodeHelper.ReturnCodeValue;
 
-            //2O19-05-15 황지희 관리자인 경우만 DB관리 버튼 VISIBLE 되도록수정 
-            if (Program.CurrentUser.Equals("testadmin"))
-            {
-                //lblCrrUser.Text = CodeHelper.ReturnNameValue;
-                btnDB.Visible = true;
+            ////2O19-05-15 황지희 관리자인 경우만 DB관리 버튼 VISIBLE 되도록수정 
+            //if (Program.CurrentUser.Equals("testadmin"))
+            //{
+            //    //lblCrrUser.Text = CodeHelper.ReturnNameValue;
+            //    btnDB.Visible = true;
 
-            } else
-            {
-                //2019-05-14 황지희 사용자 이름으로 보여주게 변경
-                //lblCrrUser.Text = CommonFuction.GetUserName(Program.CurrentUser);
-                btnDB.Visible = false;
-            }
+            //} else
+            //{
+            //    //2019-05-14 황지희 사용자 이름으로 보여주게 변경
+            //    //lblCrrUser.Text = CommonFuction.GetUserName(Program.CurrentUser);
+            //    btnDB.Visible = false;
+            //}
         }
 
         private void Btn_Report_Click(object sender, EventArgs e)

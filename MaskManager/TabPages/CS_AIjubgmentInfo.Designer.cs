@@ -62,7 +62,6 @@ namespace MaskManager.UserControls
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnDelete = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnDeleteRow = new System.Windows.Forms.Button();
             this.btnAddRow = new System.Windows.Forms.Button();
@@ -467,7 +466,6 @@ namespace MaskManager.UserControls
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.Controls.Add(this.btnDelete);
             this.flowLayoutPanel1.Controls.Add(this.btnSave);
             this.flowLayoutPanel1.Controls.Add(this.btnDeleteRow);
             this.flowLayoutPanel1.Controls.Add(this.btnAddRow);
@@ -480,18 +478,9 @@ namespace MaskManager.UserControls
             this.flowLayoutPanel1.Size = new System.Drawing.Size(860, 40);
             this.flowLayoutPanel1.TabIndex = 2;
             // 
-            // btnDelete
-            // 
-            this.btnDelete.Location = new System.Drawing.Point(777, 3);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(80, 28);
-            this.btnDelete.TabIndex = 1;
-            this.btnDelete.Text = "삭제";
-            this.btnDelete.UseVisualStyleBackColor = true;
-            // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(691, 3);
+            this.btnSave.Location = new System.Drawing.Point(777, 3);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(80, 28);
             this.btnSave.TabIndex = 2;
@@ -500,7 +489,7 @@ namespace MaskManager.UserControls
             // 
             // btnDeleteRow
             // 
-            this.btnDeleteRow.Location = new System.Drawing.Point(605, 3);
+            this.btnDeleteRow.Location = new System.Drawing.Point(691, 3);
             this.btnDeleteRow.Name = "btnDeleteRow";
             this.btnDeleteRow.Size = new System.Drawing.Size(80, 28);
             this.btnDeleteRow.TabIndex = 4;
@@ -509,7 +498,7 @@ namespace MaskManager.UserControls
             // 
             // btnAddRow
             // 
-            this.btnAddRow.Location = new System.Drawing.Point(519, 3);
+            this.btnAddRow.Location = new System.Drawing.Point(605, 3);
             this.btnAddRow.Name = "btnAddRow";
             this.btnAddRow.Size = new System.Drawing.Size(80, 28);
             this.btnAddRow.TabIndex = 5;
@@ -518,7 +507,7 @@ namespace MaskManager.UserControls
             // 
             // btnExport
             // 
-            this.btnExport.Location = new System.Drawing.Point(396, 3);
+            this.btnExport.Location = new System.Drawing.Point(482, 3);
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new System.Drawing.Size(117, 28);
             this.btnExport.TabIndex = 3;
@@ -568,7 +557,6 @@ namespace MaskManager.UserControls
         private System.Windows.Forms.GroupBox gbxFrameInfo;
         private System.Windows.Forms.DataGridView grdFrameInfo;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Label lblCustomerName;
         private System.Windows.Forms.Label lblLotNumber;

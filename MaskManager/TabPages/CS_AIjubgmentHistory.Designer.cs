@@ -32,6 +32,7 @@ namespace MaskManager.UserControls
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.gbxSearchCondition = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.dateFrom = new System.Windows.Forms.DateTimePicker();
             this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
             this.radioAll = new System.Windows.Forms.RadioButton();
             this.radioNormal = new System.Windows.Forms.RadioButton();
@@ -45,17 +46,15 @@ namespace MaskManager.UserControls
             this.txtCustomerName = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.btnSearch = new System.Windows.Forms.Button();
+            this.dateTo = new System.Windows.Forms.DateTimePicker();
             this.gbxFrameInfo = new System.Windows.Forms.GroupBox();
             this.grdAIjubgmentHistory = new System.Windows.Forms.DataGridView();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnDelete = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnDeleteRow = new System.Windows.Forms.Button();
             this.btnAddRow = new System.Windows.Forms.Button();
             this.btnExport = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.dateTo = new System.Windows.Forms.DateTimePicker();
-            this.dateFrom = new System.Windows.Forms.DateTimePicker();
             this.tableLayoutPanel1.SuspendLayout();
             this.gbxSearchCondition.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -125,6 +124,16 @@ namespace MaskManager.UserControls
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(202, 561);
             this.tableLayoutPanel2.TabIndex = 0;
+            // 
+            // dateFrom
+            // 
+            this.dateFrom.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dateFrom.Location = new System.Drawing.Point(83, 90);
+            this.dateFrom.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.dateFrom.Name = "dateFrom";
+            this.dateFrom.Size = new System.Drawing.Size(116, 21);
+            this.dateFrom.TabIndex = 25;
+            this.dateFrom.Value = new System.DateTime(2020, 12, 1, 0, 0, 0, 0);
             // 
             // flowLayoutPanel4
             // 
@@ -273,6 +282,15 @@ namespace MaskManager.UserControls
             this.btnSearch.Text = "조회";
             this.btnSearch.UseVisualStyleBackColor = true;
             // 
+            // dateTo
+            // 
+            this.dateTo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dateTo.Location = new System.Drawing.Point(83, 130);
+            this.dateTo.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.dateTo.Name = "dateTo";
+            this.dateTo.Size = new System.Drawing.Size(116, 21);
+            this.dateTo.TabIndex = 24;
+            // 
             // gbxFrameInfo
             // 
             this.gbxFrameInfo.Controls.Add(this.grdAIjubgmentHistory);
@@ -296,7 +314,6 @@ namespace MaskManager.UserControls
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.Controls.Add(this.btnDelete);
             this.flowLayoutPanel1.Controls.Add(this.btnSave);
             this.flowLayoutPanel1.Controls.Add(this.btnDeleteRow);
             this.flowLayoutPanel1.Controls.Add(this.btnAddRow);
@@ -309,18 +326,9 @@ namespace MaskManager.UserControls
             this.flowLayoutPanel1.Size = new System.Drawing.Size(860, 40);
             this.flowLayoutPanel1.TabIndex = 2;
             // 
-            // btnDelete
-            // 
-            this.btnDelete.Location = new System.Drawing.Point(777, 3);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(80, 28);
-            this.btnDelete.TabIndex = 1;
-            this.btnDelete.Text = "삭제";
-            this.btnDelete.UseVisualStyleBackColor = true;
-            // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(691, 3);
+            this.btnSave.Location = new System.Drawing.Point(777, 3);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(80, 28);
             this.btnSave.TabIndex = 2;
@@ -329,7 +337,7 @@ namespace MaskManager.UserControls
             // 
             // btnDeleteRow
             // 
-            this.btnDeleteRow.Location = new System.Drawing.Point(605, 3);
+            this.btnDeleteRow.Location = new System.Drawing.Point(691, 3);
             this.btnDeleteRow.Name = "btnDeleteRow";
             this.btnDeleteRow.Size = new System.Drawing.Size(80, 28);
             this.btnDeleteRow.TabIndex = 4;
@@ -338,7 +346,7 @@ namespace MaskManager.UserControls
             // 
             // btnAddRow
             // 
-            this.btnAddRow.Location = new System.Drawing.Point(519, 3);
+            this.btnAddRow.Location = new System.Drawing.Point(605, 3);
             this.btnAddRow.Name = "btnAddRow";
             this.btnAddRow.Size = new System.Drawing.Size(80, 28);
             this.btnAddRow.TabIndex = 5;
@@ -347,7 +355,7 @@ namespace MaskManager.UserControls
             // 
             // btnExport
             // 
-            this.btnExport.Location = new System.Drawing.Point(396, 3);
+            this.btnExport.Location = new System.Drawing.Point(482, 3);
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new System.Drawing.Size(117, 28);
             this.btnExport.TabIndex = 3;
@@ -365,25 +373,6 @@ namespace MaskManager.UserControls
             this.lblTitle.TabIndex = 3;
             this.lblTitle.Text = "AI 판정이력";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // dateTo
-            // 
-            this.dateTo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dateTo.Location = new System.Drawing.Point(83, 130);
-            this.dateTo.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.dateTo.Name = "dateTo";
-            this.dateTo.Size = new System.Drawing.Size(116, 21);
-            this.dateTo.TabIndex = 24;
-            // 
-            // dateFrom
-            // 
-            this.dateFrom.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dateFrom.Location = new System.Drawing.Point(83, 90);
-            this.dateFrom.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.dateFrom.Name = "dateFrom";
-            this.dateFrom.Size = new System.Drawing.Size(116, 21);
-            this.dateFrom.TabIndex = 25;
-            this.dateFrom.Value = new System.DateTime(2020, 12, 1, 0, 0, 0, 0);
             // 
             // CS_AIjubgmentHistory
             // 
@@ -413,7 +402,6 @@ namespace MaskManager.UserControls
         private System.Windows.Forms.GroupBox gbxFrameInfo;
         private System.Windows.Forms.DataGridView grdAIjubgmentHistory;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Label lblCustomerName;
         private System.Windows.Forms.Label lblLotNumber;
