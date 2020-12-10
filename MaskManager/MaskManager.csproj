@@ -169,6 +169,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="TabPages\CS_UserManagement.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TabPages\CS_UserManagement.Designer.cs">
+      <DependentUpon>CS_UserManagement.cs</DependentUpon>
+    </Compile>
     <Compile Include="TabPages\CS_AIjubgmentHistory.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -319,6 +325,9 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TabPages\CS_UserManagement.resx">
+      <DependentUpon>CS_UserManagement.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TabPages\CS_AIjubgmentHistory.resx">
       <DependentUpon>CS_AIjubgmentHistory.cs</DependentUpon>

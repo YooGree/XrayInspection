@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.OleDb;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
@@ -15,11 +16,11 @@ namespace MaskManager.UserControls
 {
     /// <summary>
     /// 작   성   자  : 유태근
-    /// 작   성   일  : 2020-12-08
-    /// 설        명  : AI 판정정보 화면
+    /// 작   성   일  : 2020-12-10
+    /// 설        명  : 사용자 등록화면
     /// 이        력  : 
     /// </summary>
-    public partial class CS_AIjubgmentInfo : UserControl
+    public partial class CS_UserManagement : UserControl
     {
         #region 변수
 
@@ -32,9 +33,9 @@ namespace MaskManager.UserControls
         /// </summary>
         private enum rowChangeType
         {
-            NORMAL,
-            CREATE,
-            MODIFIY,
+            NORMAL, 
+            CREATE, 
+            MODIFIY, 
             DELETE
         }
 
@@ -45,7 +46,7 @@ namespace MaskManager.UserControls
         /// <summary>
         /// 생성자
         /// </summary>
-        public CS_AIjubgmentInfo()
+        public CS_UserManagement()
         {
             InitializeComponent();
             InitializeControlSetting();
@@ -65,12 +66,12 @@ namespace MaskManager.UserControls
             btnExport.Click += BtnExport_Click;
             btnAddRow.Click += BtnAddRow_Click;
             btnDeleteRow.Click += BtnDeleteRow_Click;
-            //btnSearch.Click += BtnSearch_Click;
-            //btnSave.Click += BtnSave_Click;
+            btnSearch.Click += BtnSearch_Click;
+            btnSave.Click += BtnSave_Click;
 
-            grdFrameInfo.RowPostPaint += grdFrameInfo_RowPostPaint;
-            grdFrameInfo.CellValueChanged += grdFrameInfo_CellValueChanged;
-            grdFrameInfo.CellBeginEdit += GrdFrameInfo_CellBeginEdit;
+            grdUser.RowPostPaint += GrdAIjubgmentHistory_RowPostPaint;
+            grdUser.CellValueChanged += GrdAIjubgmentHistory_CellValueChanged;
+            grdUser.CellBeginEdit += GrdAIjubgmentHistory_CellBeginEdit;
         }
 
         /// <summary>
@@ -78,15 +79,15 @@ namespace MaskManager.UserControls
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void GrdFrameInfo_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        private void GrdAIjubgmentHistory_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
             DataGridView dgv = (DataGridView)sender;
-
+            
             foreach (DataRow row in _OriginalSearchDt.Rows)
             {
-                if (dgv.Rows[e.RowIndex].Cells["PRODUCTID"].Value.Equals(row["PRODUCTID"]))
+                if (dgv.Rows[e.RowIndex].Cells["USERNUMBER"].Value.Equals(row["USERNUMBER"]))
                 {
-                    if (dgv.Columns[e.ColumnIndex].Name.Equals("PRODUCTID"))
+                    if (dgv.Columns[e.ColumnIndex].Name.Equals("USERNUMBER"))
                     {
                         e.Cancel = true;
                     }
@@ -99,17 +100,17 @@ namespace MaskManager.UserControls
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void grdFrameInfo_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private void GrdAIjubgmentHistory_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            if (grdFrameInfo.Rows[e.RowIndex].Cells["ROWTYPE"].Value.ToString() == "NORMAL")
+            if (grdUser.Rows[e.RowIndex].Cells["ROWTYPE"].Value.ToString() == "NORMAL")
             {
                 DataRow frRow = _OriginalSearchDt.Rows[e.RowIndex];
                 DataRow toRow = _searchDt.Rows[e.RowIndex];
 
                 if (!CompareDataRow(frRow, toRow))
                 {
-                    grdFrameInfo.Rows[e.RowIndex].Cells["ROWTYPE"].Value = rowChangeType.MODIFIY;
-                    grdFrameInfo.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Plum;
+                    grdUser.Rows[e.RowIndex].Cells["ROWTYPE"].Value = rowChangeType.MODIFIY;
+                    grdUser.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Plum;
                 }
             }
         }
@@ -144,9 +145,9 @@ namespace MaskManager.UserControls
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void grdFrameInfo_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        private void GrdAIjubgmentHistory_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
-            grdFrameInfo.Rows[e.RowIndex].Cells[0].Value = (e.RowIndex + 1).ToString();
+            grdUser.Rows[e.RowIndex].Cells[0].Value = (e.RowIndex + 1).ToString();
         }
 
         /// <summary>
@@ -157,23 +158,23 @@ namespace MaskManager.UserControls
         private void BtnDeleteRow_Click(object sender, EventArgs e)
         {
             // 신규행이 아니라면 행타입만 바꿔주기
-            if (grdFrameInfo.Rows[grdFrameInfo.CurrentCellAddress.Y].Cells["ROWTYPE"].Value.ToString() != "CREATE")
+            if (grdUser.Rows[grdUser.CurrentCellAddress.Y].Cells["ROWTYPE"].Value.ToString() != "CREATE")
             {
-                grdFrameInfo.Rows[grdFrameInfo.CurrentCellAddress.Y].Cells["ROWTYPE"].Value = rowChangeType.DELETE;
-                grdFrameInfo.Rows[grdFrameInfo.CurrentCellAddress.Y].DefaultCellStyle.BackColor = Color.Crimson;
+                grdUser.Rows[grdUser.CurrentCellAddress.Y].Cells["ROWTYPE"].Value = rowChangeType.DELETE;
+                grdUser.Rows[grdUser.CurrentCellAddress.Y].DefaultCellStyle.BackColor = Color.Crimson;
             }
             // 신규행이라면 행자체를 지우기
             else
             {
-                for (int i = 0; i < grdFrameInfo.Rows.Count; i++)
+                for (int i = 0; i < grdUser.Rows.Count; i++)
                 {
                     // 행 선택 여부
-                    grdFrameInfo.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                    grdUser.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
-                    if (grdFrameInfo.Rows[i].Selected == true)
+                    if (grdUser.Rows[i].Selected == true)
                     {
                         // 현재 선택된 인덱스에 해당된 Row 삭제
-                        grdFrameInfo.Rows.Remove(grdFrameInfo.Rows[i]);
+                        grdUser.Rows.Remove(grdUser.Rows[i]);
                     }
                 }
             }
@@ -187,11 +188,21 @@ namespace MaskManager.UserControls
         private void BtnAddRow_Click(object sender, EventArgs e)
         {
             _lastRowIndex = _searchDt.Rows.Count;
-            _searchDt.Rows.Add();
-            grdFrameInfo.DataSource = _searchDt;
 
-            grdFrameInfo.Rows[grdFrameInfo.Rows.Count - 1].Cells["ROWTYPE"].Value = rowChangeType.CREATE;
-            grdFrameInfo.Rows[grdFrameInfo.Rows.Count - 1].DefaultCellStyle.BackColor = Color.LightSkyBlue;
+            if (_searchDt.Rows.Count == 0)
+            {
+                grdUser.Rows.Add();
+                grdUser.EndEdit();
+            }
+            else
+            {
+                _searchDt.Rows.Add();
+                grdUser.DataSource = _searchDt;
+                grdUser.EndEdit();
+            }
+
+            grdUser.Rows[grdUser.Rows.Count - 1].Cells["ROWTYPE"].Value = rowChangeType.CREATE;
+            grdUser.Rows[grdUser.Rows.Count - 1].DefaultCellStyle.BackColor = Color.LightSkyBlue;
         }
 
         /// <summary>
@@ -203,7 +214,7 @@ namespace MaskManager.UserControls
         {
             using (SaveFileDialog sfd = new SaveFileDialog())
             {
-                if (grdFrameInfo.Rows.Count == 0)
+                if (grdUser.Rows.Count == 0)
                 {
                     DialogResult result = CustomMessageBox.Show(MessageBoxButtons.OK, "확인", "엑셀 데이터가 없습니다.");
                 }
@@ -217,7 +228,7 @@ namespace MaskManager.UserControls
                     {
                         if (sfd.ShowDialog() == DialogResult.OK)
                         {
-                            this.SaveCsv(sfd.FileName, grdFrameInfo, true);
+                            this.SaveCsv(sfd.FileName, grdUser, true);
                         }
                     }
 
@@ -301,7 +312,7 @@ namespace MaskManager.UserControls
         #region 조회
 
         /// <summary>
-        /// 조회
+        /// 조회버튼 클릭
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -319,27 +330,11 @@ namespace MaskManager.UserControls
             {
                 DBManager dbManager = new DBManager();
                 List<SqlParameter> parameters = new List<SqlParameter>();
-                parameters.Add(new SqlParameter("@CUSTOMERNAME", txtCustomerName.Text)); // 고객명
-                parameters.Add(new SqlParameter("@PRODUCTNUMBER", txtProductNumber.Text)); // 도번
-                parameters.Add(new SqlParameter("@LOTNUMBER", txtLotNumber.Text)); // LOT 번호
+                parameters.Add(new SqlParameter("@USERTYPE", comboUserType.SelectedValue)); // 사용자 유형
+                parameters.Add(new SqlParameter("@USERNUMBER", txtUserNumber.Text)); // 사번
+                parameters.Add(new SqlParameter("@USERNAME", txtUserName.Text)); // 사용자명
 
-                // 전체조회
-                if (radioAll.Checked == true)
-                {
-                    parameters.Add(new SqlParameter("@STATE", "ALL")); // 상태        
-                }
-                // 정상조회
-                else if (radioNormal.Checked = true)
-                {
-                    parameters.Add(new SqlParameter("@STATE", "NORMAL")); // 상태
-                }
-                // 불량조회
-                else
-                {
-                    parameters.Add(new SqlParameter("@STATE", "DEFECT")); // 상태
-                }
-
-                DataSet ds = dbManager.CallSelectProcedure_ds("USP_SELECT_AIJUBGMENTHISTORY");
+                DataSet ds = dbManager.CallSelectProcedure_ds("USP_SELECT_USERMANAGEMENT", parameters);
 
                 if (ds.Tables.Count == 0)
                 {
@@ -349,13 +344,14 @@ namespace MaskManager.UserControls
                 {
                     _searchDt = ds.Tables[0];
                     _OriginalSearchDt = _searchDt.Copy();
-                    grdFrameInfo.DataSource = _searchDt;
+                    grdUser.DataSource = _searchDt;
                 }
             }
             catch (Exception ex)
             {
                 CustomMessageBox.Show(MessageBoxButtons.OK, "닫기", ex.Message);
             }
+
         }
 
         #endregion
@@ -370,7 +366,7 @@ namespace MaskManager.UserControls
         private void BtnSave_Click(object sender, EventArgs e)
         {
             // 그리드뷰에 행이 한개도 없으면 Return
-            if (grdFrameInfo.Rows.Count == 0)
+            if (grdUser.Rows.Count == 0)
             {
                 CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "저장할 데이터가 없습니다.");
                 return;
@@ -380,9 +376,9 @@ namespace MaskManager.UserControls
                 // 조회해온 데이터가 없을경우
                 if (_searchDt.Rows.Count == 0)
                 {
-                    foreach (DataGridViewRow viewRow in grdFrameInfo.Rows)
+                    foreach (DataGridViewRow viewRow in grdUser.Rows)
                     {
-                        if (viewRow.Cells["PRODUCTID"].Value == null)
+                        if (viewRow.Cells["INSPECTOR"].Value == null)
                         {
                             CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "품목ID가 누락된 행이 있습니다.");
                             return;
@@ -393,19 +389,11 @@ namespace MaskManager.UserControls
                 else
                 {
                     // 그리드에 신규, 수정, 삭제행이 없으면 Return
-                    if ((grdFrameInfo.DataSource as DataTable).AsEnumerable().Where(r => r["ROWTYPE"].Equals("CREATE")
-                                                                                      || r["ROWTYPE"].Equals("MODIFIY")
-                                                                                      || r["ROWTYPE"].Equals("DELETE")).Count() == 0)
+                    if ((grdUser.DataSource as DataTable).AsEnumerable().Where(r => r["ROWTYPE"].Equals("CREATE")
+                                                                                 || r["ROWTYPE"].Equals("MODIFIY")
+                                                                                 || r["ROWTYPE"].Equals("DELETE")).Count() == 0)
                     {
                         CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "저장할 데이터가 없습니다.");
-                        return;
-                    }
-                    // 필수 키값이 입력되지 않았다면 Return
-                    if ((grdFrameInfo.DataSource as DataTable).AsEnumerable().Where(r => r["PRODUCTID"].Equals(null)
-                                                                                      || r["PRODUCTID"].Equals("")
-                                                                                      || r["PRODUCTID"].Equals(DBNull.Value)).Count() > 0)
-                    {
-                        CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "품목ID가 누락된 행이 있습니다.");
                         return;
                     }
                 }
@@ -416,7 +404,7 @@ namespace MaskManager.UserControls
                 DBManager dbManager = new DBManager();
 
                 Dictionary<string, object> parameters = new Dictionary<string, object>();
-                parameters.Add("@SAVEDATATABLE", grdFrameInfo.DataSource as DataTable);
+                parameters.Add("@SAVEDATATABLE", grdUser.DataSource as DataTable);
 
                 SqlParameter[] sqlPamaters = dbManager.GetSqlParameters(parameters);
 
@@ -444,7 +432,17 @@ namespace MaskManager.UserControls
         private void InitializeControlSetting()
         {
             this.Dock = DockStyle.Fill;
-            radioAll.Checked = true;
+
+            // 조회조건 콤보박스 세팅
+            BindingList<object> userTypeList = new BindingList<object>();
+            userTypeList.Add(new { Text = "검사자", Value = "INSPECTOR" });
+            userTypeList.Add(new { Text = "성형자", Value = "MOLDER" });
+
+            comboUserType.DataSource = userTypeList;
+            comboUserType.DisplayMember = "Text";
+            comboUserType.ValueMember = "Value";
+            comboUserType.SelectedValue = "INSPECTOR";
+            comboUserType.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
         /// <summary>
@@ -452,19 +450,16 @@ namespace MaskManager.UserControls
         /// </summary>
         private void InitializeGrid()
         {
-            grdFrameInfo.AutoGenerateColumns = false;
-            grdFrameInfo.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            grdFrameInfo.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomCenter;
-            grdFrameInfo.AllowUserToAddRows = false;
+            grdUser.AutoGenerateColumns = false;
+            grdUser.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            grdUser.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomCenter;
+            grdUser.AllowUserToAddRows = false;
 
-            CommonFuction.SetDataGridViewColumnStyle(grdFrameInfo, "NO", "NO", "NO", typeof(string), 50, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdFrameInfo, "시간", "PRODUCTTYPE", "rackid", typeof(string), 200, false, true, DataGridViewContentAlignment.MiddleCenter, 20);
-            CommonFuction.SetDataGridViewColumnStyle(grdFrameInfo, "프레임", "PRODUCTNAME", "durableid", typeof(int), 100, false, true, DataGridViewContentAlignment.MiddleCenter, 20);
-            CommonFuction.SetDataGridViewColumnStyle(grdFrameInfo, "자동판정등급", "PRODUCTNO", "productname", typeof(string), 100, false, true, DataGridViewContentAlignment.MiddleCenter, 80);
-            CommonFuction.SetDataGridViewColumnStyle(grdFrameInfo, "불량유형", "CUSTOMERNAME", "inputdate", typeof(string), 100, false, true, DataGridViewContentAlignment.MiddleCenter, 60);
-            CommonFuction.SetDataGridViewColumnStyle(grdFrameInfo, "최종판정", "CREATOR", "inputresult", typeof(string), 100, false, true, DataGridViewContentAlignment.MiddleCenter, 35);
-            CommonFuction.SetDataGridViewColumnStyle(grdFrameInfo, "위치", "CREATETIME", "usedate", typeof(string), 500, false, true, DataGridViewContentAlignment.MiddleLeft, 60);
-            CommonFuction.SetDataGridViewColumnStyle(grdFrameInfo, "행변경타입", "ROWTYPE", "ROWTYPE", typeof(string), 100, false, false, DataGridViewContentAlignment.MiddleLeft, 60);
+            CommonFuction.SetDataGridViewColumnStyle(grdUser, "NO", "NO", "NO", typeof(string), 50, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdUser, "순번", "SEQUENCE", "SEQUENCE", typeof(int), 100, false, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdUser, "사번", "USERNUMBER", "USERNUMBER", typeof(string), 200, false, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdUser, "사용자명", "USERNAME", "USERNAME", typeof(string), 200, false, true, DataGridViewContentAlignment.MiddleCenter, 10);    
+            CommonFuction.SetDataGridViewColumnStyle(grdUser, "행변경타입", "ROWTYPE", "ROWTYPE", typeof(string), 100, false, false, DataGridViewContentAlignment.MiddleLeft, 10);
         }
 
         #endregion

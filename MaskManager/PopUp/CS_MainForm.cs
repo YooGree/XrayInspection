@@ -43,6 +43,7 @@ namespace MaskManager.PopUp
         private enum selectedType
         {
             Setting, // 환경설정
+            UserManagement, // 사용자등록
             AIJubgmentInfo, // AI 판정정보
             AIJubgmentHistory, // AI 판정이력
             Report,
@@ -66,6 +67,12 @@ namespace MaskManager.PopUp
                 {
                     panelSetting.BringToFront();
                     btnSetting.Font = CommonFuction.BoldFont;
+                }
+                // 사용자등록 화면 보여주기
+                else if (value == selectedType.UserManagement)
+                {
+                    panelUserManagement.BringToFront();
+                    btnUserManagement.Font = CommonFuction.BoldFont;
                 }
                 // 판정정보 화면 보여주기
                 else if (value == selectedType.AIJubgmentInfo)
@@ -118,6 +125,7 @@ namespace MaskManager.PopUp
             btnScrap.Click += Btn_Scrap_Click;
 
             btnSetting.Click += BtnMenu_Click;
+            btnUserManagement.Click += BtnMenu_Click;
             btnAIJubgmentInfo.Click += BtnMenu_Click;
             btnAIJubgmentHistory.Click += BtnMenu_Click;
 
@@ -335,6 +343,10 @@ namespace MaskManager.PopUp
             CS_Setting Setting = new CS_Setting();
             panelSetting.Controls.Add(Setting);
 
+            // 사용자등록화면 판넬에 세팅
+            CS_UserManagement UserManagement = new CS_UserManagement();
+            panelUserManagement.Controls.Add(UserManagement);
+
             // AI 판정정보화면 판넬에 세팅 
             CS_AIjubgmentInfo AIjubgmentInfo = new CS_AIjubgmentInfo();
             panelAIjubgmentInfo.Controls.Add(AIjubgmentInfo);
@@ -347,6 +359,7 @@ namespace MaskManager.PopUp
             p_Report.Controls.Add(Report);
 
             btnSetting.Tag = selectedType.Setting; // 환경설정
+            btnUserManagement.Tag = selectedType.UserManagement; // 사용자등록
             btnAIJubgmentInfo.Tag = selectedType.AIJubgmentInfo; // AI 판정정보
             btnAIJubgmentHistory.Tag = selectedType.AIJubgmentHistory; // AI 판정이력
             btnReport.Tag = selectedType.Report;

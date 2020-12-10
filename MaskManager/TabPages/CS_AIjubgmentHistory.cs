@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.OleDb;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
@@ -472,7 +473,7 @@ namespace MaskManager.UserControls
             grdAIjubgmentHistory.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomCenter;
             grdAIjubgmentHistory.AllowUserToAddRows = false;
 
-            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "No", "No", "No", typeof(string), 50, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "NO", "NO", "NO", typeof(string), 50, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "품목ID", "PRODUCTID", "PRODUCTID", typeof(string), 150, false, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "고객", "PRODUCTTYPE", "rackid", typeof(string), 150, false, true, DataGridViewContentAlignment.MiddleCenter, 20);
             CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "도번", "PRODUCTNAME", "durableid", typeof(int), 180, false, true, DataGridViewContentAlignment.MiddleCenter, 20);
@@ -487,5 +488,27 @@ namespace MaskManager.UserControls
 
         #endregion
 
+        #region Test
+
+        /// <summary>
+        /// MSAccess 테스트
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnTest_Click(object sender, EventArgs e)
+        {
+            DataSet ds = new DataSet();
+
+            string connStr = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=D:\05. 조선내화 프로젝트\02.Document\MSAccess\XDB.mdb";
+            OleDbConnection conn = new OleDbConnection(connStr);
+
+            string sqlStr = "SELECT * FROM T품명마스타";
+            OleDbDataAdapter adp = new OleDbDataAdapter(sqlStr, conn);
+            adp.Fill(ds);
+
+            grdAIjubgmentHistory.DataSource = ds.Tables[0];
+        }
+
+        #endregion
     }
 }
