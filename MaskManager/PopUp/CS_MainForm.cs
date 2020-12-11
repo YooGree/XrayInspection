@@ -111,11 +111,6 @@ namespace MaskManager.PopUp
             base.OnLoad(e);
             SetEvent();
             System.Configuration.AppSettingsReader temp = new System.Configuration.AppSettingsReader();
-
-            if (string.IsNullOrEmpty(Program.CurrentUser))
-            {
-                BtnLogIn_Click(null, null);
-            }
         }
 
         private void SetEvent()
@@ -289,27 +284,6 @@ namespace MaskManager.PopUp
             mms.ShowDialog();
         }
 
-        private void BtnLogIn_Click(object sender, EventArgs e)
-        {
-            //MMCodeHelper CodeHelper = new MMCodeHelper("LOGIN");
-            //CodeHelper.WindowState = FormWindowState.Normal;
-            //CodeHelper.ShowDialog();
-            //Program.CurrentUser = CodeHelper.ReturnCodeValue;
-
-            ////2O19-05-15 황지희 관리자인 경우만 DB관리 버튼 VISIBLE 되도록수정 
-            //if (Program.CurrentUser.Equals("testadmin"))
-            //{
-            //    //lblCrrUser.Text = CodeHelper.ReturnNameValue;
-            //    btnDB.Visible = true;
-
-            //} else
-            //{
-            //    //2019-05-14 황지희 사용자 이름으로 보여주게 변경
-            //    //lblCrrUser.Text = CommonFuction.GetUserName(Program.CurrentUser);
-            //    btnDB.Visible = false;
-            //}
-        }
-
         private void Btn_Report_Click(object sender, EventArgs e)
         {
             var tag = ((Button)sender).Tag;
@@ -337,7 +311,7 @@ namespace MaskManager.PopUp
             // 초기화면 환경설정화면으로 세팅
             panelSetting.BringToFront();
 
-            btnList = new List<Button>() { btnSetting, btnAIJubgmentInfo, btnAIJubgmentHistory, btnReport };
+            btnList = new List<Button>() { btnSetting, btnUserManagement, btnAIJubgmentInfo, btnAIJubgmentHistory, btnReport };
 
             // 환경설정화면 판넬에 세팅
             CS_Setting Setting = new CS_Setting();

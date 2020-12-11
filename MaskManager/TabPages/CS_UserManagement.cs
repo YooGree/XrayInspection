@@ -52,6 +52,7 @@ namespace MaskManager.UserControls
             InitializeControlSetting();
             InitializeGrid();
             InitializeEvent();
+            Search();
         }
 
         #endregion
@@ -72,6 +73,17 @@ namespace MaskManager.UserControls
             grdUser.RowPostPaint += GrdAIjubgmentHistory_RowPostPaint;
             grdUser.CellValueChanged += GrdAIjubgmentHistory_CellValueChanged;
             grdUser.CellBeginEdit += GrdAIjubgmentHistory_CellBeginEdit;
+            comboUserType.SelectedValueChanged += ComboUserType_SelectedValueChanged;
+        }
+
+        /// <summary>
+        /// 사용자유형을 변경할때 자동조회
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ComboUserType_SelectedValueChanged(object sender, EventArgs e)
+        {
+            Search();
         }
 
         /// <summary>
@@ -82,16 +94,10 @@ namespace MaskManager.UserControls
         private void GrdAIjubgmentHistory_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
             DataGridView dgv = (DataGridView)sender;
-            
-            foreach (DataRow row in _OriginalSearchDt.Rows)
+
+            if (dgv.Columns[e.ColumnIndex].Name.Equals("SEQUENCE"))
             {
-                if (dgv.Rows[e.RowIndex].Cells["USERNUMBER"].Value.Equals(row["USERNUMBER"]))
-                {
-                    if (dgv.Columns[e.ColumnIndex].Name.Equals("USERNUMBER"))
-                    {
-                        e.Cancel = true;
-                    }
-                }
+                e.Cancel = true;
             }
         }
 
@@ -157,25 +163,20 @@ namespace MaskManager.UserControls
         /// <param name="e"></param>
         private void BtnDeleteRow_Click(object sender, EventArgs e)
         {
-            // 신규행이 아니라면 행타입만 바꿔주기
-            if (grdUser.Rows[grdUser.CurrentCellAddress.Y].Cells["ROWTYPE"].Value.ToString() != "CREATE")
-            {
-                grdUser.Rows[grdUser.CurrentCellAddress.Y].Cells["ROWTYPE"].Value = rowChangeType.DELETE;
-                grdUser.Rows[grdUser.CurrentCellAddress.Y].DefaultCellStyle.BackColor = Color.Crimson;
-            }
-            // 신규행이라면 행자체를 지우기
-            else
-            {
-                for (int i = 0; i < grdUser.Rows.Count; i++)
-                {
-                    // 행 선택 여부
-                    grdUser.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            DataGridViewSelectedRowCollection selectedRows = grdUser.SelectedRows;
 
-                    if (grdUser.Rows[i].Selected == true)
-                    {
-                        // 현재 선택된 인덱스에 해당된 Row 삭제
-                        grdUser.Rows.Remove(grdUser.Rows[i]);
-                    }
+            foreach (DataGridViewRow selectedRow in selectedRows)
+            {
+                // 신규행이 아니라면 행타입만 바꿔주기
+                if (selectedRow.Cells["ROWTYPE"].Value.ToString() != "CREATE")
+                {
+                    selectedRow.Cells["ROWTYPE"].Value = rowChangeType.DELETE;
+                    selectedRow.DefaultCellStyle.BackColor = Color.Crimson;
+                }
+                // 신규행이라면 행자체를 지우기
+                else
+                {
+                    grdUser.Rows.Remove(selectedRow);
                 }
             }
         }
@@ -201,6 +202,20 @@ namespace MaskManager.UserControls
                 grdUser.EndEdit();
             }
 
+            // 최초 행 생성시 사용자 순번생성
+            int maxSeq = 0;
+            if (grdUser.DataSource == null)
+            {
+                grdUser.Rows[grdUser.Rows.Count - 1].Cells["SEQUENCE"].Value = 1;
+            }
+            else
+            {
+                DataTable dt = grdUser.DataSource as DataTable;
+                maxSeq = dt.AsEnumerable().Where(r => !r["SEQUENCE"].Equals(DBNull.Value)).Select(r => Convert.ToInt32(r["SEQUENCE"])).Max();
+                grdUser.Rows[grdUser.Rows.Count - 1].Cells["SEQUENCE"].Value = maxSeq + 1;
+            }
+
+            // 최초 행 생성시 행변경타입 CREATE
             grdUser.Rows[grdUser.Rows.Count - 1].Cells["ROWTYPE"].Value = rowChangeType.CREATE;
             grdUser.Rows[grdUser.Rows.Count - 1].DefaultCellStyle.BackColor = Color.LightSkyBlue;
         }
@@ -365,27 +380,14 @@ namespace MaskManager.UserControls
         /// <param name="e"></param>
         private void BtnSave_Click(object sender, EventArgs e)
         {
-            // 그리드뷰에 행이 한개도 없으면 Return
-            if (grdUser.Rows.Count == 0)
+            try
             {
-                CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "저장할 데이터가 없습니다.");
-                return;
-            }
-            else
-            {
-                // 조회해온 데이터가 없을경우
-                if (_searchDt.Rows.Count == 0)
+                // 그리드뷰에 행이 한개도 없으면 Return
+                if (grdUser.Rows.Count == 0)
                 {
-                    foreach (DataGridViewRow viewRow in grdUser.Rows)
-                    {
-                        if (viewRow.Cells["INSPECTOR"].Value == null)
-                        {
-                            CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "품목ID가 누락된 행이 있습니다.");
-                            return;
-                        }
-                    }
+                    CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "저장할 데이터가 없습니다.");
+                    return;
                 }
-                // 조회해온 데이터가 있을경우
                 else
                 {
                     // 그리드에 신규, 수정, 삭제행이 없으면 Return
@@ -397,28 +399,33 @@ namespace MaskManager.UserControls
                         return;
                     }
                 }
+
+                if (CustomMessageBox.Show(MessageBoxButtons.OKCancel, "저장", "저장 하시겠습니까?") == DialogResult.OK)
+                {
+                    DBManager dbManager = new DBManager();
+
+                    Dictionary<string, object> parameters = new Dictionary<string, object>();
+                    parameters.Add("@USERTYPE", comboUserType.SelectedValue);
+                    parameters.Add("@SAVEDATATABLE", grdUser.DataSource as DataTable);
+
+                    SqlParameter[] sqlPamaters = dbManager.GetSqlParameters(parameters);
+
+                    int SaveResult = dbManager.CallNonSelectProcedure("USP_UPSERT_USERMANAGEMENT", sqlPamaters);
+
+                    if (SaveResult > 0)
+                    {
+                        CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "저장하였습니다.");
+                        Search(); // 재조회
+                    }
+                    else
+                    {
+                        CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "저장에 실패하였습니다.");
+                    }
+                }
             }
-
-            if (CustomMessageBox.Show(MessageBoxButtons.OKCancel, "저장", "저장 하시겠습니까?") == DialogResult.OK)
+            catch (Exception ex)
             {
-                DBManager dbManager = new DBManager();
-
-                Dictionary<string, object> parameters = new Dictionary<string, object>();
-                parameters.Add("@SAVEDATATABLE", grdUser.DataSource as DataTable);
-
-                SqlParameter[] sqlPamaters = dbManager.GetSqlParameters(parameters);
-
-                int SaveResult = dbManager.CallNonSelectProcedure("USP_UPSERT_AIJUBGMENTHISTORY", sqlPamaters);
-
-                if (SaveResult > 0)
-                {
-                    CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "저장하였습니다.");
-                    Search(); // 재조회
-                }
-                else
-                {
-                    CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "저장에 실패하였습니다.");
-                }
+                CustomMessageBox.Show(MessageBoxButtons.OK, "저장", ex.Message);
             }
         }
 
@@ -458,7 +465,7 @@ namespace MaskManager.UserControls
             CommonFuction.SetDataGridViewColumnStyle(grdUser, "NO", "NO", "NO", typeof(string), 50, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdUser, "순번", "SEQUENCE", "SEQUENCE", typeof(int), 100, false, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdUser, "사번", "USERNUMBER", "USERNUMBER", typeof(string), 200, false, true, DataGridViewContentAlignment.MiddleCenter, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdUser, "사용자명", "USERNAME", "USERNAME", typeof(string), 200, false, true, DataGridViewContentAlignment.MiddleCenter, 10);    
+            CommonFuction.SetDataGridViewColumnStyle(grdUser, "사용자명", "USERNAME", "USERNAME", typeof(string), 200, false, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdUser, "행변경타입", "ROWTYPE", "ROWTYPE", typeof(string), 100, false, false, DataGridViewContentAlignment.MiddleLeft, 10);
         }
 

@@ -157,25 +157,20 @@ namespace MaskManager.UserControls
         /// <param name="e"></param>
         private void BtnDeleteRow_Click(object sender, EventArgs e)
         {
-            // 신규행이 아니라면 행타입만 바꿔주기
-            if (grdAIjubgmentHistory.Rows[grdAIjubgmentHistory.CurrentCellAddress.Y].Cells["ROWTYPE"].Value.ToString() != "CREATE")
-            {
-                grdAIjubgmentHistory.Rows[grdAIjubgmentHistory.CurrentCellAddress.Y].Cells["ROWTYPE"].Value = rowChangeType.DELETE;
-                grdAIjubgmentHistory.Rows[grdAIjubgmentHistory.CurrentCellAddress.Y].DefaultCellStyle.BackColor = Color.Crimson;
-            }
-            // 신규행이라면 행자체를 지우기
-            else
-            {
-                for (int i = 0; i < grdAIjubgmentHistory.Rows.Count; i++)
-                {
-                    // 행 선택 여부
-                    grdAIjubgmentHistory.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            DataGridViewSelectedRowCollection selectedRows = grdAIjubgmentHistory.SelectedRows;
 
-                    if (grdAIjubgmentHistory.Rows[i].Selected == true)
-                    {
-                        // 현재 선택된 인덱스에 해당된 Row 삭제
-                        grdAIjubgmentHistory.Rows.Remove(grdAIjubgmentHistory.Rows[i]);
-                    }
+            foreach (DataGridViewRow selectedRow in selectedRows)
+            {
+                // 신규행이 아니라면 행타입만 바꿔주기
+                if (selectedRow.Cells["ROWTYPE"].Value.ToString() != "CREATE")
+                {
+                    selectedRow.Cells["ROWTYPE"].Value = rowChangeType.DELETE;
+                    selectedRow.DefaultCellStyle.BackColor = Color.Crimson;
+                }
+                // 신규행이라면 행자체를 지우기
+                else
+                {
+                    grdAIjubgmentHistory.Rows.Remove(selectedRow);
                 }
             }
         }
