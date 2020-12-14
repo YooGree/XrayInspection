@@ -66,13 +66,20 @@ namespace MaskManager.UserControls
         {
             btnTopAdd.Click += BtnAdd_Click;
             btnMiddleAdd.Click += BtnAdd_Click;
-            btnDetailAdd.Click += BtnAdd_Click;
-             
-            btnSearch.Click += BtnSearch_Click;
-            btnTopSave.Click += BtnSave_Click;
+            btnDetailAdd.Click += BtnAdd_Click;          
 
-            grdTopCategory.RowPostPaint += GrdAIjubgmentHistory_RowPostPaint;
-            grdTopCategory.SelectionChanged += GrdTopCategory_SelectionChanged;
+            btnTopSave.Click += BtnSave_Click;
+            btnMiddleSave.Click += BtnSave_Click;
+            btnDetailSave.Click += BtnSave_Click;
+
+            btnSearch.Click += BtnSearch_Click;
+
+            grdTopCategory.RowPostPaint += Grd_RowPostPaint;
+            grdMiddleCategory.RowPostPaint += Grd_RowPostPaint;
+            grdDetailCategory.RowPostPaint += Grd_RowPostPaint;
+            grdTopCategory.SelectionChanged += Grd_SelectionChanged;
+            grdMiddleCategory.SelectionChanged += Grd_SelectionChanged;
+            grdDetailCategory.SelectionChanged += Grd_SelectionChanged;
         }
         
         /// <summary>
@@ -80,7 +87,7 @@ namespace MaskManager.UserControls
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void GrdTopCategory_SelectionChanged(object sender, EventArgs e)
+        private void Grd_SelectionChanged(object sender, EventArgs e)
         {
             DataGridView view = (DataGridView)sender;
 
@@ -90,21 +97,47 @@ namespace MaskManager.UserControls
                     txtTopCode.ReadOnly = true;
                     txtTopCode.Text = grdTopCategory.CurrentRow.Cells["DEFECTCODE"].Value.ToString();
                     txtTopName.Text = grdTopCategory.CurrentRow.Cells["DEFECTCODENAME"].Value.ToString();
-                    comboTopUsable.SelectedValue = grdTopCategory.CurrentRow.Cells["ISUSABLE"].Value.ToString();
+                    comboTopValidState.SelectedValue = grdTopCategory.CurrentRow.Cells["VALIDSTATE"].Value.ToString();
+                    Search("MIDDLE", grdTopCategory.CurrentRow.Cells["DEFECTCODE"].Value.ToString()); // 중분류 그리드 조회
+
+                    // 중분류 그리드에 행이 한개도 없을때
+                    if (grdMiddleCategory.CurrentRow == null)
+                    {
+                        // 중분류 입력란 초기화
+                        txtMiddleCode.Clear();
+                        txtMiddleName.Clear();
+                        comboMiddleValidState.SelectedIndex = 0;
+
+                        // 불량상세 그리드 및 입력란 초기화
+                        grdDetailCategory.DataSource = null;
+                        txtDetailCode.Clear();
+                        txtDetailName.Clear();
+                        comboDetailValidState.SelectedIndex = 0;
+                    }
                     break;
 
                 case "grdMiddleCategory":
                     txtMiddleCode.ReadOnly = true;
                     txtMiddleCode.Text = grdMiddleCategory.CurrentRow.Cells["DEFECTCODE"].Value.ToString();
                     txtMiddleName.Text = grdMiddleCategory.CurrentRow.Cells["DEFECTCODENAME"].Value.ToString();
-                    comboMiddleUsable.SelectedValue = grdMiddleCategory.CurrentRow.Cells["ISUSABLE"].Value.ToString();
+                    comboMiddleValidState.SelectedValue = grdMiddleCategory.CurrentRow.Cells["VALIDSTATE"].Value.ToString();
+                    Search("DETAIL", grdMiddleCategory.CurrentRow.Cells["DEFECTCODE"].Value.ToString()); // 불량상세 그리드 조회
+
+                    // 불량상세 그리드에 행이 한개도 없을때
+                    if (grdDetailCategory.CurrentRow == null)
+                    {
+                        // 불량상세 입력란 초기화
+                        txtDetailCode.Clear();
+                        txtDetailName.Clear();
+                        comboDetailValidState.SelectedIndex = 0;
+                    }
                     break;
 
                 case "grdDetailCategory":
                     txtDetailCode.ReadOnly = true;
                     txtDetailCode.Text = grdDetailCategory.CurrentRow.Cells["DEFECTCODE"].Value.ToString();
                     txtDetailName.Text = grdDetailCategory.CurrentRow.Cells["DEFECTCODENAME"].Value.ToString();
-                    comboDetailUsable.SelectedValue = grdDetailCategory.CurrentRow.Cells["ISUSABLE"].Value.ToString();
+                    comboDetailValidState.SelectedValue = grdDetailCategory.CurrentRow.Cells["VALIDSTATE"].Value.ToString();
                     break;
 
                 default:
@@ -117,9 +150,27 @@ namespace MaskManager.UserControls
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void GrdAIjubgmentHistory_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        private void Grd_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
-            grdTopCategory.Rows[e.RowIndex].Cells[0].Value = (e.RowIndex + 1).ToString();
+            DataGridView view = (DataGridView)sender;
+
+            switch (view.Name)
+            {
+                case "grdTopCategory":
+                    grdTopCategory.Rows[e.RowIndex].Cells[0].Value = (e.RowIndex + 1).ToString();
+                    break;
+
+                case "grdMiddleCategory":
+                    grdMiddleCategory.Rows[e.RowIndex].Cells[0].Value = (e.RowIndex + 1).ToString();
+                    break;
+
+                case "grdDetailCategory":
+                    grdDetailCategory.Rows[e.RowIndex].Cells[0].Value = (e.RowIndex + 1).ToString();
+                    break;
+
+                default:
+                    break;
+            }
         }
 
         /// <summary>
@@ -173,26 +224,39 @@ namespace MaskManager.UserControls
         /// <summary>
         /// 조회
         /// </summary>
-        private void Search()
+        private void Search(string defectCodeType = "TOP", string parentDefectCode = "Root")
         {
             try
             {
                 DBManager dbManager = new DBManager();
                 List<SqlParameter> parameters = new List<SqlParameter>();
-                parameters.Add(new SqlParameter("@DEFECTCODETYPE", "TOP")); // 불량코드타입
-                parameters.Add(new SqlParameter("@PARENTDEFECTCODE", txtUserNumber.Text)); // 상위불량코드
+                parameters.Add(new SqlParameter("@DEFECTCODETYPE", defectCodeType)); // 불량코드타입
+                parameters.Add(new SqlParameter("@PARENTDEFECTCODE", parentDefectCode)); // 상위불량코드
+                parameters.Add(new SqlParameter("@SEARCHLEVEL", comboSearchLevel.SelectedValue)); // 검색레벨
+                parameters.Add(new SqlParameter("@VALIDSTATE", comboSearchValidState.SelectedValue)); // 사용여부
+                parameters.Add(new SqlParameter("@DEFECTCODE", txtSearchDefectCode.Text)); // 불량코드
+                parameters.Add(new SqlParameter("@DEFECTCODENAME", txtSearchDefectName.Text)); // 불량코드명
 
                 DataSet ds = dbManager.CallSelectProcedure_ds("USP_SELECT_DEFECTCODEMANAGEMENT", parameters);
 
-                if (ds.Tables.Count == 0)
+                 if (ds.Tables.Count == 0)
                 {
                     MessageBox.Show("Error");
                 }
                 else
                 {
-                    _searchDt = ds.Tables[0];
-                    _OriginalSearchDt = _searchDt.Copy();
-                    grdTopCategory.DataSource = _searchDt;
+                    if (defectCodeType == "TOP")
+                    {
+                        grdTopCategory.DataSource = ds.Tables[0];
+                    }
+                    else if (defectCodeType == "MIDDLE")
+                    {
+                        grdMiddleCategory.DataSource = ds.Tables[0];
+                    }
+                    else
+                    {
+                        grdDetailCategory.DataSource = ds.Tables[0];
+                    }
                 }
             }
             catch (Exception ex)
@@ -215,35 +279,101 @@ namespace MaskManager.UserControls
         {
             try
             {
-                // 그리드뷰에 행이 한개도 없으면 Return
-                if (grdTopCategory.Rows.Count == 0)
+                Button btn = (Button)sender;
+
+                Dictionary<string, object> parameters = new Dictionary<string, object>();
+
+                // 대분류 저장
+                if (btn.Name == "btnTopSave")
                 {
-                    CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "저장할 데이터가 없습니다.");
-                    return;
+                    // 불량코드 입력 필수조건
+                    if (string.IsNullOrWhiteSpace(txtTopCode.Text))
+                    {
+                        CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "불량코드는 필수입력입니다.");
+                        return;
+                    }
+                    else
+                    {
+                        parameters.Add("@DEFECTCODETYPE", "TOP");
+                        parameters.Add("@DEFECTCODE", txtTopCode.Text);
+                        parameters.Add("@DEFECTCODENAME", txtTopName.Text);
+                        parameters.Add("@PARENTDEFECTCODE", "Root");
+                        parameters.Add("@VALIDSTATE", comboTopValidState.SelectedValue);
+
+                        // 신규인지 수정인지 판별
+                        if (txtTopCode.ReadOnly)
+                            parameters.Add("@ROWTYPE", "MODIFIY");
+                        else
+                            parameters.Add("@ROWTYPE", "CREATE");
+                    }
                 }
+                // 중분류 저장
+                else if (btn.Name == "btnMiddleSave")
+                {
+                    // 불량코드 입력 필수조건
+                    if (string.IsNullOrWhiteSpace(txtMiddleCode.Text))
+                    {
+                        CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "불량코드는 필수입력입니다.");
+                        return;
+                    }
+                    // 상위불량코드 선택 필수조건
+                    else if (grdTopCategory.CurrentRow == null)
+                    {
+                        CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "상위 불량코드가 지정되지 않았습니다.");
+                        return;
+                    }
+                    else
+                    {
+                        parameters.Add("@DEFECTCODETYPE", "MIDDLE");
+                        parameters.Add("@DEFECTCODE", txtMiddleCode.Text);
+                        parameters.Add("@DEFECTCODENAME", txtMiddleName.Text);
+                        parameters.Add("@PARENTDEFECTCODE", grdTopCategory.CurrentRow.Cells["DEFECTCODE"].Value);
+                        parameters.Add("@VALIDSTATE", comboMiddleValidState.SelectedValue);
+
+                        // 신규인지 수정인지 판별
+                        if (txtMiddleCode.ReadOnly)
+                            parameters.Add("@ROWTYPE", "MODIFIY");
+                        else
+                            parameters.Add("@ROWTYPE", "CREATE");
+                    }
+                }
+                // 불량상세 저장
                 else
                 {
-                    // 그리드에 신규, 수정, 삭제행이 없으면 Return
-                    if ((grdTopCategory.DataSource as DataTable).AsEnumerable().Where(r => r["ROWTYPE"].Equals("CREATE")
-                                                                                 || r["ROWTYPE"].Equals("MODIFIY")
-                                                                                 || r["ROWTYPE"].Equals("DELETE")).Count() == 0)
+                    // 불량코드 입력 필수조건
+                    if (string.IsNullOrWhiteSpace(txtDetailCode.Text))
                     {
-                        CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "저장할 데이터가 없습니다.");
+                        CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "불량코드는 필수입력입니다.");
                         return;
+                    }
+                    // 상위불량코드 선택 필수조건
+                    else if (grdMiddleCategory.CurrentRow == null)
+                    {
+                        CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "상위 불량코드가 지정되지 않았습니다.");
+                        return;
+                    }
+                    else
+                    {
+                        parameters.Add("@DEFECTCODETYPE", "DETAIL");
+                        parameters.Add("@DEFECTCODE", txtDetailCode.Text);
+                        parameters.Add("@DEFECTCODENAME", txtDetailName.Text);
+                        parameters.Add("@PARENTDEFECTCODE", grdMiddleCategory.CurrentRow.Cells["DEFECTCODE"].Value);
+                        parameters.Add("@VALIDSTATE", comboDetailValidState.SelectedValue);
+
+                        // 신규인지 수정인지 판별
+                        if (txtDetailCode.ReadOnly)
+                            parameters.Add("@ROWTYPE", "MODIFIY");
+                        else
+                            parameters.Add("@ROWTYPE", "CREATE");
                     }
                 }
 
                 if (CustomMessageBox.Show(MessageBoxButtons.OKCancel, "저장", "저장 하시겠습니까?") == DialogResult.OK)
                 {
                     DBManager dbManager = new DBManager();
-
-                    Dictionary<string, object> parameters = new Dictionary<string, object>();
-                    parameters.Add("@USERTYPE", comboUsableType.SelectedValue);
-                    parameters.Add("@SAVEDATATABLE", grdTopCategory.DataSource as DataTable);
-
                     SqlParameter[] sqlPamaters = dbManager.GetSqlParameters(parameters);
 
-                    int SaveResult = dbManager.CallNonSelectProcedure("USP_UPSERT_USERMANAGEMENT", sqlPamaters);
+                    int SaveResult = dbManager.CallNonSelectProcedure("USP_UPSERT_DEFECTCODEMANAGEMENT", sqlPamaters);
 
                     if (SaveResult > 0)
                     {
@@ -274,41 +404,51 @@ namespace MaskManager.UserControls
             this.Dock = DockStyle.Fill;
 
             // 콤보박스 데이터 세팅
+            BindingList<object> levelList = new BindingList<object>();
+            levelList.Add(new { Text = "대분류", Value = "TOP" });
+            levelList.Add(new { Text = "중분류", Value = "MIDDLE" });
+            levelList.Add(new { Text = "불량상세", Value = "DETAIL" });
+            comboSearchLevel.DataSource = levelList;
+            comboSearchLevel.DisplayMember = "Text";
+            comboSearchLevel.ValueMember = "Value";
+            comboSearchLevel.SelectedValue = "TOP";
+            comboSearchLevel.DropDownStyle = ComboBoxStyle.DropDownList;
+
             BindingList<object> usableTypeList1 = new BindingList<object>();
-            usableTypeList1.Add(new { Text = "사용", Value = "USABLE" });
-            usableTypeList1.Add(new { Text = "미사용", Value = "UNUSABLE" });
-            comboUsableType.DataSource = usableTypeList1;
-            comboUsableType.DisplayMember = "Text";
-            comboUsableType.ValueMember = "Value";
-            comboUsableType.SelectedValue = "USABLE";
-            comboUsableType.DropDownStyle = ComboBoxStyle.DropDownList;
+            usableTypeList1.Add(new { Text = "유효", Value = "Valid" });
+            usableTypeList1.Add(new { Text = "미유효", Value = "InValid" });
+            comboSearchValidState.DataSource = usableTypeList1;
+            comboSearchValidState.DisplayMember = "Text";
+            comboSearchValidState.ValueMember = "Value";
+            comboSearchValidState.SelectedValue = "Valid";
+            comboSearchValidState.DropDownStyle = ComboBoxStyle.DropDownList;
 
             BindingList<object> usableTypeList2 = new BindingList<object>();
-            usableTypeList2.Add(new { Text = "사용", Value = "USABLE" });
-            usableTypeList2.Add(new { Text = "미사용", Value = "UNUSABLE" });
-            comboTopUsable.DataSource = usableTypeList2;
-            comboTopUsable.DisplayMember = "Text";
-            comboTopUsable.ValueMember = "Value";
-            comboTopUsable.SelectedValue = "USABLE";
-            comboTopUsable.DropDownStyle = ComboBoxStyle.DropDownList;
+            usableTypeList2.Add(new { Text = "유효", Value = "Valid" });
+            usableTypeList2.Add(new { Text = "미유효", Value = "InValid" });
+            comboTopValidState.DataSource = usableTypeList2;
+            comboTopValidState.DisplayMember = "Text";
+            comboTopValidState.ValueMember = "Value";
+            comboTopValidState.SelectedValue = "Valid";
+            comboTopValidState.DropDownStyle = ComboBoxStyle.DropDownList;
 
             BindingList<object> usableTypeList3 = new BindingList<object>();
-            usableTypeList3.Add(new { Text = "사용", Value = "USABLE" });
-            usableTypeList3.Add(new { Text = "미사용", Value = "UNUSABLE" });
-            comboMiddleUsable.DataSource = usableTypeList3;
-            comboMiddleUsable.DisplayMember = "Text";
-            comboMiddleUsable.ValueMember = "Value";
-            comboMiddleUsable.SelectedValue = "USABLE";
-            comboMiddleUsable.DropDownStyle = ComboBoxStyle.DropDownList;
+            usableTypeList3.Add(new { Text = "유효", Value = "Valid" });
+            usableTypeList3.Add(new { Text = "미유효", Value = "InValid" });
+            comboMiddleValidState.DataSource = usableTypeList3;
+            comboMiddleValidState.DisplayMember = "Text";
+            comboMiddleValidState.ValueMember = "Value";
+            comboMiddleValidState.SelectedValue = "Valid";
+            comboMiddleValidState.DropDownStyle = ComboBoxStyle.DropDownList;
 
             BindingList<object> usableTypeList4 = new BindingList<object>();
-            usableTypeList4.Add(new { Text = "사용", Value = "USABLE" });
-            usableTypeList4.Add(new { Text = "미사용", Value = "UNUSABLE" });
-            comboDetailUsable.DataSource = usableTypeList4;
-            comboDetailUsable.DisplayMember = "Text";
-            comboDetailUsable.ValueMember = "Value";
-            comboDetailUsable.SelectedValue = "USABLE";
-            comboDetailUsable.DropDownStyle = ComboBoxStyle.DropDownList;
+            usableTypeList4.Add(new { Text = "유효", Value = "Valid" });
+            usableTypeList4.Add(new { Text = "미유효", Value = "InValid" });
+            comboDetailValidState.DataSource = usableTypeList4;
+            comboDetailValidState.DisplayMember = "Text";
+            comboDetailValidState.ValueMember = "Value";
+            comboDetailValidState.SelectedValue = "Valid";
+            comboDetailValidState.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
         /// <summary>
@@ -325,7 +465,9 @@ namespace MaskManager.UserControls
             CommonFuction.SetDataGridViewColumnStyle(grdTopCategory, "NO", "NO", "NO", typeof(string), 50, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdTopCategory, "불량코드", "DEFECTCODE", "DEFECTCODE", typeof(string), 120, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdTopCategory, "불량명", "DEFECTCODENAME", "DEFECTCODENAME", typeof(string), 180, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdTopCategory, "사용여부", "ISUSABLE", "ISUSABLE", typeof(string), 100, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdTopCategory, "유효여부", "VALIDSTATE", "VALIDSTATE", typeof(string), 100, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdTopCategory, "상위불량코드", "PARENTDEFECTCODE", "PARENTDEFECTCODE", typeof(string), 100, true, false, DataGridViewContentAlignment.MiddleLeft, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdTopCategory, "레벨", "LEVEL", "LEVEL", typeof(string), 100, true, false, DataGridViewContentAlignment.MiddleLeft, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdTopCategory, "행변경타입", "ROWTYPE", "ROWTYPE", typeof(string), 100, true, false, DataGridViewContentAlignment.MiddleLeft, 10);
 
             // 중분류
@@ -337,7 +479,9 @@ namespace MaskManager.UserControls
             CommonFuction.SetDataGridViewColumnStyle(grdMiddleCategory, "NO", "NO", "NO", typeof(string), 50, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdMiddleCategory, "불량코드", "DEFECTCODE", "DEFECTCODE", typeof(string), 120, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdMiddleCategory, "불량명", "DEFECTCODENAME", "DEFECTCODENAME", typeof(string), 180, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdMiddleCategory, "사용여부", "ISUSABLE", "ISUSABLE", typeof(string), 100, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdMiddleCategory, "유효여부", "VALIDSTATE", "VALIDSTATE", typeof(string), 100, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdMiddleCategory, "상위불량코드", "PARENTDEFECTCODE", "PARENTDEFECTCODE", typeof(string), 100, true, false, DataGridViewContentAlignment.MiddleLeft, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdMiddleCategory, "레벨", "LEVEL", "LEVEL", typeof(string), 100, true, false, DataGridViewContentAlignment.MiddleLeft, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdMiddleCategory, "행변경타입", "ROWTYPE", "ROWTYPE", typeof(string), 100, true, false, DataGridViewContentAlignment.MiddleLeft, 10);
 
             // 불량상세
@@ -349,7 +493,9 @@ namespace MaskManager.UserControls
             CommonFuction.SetDataGridViewColumnStyle(grdDetailCategory, "NO", "NO", "NO", typeof(string), 50, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdDetailCategory, "불량코드", "DEFECTCODE", "DEFECTCODE", typeof(string), 120, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdDetailCategory, "불량명", "DEFECTCODENAME", "DEFECTCODENAME", typeof(string), 180, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdDetailCategory, "사용여부", "ISUSABLE", "ISUSABLE", typeof(string), 100, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdDetailCategory, "유효여부", "VALIDSTATE", "VALIDSTATE", typeof(string), 100, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdDetailCategory, "상위불량코드", "PARENTDEFECTCODE", "PARENTDEFECTCODE", typeof(string), 100, true, false, DataGridViewContentAlignment.MiddleLeft, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdDetailCategory, "레벨", "LEVEL", "LEVEL", typeof(string), 100, true, false, DataGridViewContentAlignment.MiddleLeft, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdDetailCategory, "행변경타입", "ROWTYPE", "ROWTYPE", typeof(string), 100, true, false, DataGridViewContentAlignment.MiddleLeft, 10);
         }
 
