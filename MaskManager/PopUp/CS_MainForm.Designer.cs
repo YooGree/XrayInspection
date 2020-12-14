@@ -52,25 +52,27 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.panelSetting = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnReport = new System.Windows.Forms.Button();
+            this.btnInsp = new System.Windows.Forms.Button();
             this.btnMaskInfo = new System.Windows.Forms.Button();
             this.btnScrap = new System.Windows.Forms.Button();
-            this.btnInsp = new System.Windows.Forms.Button();
             this.btnMaskInfoCancel = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.btnSetting = new System.Windows.Forms.Button();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnUserManagement = new System.Windows.Forms.Button();
             this.btnAIJubgmentInfo = new System.Windows.Forms.Button();
             this.btnAIJubgmentHistory = new System.Windows.Forms.Button();
-            this.btnReport = new System.Windows.Forms.Button();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.panelAIjubgmentInfo = new System.Windows.Forms.Panel();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.panelAIjubgmentHistory = new System.Windows.Forms.Panel();
-            this.btnUserManagement = new System.Windows.Forms.Button();
             this.panelUserManagement = new System.Windows.Forms.Panel();
+            this.btnDefectCodeManagement = new System.Windows.Forms.Button();
+            this.panelDefectCodeManagement = new System.Windows.Forms.Panel();
             this.tableLayoutPanel3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -354,17 +356,45 @@
             this.panelSetting.Size = new System.Drawing.Size(1077, 580);
             this.panelSetting.TabIndex = 31;
             // 
-            // panel1
+            // btnReport
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.panel1.AutoSize = true;
-            this.panel1.BackgroundImage = global::MaskManager.Properties.Resources.chosun_label;
-            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.panel1.Location = new System.Drawing.Point(0, 662);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(192, 58);
-            this.panel1.TabIndex = 37;
+            this.btnReport.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.btnReport.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnReport.FlatAppearance.BorderColor = System.Drawing.Color.LightSlateGray;
+            this.btnReport.FlatAppearance.BorderSize = 0;
+            this.btnReport.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
+            this.btnReport.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro;
+            this.btnReport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReport.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btnReport.ForeColor = System.Drawing.Color.Black;
+            this.btnReport.Image = ((System.Drawing.Image)(resources.GetObject("btnReport.Image")));
+            this.btnReport.Location = new System.Drawing.Point(603, 545);
+            this.btnReport.Margin = new System.Windows.Forms.Padding(2);
+            this.btnReport.Name = "btnReport";
+            this.btnReport.Size = new System.Drawing.Size(92, 33);
+            this.btnReport.TabIndex = 39;
+            this.btnReport.Text = "관리대장";
+            this.btnReport.UseVisualStyleBackColor = false;
+            // 
+            // btnInsp
+            // 
+            this.btnInsp.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.btnInsp.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnInsp.FlatAppearance.BorderColor = System.Drawing.Color.LightSlateGray;
+            this.btnInsp.FlatAppearance.BorderSize = 0;
+            this.btnInsp.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
+            this.btnInsp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro;
+            this.btnInsp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnInsp.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btnInsp.ForeColor = System.Drawing.Color.Black;
+            this.btnInsp.Image = ((System.Drawing.Image)(resources.GetObject("btnInsp.Image")));
+            this.btnInsp.Location = new System.Drawing.Point(900, 545);
+            this.btnInsp.Margin = new System.Windows.Forms.Padding(2);
+            this.btnInsp.Name = "btnInsp";
+            this.btnInsp.Size = new System.Drawing.Size(92, 33);
+            this.btnInsp.TabIndex = 25;
+            this.btnInsp.Text = "세척 검사";
+            this.btnInsp.UseVisualStyleBackColor = false;
             // 
             // btnMaskInfo
             // 
@@ -406,26 +436,6 @@
             this.btnScrap.Text = "폐기";
             this.btnScrap.UseVisualStyleBackColor = false;
             // 
-            // btnInsp
-            // 
-            this.btnInsp.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.btnInsp.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnInsp.FlatAppearance.BorderColor = System.Drawing.Color.LightSlateGray;
-            this.btnInsp.FlatAppearance.BorderSize = 0;
-            this.btnInsp.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
-            this.btnInsp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro;
-            this.btnInsp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnInsp.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btnInsp.ForeColor = System.Drawing.Color.Black;
-            this.btnInsp.Image = ((System.Drawing.Image)(resources.GetObject("btnInsp.Image")));
-            this.btnInsp.Location = new System.Drawing.Point(900, 545);
-            this.btnInsp.Margin = new System.Windows.Forms.Padding(2);
-            this.btnInsp.Name = "btnInsp";
-            this.btnInsp.Size = new System.Drawing.Size(92, 33);
-            this.btnInsp.TabIndex = 25;
-            this.btnInsp.Text = "세척 검사";
-            this.btnInsp.UseVisualStyleBackColor = false;
-            // 
             // btnMaskInfoCancel
             // 
             this.btnMaskInfoCancel.BackColor = System.Drawing.Color.WhiteSmoke;
@@ -445,6 +455,18 @@
             this.btnMaskInfoCancel.TabIndex = 24;
             this.btnMaskInfoCancel.Text = "생산 변경";
             this.btnMaskInfoCancel.UseVisualStyleBackColor = false;
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.panel1.AutoSize = true;
+            this.panel1.BackgroundImage = global::MaskManager.Properties.Resources.chosun_label;
+            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.panel1.Location = new System.Drawing.Point(0, 662);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(192, 58);
+            this.panel1.TabIndex = 37;
             // 
             // btnSetting
             // 
@@ -485,6 +507,7 @@
             // 
             this.flowLayoutPanel3.Controls.Add(this.btnSetting);
             this.flowLayoutPanel3.Controls.Add(this.btnUserManagement);
+            this.flowLayoutPanel3.Controls.Add(this.btnDefectCodeManagement);
             this.flowLayoutPanel3.Controls.Add(this.btnAIJubgmentInfo);
             this.flowLayoutPanel3.Controls.Add(this.btnAIJubgmentHistory);
             this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -493,6 +516,26 @@
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
             this.flowLayoutPanel3.Size = new System.Drawing.Size(753, 40);
             this.flowLayoutPanel3.TabIndex = 1;
+            // 
+            // btnUserManagement
+            // 
+            this.btnUserManagement.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.btnUserManagement.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnUserManagement.FlatAppearance.BorderColor = System.Drawing.Color.LightSlateGray;
+            this.btnUserManagement.FlatAppearance.BorderSize = 0;
+            this.btnUserManagement.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
+            this.btnUserManagement.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro;
+            this.btnUserManagement.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUserManagement.Font = new System.Drawing.Font("맑은 고딕", 10F);
+            this.btnUserManagement.ForeColor = System.Drawing.Color.Black;
+            this.btnUserManagement.Image = ((System.Drawing.Image)(resources.GetObject("btnUserManagement.Image")));
+            this.btnUserManagement.Location = new System.Drawing.Point(98, 2);
+            this.btnUserManagement.Margin = new System.Windows.Forms.Padding(2);
+            this.btnUserManagement.Name = "btnUserManagement";
+            this.btnUserManagement.Size = new System.Drawing.Size(92, 33);
+            this.btnUserManagement.TabIndex = 41;
+            this.btnUserManagement.Text = "사용자등록";
+            this.btnUserManagement.UseVisualStyleBackColor = false;
             // 
             // btnAIJubgmentInfo
             // 
@@ -506,7 +549,7 @@
             this.btnAIJubgmentInfo.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btnAIJubgmentInfo.ForeColor = System.Drawing.Color.Black;
             this.btnAIJubgmentInfo.Image = ((System.Drawing.Image)(resources.GetObject("btnAIJubgmentInfo.Image")));
-            this.btnAIJubgmentInfo.Location = new System.Drawing.Point(194, 2);
+            this.btnAIJubgmentInfo.Location = new System.Drawing.Point(319, 2);
             this.btnAIJubgmentInfo.Margin = new System.Windows.Forms.Padding(2);
             this.btnAIJubgmentInfo.Name = "btnAIJubgmentInfo";
             this.btnAIJubgmentInfo.Size = new System.Drawing.Size(92, 33);
@@ -526,33 +569,13 @@
             this.btnAIJubgmentHistory.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btnAIJubgmentHistory.ForeColor = System.Drawing.Color.Black;
             this.btnAIJubgmentHistory.Image = ((System.Drawing.Image)(resources.GetObject("btnAIJubgmentHistory.Image")));
-            this.btnAIJubgmentHistory.Location = new System.Drawing.Point(290, 2);
+            this.btnAIJubgmentHistory.Location = new System.Drawing.Point(415, 2);
             this.btnAIJubgmentHistory.Margin = new System.Windows.Forms.Padding(2);
             this.btnAIJubgmentHistory.Name = "btnAIJubgmentHistory";
             this.btnAIJubgmentHistory.Size = new System.Drawing.Size(92, 33);
             this.btnAIJubgmentHistory.TabIndex = 39;
             this.btnAIJubgmentHistory.Text = "AI 판정이력";
             this.btnAIJubgmentHistory.UseVisualStyleBackColor = false;
-            // 
-            // btnReport
-            // 
-            this.btnReport.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.btnReport.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnReport.FlatAppearance.BorderColor = System.Drawing.Color.LightSlateGray;
-            this.btnReport.FlatAppearance.BorderSize = 0;
-            this.btnReport.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
-            this.btnReport.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro;
-            this.btnReport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnReport.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btnReport.ForeColor = System.Drawing.Color.Black;
-            this.btnReport.Image = ((System.Drawing.Image)(resources.GetObject("btnReport.Image")));
-            this.btnReport.Location = new System.Drawing.Point(603, 545);
-            this.btnReport.Margin = new System.Windows.Forms.Padding(2);
-            this.btnReport.Name = "btnReport";
-            this.btnReport.Size = new System.Drawing.Size(92, 33);
-            this.btnReport.TabIndex = 39;
-            this.btnReport.Text = "관리대장";
-            this.btnReport.UseVisualStyleBackColor = false;
             // 
             // flowLayoutPanel2
             // 
@@ -622,26 +645,6 @@
             this.panelAIjubgmentHistory.Size = new System.Drawing.Size(1077, 580);
             this.panelAIjubgmentHistory.TabIndex = 40;
             // 
-            // btnUserManagement
-            // 
-            this.btnUserManagement.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.btnUserManagement.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnUserManagement.FlatAppearance.BorderColor = System.Drawing.Color.LightSlateGray;
-            this.btnUserManagement.FlatAppearance.BorderSize = 0;
-            this.btnUserManagement.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
-            this.btnUserManagement.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro;
-            this.btnUserManagement.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUserManagement.Font = new System.Drawing.Font("맑은 고딕", 10F);
-            this.btnUserManagement.ForeColor = System.Drawing.Color.Black;
-            this.btnUserManagement.Image = ((System.Drawing.Image)(resources.GetObject("btnUserManagement.Image")));
-            this.btnUserManagement.Location = new System.Drawing.Point(98, 2);
-            this.btnUserManagement.Margin = new System.Windows.Forms.Padding(2);
-            this.btnUserManagement.Name = "btnUserManagement";
-            this.btnUserManagement.Size = new System.Drawing.Size(92, 33);
-            this.btnUserManagement.TabIndex = 41;
-            this.btnUserManagement.Text = "사용자등록";
-            this.btnUserManagement.UseVisualStyleBackColor = false;
-            // 
             // panelUserManagement
             // 
             this.panelUserManagement.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -652,6 +655,37 @@
             this.panelUserManagement.Name = "panelUserManagement";
             this.panelUserManagement.Size = new System.Drawing.Size(1077, 580);
             this.panelUserManagement.TabIndex = 42;
+            // 
+            // btnDefectCodeManagement
+            // 
+            this.btnDefectCodeManagement.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.btnDefectCodeManagement.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnDefectCodeManagement.FlatAppearance.BorderColor = System.Drawing.Color.LightSlateGray;
+            this.btnDefectCodeManagement.FlatAppearance.BorderSize = 0;
+            this.btnDefectCodeManagement.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
+            this.btnDefectCodeManagement.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro;
+            this.btnDefectCodeManagement.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDefectCodeManagement.Font = new System.Drawing.Font("맑은 고딕", 10F);
+            this.btnDefectCodeManagement.ForeColor = System.Drawing.Color.Black;
+            this.btnDefectCodeManagement.Image = ((System.Drawing.Image)(resources.GetObject("btnDefectCodeManagement.Image")));
+            this.btnDefectCodeManagement.Location = new System.Drawing.Point(194, 2);
+            this.btnDefectCodeManagement.Margin = new System.Windows.Forms.Padding(2);
+            this.btnDefectCodeManagement.Name = "btnDefectCodeManagement";
+            this.btnDefectCodeManagement.Size = new System.Drawing.Size(121, 33);
+            this.btnDefectCodeManagement.TabIndex = 42;
+            this.btnDefectCodeManagement.Text = "불량코드등록";
+            this.btnDefectCodeManagement.UseVisualStyleBackColor = false;
+            // 
+            // panelDefectCodeManagement
+            // 
+            this.panelDefectCodeManagement.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelDefectCodeManagement.Location = new System.Drawing.Point(0, 75);
+            this.panelDefectCodeManagement.Margin = new System.Windows.Forms.Padding(2);
+            this.panelDefectCodeManagement.Name = "panelDefectCodeManagement";
+            this.panelDefectCodeManagement.Size = new System.Drawing.Size(1077, 580);
+            this.panelDefectCodeManagement.TabIndex = 43;
             // 
             // CS_MainForm
             // 
@@ -665,12 +699,14 @@
             this.Controls.Add(this.panelAIjubgmentInfo);
             this.Controls.Add(this.panelAIjubgmentHistory);
             this.Controls.Add(this.panelUserManagement);
+            this.Controls.Add(this.panelDefectCodeManagement);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "CS_MainForm";
             this.Text = "조선내화";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Controls.SetChildIndex(this.panelDefectCodeManagement, 0);
             this.Controls.SetChildIndex(this.panelUserManagement, 0);
             this.Controls.SetChildIndex(this.panelAIjubgmentHistory, 0);
             this.Controls.SetChildIndex(this.panelAIjubgmentInfo, 0);
@@ -732,5 +768,7 @@
         private System.Windows.Forms.Panel panelAIjubgmentHistory;
         public System.Windows.Forms.Button btnUserManagement;
         private System.Windows.Forms.Panel panelUserManagement;
+        public System.Windows.Forms.Button btnDefectCodeManagement;
+        private System.Windows.Forms.Panel panelDefectCodeManagement;
     }
 }

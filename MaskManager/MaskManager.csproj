@@ -169,6 +169,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="TabPages\CS_DefectCodeManagement.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TabPages\CS_DefectCodeManagement.Designer.cs">
+      <DependentUpon>CS_DefectCodeManagement.cs</DependentUpon>
+    </Compile>
     <Compile Include="TabPages\CS_UserManagement.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -325,6 +331,9 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TabPages\CS_DefectCodeManagement.resx">
+      <DependentUpon>CS_DefectCodeManagement.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TabPages\CS_UserManagement.resx">
       <DependentUpon>CS_UserManagement.cs</DependentUpon>

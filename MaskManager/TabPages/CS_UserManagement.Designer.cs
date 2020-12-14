@@ -32,6 +32,8 @@ namespace MaskManager.UserControls
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.gbxSearchCondition = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.comboUserType = new System.Windows.Forms.ComboBox();
+            this.lblUserType = new System.Windows.Forms.Label();
             this.txtUserName = new System.Windows.Forms.TextBox();
             this.lblUserName = new System.Windows.Forms.Label();
             this.lblUserNumber = new System.Windows.Forms.Label();
@@ -46,8 +48,6 @@ namespace MaskManager.UserControls
             this.btnAddRow = new System.Windows.Forms.Button();
             this.btnExport = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.lblUserType = new System.Windows.Forms.Label();
-            this.comboUserType = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.gbxSearchCondition.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -110,6 +110,28 @@ namespace MaskManager.UserControls
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(202, 561);
             this.tableLayoutPanel2.TabIndex = 0;
+            // 
+            // comboUserType
+            // 
+            this.comboUserType.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comboUserType.FormattingEnabled = true;
+            this.comboUserType.Location = new System.Drawing.Point(83, 10);
+            this.comboUserType.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.comboUserType.Name = "comboUserType";
+            this.comboUserType.Size = new System.Drawing.Size(116, 20);
+            this.comboUserType.TabIndex = 25;
+            // 
+            // lblUserType
+            // 
+            this.lblUserType.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblUserType.ForeColor = System.Drawing.Color.Red;
+            this.lblUserType.Location = new System.Drawing.Point(3, 3);
+            this.lblUserType.Margin = new System.Windows.Forms.Padding(3);
+            this.lblUserType.Name = "lblUserType";
+            this.lblUserType.Size = new System.Drawing.Size(74, 34);
+            this.lblUserType.TabIndex = 24;
+            this.lblUserType.Text = "사용자 유형";
+            this.lblUserType.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // txtUserName
             // 
@@ -261,28 +283,6 @@ namespace MaskManager.UserControls
             this.lblTitle.TabIndex = 3;
             this.lblTitle.Text = "사용자 등록";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lblUserType
-            // 
-            this.lblUserType.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblUserType.ForeColor = System.Drawing.Color.Red;
-            this.lblUserType.Location = new System.Drawing.Point(3, 3);
-            this.lblUserType.Margin = new System.Windows.Forms.Padding(3);
-            this.lblUserType.Name = "lblUserType";
-            this.lblUserType.Size = new System.Drawing.Size(74, 34);
-            this.lblUserType.TabIndex = 24;
-            this.lblUserType.Text = "사용자 유형";
-            this.lblUserType.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // comboUserType
-            // 
-            this.comboUserType.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.comboUserType.FormattingEnabled = true;
-            this.comboUserType.Location = new System.Drawing.Point(83, 10);
-            this.comboUserType.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.comboUserType.Name = "comboUserType";
-            this.comboUserType.Size = new System.Drawing.Size(116, 20);
-            this.comboUserType.TabIndex = 25;
             // 
             // CS_UserManagement
             // 

@@ -44,6 +44,7 @@ namespace MaskManager.PopUp
         {
             Setting, // 환경설정
             UserManagement, // 사용자등록
+            DefectCodeManagement, // 불량코드등록
             AIJubgmentInfo, // AI 판정정보
             AIJubgmentHistory, // AI 판정이력
             Report,
@@ -73,6 +74,12 @@ namespace MaskManager.PopUp
                 {
                     panelUserManagement.BringToFront();
                     btnUserManagement.Font = CommonFuction.BoldFont;
+                }
+                // 불량코드등록 화면 보여주기
+                else if (value == selectedType.DefectCodeManagement)
+                {
+                    panelDefectCodeManagement.BringToFront();
+                    btnDefectCodeManagement.Font = CommonFuction.BoldFont;
                 }
                 // 판정정보 화면 보여주기
                 else if (value == selectedType.AIJubgmentInfo)
@@ -121,6 +128,7 @@ namespace MaskManager.PopUp
 
             btnSetting.Click += BtnMenu_Click;
             btnUserManagement.Click += BtnMenu_Click;
+            btnDefectCodeManagement.Click += BtnMenu_Click;
             btnAIJubgmentInfo.Click += BtnMenu_Click;
             btnAIJubgmentHistory.Click += BtnMenu_Click;
 
@@ -311,7 +319,7 @@ namespace MaskManager.PopUp
             // 초기화면 환경설정화면으로 세팅
             panelSetting.BringToFront();
 
-            btnList = new List<Button>() { btnSetting, btnUserManagement, btnAIJubgmentInfo, btnAIJubgmentHistory, btnReport };
+            btnList = new List<Button>() { btnSetting, btnUserManagement, btnDefectCodeManagement ,btnAIJubgmentInfo, btnAIJubgmentHistory, btnReport };
 
             // 환경설정화면 판넬에 세팅
             CS_Setting Setting = new CS_Setting();
@@ -320,6 +328,10 @@ namespace MaskManager.PopUp
             // 사용자등록화면 판넬에 세팅
             CS_UserManagement UserManagement = new CS_UserManagement();
             panelUserManagement.Controls.Add(UserManagement);
+
+            // 불량코드등록화면 판넬에 세팅
+            CS_DefectCodeManagement DefectCodeManagement = new CS_DefectCodeManagement();
+            panelDefectCodeManagement.Controls.Add(DefectCodeManagement);
 
             // AI 판정정보화면 판넬에 세팅 
             CS_AIjubgmentInfo AIjubgmentInfo = new CS_AIjubgmentInfo();
@@ -334,6 +346,7 @@ namespace MaskManager.PopUp
 
             btnSetting.Tag = selectedType.Setting; // 환경설정
             btnUserManagement.Tag = selectedType.UserManagement; // 사용자등록
+            btnDefectCodeManagement.Tag = selectedType.DefectCodeManagement; // 불량코드등록
             btnAIJubgmentInfo.Tag = selectedType.AIJubgmentInfo; // AI 판정정보
             btnAIJubgmentHistory.Tag = selectedType.AIJubgmentHistory; // AI 판정이력
             btnReport.Tag = selectedType.Report;
