@@ -16,8 +16,8 @@ namespace MaskManager.UserControls
 {
     /// <summary>
     /// 작   성   자  : 유태근
-    /// 작   성   일  : 2020-12-10
-    /// 설        명  : 사용자 등록화면
+    /// 작   성   일  : 2020-12-14
+    /// 설        명  : 불량코드 등록화면
     /// 이        력  : 
     /// </summary>
     public partial class CS_DefectCodeManagement : UserControl
@@ -94,6 +94,7 @@ namespace MaskManager.UserControls
             switch (view.Name)
             {
                 case "grdTopCategory":
+                    
                     txtTopCode.ReadOnly = true;
                     txtTopCode.Text = grdTopCategory.CurrentRow.Cells["DEFECTCODE"].Value.ToString();
                     txtTopName.Text = grdTopCategory.CurrentRow.Cells["DEFECTCODENAME"].Value.ToString();
@@ -248,6 +249,27 @@ namespace MaskManager.UserControls
                     if (defectCodeType == "TOP")
                     {
                         grdTopCategory.DataSource = ds.Tables[0];
+
+                        // 대분류 그리드에 행이 한개도 없을때
+                        if (ds.Tables[0].Rows.Count == 0)
+                        {
+                            // 대분류 입력란 초기화
+                            txtTopCode.Clear();
+                            txtTopName.Clear();
+                            comboTopValidState.SelectedIndex = 0;
+
+                            // 중분류 그리드 및 입력란 초기화
+                            grdMiddleCategory.DataSource = null;
+                            txtMiddleCode.Clear();
+                            txtMiddleName.Clear();
+                            comboMiddleValidState.SelectedIndex = 0;
+
+                            // 불량상세 그리드 및 입력란 초기화
+                            grdDetailCategory.DataSource = null;
+                            txtDetailCode.Clear();
+                            txtDetailName.Clear();
+                            comboDetailValidState.SelectedIndex = 0;
+                        }
                     }
                     else if (defectCodeType == "MIDDLE")
                     {
@@ -461,6 +483,9 @@ namespace MaskManager.UserControls
             grdTopCategory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             grdTopCategory.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomCenter;
             grdTopCategory.AllowUserToAddRows = false;
+            grdTopCategory.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            grdTopCategory.DefaultCellStyle.SelectionBackColor = Color.Yellow;
+            grdTopCategory.DefaultCellStyle.SelectionForeColor = Color.Black;
 
             CommonFuction.SetDataGridViewColumnStyle(grdTopCategory, "NO", "NO", "NO", typeof(string), 50, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdTopCategory, "불량코드", "DEFECTCODE", "DEFECTCODE", typeof(string), 120, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
@@ -475,6 +500,9 @@ namespace MaskManager.UserControls
             grdMiddleCategory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             grdMiddleCategory.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomCenter;
             grdMiddleCategory.AllowUserToAddRows = false;
+            grdMiddleCategory.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            grdMiddleCategory.DefaultCellStyle.SelectionBackColor = Color.Yellow;
+            grdMiddleCategory.DefaultCellStyle.SelectionForeColor = Color.Black;
 
             CommonFuction.SetDataGridViewColumnStyle(grdMiddleCategory, "NO", "NO", "NO", typeof(string), 50, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdMiddleCategory, "불량코드", "DEFECTCODE", "DEFECTCODE", typeof(string), 120, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
@@ -489,6 +517,9 @@ namespace MaskManager.UserControls
             grdDetailCategory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             grdDetailCategory.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomCenter;
             grdDetailCategory.AllowUserToAddRows = false;
+            grdDetailCategory.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            grdDetailCategory.DefaultCellStyle.SelectionBackColor = Color.Yellow;
+            grdDetailCategory.DefaultCellStyle.SelectionForeColor = Color.Black;
 
             CommonFuction.SetDataGridViewColumnStyle(grdDetailCategory, "NO", "NO", "NO", typeof(string), 50, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdDetailCategory, "불량코드", "DEFECTCODE", "DEFECTCODE", typeof(string), 120, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
