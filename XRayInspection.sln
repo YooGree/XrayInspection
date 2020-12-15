@@ -1,13 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30711.63
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaskManager", "MaskManager\MaskManager.csproj", "{128A14D3-546E-4D66-9924-4F3E3E0E9EA9}"
-EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "MaskManagerSetup", "MaskManagerSetup\MaskManagerSetup.vdproj", "{E190FF33-3AD5-4645-BC11-FF3DC55DEDCE}"
-EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "MetalMaskSetting", "MetalMaskSetting\MetalMaskSetting.vdproj", "{32F5DB73-5A7F-4A4F-A609-CB5903E53F11}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XrayInspection", "MaskManager\XrayInspection.csproj", "{128A14D3-546E-4D66-9924-4F3E3E0E9EA9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,10 +15,6 @@ Global
 		{128A14D3-546E-4D66-9924-4F3E3E0E9EA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{128A14D3-546E-4D66-9924-4F3E3E0E9EA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{128A14D3-546E-4D66-9924-4F3E3E0E9EA9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E190FF33-3AD5-4645-BC11-FF3DC55DEDCE}.Debug|Any CPU.ActiveCfg = Debug
-		{E190FF33-3AD5-4645-BC11-FF3DC55DEDCE}.Release|Any CPU.ActiveCfg = Release
-		{32F5DB73-5A7F-4A4F-A609-CB5903E53F11}.Debug|Any CPU.ActiveCfg = Debug
-		{32F5DB73-5A7F-4A4F-A609-CB5903E53F11}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
