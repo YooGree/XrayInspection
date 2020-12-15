@@ -175,6 +175,12 @@
     <Compile Include="TabPages\CS_DefectCodeManagement.Designer.cs">
       <DependentUpon>CS_DefectCodeManagement.cs</DependentUpon>
     </Compile>
+    <Compile Include="TabPages\CS_ProductManagement.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TabPages\CS_ProductManagement.Designer.cs">
+      <DependentUpon>CS_ProductManagement.cs</DependentUpon>
+    </Compile>
     <Compile Include="TabPages\CS_UserManagement.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -334,6 +340,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TabPages\CS_DefectCodeManagement.resx">
       <DependentUpon>CS_DefectCodeManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TabPages\CS_ProductManagement.resx">
+      <DependentUpon>CS_ProductManagement.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TabPages\CS_UserManagement.resx">
       <DependentUpon>CS_UserManagement.cs</DependentUpon>

@@ -32,6 +32,8 @@ namespace MaskManager.UserControls
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.gbxSearchCondition = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.comboSearchLevel = new System.Windows.Forms.ComboBox();
+            this.lblSearchLevel = new System.Windows.Forms.Label();
             this.comboSearchValidState = new System.Windows.Forms.ComboBox();
             this.lblSearchValidState = new System.Windows.Forms.Label();
             this.txtSearchDefectName = new System.Windows.Forms.TextBox();
@@ -82,8 +84,6 @@ namespace MaskManager.UserControls
             this.lblTopUseable = new System.Windows.Forms.Label();
             this.txtTopCode = new System.Windows.Forms.TextBox();
             this.comboTopValidState = new System.Windows.Forms.ComboBox();
-            this.lblSearchLevel = new System.Windows.Forms.Label();
-            this.comboSearchLevel = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.gbxSearchCondition.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -162,6 +162,28 @@ namespace MaskManager.UserControls
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(202, 561);
             this.tableLayoutPanel2.TabIndex = 0;
+            // 
+            // comboSearchLevel
+            // 
+            this.comboSearchLevel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comboSearchLevel.FormattingEnabled = true;
+            this.comboSearchLevel.Location = new System.Drawing.Point(83, 10);
+            this.comboSearchLevel.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.comboSearchLevel.Name = "comboSearchLevel";
+            this.comboSearchLevel.Size = new System.Drawing.Size(116, 20);
+            this.comboSearchLevel.TabIndex = 27;
+            // 
+            // lblSearchLevel
+            // 
+            this.lblSearchLevel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblSearchLevel.ForeColor = System.Drawing.Color.Red;
+            this.lblSearchLevel.Location = new System.Drawing.Point(3, 3);
+            this.lblSearchLevel.Margin = new System.Windows.Forms.Padding(3);
+            this.lblSearchLevel.Name = "lblSearchLevel";
+            this.lblSearchLevel.Size = new System.Drawing.Size(74, 34);
+            this.lblSearchLevel.TabIndex = 26;
+            this.lblSearchLevel.Text = "조회구분";
+            this.lblSearchLevel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // comboSearchValidState
             // 
@@ -744,28 +766,6 @@ namespace MaskManager.UserControls
             this.comboTopValidState.Name = "comboTopValidState";
             this.comboTopValidState.Size = new System.Drawing.Size(157, 20);
             this.comboTopValidState.TabIndex = 5;
-            // 
-            // lblSearchLevel
-            // 
-            this.lblSearchLevel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblSearchLevel.ForeColor = System.Drawing.Color.Red;
-            this.lblSearchLevel.Location = new System.Drawing.Point(3, 3);
-            this.lblSearchLevel.Margin = new System.Windows.Forms.Padding(3);
-            this.lblSearchLevel.Name = "lblSearchLevel";
-            this.lblSearchLevel.Size = new System.Drawing.Size(74, 34);
-            this.lblSearchLevel.TabIndex = 26;
-            this.lblSearchLevel.Text = "분류";
-            this.lblSearchLevel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // comboSearchLevel
-            // 
-            this.comboSearchLevel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.comboSearchLevel.FormattingEnabled = true;
-            this.comboSearchLevel.Location = new System.Drawing.Point(83, 10);
-            this.comboSearchLevel.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.comboSearchLevel.Name = "comboSearchLevel";
-            this.comboSearchLevel.Size = new System.Drawing.Size(116, 20);
-            this.comboSearchLevel.TabIndex = 27;
             // 
             // CS_DefectCodeManagement
             // 
