@@ -54,6 +54,8 @@ namespace MaskManager.UserControls
             this.grdNewProduct = new System.Windows.Forms.DataGridView();
             this.lblSearchType = new System.Windows.Forms.Label();
             this.comboSearchType = new System.Windows.Forms.ComboBox();
+            this.lblProductName = new System.Windows.Forms.Label();
+            this.txtProductName = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.gbxSearchCondition.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -103,23 +105,26 @@ namespace MaskManager.UserControls
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.comboSearchType, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.txtProductName, 1, 1);
+            this.tableLayoutPanel2.Controls.Add(this.lblProductName, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.comboSearchType, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.lblSearchType, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.txtProductCode, 1, 5);
-            this.tableLayoutPanel2.Controls.Add(this.txtProductWeight, 1, 4);
-            this.tableLayoutPanel2.Controls.Add(this.txtCustomer, 1, 1);
-            this.tableLayoutPanel2.Controls.Add(this.lblProductCode, 0, 5);
-            this.tableLayoutPanel2.Controls.Add(this.lblProductWeight, 0, 4);
-            this.tableLayoutPanel2.Controls.Add(this.lblCustomer, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.lblProductType, 0, 3);
-            this.tableLayoutPanel2.Controls.Add(this.lblUsePlace, 0, 2);
-            this.tableLayoutPanel2.Controls.Add(this.txtUsePlace, 1, 2);
-            this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel3, 0, 7);
-            this.tableLayoutPanel2.Controls.Add(this.comboProductType, 1, 3);
+            this.tableLayoutPanel2.Controls.Add(this.txtProductCode, 1, 6);
+            this.tableLayoutPanel2.Controls.Add(this.txtProductWeight, 1, 5);
+            this.tableLayoutPanel2.Controls.Add(this.txtCustomer, 1, 2);
+            this.tableLayoutPanel2.Controls.Add(this.lblProductCode, 0, 6);
+            this.tableLayoutPanel2.Controls.Add(this.lblProductWeight, 0, 5);
+            this.tableLayoutPanel2.Controls.Add(this.lblCustomer, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.lblProductType, 0, 4);
+            this.tableLayoutPanel2.Controls.Add(this.lblUsePlace, 0, 3);
+            this.tableLayoutPanel2.Controls.Add(this.txtUsePlace, 1, 3);
+            this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel3, 0, 8);
+            this.tableLayoutPanel2.Controls.Add(this.comboProductType, 1, 4);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 17);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 8;
+            this.tableLayoutPanel2.RowCount = 9;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
@@ -135,7 +140,7 @@ namespace MaskManager.UserControls
             // txtProductCode
             // 
             this.txtProductCode.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtProductCode.Location = new System.Drawing.Point(83, 210);
+            this.txtProductCode.Location = new System.Drawing.Point(83, 250);
             this.txtProductCode.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.txtProductCode.Name = "txtProductCode";
             this.txtProductCode.Size = new System.Drawing.Size(116, 21);
@@ -144,7 +149,7 @@ namespace MaskManager.UserControls
             // txtProductWeight
             // 
             this.txtProductWeight.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtProductWeight.Location = new System.Drawing.Point(83, 170);
+            this.txtProductWeight.Location = new System.Drawing.Point(83, 210);
             this.txtProductWeight.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.txtProductWeight.Name = "txtProductWeight";
             this.txtProductWeight.Size = new System.Drawing.Size(116, 21);
@@ -153,7 +158,7 @@ namespace MaskManager.UserControls
             // txtCustomer
             // 
             this.txtCustomer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtCustomer.Location = new System.Drawing.Point(83, 50);
+            this.txtCustomer.Location = new System.Drawing.Point(83, 90);
             this.txtCustomer.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.txtCustomer.Name = "txtCustomer";
             this.txtCustomer.Size = new System.Drawing.Size(116, 21);
@@ -162,7 +167,7 @@ namespace MaskManager.UserControls
             // lblProductCode
             // 
             this.lblProductCode.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblProductCode.Location = new System.Drawing.Point(3, 203);
+            this.lblProductCode.Location = new System.Drawing.Point(3, 243);
             this.lblProductCode.Margin = new System.Windows.Forms.Padding(3);
             this.lblProductCode.Name = "lblProductCode";
             this.lblProductCode.Size = new System.Drawing.Size(74, 34);
@@ -173,7 +178,7 @@ namespace MaskManager.UserControls
             // lblProductWeight
             // 
             this.lblProductWeight.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblProductWeight.Location = new System.Drawing.Point(3, 163);
+            this.lblProductWeight.Location = new System.Drawing.Point(3, 203);
             this.lblProductWeight.Margin = new System.Windows.Forms.Padding(3);
             this.lblProductWeight.Name = "lblProductWeight";
             this.lblProductWeight.Size = new System.Drawing.Size(74, 34);
@@ -185,7 +190,7 @@ namespace MaskManager.UserControls
             // 
             this.lblCustomer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblCustomer.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblCustomer.Location = new System.Drawing.Point(3, 43);
+            this.lblCustomer.Location = new System.Drawing.Point(3, 83);
             this.lblCustomer.Margin = new System.Windows.Forms.Padding(3);
             this.lblCustomer.Name = "lblCustomer";
             this.lblCustomer.Size = new System.Drawing.Size(74, 34);
@@ -196,7 +201,7 @@ namespace MaskManager.UserControls
             // lblProductType
             // 
             this.lblProductType.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblProductType.Location = new System.Drawing.Point(3, 123);
+            this.lblProductType.Location = new System.Drawing.Point(3, 163);
             this.lblProductType.Margin = new System.Windows.Forms.Padding(3);
             this.lblProductType.Name = "lblProductType";
             this.lblProductType.Size = new System.Drawing.Size(74, 34);
@@ -207,7 +212,7 @@ namespace MaskManager.UserControls
             // lblUsePlace
             // 
             this.lblUsePlace.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblUsePlace.Location = new System.Drawing.Point(3, 83);
+            this.lblUsePlace.Location = new System.Drawing.Point(3, 123);
             this.lblUsePlace.Margin = new System.Windows.Forms.Padding(3);
             this.lblUsePlace.Name = "lblUsePlace";
             this.lblUsePlace.Size = new System.Drawing.Size(74, 34);
@@ -218,7 +223,7 @@ namespace MaskManager.UserControls
             // txtUsePlace
             // 
             this.txtUsePlace.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtUsePlace.Location = new System.Drawing.Point(83, 90);
+            this.txtUsePlace.Location = new System.Drawing.Point(83, 130);
             this.txtUsePlace.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.txtUsePlace.Name = "txtUsePlace";
             this.txtUsePlace.Size = new System.Drawing.Size(116, 21);
@@ -256,7 +261,7 @@ namespace MaskManager.UserControls
             // 
             this.comboProductType.Dock = System.Windows.Forms.DockStyle.Fill;
             this.comboProductType.FormattingEnabled = true;
-            this.comboProductType.Location = new System.Drawing.Point(83, 130);
+            this.comboProductType.Location = new System.Drawing.Point(83, 170);
             this.comboProductType.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.comboProductType.Name = "comboProductType";
             this.comboProductType.Size = new System.Drawing.Size(116, 20);
@@ -376,6 +381,27 @@ namespace MaskManager.UserControls
             this.comboSearchType.Size = new System.Drawing.Size(116, 20);
             this.comboSearchType.TabIndex = 32;
             // 
+            // lblProductName
+            // 
+            this.lblProductName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblProductName.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblProductName.Location = new System.Drawing.Point(3, 43);
+            this.lblProductName.Margin = new System.Windows.Forms.Padding(3);
+            this.lblProductName.Name = "lblProductName";
+            this.lblProductName.Size = new System.Drawing.Size(74, 34);
+            this.lblProductName.TabIndex = 33;
+            this.lblProductName.Text = "제품명";
+            this.lblProductName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // txtProductName
+            // 
+            this.txtProductName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtProductName.Location = new System.Drawing.Point(83, 50);
+            this.txtProductName.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.txtProductName.Name = "txtProductName";
+            this.txtProductName.Size = new System.Drawing.Size(116, 21);
+            this.txtProductName.TabIndex = 34;
+            // 
             // CS_ProductManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -429,5 +455,7 @@ namespace MaskManager.UserControls
         private System.Windows.Forms.DataGridView grdOriginalProduct;
         private System.Windows.Forms.Label lblSearchType;
         private System.Windows.Forms.ComboBox comboSearchType;
+        private System.Windows.Forms.TextBox txtProductName;
+        private System.Windows.Forms.Label lblProductName;
     }
 }

@@ -129,6 +129,9 @@ namespace MaskManager.UserControls
             {
                 string cName = c.ColumnName;
 
+                if (!prevRow.Table.Columns.Contains(cName) || !curRow.Table.Columns.Contains(cName))
+                    continue;
+
                 if (prevRow[cName].Equals(curRow[cName]))
                     continue;
                 else

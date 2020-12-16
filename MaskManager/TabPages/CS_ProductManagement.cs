@@ -27,6 +27,8 @@ namespace MaskManager.UserControls
         DataTable _OriginalSearchDt = new DataTable(); // 조회된 데이터 최초 테이블
         DataTable _searchDt = new DataTable(); // 조회후 행 추가를 하기위한 테이블
         DataTable _searchDt2 = new DataTable();
+        DateTimePicker _dtp = new DateTimePicker();
+        Rectangle _rectangle;
 
         /// <summary>
         /// 행 상태 타입
@@ -73,6 +75,56 @@ namespace MaskManager.UserControls
 
             grdOriginalProduct.CellDoubleClick += Grd_CellDoubleClick;
             grdNewProduct.CellDoubleClick += Grd_CellDoubleClick;
+
+            grdNewProduct.EditingControlShowing += GrdNewProduct_EditingControlShowing;
+
+            grdNewProduct.CellClick += GrdNewProduct_CellClick;
+        }
+
+        /// <summary>
+        /// DatePicker 컬럼지정
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void GrdNewProduct_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            switch (grdNewProduct.Columns[e.ColumnIndex].Name)
+            {
+                case "DWGUSEDATE":
+                    _rectangle = grdNewProduct.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, true); 
+                    _dtp.Size = new Size(_rectangle.Width, _rectangle.Height);  
+                    _dtp.Location = new Point(_rectangle.X, _rectangle.Y);  
+                    _dtp.Visible = true;
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// 특정셀에 숫자만 입력가능하도록 처리
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void GrdNewProduct_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            string name = grdNewProduct.CurrentCell.OwningColumn.Name;
+
+            if (name == "PRODUCTWEIGHT")      
+                e.Control.KeyPress += new KeyPressEventHandler(txtCheckNumeric_KeyPress);       
+            else       
+                e.Control.KeyPress -= new KeyPressEventHandler(txtCheckNumeric_KeyPress);        
+        }
+        
+        /// <summary>
+        /// .을 제외한 모든문자 입력불가
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtCheckNumeric_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '.')
+                return;
+            if (!(char.IsDigit(e.KeyChar) || e.KeyChar == Convert.ToChar(Keys.Back)))
+                e.Handled = true;
         }
 
         /// <summary>
@@ -96,6 +148,8 @@ namespace MaskManager.UserControls
                 addRow["PRODUCTCODE"] = addViewRow.Cells["PRODUCTCODE"].Value;
                 addRow["CUSTOMER"] = addViewRow.Cells["CUSTOMER"].Value;
                 addRow["USEDPLACE"] = addViewRow.Cells["USEDPLACE"].Value;
+                addRow["SITE"] = "SITE01";
+                addRow["INSPECTRATE"] = 0;
                 addRow["WEIGHT"] = addViewRow.Cells["WEIGHT"].Value;
                 addRow["ROWTYPE"] = rowChangeType.CREATE;
                 _searchDt.Rows.Add(addRow);
@@ -108,7 +162,7 @@ namespace MaskManager.UserControls
             // 신규품목 그리드일때
             else
             {
-                if (addViewRow.Cells["ROWTYPE"].Value.Equals("CREATE"))
+                if (addViewRow.Cells["ROWTYPE"].Value.Equals("CREATE") && e.ColumnIndex == 0)
                 {
                     // 기존품목 그리드에 행 추가
                     DataRow addRow = _searchDt2.NewRow();
@@ -123,6 +177,9 @@ namespace MaskManager.UserControls
 
                     // 신규품목 그리드에 행 삭제
                     grdNewProduct.Rows.Remove(addViewRow);
+
+                    // DatePicker Control 숨김
+                    _dtp.Visible = false;
                 }
             }
         }
@@ -160,6 +217,9 @@ namespace MaskManager.UserControls
             foreach (DataColumn c in prevRow.Table.Columns)
             {
                 string cName = c.ColumnName;
+
+                if (!prevRow.Table.Columns.Contains(cName) || !curRow.Table.Columns.Contains(cName))
+                    continue;
 
                 if (prevRow[cName].Equals(curRow[cName]))
                     continue;
@@ -208,6 +268,7 @@ namespace MaskManager.UserControls
                 DBManager dbManager = new DBManager();
                 List<SqlParameter> parameters = new List<SqlParameter>();
                 parameters.Add(new SqlParameter("@SEARCHTYPE", comboSearchType.SelectedValue)); // 조회구분
+                parameters.Add(new SqlParameter("@PRODUCTNAME", txtProductName.Text)); // 제품명
                 parameters.Add(new SqlParameter("@CUSTOMER", txtCustomer.Text)); // 고객명
                 parameters.Add(new SqlParameter("@USEDPLACE", txtUsePlace.Text)); // 사용처
                 parameters.Add(new SqlParameter("@PRODUCTTYPE", comboProductType.SelectedValue)); // 제품구분
@@ -230,6 +291,9 @@ namespace MaskManager.UserControls
                     _searchDt = ds.Tables[1];
                     _OriginalSearchDt = _searchDt.Copy();
                     grdNewProduct.DataSource = _searchDt;
+
+                    // DatePicker Control 숨김
+                    _dtp.Visible = false;
                 }
             }
             catch (Exception ex)
@@ -261,8 +325,7 @@ namespace MaskManager.UserControls
                 {
                     // 그리드에 신규, 수정, 삭제행이 없으면 Return
                     if ((grdNewProduct.DataSource as DataTable).AsEnumerable().Where(r => r["ROWTYPE"].Equals("CREATE")
-                                                                                 || r["ROWTYPE"].Equals("MODIFIY")
-                                                                                 || r["ROWTYPE"].Equals("DELETE")).Count() == 0)
+                                                                                 || r["ROWTYPE"].Equals("MODIFIY")).Count() == 0)
                     {
                         CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "저장할 데이터가 없습니다.");
                         return;
@@ -274,12 +337,13 @@ namespace MaskManager.UserControls
                     DBManager dbManager = new DBManager();
 
                     Dictionary<string, object> parameters = new Dictionary<string, object>();
-                    parameters.Add("@USERTYPE", comboProductType.SelectedValue);
-                    parameters.Add("@SAVEDATATABLE", grdNewProduct.DataSource as DataTable);
+                    DataTable saveDt = grdNewProduct.DataSource as DataTable;
+                    if (saveDt.Columns.Contains("WEIGHT")) saveDt.Columns.Remove("WEIGHT");
+                    parameters.Add("@SAVEDATATABLE", saveDt);
 
                     SqlParameter[] sqlPamaters = dbManager.GetSqlParameters(parameters);
 
-                    int SaveResult = dbManager.CallNonSelectProcedure("USP_UPSERT_USERMANAGEMENT", sqlPamaters);
+                    int SaveResult = dbManager.CallNonSelectProcedure("USP_UPSERT_PRODUCTMANAGEMENT", sqlPamaters);
 
                     if (SaveResult > 0)
                     {
@@ -313,6 +377,7 @@ namespace MaskManager.UserControls
             DBManager dbManager = new DBManager();
             List<SqlParameter> parameters = new List<SqlParameter>();
             parameters.Add(new SqlParameter("@CODECLASSID", "PRODUCT_TYPE")); // 제품구분
+            parameters.Add(new SqlParameter("@ISALL", "Y")); // 전체여부
             DataSet ds = dbManager.CallSelectProcedure_ds("USP_GET_CODELIST", parameters);
             comboProductType.DataSource = ds.Tables[0];
             comboProductType.DisplayMember = "CODENAME";
@@ -360,7 +425,6 @@ namespace MaskManager.UserControls
             grdNewProduct.SelectionMode = DataGridViewSelectionMode.CellSelect;
 
             CommonFuction.SetDataGridViewColumnStyle(grdNewProduct, "NO", "NO", "NO", typeof(string), 50, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdNewProduct, "제품ID", "PRODUCTID", "PRODUCTID", typeof(string), 100, true, false, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdNewProduct, "제품명", "PRODUCTNAME", "PRODUCTNAME", typeof(string), 250, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdNewProduct, "제품구분", "PRODUCTTYPE", "PRODUCTTYPE", typeof(string), 100, false, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdNewProduct, "도번", "PRODUCTCODE", "PRODUCTCODE", typeof(string), 150, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
@@ -370,22 +434,73 @@ namespace MaskManager.UserControls
             CommonFuction.SetDataGridViewColumnStyle(grdNewProduct, "도면구분", "DWGTYPE", "DWGTYPE", typeof(string), 100, false, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdNewProduct, "관리구분", "MANAGEMENTTYPE", "MANAGEMENTTYPE", typeof(string), 100, false, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdNewProduct, "도면개정일", "DWGUSEDATE", "DWGUSEDATE", typeof(string), 180, false, true, DataGridViewContentAlignment.MiddleCenter, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdNewProduct, "무게", "WEIGHT", "WEIGHT", typeof(float), 150, false, false, DataGridViewContentAlignment.MiddleCenter, 10);
+            // 히든컬럼
+            CommonFuction.SetDataGridViewColumnStyle(grdNewProduct, "검사수준", "INSPECTRATE", "INSPECTRATE", typeof(int), 100, false, false, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdNewProduct, "Site", "SITE", "SITE", typeof(string), 100, true, false, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdNewProduct, "무게", "WEIGHT", "WEIGHT", typeof(float), 100, true, false, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdNewProduct, "행변경타입", "ROWTYPE", "ROWTYPE", typeof(string), 100, false, false, DataGridViewContentAlignment.MiddleLeft, 10);
 
             // 콤보박스컬럼 설정
-            DataGridViewComboBoxCell comboCol = new DataGridViewComboBoxCell();
+            // 제품구분
             DBManager dbManager = new DBManager();
+            DataGridViewComboBoxCell comboCol = new DataGridViewComboBoxCell();
             List<SqlParameter> parameters = new List<SqlParameter>();
-            parameters.Add(new SqlParameter("@CODECLASSID", "PRODUCT_TYPE")); // 제품구분
+            parameters.Add(new SqlParameter("@CODECLASSID", "PRODUCT_TYPE"));
+            parameters.Add(new SqlParameter("@ISALL", "N"));
             DataSet ds = dbManager.CallSelectProcedure_ds("USP_GET_CODELIST", parameters);
             comboCol.DataSource = ds.Tables[0];
             comboCol.DisplayMember = "CODENAME";
             comboCol.ValueMember = "CODEID";
             grdNewProduct.Columns["PRODUCTTYPE"].CellTemplate = comboCol;
-            grdNewProduct.Columns["DWGTYPE"].CellTemplate = comboCol;
-            grdNewProduct.Columns["MANAGEMENTTYPE"].CellTemplate = comboCol;
+
+            // 도면구분
+            DataGridViewComboBoxCell comboCol2 = new DataGridViewComboBoxCell();
+            List<SqlParameter> parameters2 = new List<SqlParameter>();
+            parameters2.Add(new SqlParameter("@CODECLASSID", "DWG_TYPE"));
+            parameters2.Add(new SqlParameter("@ISALL", "N"));
+            DataSet ds2 = dbManager.CallSelectProcedure_ds("USP_GET_CODELIST", parameters2);
+            comboCol2.DataSource = ds2.Tables[0];
+            comboCol2.DisplayMember = "CODENAME";
+            comboCol2.ValueMember = "CODEID";
+            grdNewProduct.Columns["DWGTYPE"].CellTemplate = comboCol2;
+
+            // 관리구분
+            DataGridViewComboBoxCell comboCol3 = new DataGridViewComboBoxCell();
+            List<SqlParameter> parameters3 = new List<SqlParameter>();
+            parameters3.Add(new SqlParameter("@CODECLASSID", "MANAGE_TYPE"));
+            parameters3.Add(new SqlParameter("@ISALL", "N"));
+            DataSet ds3 = dbManager.CallSelectProcedure_ds("USP_GET_CODELIST", parameters3);
+            comboCol3.DataSource = ds3.Tables[0];
+            comboCol3.DisplayMember = "CODENAME";
+            comboCol3.ValueMember = "CODEID";
+            grdNewProduct.Columns["MANAGEMENTTYPE"].CellTemplate = comboCol3;
+
+            // 날짜형식컬럼 설정
+            SetDatePickerColumn();
         }
+
+        /// <summary>
+        /// 날짜형식컬럼 설정
+        /// </summary>
+        private void SetDatePickerColumn()
+        {
+            grdNewProduct.Controls.Add(_dtp);
+            _dtp.Visible = false;
+            _dtp.CustomFormat = "yyyy-MM-dd";
+            _dtp.Format = DateTimePickerFormat.Custom;
+            _dtp.TextChanged += new EventHandler(dtp_TextChange);            
+        }
+
+        /// <summary>
+        /// 그리드 셀에 날짜값 바인딩
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dtp_TextChange(object sender, EventArgs e)
+        {
+            grdNewProduct.CurrentCell.Value = _dtp.Text.ToString();
+        }
+
         #endregion
     }
 }
