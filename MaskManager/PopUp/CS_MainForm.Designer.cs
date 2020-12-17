@@ -64,6 +64,7 @@
             this.btnUserManagement = new System.Windows.Forms.Button();
             this.btnDefectCodeManagement = new System.Windows.Forms.Button();
             this.btnProductManagement = new System.Windows.Forms.Button();
+            this.btnRegWorkorder = new System.Windows.Forms.Button();
             this.btnAIJubgmentInfo = new System.Windows.Forms.Button();
             this.btnAIJubgmentHistory = new System.Windows.Forms.Button();
             this.panelAIjubgmentInfo = new System.Windows.Forms.Panel();
@@ -73,7 +74,6 @@
             this.panelUserManagement = new System.Windows.Forms.Panel();
             this.panelDefectCodeManagement = new System.Windows.Forms.Panel();
             this.panelProductManagement = new System.Windows.Forms.Panel();
-            this.btnRegWorkorder = new System.Windows.Forms.Button();
             this.panelRegWorkorder = new System.Windows.Forms.Panel();
             this.tableLayoutPanel3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -585,6 +585,26 @@
             this.btnProductManagement.Text = "제품등록";
             this.btnProductManagement.UseVisualStyleBackColor = false;
             // 
+            // btnRegWorkorder
+            // 
+            this.btnRegWorkorder.BackColor = System.Drawing.Color.Transparent;
+            this.btnRegWorkorder.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRegWorkorder.FlatAppearance.BorderColor = System.Drawing.Color.LightSlateGray;
+            this.btnRegWorkorder.FlatAppearance.BorderSize = 0;
+            this.btnRegWorkorder.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
+            this.btnRegWorkorder.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro;
+            this.btnRegWorkorder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRegWorkorder.Font = new System.Drawing.Font("맑은 고딕", 10F);
+            this.btnRegWorkorder.ForeColor = System.Drawing.SystemColors.Window;
+            this.btnRegWorkorder.Image = ((System.Drawing.Image)(resources.GetObject("btnRegWorkorder.Image")));
+            this.btnRegWorkorder.Location = new System.Drawing.Point(373, 2);
+            this.btnRegWorkorder.Margin = new System.Windows.Forms.Padding(2);
+            this.btnRegWorkorder.Name = "btnRegWorkorder";
+            this.btnRegWorkorder.Size = new System.Drawing.Size(113, 33);
+            this.btnRegWorkorder.TabIndex = 44;
+            this.btnRegWorkorder.Text = "작업계획등록";
+            this.btnRegWorkorder.UseVisualStyleBackColor = false;
+            // 
             // btnAIJubgmentInfo
             // 
             this.btnAIJubgmentInfo.BackColor = System.Drawing.Color.Transparent;
@@ -707,26 +727,6 @@
             this.panelProductManagement.Size = new System.Drawing.Size(1077, 580);
             this.panelProductManagement.TabIndex = 44;
             // 
-            // btnRegWorkorder
-            // 
-            this.btnRegWorkorder.BackColor = System.Drawing.Color.Transparent;
-            this.btnRegWorkorder.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRegWorkorder.FlatAppearance.BorderColor = System.Drawing.Color.LightSlateGray;
-            this.btnRegWorkorder.FlatAppearance.BorderSize = 0;
-            this.btnRegWorkorder.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
-            this.btnRegWorkorder.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro;
-            this.btnRegWorkorder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRegWorkorder.Font = new System.Drawing.Font("맑은 고딕", 10F);
-            this.btnRegWorkorder.ForeColor = System.Drawing.SystemColors.Window;
-            this.btnRegWorkorder.Image = ((System.Drawing.Image)(resources.GetObject("btnRegWorkorder.Image")));
-            this.btnRegWorkorder.Location = new System.Drawing.Point(373, 2);
-            this.btnRegWorkorder.Margin = new System.Windows.Forms.Padding(2);
-            this.btnRegWorkorder.Name = "btnRegWorkorder";
-            this.btnRegWorkorder.Size = new System.Drawing.Size(113, 33);
-            this.btnRegWorkorder.TabIndex = 44;
-            this.btnRegWorkorder.Text = "작업계획등록";
-            this.btnRegWorkorder.UseVisualStyleBackColor = false;
-            // 
             // panelRegWorkorder
             // 
             this.panelRegWorkorder.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -753,7 +753,7 @@
             this.Controls.Add(this.panelDefectCodeManagement);
             this.Controls.Add(this.panelProductManagement);
             this.Controls.Add(this.panelRegWorkorder);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "CS_MainForm";
