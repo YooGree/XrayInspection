@@ -82,12 +82,14 @@ namespace MaskManager.UserControls
         }
 
         /// <summary>
-        /// DatePicker 컬럼지정
+        /// DatePicker 컬럼 만들기
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void GrdNewProduct_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.ColumnIndex < 0) return;
+
             switch (grdNewProduct.Columns[e.ColumnIndex].Name)
             {
                 case "DWGUSEDATE":
@@ -162,7 +164,7 @@ namespace MaskManager.UserControls
             // 신규품목 그리드일때
             else
             {
-                if (addViewRow.Cells["ROWTYPE"].Value.Equals("CREATE") && e.ColumnIndex == 0)
+                if (addViewRow.Cells["ROWTYPE"].Value.Equals("CREATE") && e.ColumnIndex == -1)
                 {
                     // 기존품목 그리드에 행 추가
                     DataRow addRow = _searchDt2.NewRow();
@@ -241,7 +243,8 @@ namespace MaskManager.UserControls
         {
             DataGridView view = (DataGridView)sender;
 
-            view.Rows[e.RowIndex].Cells[0].Value = (e.RowIndex + 1).ToString();
+            Rectangle rect = new Rectangle(e.RowBounds.Location.X, e.RowBounds.Location.Y, view.RowHeadersWidth - 4, e.RowBounds.Height);
+            TextRenderer.DrawText(e.Graphics, (e.RowIndex + 1).ToString(), view.RowHeadersDefaultCellStyle.Font, rect, view.RowHeadersDefaultCellStyle.ForeColor, TextFormatFlags.VerticalCenter | TextFormatFlags.Right);
         }
 
         #endregion
@@ -409,7 +412,6 @@ namespace MaskManager.UserControls
             grdOriginalProduct.DefaultCellStyle.SelectionBackColor = Color.Yellow;
             grdOriginalProduct.DefaultCellStyle.SelectionForeColor = Color.Black;
 
-            CommonFuction.SetDataGridViewColumnStyle(grdOriginalProduct, "NO", "NO", "NO", typeof(string), 50, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdOriginalProduct, "고객명", "CUSTOMER", "CUSTOMER", typeof(int), 150, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdOriginalProduct, "사용처", "USEDPLACE", "USEDPLACE", typeof(string), 150, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdOriginalProduct, "제품명", "PRODUCTNAME", "PRODUCTNAME", typeof(string), 250, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
@@ -424,7 +426,6 @@ namespace MaskManager.UserControls
             grdNewProduct.AllowUserToAddRows = false;
             grdNewProduct.SelectionMode = DataGridViewSelectionMode.CellSelect;
 
-            CommonFuction.SetDataGridViewColumnStyle(grdNewProduct, "NO", "NO", "NO", typeof(string), 50, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdNewProduct, "제품명", "PRODUCTNAME", "PRODUCTNAME", typeof(string), 250, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdNewProduct, "제품구분", "PRODUCTTYPE", "PRODUCTTYPE", typeof(string), 100, false, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdNewProduct, "도번", "PRODUCTCODE", "PRODUCTCODE", typeof(string), 150, true, true, DataGridViewContentAlignment.MiddleCenter, 10);

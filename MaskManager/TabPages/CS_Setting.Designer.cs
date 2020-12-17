@@ -34,20 +34,20 @@ namespace MaskManager.TabPages
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnSave = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
+            this.gbxSetting = new System.Windows.Forms.GroupBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.gbxSetting = new System.Windows.Forms.GroupBox();
             this.maskCodeHelper3 = new MaskManager.UserControls.MaskCodeHelper();
             this.maskCodeHelper4 = new MaskManager.UserControls.MaskCodeHelper();
             this.maskTextBox1 = new MaskManager.UserControls.MaskTextBox();
             this.maskTextBox4 = new MaskManager.UserControls.MaskTextBox();
             this.tableLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.gbxSetting.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel2
@@ -80,17 +80,21 @@ namespace MaskManager.TabPages
             // 
             // btnSave
             // 
+            this.btnSave.BackColor = System.Drawing.Color.DimGray;
+            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSave.ForeColor = System.Drawing.Color.White;
             this.btnSave.Location = new System.Drawing.Point(777, 3);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(80, 34);
             this.btnSave.TabIndex = 2;
             this.btnSave.Text = "저장";
-            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.UseVisualStyleBackColor = false;
             // 
             // lblTitle
             // 
             this.lblTitle.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblTitle.Font = new System.Drawing.Font("맑은 고딕", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lblTitle.ForeColor = System.Drawing.Color.White;
             this.lblTitle.Location = new System.Drawing.Point(3, 3);
             this.lblTitle.Margin = new System.Windows.Forms.Padding(3);
             this.lblTitle.Name = "lblTitle";
@@ -98,6 +102,19 @@ namespace MaskManager.TabPages
             this.lblTitle.TabIndex = 7;
             this.lblTitle.Text = "환경설정";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // gbxSetting
+            // 
+            this.tableLayoutPanel2.SetColumnSpan(this.gbxSetting, 2);
+            this.gbxSetting.Controls.Add(this.panel2);
+            this.gbxSetting.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gbxSetting.ForeColor = System.Drawing.Color.White;
+            this.gbxSetting.Location = new System.Drawing.Point(3, 53);
+            this.gbxSetting.Name = "gbxSetting";
+            this.gbxSetting.Size = new System.Drawing.Size(1068, 571);
+            this.gbxSetting.TabIndex = 8;
+            this.gbxSetting.TabStop = false;
+            this.gbxSetting.Text = "영상 및 이미지 저장정보";
             // 
             // panel2
             // 
@@ -155,18 +172,6 @@ namespace MaskManager.TabPages
             this.label8.TabIndex = 6;
             this.label8.Text = "* X-RAY 동영상 저장 위치입니다.";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // gbxSetting
-            // 
-            this.tableLayoutPanel2.SetColumnSpan(this.gbxSetting, 2);
-            this.gbxSetting.Controls.Add(this.panel2);
-            this.gbxSetting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gbxSetting.Location = new System.Drawing.Point(3, 53);
-            this.gbxSetting.Name = "gbxSetting";
-            this.gbxSetting.Size = new System.Drawing.Size(1068, 571);
-            this.gbxSetting.TabIndex = 8;
-            this.gbxSetting.TabStop = false;
-            this.gbxSetting.Text = "영상 및 이미지 저장정보";
             // 
             // maskCodeHelper3
             // 
@@ -230,8 +235,8 @@ namespace MaskManager.TabPages
             this.Size = new System.Drawing.Size(1074, 627);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
             this.gbxSetting.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

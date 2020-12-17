@@ -29,6 +29,12 @@ namespace MaskManager.UserControls
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle73 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle74 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle75 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle76 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle77 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle78 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.gbxSearchCondition = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -128,6 +134,7 @@ namespace MaskManager.UserControls
             // 
             this.gbxSearchCondition.Controls.Add(this.tableLayoutPanel2);
             this.gbxSearchCondition.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gbxSearchCondition.ForeColor = System.Drawing.Color.White;
             this.gbxSearchCondition.Location = new System.Drawing.Point(3, 43);
             this.gbxSearchCondition.Name = "gbxSearchCondition";
             this.gbxSearchCondition.Size = new System.Drawing.Size(208, 581);
@@ -176,7 +183,7 @@ namespace MaskManager.UserControls
             // lblSearchLevel
             // 
             this.lblSearchLevel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblSearchLevel.ForeColor = System.Drawing.Color.Red;
+            this.lblSearchLevel.ForeColor = System.Drawing.Color.Pink;
             this.lblSearchLevel.Location = new System.Drawing.Point(3, 3);
             this.lblSearchLevel.Margin = new System.Windows.Forms.Padding(3);
             this.lblSearchLevel.Name = "lblSearchLevel";
@@ -198,7 +205,7 @@ namespace MaskManager.UserControls
             // lblSearchValidState
             // 
             this.lblSearchValidState.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblSearchValidState.ForeColor = System.Drawing.Color.Red;
+            this.lblSearchValidState.ForeColor = System.Drawing.Color.Pink;
             this.lblSearchValidState.Location = new System.Drawing.Point(3, 43);
             this.lblSearchValidState.Margin = new System.Windows.Forms.Padding(3);
             this.lblSearchValidState.Name = "lblSearchValidState";
@@ -266,19 +273,23 @@ namespace MaskManager.UserControls
             // 
             // btnSearch
             // 
+            this.btnSearch.BackColor = System.Drawing.Color.DimGray;
             this.tableLayoutPanel3.SetColumnSpan(this.btnSearch, 2);
             this.btnSearch.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSearch.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btnSearch.Location = new System.Drawing.Point(3, 5);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(196, 32);
             this.btnSearch.TabIndex = 4;
             this.btnSearch.Text = "조회";
-            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.UseVisualStyleBackColor = false;
             // 
             // lblTitle
             // 
             this.lblTitle.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblTitle.Font = new System.Drawing.Font("맑은 고딕", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lblTitle.ForeColor = System.Drawing.Color.White;
             this.lblTitle.Location = new System.Drawing.Point(3, 3);
             this.lblTitle.Margin = new System.Windows.Forms.Padding(3);
             this.lblTitle.Name = "lblTitle";
@@ -291,6 +302,7 @@ namespace MaskManager.UserControls
             // 
             this.gbxDefectCode.Controls.Add(this.tableLayoutPanel4);
             this.gbxDefectCode.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gbxDefectCode.ForeColor = System.Drawing.Color.White;
             this.gbxDefectCode.Location = new System.Drawing.Point(217, 43);
             this.gbxDefectCode.Name = "gbxDefectCode";
             this.gbxDefectCode.Size = new System.Drawing.Size(854, 581);
@@ -391,17 +403,19 @@ namespace MaskManager.UserControls
             // lblDetailUseable
             // 
             this.lblDetailUseable.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblDetailUseable.ForeColor = System.Drawing.Color.White;
             this.lblDetailUseable.Location = new System.Drawing.Point(3, 83);
             this.lblDetailUseable.Margin = new System.Windows.Forms.Padding(3);
             this.lblDetailUseable.Name = "lblDetailUseable";
             this.lblDetailUseable.Size = new System.Drawing.Size(94, 34);
             this.lblDetailUseable.TabIndex = 3;
-            this.lblDetailUseable.Text = "사용여부";
+            this.lblDetailUseable.Text = "유효여부";
             this.lblDetailUseable.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblDetailName
             // 
             this.lblDetailName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblDetailName.ForeColor = System.Drawing.Color.White;
             this.lblDetailName.Location = new System.Drawing.Point(3, 43);
             this.lblDetailName.Margin = new System.Windows.Forms.Padding(3);
             this.lblDetailName.Name = "lblDetailName";
@@ -413,7 +427,7 @@ namespace MaskManager.UserControls
             // lblDetailCode
             // 
             this.lblDetailCode.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblDetailCode.ForeColor = System.Drawing.Color.Red;
+            this.lblDetailCode.ForeColor = System.Drawing.Color.Pink;
             this.lblDetailCode.Location = new System.Drawing.Point(3, 3);
             this.lblDetailCode.Margin = new System.Windows.Forms.Padding(3);
             this.lblDetailCode.Name = "lblDetailCode";
@@ -426,6 +440,7 @@ namespace MaskManager.UserControls
             // 
             this.gbxTopCategory.Controls.Add(this.grdTopCategory);
             this.gbxTopCategory.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gbxTopCategory.ForeColor = System.Drawing.Color.White;
             this.gbxTopCategory.Location = new System.Drawing.Point(3, 3);
             this.gbxTopCategory.Name = "gbxTopCategory";
             this.gbxTopCategory.Size = new System.Drawing.Size(269, 306);
@@ -435,8 +450,25 @@ namespace MaskManager.UserControls
             // 
             // grdTopCategory
             // 
+            dataGridViewCellStyle73.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle73.BackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle73.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle73.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle73.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle73.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle73.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grdTopCategory.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle73;
             this.grdTopCategory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle74.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle74.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle74.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle74.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle74.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle74.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle74.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grdTopCategory.DefaultCellStyle = dataGridViewCellStyle74;
             this.grdTopCategory.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdTopCategory.EnableHeadersVisualStyles = false;
             this.grdTopCategory.Location = new System.Drawing.Point(3, 17);
             this.grdTopCategory.Name = "grdTopCategory";
             this.grdTopCategory.RowTemplate.Height = 23;
@@ -457,26 +489,33 @@ namespace MaskManager.UserControls
             // 
             // btnTopSave
             // 
+            this.btnTopSave.BackColor = System.Drawing.Color.DimGray;
+            this.btnTopSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTopSave.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btnTopSave.Location = new System.Drawing.Point(192, 3);
             this.btnTopSave.Name = "btnTopSave";
             this.btnTopSave.Size = new System.Drawing.Size(80, 28);
             this.btnTopSave.TabIndex = 2;
             this.btnTopSave.Text = "저장";
-            this.btnTopSave.UseVisualStyleBackColor = true;
+            this.btnTopSave.UseVisualStyleBackColor = false;
             // 
             // btnTopAdd
             // 
+            this.btnTopAdd.BackColor = System.Drawing.Color.DimGray;
+            this.btnTopAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTopAdd.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btnTopAdd.Location = new System.Drawing.Point(106, 3);
             this.btnTopAdd.Name = "btnTopAdd";
             this.btnTopAdd.Size = new System.Drawing.Size(80, 28);
             this.btnTopAdd.TabIndex = 5;
             this.btnTopAdd.Text = "추가";
-            this.btnTopAdd.UseVisualStyleBackColor = true;
+            this.btnTopAdd.UseVisualStyleBackColor = false;
             // 
             // gbxMiddleCategory
             // 
             this.gbxMiddleCategory.Controls.Add(this.grdMiddleCategory);
             this.gbxMiddleCategory.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gbxMiddleCategory.ForeColor = System.Drawing.Color.White;
             this.gbxMiddleCategory.Location = new System.Drawing.Point(288, 3);
             this.gbxMiddleCategory.Name = "gbxMiddleCategory";
             this.gbxMiddleCategory.Size = new System.Drawing.Size(270, 306);
@@ -486,8 +525,25 @@ namespace MaskManager.UserControls
             // 
             // grdMiddleCategory
             // 
+            dataGridViewCellStyle75.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle75.BackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle75.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle75.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle75.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle75.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle75.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grdMiddleCategory.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle75;
             this.grdMiddleCategory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle76.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle76.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle76.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle76.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle76.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle76.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle76.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grdMiddleCategory.DefaultCellStyle = dataGridViewCellStyle76;
             this.grdMiddleCategory.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdMiddleCategory.EnableHeadersVisualStyles = false;
             this.grdMiddleCategory.Location = new System.Drawing.Point(3, 17);
             this.grdMiddleCategory.Name = "grdMiddleCategory";
             this.grdMiddleCategory.RowTemplate.Height = 23;
@@ -498,6 +554,7 @@ namespace MaskManager.UserControls
             // 
             this.gbxDetailCategory.Controls.Add(this.grdDetailCategory);
             this.gbxDetailCategory.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gbxDetailCategory.ForeColor = System.Drawing.Color.White;
             this.gbxDetailCategory.Location = new System.Drawing.Point(574, 3);
             this.gbxDetailCategory.Name = "gbxDetailCategory";
             this.gbxDetailCategory.Size = new System.Drawing.Size(271, 306);
@@ -507,8 +564,25 @@ namespace MaskManager.UserControls
             // 
             // grdDetailCategory
             // 
+            dataGridViewCellStyle77.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle77.BackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle77.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle77.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle77.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle77.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle77.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grdDetailCategory.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle77;
             this.grdDetailCategory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle78.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle78.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle78.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle78.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle78.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle78.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle78.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grdDetailCategory.DefaultCellStyle = dataGridViewCellStyle78;
             this.grdDetailCategory.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdDetailCategory.EnableHeadersVisualStyles = false;
             this.grdDetailCategory.Location = new System.Drawing.Point(3, 17);
             this.grdDetailCategory.Name = "grdDetailCategory";
             this.grdDetailCategory.RowTemplate.Height = 23;
@@ -529,21 +603,27 @@ namespace MaskManager.UserControls
             // 
             // btnMiddleSave
             // 
+            this.btnMiddleSave.BackColor = System.Drawing.Color.DimGray;
+            this.btnMiddleSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMiddleSave.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btnMiddleSave.Location = new System.Drawing.Point(193, 3);
             this.btnMiddleSave.Name = "btnMiddleSave";
             this.btnMiddleSave.Size = new System.Drawing.Size(80, 28);
             this.btnMiddleSave.TabIndex = 2;
             this.btnMiddleSave.Text = "저장";
-            this.btnMiddleSave.UseVisualStyleBackColor = true;
+            this.btnMiddleSave.UseVisualStyleBackColor = false;
             // 
             // btnMiddleAdd
             // 
+            this.btnMiddleAdd.BackColor = System.Drawing.Color.DimGray;
+            this.btnMiddleAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMiddleAdd.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btnMiddleAdd.Location = new System.Drawing.Point(107, 3);
             this.btnMiddleAdd.Name = "btnMiddleAdd";
             this.btnMiddleAdd.Size = new System.Drawing.Size(80, 28);
             this.btnMiddleAdd.TabIndex = 5;
             this.btnMiddleAdd.Text = "추가";
-            this.btnMiddleAdd.UseVisualStyleBackColor = true;
+            this.btnMiddleAdd.UseVisualStyleBackColor = false;
             // 
             // flowLayoutPanel3
             // 
@@ -559,21 +639,27 @@ namespace MaskManager.UserControls
             // 
             // btnDetailSave
             // 
+            this.btnDetailSave.BackColor = System.Drawing.Color.DimGray;
+            this.btnDetailSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDetailSave.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btnDetailSave.Location = new System.Drawing.Point(194, 3);
             this.btnDetailSave.Name = "btnDetailSave";
             this.btnDetailSave.Size = new System.Drawing.Size(80, 28);
             this.btnDetailSave.TabIndex = 2;
             this.btnDetailSave.Text = "저장";
-            this.btnDetailSave.UseVisualStyleBackColor = true;
+            this.btnDetailSave.UseVisualStyleBackColor = false;
             // 
             // btnDetailAdd
             // 
+            this.btnDetailAdd.BackColor = System.Drawing.Color.DimGray;
+            this.btnDetailAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDetailAdd.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btnDetailAdd.Location = new System.Drawing.Point(108, 3);
             this.btnDetailAdd.Name = "btnDetailAdd";
             this.btnDetailAdd.Size = new System.Drawing.Size(80, 28);
             this.btnDetailAdd.TabIndex = 5;
             this.btnDetailAdd.Text = "추가";
-            this.btnDetailAdd.UseVisualStyleBackColor = true;
+            this.btnDetailAdd.UseVisualStyleBackColor = false;
             // 
             // groupBox1
             // 
@@ -640,17 +726,19 @@ namespace MaskManager.UserControls
             // lblMiddleUseable
             // 
             this.lblMiddleUseable.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblMiddleUseable.ForeColor = System.Drawing.Color.White;
             this.lblMiddleUseable.Location = new System.Drawing.Point(3, 83);
             this.lblMiddleUseable.Margin = new System.Windows.Forms.Padding(3);
             this.lblMiddleUseable.Name = "lblMiddleUseable";
             this.lblMiddleUseable.Size = new System.Drawing.Size(94, 34);
             this.lblMiddleUseable.TabIndex = 3;
-            this.lblMiddleUseable.Text = "사용여부";
+            this.lblMiddleUseable.Text = "유효여부";
             this.lblMiddleUseable.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblMiddleName
             // 
             this.lblMiddleName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblMiddleName.ForeColor = System.Drawing.Color.White;
             this.lblMiddleName.Location = new System.Drawing.Point(3, 43);
             this.lblMiddleName.Margin = new System.Windows.Forms.Padding(3);
             this.lblMiddleName.Name = "lblMiddleName";
@@ -662,7 +750,7 @@ namespace MaskManager.UserControls
             // lblMiddleCode
             // 
             this.lblMiddleCode.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblMiddleCode.ForeColor = System.Drawing.Color.Red;
+            this.lblMiddleCode.ForeColor = System.Drawing.Color.Pink;
             this.lblMiddleCode.Location = new System.Drawing.Point(3, 3);
             this.lblMiddleCode.Margin = new System.Windows.Forms.Padding(3);
             this.lblMiddleCode.Name = "lblMiddleCode";
@@ -716,7 +804,7 @@ namespace MaskManager.UserControls
             // lblTopCode
             // 
             this.lblTopCode.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblTopCode.ForeColor = System.Drawing.Color.Red;
+            this.lblTopCode.ForeColor = System.Drawing.Color.Pink;
             this.lblTopCode.Location = new System.Drawing.Point(3, 3);
             this.lblTopCode.Margin = new System.Windows.Forms.Padding(3);
             this.lblTopCode.Name = "lblTopCode";
@@ -728,6 +816,7 @@ namespace MaskManager.UserControls
             // lblTopName
             // 
             this.lblTopName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblTopName.ForeColor = System.Drawing.Color.White;
             this.lblTopName.Location = new System.Drawing.Point(3, 43);
             this.lblTopName.Margin = new System.Windows.Forms.Padding(3);
             this.lblTopName.Name = "lblTopName";
@@ -739,12 +828,13 @@ namespace MaskManager.UserControls
             // lblTopUseable
             // 
             this.lblTopUseable.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblTopUseable.ForeColor = System.Drawing.Color.White;
             this.lblTopUseable.Location = new System.Drawing.Point(3, 83);
             this.lblTopUseable.Margin = new System.Windows.Forms.Padding(3);
             this.lblTopUseable.Name = "lblTopUseable";
             this.lblTopUseable.Size = new System.Drawing.Size(94, 34);
             this.lblTopUseable.TabIndex = 2;
-            this.lblTopUseable.Text = "사용여부";
+            this.lblTopUseable.Text = "유효여부";
             this.lblTopUseable.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // txtTopCode

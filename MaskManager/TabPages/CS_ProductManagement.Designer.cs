@@ -29,9 +29,17 @@ namespace MaskManager.UserControls
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.gbxSearchCondition = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.txtProductName = new System.Windows.Forms.TextBox();
+            this.lblProductName = new System.Windows.Forms.Label();
+            this.comboSearchType = new System.Windows.Forms.ComboBox();
+            this.lblSearchType = new System.Windows.Forms.Label();
             this.txtProductCode = new System.Windows.Forms.TextBox();
             this.txtProductWeight = new System.Windows.Forms.TextBox();
             this.txtCustomer = new System.Windows.Forms.TextBox();
@@ -52,10 +60,6 @@ namespace MaskManager.UserControls
             this.grdOriginalProduct = new System.Windows.Forms.DataGridView();
             this.gbxNewProduct = new System.Windows.Forms.GroupBox();
             this.grdNewProduct = new System.Windows.Forms.DataGridView();
-            this.lblSearchType = new System.Windows.Forms.Label();
-            this.comboSearchType = new System.Windows.Forms.ComboBox();
-            this.lblProductName = new System.Windows.Forms.Label();
-            this.txtProductName = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.gbxSearchCondition.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -93,6 +97,7 @@ namespace MaskManager.UserControls
             // 
             this.gbxSearchCondition.Controls.Add(this.tableLayoutPanel2);
             this.gbxSearchCondition.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gbxSearchCondition.ForeColor = System.Drawing.Color.White;
             this.gbxSearchCondition.Location = new System.Drawing.Point(3, 43);
             this.gbxSearchCondition.Name = "gbxSearchCondition";
             this.gbxSearchCondition.Size = new System.Drawing.Size(208, 581);
@@ -136,6 +141,49 @@ namespace MaskManager.UserControls
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(202, 561);
             this.tableLayoutPanel2.TabIndex = 0;
+            // 
+            // txtProductName
+            // 
+            this.txtProductName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtProductName.Location = new System.Drawing.Point(83, 50);
+            this.txtProductName.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.txtProductName.Name = "txtProductName";
+            this.txtProductName.Size = new System.Drawing.Size(116, 21);
+            this.txtProductName.TabIndex = 34;
+            // 
+            // lblProductName
+            // 
+            this.lblProductName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblProductName.ForeColor = System.Drawing.Color.White;
+            this.lblProductName.Location = new System.Drawing.Point(3, 43);
+            this.lblProductName.Margin = new System.Windows.Forms.Padding(3);
+            this.lblProductName.Name = "lblProductName";
+            this.lblProductName.Size = new System.Drawing.Size(74, 34);
+            this.lblProductName.TabIndex = 33;
+            this.lblProductName.Text = "제품명";
+            this.lblProductName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // comboSearchType
+            // 
+            this.comboSearchType.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comboSearchType.FormattingEnabled = true;
+            this.comboSearchType.Location = new System.Drawing.Point(83, 10);
+            this.comboSearchType.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.comboSearchType.Name = "comboSearchType";
+            this.comboSearchType.Size = new System.Drawing.Size(116, 20);
+            this.comboSearchType.TabIndex = 32;
+            // 
+            // lblSearchType
+            // 
+            this.lblSearchType.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblSearchType.ForeColor = System.Drawing.Color.Pink;
+            this.lblSearchType.Location = new System.Drawing.Point(3, 3);
+            this.lblSearchType.Margin = new System.Windows.Forms.Padding(3);
+            this.lblSearchType.Name = "lblSearchType";
+            this.lblSearchType.Size = new System.Drawing.Size(74, 34);
+            this.lblSearchType.TabIndex = 31;
+            this.lblSearchType.Text = "조회구분";
+            this.lblSearchType.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // txtProductCode
             // 
@@ -189,7 +237,7 @@ namespace MaskManager.UserControls
             // lblCustomer
             // 
             this.lblCustomer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblCustomer.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblCustomer.ForeColor = System.Drawing.Color.White;
             this.lblCustomer.Location = new System.Drawing.Point(3, 83);
             this.lblCustomer.Margin = new System.Windows.Forms.Padding(3);
             this.lblCustomer.Name = "lblCustomer";
@@ -248,14 +296,17 @@ namespace MaskManager.UserControls
             // 
             // btnSearch
             // 
+            this.btnSearch.BackColor = System.Drawing.Color.DimGray;
             this.tableLayoutPanel3.SetColumnSpan(this.btnSearch, 2);
             this.btnSearch.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSearch.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btnSearch.Location = new System.Drawing.Point(3, 5);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(196, 32);
             this.btnSearch.TabIndex = 4;
             this.btnSearch.Text = "조회";
-            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.UseVisualStyleBackColor = false;
             // 
             // comboProductType
             // 
@@ -280,17 +331,22 @@ namespace MaskManager.UserControls
             // 
             // btnSave
             // 
+            this.btnSave.BackColor = System.Drawing.Color.DimGray;
+            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSave.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btnSave.ForeColor = System.Drawing.Color.White;
             this.btnSave.Location = new System.Drawing.Point(777, 3);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(80, 28);
             this.btnSave.TabIndex = 2;
             this.btnSave.Text = "저장";
-            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.UseVisualStyleBackColor = false;
             // 
             // lblTitle
             // 
             this.lblTitle.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblTitle.Font = new System.Drawing.Font("맑은 고딕", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lblTitle.ForeColor = System.Drawing.Color.White;
             this.lblTitle.Location = new System.Drawing.Point(3, 3);
             this.lblTitle.Margin = new System.Windows.Forms.Padding(3);
             this.lblTitle.Name = "lblTitle";
@@ -321,6 +377,7 @@ namespace MaskManager.UserControls
             // 
             this.gbxOriginalProduct.Controls.Add(this.grdOriginalProduct);
             this.gbxOriginalProduct.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gbxOriginalProduct.ForeColor = System.Drawing.Color.White;
             this.gbxOriginalProduct.Location = new System.Drawing.Point(0, 0);
             this.gbxOriginalProduct.Name = "gbxOriginalProduct";
             this.gbxOriginalProduct.Size = new System.Drawing.Size(854, 284);
@@ -330,8 +387,25 @@ namespace MaskManager.UserControls
             // 
             // grdOriginalProduct
             // 
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grdOriginalProduct.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.grdOriginalProduct.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grdOriginalProduct.DefaultCellStyle = dataGridViewCellStyle2;
             this.grdOriginalProduct.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdOriginalProduct.EnableHeadersVisualStyles = false;
             this.grdOriginalProduct.Location = new System.Drawing.Point(3, 17);
             this.grdOriginalProduct.Name = "grdOriginalProduct";
             this.grdOriginalProduct.RowTemplate.Height = 23;
@@ -342,6 +416,7 @@ namespace MaskManager.UserControls
             // 
             this.gbxNewProduct.Controls.Add(this.grdNewProduct);
             this.gbxNewProduct.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gbxNewProduct.ForeColor = System.Drawing.Color.White;
             this.gbxNewProduct.Location = new System.Drawing.Point(0, 0);
             this.gbxNewProduct.Name = "gbxNewProduct";
             this.gbxNewProduct.Size = new System.Drawing.Size(854, 293);
@@ -351,56 +426,30 @@ namespace MaskManager.UserControls
             // 
             // grdNewProduct
             // 
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grdNewProduct.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.grdNewProduct.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grdNewProduct.DefaultCellStyle = dataGridViewCellStyle4;
             this.grdNewProduct.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdNewProduct.EnableHeadersVisualStyles = false;
             this.grdNewProduct.Location = new System.Drawing.Point(3, 17);
             this.grdNewProduct.Name = "grdNewProduct";
             this.grdNewProduct.RowTemplate.Height = 23;
             this.grdNewProduct.Size = new System.Drawing.Size(848, 273);
             this.grdNewProduct.TabIndex = 0;
-            // 
-            // lblSearchType
-            // 
-            this.lblSearchType.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblSearchType.ForeColor = System.Drawing.Color.Red;
-            this.lblSearchType.Location = new System.Drawing.Point(3, 3);
-            this.lblSearchType.Margin = new System.Windows.Forms.Padding(3);
-            this.lblSearchType.Name = "lblSearchType";
-            this.lblSearchType.Size = new System.Drawing.Size(74, 34);
-            this.lblSearchType.TabIndex = 31;
-            this.lblSearchType.Text = "조회구분";
-            this.lblSearchType.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // comboSearchType
-            // 
-            this.comboSearchType.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.comboSearchType.FormattingEnabled = true;
-            this.comboSearchType.Location = new System.Drawing.Point(83, 10);
-            this.comboSearchType.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.comboSearchType.Name = "comboSearchType";
-            this.comboSearchType.Size = new System.Drawing.Size(116, 20);
-            this.comboSearchType.TabIndex = 32;
-            // 
-            // lblProductName
-            // 
-            this.lblProductName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblProductName.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblProductName.Location = new System.Drawing.Point(3, 43);
-            this.lblProductName.Margin = new System.Windows.Forms.Padding(3);
-            this.lblProductName.Name = "lblProductName";
-            this.lblProductName.Size = new System.Drawing.Size(74, 34);
-            this.lblProductName.TabIndex = 33;
-            this.lblProductName.Text = "제품명";
-            this.lblProductName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // txtProductName
-            // 
-            this.txtProductName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtProductName.Location = new System.Drawing.Point(83, 50);
-            this.txtProductName.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.txtProductName.Name = "txtProductName";
-            this.txtProductName.Size = new System.Drawing.Size(116, 21);
-            this.txtProductName.TabIndex = 34;
             // 
             // CS_ProductManagement
             // 

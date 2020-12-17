@@ -155,23 +155,8 @@ namespace MaskManager.UserControls
         {
             DataGridView view = (DataGridView)sender;
 
-            switch (view.Name)
-            {
-                case "grdTopCategory":
-                    grdTopCategory.Rows[e.RowIndex].Cells[0].Value = (e.RowIndex + 1).ToString();
-                    break;
-
-                case "grdMiddleCategory":
-                    grdMiddleCategory.Rows[e.RowIndex].Cells[0].Value = (e.RowIndex + 1).ToString();
-                    break;
-
-                case "grdDetailCategory":
-                    grdDetailCategory.Rows[e.RowIndex].Cells[0].Value = (e.RowIndex + 1).ToString();
-                    break;
-
-                default:
-                    break;
-            }
+            Rectangle rect = new Rectangle(e.RowBounds.Location.X, e.RowBounds.Location.Y, view.RowHeadersWidth - 4, e.RowBounds.Height);
+            TextRenderer.DrawText(e.Graphics, (e.RowIndex + 1).ToString(), view.RowHeadersDefaultCellStyle.Font, rect, view.RowHeadersDefaultCellStyle.ForeColor, TextFormatFlags.VerticalCenter | TextFormatFlags.Right);
         }
 
         /// <summary>
@@ -487,7 +472,6 @@ namespace MaskManager.UserControls
             grdTopCategory.DefaultCellStyle.SelectionBackColor = Color.Yellow;
             grdTopCategory.DefaultCellStyle.SelectionForeColor = Color.Black;
 
-            CommonFuction.SetDataGridViewColumnStyle(grdTopCategory, "NO", "NO", "NO", typeof(string), 50, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdTopCategory, "불량코드", "DEFECTCODE", "DEFECTCODE", typeof(string), 120, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdTopCategory, "불량명", "DEFECTCODENAME", "DEFECTCODENAME", typeof(string), 180, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdTopCategory, "유효여부", "VALIDSTATE", "VALIDSTATE", typeof(string), 100, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
@@ -504,7 +488,6 @@ namespace MaskManager.UserControls
             grdMiddleCategory.DefaultCellStyle.SelectionBackColor = Color.Yellow;
             grdMiddleCategory.DefaultCellStyle.SelectionForeColor = Color.Black;
 
-            CommonFuction.SetDataGridViewColumnStyle(grdMiddleCategory, "NO", "NO", "NO", typeof(string), 50, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdMiddleCategory, "불량코드", "DEFECTCODE", "DEFECTCODE", typeof(string), 120, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdMiddleCategory, "불량명", "DEFECTCODENAME", "DEFECTCODENAME", typeof(string), 180, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdMiddleCategory, "유효여부", "VALIDSTATE", "VALIDSTATE", typeof(string), 100, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
@@ -521,7 +504,6 @@ namespace MaskManager.UserControls
             grdDetailCategory.DefaultCellStyle.SelectionBackColor = Color.Yellow;
             grdDetailCategory.DefaultCellStyle.SelectionForeColor = Color.Black;
 
-            CommonFuction.SetDataGridViewColumnStyle(grdDetailCategory, "NO", "NO", "NO", typeof(string), 50, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdDetailCategory, "불량코드", "DEFECTCODE", "DEFECTCODE", typeof(string), 120, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdDetailCategory, "불량명", "DEFECTCODENAME", "DEFECTCODENAME", typeof(string), 180, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdDetailCategory, "유효여부", "VALIDSTATE", "VALIDSTATE", typeof(string), 100, true, true, DataGridViewContentAlignment.MiddleCenter, 10);

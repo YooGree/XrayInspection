@@ -49,8 +49,10 @@
             // 
             // lblTitle
             // 
+            this.lblTitle.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.lblTitle.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblTitle.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lblTitle.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.lblTitle.Location = new System.Drawing.Point(0, 0);
             this.lblTitle.Margin = new System.Windows.Forms.Padding(3);
             this.lblTitle.Name = "lblTitle";
@@ -73,8 +75,10 @@
             // 
             // lblFooter
             // 
+            this.lblFooter.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.lblFooter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblFooter.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lblFooter.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.lblFooter.Location = new System.Drawing.Point(0, 0);
             this.lblFooter.Margin = new System.Windows.Forms.Padding(3);
             this.lblFooter.Name = "lblFooter";
@@ -86,7 +90,7 @@
             // 
             // ParentsPop
             // 
-            this.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             this.ClientSize = new System.Drawing.Size(384, 270);
             this.Controls.Add(this.panelFooter);
             this.Controls.Add(this.pnlHeader);

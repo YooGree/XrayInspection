@@ -19,7 +19,7 @@ namespace MaskManager
         {
             get
             {
-                return new System.Drawing.Font("맑은 고딕", 9F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(129)));
+                return new System.Drawing.Font("맑은 고딕", 10F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(129)));
             }
         }
 

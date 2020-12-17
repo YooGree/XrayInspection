@@ -156,6 +156,12 @@
     <Compile Include="PopUp\MMScrapPop.Designer.cs">
       <DependentUpon>MMScrapPop.cs</DependentUpon>
     </Compile>
+    <Compile Include="PopUp\MMWorkeUserChange.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PopUp\MMWorkeUserChange.designer.cs">
+      <DependentUpon>MMWorkeUserChange.cs</DependentUpon>
+    </Compile>
     <Compile Include="PopUp\ParentsPop.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -180,6 +186,12 @@
     </Compile>
     <Compile Include="TabPages\CS_ProductManagement.Designer.cs">
       <DependentUpon>CS_ProductManagement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TabPages\CS_RegWorkorder.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TabPages\CS_RegWorkorder.designer.cs">
+      <DependentUpon>CS_RegWorkorder.cs</DependentUpon>
     </Compile>
     <Compile Include="TabPages\CS_UserManagement.cs">
       <SubType>UserControl</SubType>
@@ -250,6 +262,12 @@
     <Compile Include="TabPages\VenderTabPageControl.Designer.cs">
       <DependentUpon>VenderTabPageControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Test\CS_MainForm2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Test\CS_MainForm2.designer.cs">
+      <DependentUpon>CS_MainForm2.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\CustomButtonControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -292,6 +310,7 @@
     </Compile>
     <EmbeddedResource Include="ButtonSample.resx">
       <DependentUpon>ButtonSample.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="PopUp\CustomMessageBox.resx">
       <DependentUpon>CustomMessageBox.cs</DependentUpon>
@@ -330,6 +349,9 @@
     <EmbeddedResource Include="PopUp\MMScrapPop.resx">
       <DependentUpon>MMScrapPop.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PopUp\MMWorkeUserChange.resx">
+      <DependentUpon>MMWorkeUserChange.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PopUp\ParentsPop.resx">
       <DependentUpon>ParentsPop.cs</DependentUpon>
     </EmbeddedResource>
@@ -343,6 +365,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TabPages\CS_ProductManagement.resx">
       <DependentUpon>CS_ProductManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TabPages\CS_RegWorkorder.resx">
+      <DependentUpon>CS_RegWorkorder.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TabPages\CS_UserManagement.resx">
       <DependentUpon>CS_UserManagement.cs</DependentUpon>
@@ -379,6 +404,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TabPages\VenderTabPageControl.resx">
       <DependentUpon>VenderTabPageControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Test\CS_MainForm2.resx">
+      <DependentUpon>CS_MainForm2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\MaskComboBox.resx">
       <DependentUpon>MaskComboBox.cs</DependentUpon>

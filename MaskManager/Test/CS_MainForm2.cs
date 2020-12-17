@@ -19,7 +19,7 @@ namespace MaskManager.PopUp
     /// 설        명  : 조선내화 메인화면
     /// 이        력  : 
     /// </summary>
-    public partial class CS_MainForm : ParentsPop
+    public partial class CS_MainForm2 : ParentsPop
     {
         #region 변수
 
@@ -37,6 +37,8 @@ namespace MaskManager.PopUp
         MMScrapPop _Scrap = new MMScrapPop();
         MMManufactureInfoChange _MMManufactureInfoChange = new MMManufactureInfoChange();
 
+        
+
         /// <summary>
         /// 선택된 화면 키워드
         /// </summary>
@@ -45,8 +47,7 @@ namespace MaskManager.PopUp
             Setting, // 환경설정
             UserManagement, // 사용자등록
             DefectCodeManagement, // 불량코드등록
-            ProductManagement, // 제품등록
-            RegWorkorder, // 작업계획등록
+            RegWorkorder, 
             AIJubgmentInfo, // AI 판정정보
             AIJubgmentHistory, // AI 판정이력
             Report,
@@ -83,22 +84,22 @@ namespace MaskManager.PopUp
                     panelDefectCodeManagement.BringToFront();
                     btnDefectCodeManagement.Font = CommonFuction.BoldFont;
                 }
-                // 제품등록 화면 보여주기
-                else if (value == selectedType.ProductManagement)
-                {
-                    panelProductManagement.BringToFront();
-                    btnProductManagement.Font = CommonFuction.BoldFont;
-                }
-                // 작업계획등록 화면 보여주기
+                // 작업계획 등록 화면 보여주기
                 else if (value == selectedType.RegWorkorder)
                 {
                     panelRegWorkorder.BringToFront();
+                    foreach (Control control in panelRegWorkorder.Controls)
+                    {
+                        CS_RegWorkorder RegWorkorder1 = (CS_RegWorkorder)control;
+                        RegWorkorder1.Search();
+                    }
                     btnRegWorkorder.Font = CommonFuction.BoldFont;
                 }
                 // 판정정보 화면 보여주기
                 else if (value == selectedType.AIJubgmentInfo)
                 {
                     panelAIjubgmentInfo.BringToFront();
+
                     btnAIJubgmentInfo.Font = CommonFuction.BoldFont;
                 }
                 // 판정이력 화면 보여주기
@@ -119,7 +120,7 @@ namespace MaskManager.PopUp
 
         #region 생성자
 
-        public CS_MainForm()
+        public CS_MainForm2()
         {
             InitializeComponent();
             InitializeControlSetting();
@@ -143,7 +144,6 @@ namespace MaskManager.PopUp
             btnSetting.Click += BtnMenu_Click;
             btnUserManagement.Click += BtnMenu_Click;
             btnDefectCodeManagement.Click += BtnMenu_Click;
-            btnProductManagement.Click += BtnMenu_Click;
             btnRegWorkorder.Click += BtnMenu_Click;
             btnAIJubgmentInfo.Click += BtnMenu_Click;
             btnAIJubgmentHistory.Click += BtnMenu_Click;
@@ -161,9 +161,84 @@ namespace MaskManager.PopUp
         /// <param name="e"></param>
         private void BtnMenu_Click(object sender, EventArgs e)
         {
+            Button btn = (Button)sender;
+
             var tag = ((Button)sender).Tag;
             this.SelectedType = (selectedType)tag;
         }
+
+        /////////////////////////////////////////////////// KEY EVENT ///////////////////////////////////////    
+        /// <summary>
+        /// 2019-05-27 황지희 일련번호로 상태 변경 추가 
+        /// </summary>
+
+        //private void TxtText_KeyPress(object sender, KeyPressEventArgs e)
+        //{
+        //    CommonFuction.TypingOnlyEngNum(sender, e, txt_MaskNum);
+        //}
+
+
+        //private void TxtText_KeyDown(object sender, KeyEventArgs e)
+        //{
+        //    string sMaskNum = (sender as TextBox).Text.ToString();
+
+        //    if (e.KeyCode == Keys.Enter)
+        //    {
+        //        if (CommonFuction.IsNullOrWhiteSpace(sMaskNum))
+        //        {
+        //            CustomMessageBox.Show(MessageBoxButtons.OK, "ERROR", txt_MaskNum.ucLabelText + "를 입력하세요.");
+        //            return;
+        //        }
+
+        //        try
+        //        {
+        //            DataSet ds = new DataSet();
+
+        //            ds = conn.CallSelectProcedure_ds(ProcedureName3, new SqlParameter[] { new SqlParameter("durable_id", sMaskNum) });
+
+        //            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+        //            {
+        //                DataRow dr = ds.Tables[0].Rows[0];
+        //                if (dr["WORKSTATE"].Equals("WORKSTATE_WAIT") && dr["STATE"].Equals("STATE_ACTIVE"))
+        //                {
+        //                    if (CustomMessageBox.Show(MessageBoxButtons.OKCancel, "", "상태 변경하시겠습니까?") == DialogResult.OK)
+        //                    {
+        //                        Dictionary<string, object> args = new Dictionary<string, object>();
+        //                        args.Add("@DURABLEID", sMaskNum);
+        //                        args.Add("@WORKSTATE", "WORKSTATE_USING");
+
+        //                        conn.CallNonSelectProcedure(ProcedureName4, conn.GetSqlParameters(args));
+
+        //                        CustomMessageBox.Show(MessageBoxButtons.OK, "SAVE", "저장하였습니다.");
+
+        //                        txt_MaskNum.txtText.ResetText();
+        //                        txt_MaskNum.Focus();
+        //                        ResetRackStatus(true);
+        //                    }
+        //                }
+        //                else
+        //                {
+        //                    CustomMessageBox.Show(MessageBoxButtons.OK, "ERROR", "해당 LOT의 상태를 변경할 수 없습니다.");
+        //                    txt_MaskNum.txtText.ResetText();
+        //                    txt_MaskNum.Focus();
+        //                    return;
+        //                }
+        //            }
+        //            else
+        //            {
+        //                CustomMessageBox.Show(MessageBoxButtons.OK, "ERROR", "해당 MASK 일련번호가 없습니다.");
+        //                txt_MaskNum.txtText.ResetText();
+        //                txt_MaskNum.Focus();
+        //                return;
+        //            }
+        //        }
+        //        catch (Exception ee)
+        //        {
+        //            LogFactory.Log(ee);
+        //            CustomMessageBox.Show(MessageBoxButtons.OK, "확인", "문제가 발생했습니다. 로그를 확인하세요.");
+        //        }
+        //    }
+        //}
 
         /////////////////////////////////////////////////// BUTTON EVENT ///////////////////////////////////////
         private void Btn_Base_Click(object sender, EventArgs e)
@@ -262,7 +337,7 @@ namespace MaskManager.PopUp
             // 초기화면 환경설정화면으로 세팅
             panelSetting.BringToFront();
 
-            btnList = new List<Button>() { btnSetting, btnUserManagement, btnDefectCodeManagement , btnProductManagement, btnRegWorkorder ,btnAIJubgmentInfo, btnAIJubgmentHistory, btnReport };
+            btnList = new List<Button>() { btnSetting, btnUserManagement, btnDefectCodeManagement , btnRegWorkorder, btnAIJubgmentInfo, btnAIJubgmentHistory, btnReport };
 
             // 환경설정화면 판넬에 세팅
             CS_Setting Setting = new CS_Setting();
@@ -276,11 +351,7 @@ namespace MaskManager.PopUp
             CS_DefectCodeManagement DefectCodeManagement = new CS_DefectCodeManagement();
             panelDefectCodeManagement.Controls.Add(DefectCodeManagement);
 
-            // 제품등록화면 판넬에 세팅
-            CS_ProductManagement ProductManagement = new CS_ProductManagement();
-            panelProductManagement.Controls.Add(ProductManagement);
-
-            // 작업계획등록화면 판넬에 세팅
+            //작업계획등록
             CS_RegWorkorder RegWorkorder = new CS_RegWorkorder();
             panelRegWorkorder.Controls.Add(RegWorkorder);
 
@@ -298,8 +369,7 @@ namespace MaskManager.PopUp
             btnSetting.Tag = selectedType.Setting; // 환경설정
             btnUserManagement.Tag = selectedType.UserManagement; // 사용자등록
             btnDefectCodeManagement.Tag = selectedType.DefectCodeManagement; // 불량코드등록
-            btnProductManagement.Tag = selectedType.ProductManagement; // 제품등록
-            btnRegWorkorder.Tag = selectedType.RegWorkorder; // 작업계획등록
+            btnRegWorkorder.Tag = selectedType.RegWorkorder;//작업계획등록 
             btnAIJubgmentInfo.Tag = selectedType.AIJubgmentInfo; // AI 판정정보
             btnAIJubgmentHistory.Tag = selectedType.AIJubgmentHistory; // AI 판정이력
             btnReport.Tag = selectedType.Report;

@@ -29,6 +29,8 @@ namespace MaskManager.UserControls
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.gbxSearchCondition = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -79,6 +81,7 @@ namespace MaskManager.UserControls
             // 
             this.gbxSearchCondition.Controls.Add(this.tableLayoutPanel2);
             this.gbxSearchCondition.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gbxSearchCondition.ForeColor = System.Drawing.Color.White;
             this.gbxSearchCondition.Location = new System.Drawing.Point(3, 43);
             this.gbxSearchCondition.Name = "gbxSearchCondition";
             this.gbxSearchCondition.Size = new System.Drawing.Size(208, 581);
@@ -124,7 +127,7 @@ namespace MaskManager.UserControls
             // lblUserType
             // 
             this.lblUserType.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblUserType.ForeColor = System.Drawing.Color.Red;
+            this.lblUserType.ForeColor = System.Drawing.Color.Pink;
             this.lblUserType.Location = new System.Drawing.Point(3, 3);
             this.lblUserType.Margin = new System.Windows.Forms.Padding(3);
             this.lblUserType.Name = "lblUserType";
@@ -145,6 +148,7 @@ namespace MaskManager.UserControls
             // lblUserName
             // 
             this.lblUserName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblUserName.ForeColor = System.Drawing.Color.White;
             this.lblUserName.Location = new System.Drawing.Point(3, 83);
             this.lblUserName.Margin = new System.Windows.Forms.Padding(3);
             this.lblUserName.Name = "lblUserName";
@@ -156,6 +160,7 @@ namespace MaskManager.UserControls
             // lblUserNumber
             // 
             this.lblUserNumber.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblUserNumber.ForeColor = System.Drawing.Color.White;
             this.lblUserNumber.Location = new System.Drawing.Point(3, 43);
             this.lblUserNumber.Margin = new System.Windows.Forms.Padding(3);
             this.lblUserNumber.Name = "lblUserNumber";
@@ -192,19 +197,24 @@ namespace MaskManager.UserControls
             // 
             // btnSearch
             // 
+            this.btnSearch.BackColor = System.Drawing.Color.DimGray;
             this.tableLayoutPanel3.SetColumnSpan(this.btnSearch, 2);
             this.btnSearch.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSearch.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btnSearch.ForeColor = System.Drawing.Color.White;
             this.btnSearch.Location = new System.Drawing.Point(3, 5);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(196, 32);
             this.btnSearch.TabIndex = 4;
             this.btnSearch.Text = "조회";
-            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.UseVisualStyleBackColor = false;
             // 
             // gbxUser
             // 
             this.gbxUser.Controls.Add(this.grdUser);
             this.gbxUser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gbxUser.ForeColor = System.Drawing.Color.White;
             this.gbxUser.Location = new System.Drawing.Point(217, 43);
             this.gbxUser.Name = "gbxUser";
             this.gbxUser.Size = new System.Drawing.Size(854, 581);
@@ -214,8 +224,25 @@ namespace MaskManager.UserControls
             // 
             // grdUser
             // 
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grdUser.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.grdUser.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grdUser.DefaultCellStyle = dataGridViewCellStyle8;
             this.grdUser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdUser.EnableHeadersVisualStyles = false;
             this.grdUser.Location = new System.Drawing.Point(3, 17);
             this.grdUser.Name = "grdUser";
             this.grdUser.RowTemplate.Height = 23;
@@ -238,44 +265,57 @@ namespace MaskManager.UserControls
             // 
             // btnSave
             // 
+            this.btnSave.BackColor = System.Drawing.Color.DimGray;
+            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSave.ForeColor = System.Drawing.Color.White;
             this.btnSave.Location = new System.Drawing.Point(777, 3);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(80, 28);
             this.btnSave.TabIndex = 2;
             this.btnSave.Text = "저장";
-            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.UseVisualStyleBackColor = false;
             // 
             // btnDeleteRow
             // 
+            this.btnDeleteRow.BackColor = System.Drawing.Color.DimGray;
+            this.btnDeleteRow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDeleteRow.ForeColor = System.Drawing.Color.White;
             this.btnDeleteRow.Location = new System.Drawing.Point(691, 3);
             this.btnDeleteRow.Name = "btnDeleteRow";
             this.btnDeleteRow.Size = new System.Drawing.Size(80, 28);
             this.btnDeleteRow.TabIndex = 4;
             this.btnDeleteRow.Text = "행 삭제";
-            this.btnDeleteRow.UseVisualStyleBackColor = true;
+            this.btnDeleteRow.UseVisualStyleBackColor = false;
             // 
             // btnAddRow
             // 
+            this.btnAddRow.BackColor = System.Drawing.Color.DimGray;
+            this.btnAddRow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddRow.ForeColor = System.Drawing.Color.White;
             this.btnAddRow.Location = new System.Drawing.Point(605, 3);
             this.btnAddRow.Name = "btnAddRow";
             this.btnAddRow.Size = new System.Drawing.Size(80, 28);
             this.btnAddRow.TabIndex = 5;
             this.btnAddRow.Text = "행 추가";
-            this.btnAddRow.UseVisualStyleBackColor = true;
+            this.btnAddRow.UseVisualStyleBackColor = false;
             // 
             // btnExport
             // 
+            this.btnExport.BackColor = System.Drawing.Color.DimGray;
+            this.btnExport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExport.ForeColor = System.Drawing.Color.White;
             this.btnExport.Location = new System.Drawing.Point(482, 3);
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new System.Drawing.Size(117, 28);
             this.btnExport.TabIndex = 3;
             this.btnExport.Text = "엑셀 내보내기";
-            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.UseVisualStyleBackColor = false;
             // 
             // lblTitle
             // 
             this.lblTitle.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblTitle.Font = new System.Drawing.Font("맑은 고딕", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lblTitle.ForeColor = System.Drawing.Color.White;
             this.lblTitle.Location = new System.Drawing.Point(3, 3);
             this.lblTitle.Margin = new System.Windows.Forms.Padding(3);
             this.lblTitle.Name = "lblTitle";
