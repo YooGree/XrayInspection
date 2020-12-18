@@ -1,7 +1,7 @@
 ﻿
 namespace MaskManager.UserControls
 {
-    partial class CS_RegWorkorder
+    partial class CS_SelectWorkorder
     {
         /// <summary> 
         /// 필수 디자이너 변수입니다.
@@ -34,9 +34,7 @@ namespace MaskManager.UserControls
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnSave = new System.Windows.Forms.Button();
             this.btnExport = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.gbxUser = new System.Windows.Forms.GroupBox();
             this.grdWorkorder = new System.Windows.Forms.DataGridView();
@@ -67,9 +65,7 @@ namespace MaskManager.UserControls
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.Controls.Add(this.btnSave);
             this.flowLayoutPanel1.Controls.Add(this.btnExport);
-            this.flowLayoutPanel1.Controls.Add(this.button1);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(214, 0);
@@ -78,45 +74,18 @@ namespace MaskManager.UserControls
             this.flowLayoutPanel1.Size = new System.Drawing.Size(860, 39);
             this.flowLayoutPanel1.TabIndex = 2;
             // 
-            // btnSave
-            // 
-            this.btnSave.BackColor = System.Drawing.Color.DimGray;
-            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSave.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btnSave.ForeColor = System.Drawing.SystemColors.Window;
-            this.btnSave.Location = new System.Drawing.Point(777, 3);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(80, 28);
-            this.btnSave.TabIndex = 2;
-            this.btnSave.Text = "저장";
-            this.btnSave.UseVisualStyleBackColor = false;
-            // 
             // btnExport
             // 
-            this.btnExport.BackColor = System.Drawing.Color.DimGray;
+            this.btnExport.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.btnExport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExport.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btnExport.ForeColor = System.Drawing.SystemColors.Window;
-            this.btnExport.Location = new System.Drawing.Point(654, 3);
+            this.btnExport.Location = new System.Drawing.Point(740, 3);
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new System.Drawing.Size(117, 28);
             this.btnExport.TabIndex = 3;
             this.btnExport.Text = "엑셀 내보내기";
             this.btnExport.UseVisualStyleBackColor = false;
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.DimGray;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button1.ForeColor = System.Drawing.SystemColors.Window;
-            this.button1.Location = new System.Drawing.Point(531, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(117, 28);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "작업자변경";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // lblTitle
             // 
@@ -124,11 +93,11 @@ namespace MaskManager.UserControls
             this.lblTitle.Font = new System.Drawing.Font("맑은 고딕", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lblTitle.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.lblTitle.Location = new System.Drawing.Point(3, 3);
-            this.lblTitle.Margin = new System.Windows.Forms.Padding(3);
+            this.lblTitle.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(208, 33);
             this.lblTitle.TabIndex = 3;
-            this.lblTitle.Text = "작업계획등록";
+            this.lblTitle.Text = "작업계획조회";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // gbxUser
@@ -136,7 +105,8 @@ namespace MaskManager.UserControls
             this.tableLayoutPanel1.SetColumnSpan(this.gbxUser, 2);
             this.gbxUser.Controls.Add(this.grdWorkorder);
             this.gbxUser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gbxUser.ForeColor = System.Drawing.Color.White;
+            this.gbxUser.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.gbxUser.ForeColor = System.Drawing.SystemColors.HighlightText;
             this.gbxUser.Location = new System.Drawing.Point(3, 42);
             this.gbxUser.Name = "gbxUser";
             this.gbxUser.Size = new System.Drawing.Size(1068, 582);
@@ -148,7 +118,7 @@ namespace MaskManager.UserControls
             // 
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ControlDark;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -177,15 +147,15 @@ namespace MaskManager.UserControls
             this.grdWorkorder.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.grdWorkorder.RowTemplate.Height = 23;
             this.grdWorkorder.Size = new System.Drawing.Size(1062, 562);
-            this.grdWorkorder.TabIndex = 0;
+            this.grdWorkorder.TabIndex = 1;
             // 
-            // CS_RegWorkorder
+            // CS_SelectWorkorder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Name = "CS_RegWorkorder";
+            this.Name = "CS_SelectWorkorder";
             this.Size = new System.Drawing.Size(1074, 627);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
@@ -199,11 +169,9 @@ namespace MaskManager.UserControls
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.GroupBox gbxUser;
-        private System.Windows.Forms.DataGridView grdWorkorder;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Button btnExport;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.DataGridView grdWorkorder;
     }
 }

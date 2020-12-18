@@ -194,6 +194,12 @@
     <Compile Include="TabPages\CS_RegWorkorder.designer.cs">
       <DependentUpon>CS_RegWorkorder.cs</DependentUpon>
     </Compile>
+    <Compile Include="TabPages\CS_SelectWorkorder.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TabPages\CS_SelectWorkorder.designer.cs">
+      <DependentUpon>CS_SelectWorkorder.cs</DependentUpon>
+    </Compile>
     <Compile Include="TabPages\CS_XrayDecipher.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -375,6 +381,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TabPages\CS_RegWorkorder.resx">
       <DependentUpon>CS_RegWorkorder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TabPages\CS_SelectWorkorder.resx">
+      <DependentUpon>CS_SelectWorkorder.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TabPages\CS_XrayDecipher.resx">
       <DependentUpon>CS_XrayDecipher.cs</DependentUpon>

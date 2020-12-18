@@ -48,6 +48,7 @@ namespace MaskManager.PopUp
             DefectCodeManagement, // 불량코드등록
             ProductManagement, // 제품등록
             RegWorkorder, // 작업계획등록
+            SearchWorkorder, // 작업계획조회
             AIJubgmentInfo, // AI 판정정보
             AIJubgmentHistory, // AI 판정이력
             Report,
@@ -116,6 +117,19 @@ namespace MaskManager.PopUp
                         RegWorkorder1.Search();
                     }
                 }
+                // 작업계획조회 화면 보여주기
+                else if (value == selectedType.SearchWorkorder)
+                {
+                    panelSearchWorkorder.BringToFront();
+                    btnSearchWorkorder.Font = CommonFuction.BoldFont;
+
+                    // 화면 이동시 자동조회
+                    foreach (Control control in panelSearchWorkorder.Controls)
+                    {
+                        CS_SelectWorkorder SelectWorkorder = (CS_SelectWorkorder)control;
+                        SelectWorkorder.Search();
+                    }
+                }
                 // 판정정보 화면 보여주기
                 else if (value == selectedType.AIJubgmentInfo)
                 {
@@ -167,6 +181,7 @@ namespace MaskManager.PopUp
             btnDefectCodeManagement.Click += BtnMenu_Click;
             btnProductManagement.Click += BtnMenu_Click;
             btnRegWorkorder.Click += BtnMenu_Click;
+            btnSearchWorkorder.Click += BtnMenu_Click;
             btnAIJubgmentInfo.Click += BtnMenu_Click;
             btnAIJubgmentHistory.Click += BtnMenu_Click;
 
@@ -327,7 +342,7 @@ namespace MaskManager.PopUp
             panelXrayDecipher.BringToFront();
             btnXrayDecipher.Font = CommonFuction.BoldFont;
 
-            btnList = new List<Button>() { btnXrayDecipher, btnSetting, btnUserManagement, btnDefectCodeManagement , btnProductManagement, btnRegWorkorder ,btnAIJubgmentInfo, btnAIJubgmentHistory, btnReport };
+            btnList = new List<Button>() { btnXrayDecipher, btnSetting, btnUserManagement, btnDefectCodeManagement, btnProductManagement, btnRegWorkorder, btnSearchWorkorder, btnAIJubgmentInfo, btnAIJubgmentHistory, btnReport };
 
             // Xray판독화면 판넬에 세팅
             CS_XrayDecipher XrayDecipher = new CS_XrayDecipher();
@@ -353,6 +368,10 @@ namespace MaskManager.PopUp
             CS_RegWorkorder RegWorkorder = new CS_RegWorkorder();
             panelRegWorkorder.Controls.Add(RegWorkorder);
 
+            // 작업계획조회화면 판넬에 세팅
+            CS_SelectWorkorder SearchWorkOrder = new CS_SelectWorkorder();
+            panelSearchWorkorder.Controls.Add(SearchWorkOrder);
+
             // AI 판정정보화면 판넬에 세팅 
             CS_AIjubgmentInfo AIjubgmentInfo = new CS_AIjubgmentInfo();
             panelAIjubgmentInfo.Controls.Add(AIjubgmentInfo);
@@ -370,6 +389,7 @@ namespace MaskManager.PopUp
             btnDefectCodeManagement.Tag = selectedType.DefectCodeManagement; // 불량코드등록
             btnProductManagement.Tag = selectedType.ProductManagement; // 제품등록
             btnRegWorkorder.Tag = selectedType.RegWorkorder; // 작업계획등록
+            btnSearchWorkorder.Tag = selectedType.SearchWorkorder; // 작업계획조회
             btnAIJubgmentInfo.Tag = selectedType.AIJubgmentInfo; // AI 판정정보
             btnAIJubgmentHistory.Tag = selectedType.AIJubgmentHistory; // AI 판정이력
             btnReport.Tag = selectedType.Report;
