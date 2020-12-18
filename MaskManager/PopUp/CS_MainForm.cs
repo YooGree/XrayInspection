@@ -42,6 +42,7 @@ namespace MaskManager.PopUp
         /// </summary>
         private enum selectedType
         {
+            XrayDecipher, // Xray판독
             Setting, // 환경설정
             UserManagement, // 사용자등록
             DefectCodeManagement, // 불량코드등록
@@ -65,8 +66,21 @@ namespace MaskManager.PopUp
                     btn.Font = CommonFuction.RegularFont;
                 }
 
+                // Xray판독 화면 보여주기
+                if (value == selectedType.XrayDecipher)
+                {
+                    panelXrayDecipher.BringToFront();
+                    btnXrayDecipher.Font = CommonFuction.BoldFont;
+
+                    // 화면 이동시 자동조회
+                    foreach (Control control in panelXrayDecipher.Controls)
+                    {
+                        CS_XrayDecipher XrayDecipher = (CS_XrayDecipher)control;
+                        XrayDecipher.ProductInfoSearch();
+                    }
+                }
                 // 환경설정 화면 보여주기
-                if (value == selectedType.Setting)
+                else if (value == selectedType.Setting)
                 {
                     panelSetting.BringToFront();
                     btnSetting.Font = CommonFuction.BoldFont;
@@ -147,6 +161,7 @@ namespace MaskManager.PopUp
             btnInsp.Click += Btn_Insp_Click;
             btnScrap.Click += Btn_Scrap_Click;
 
+            btnXrayDecipher.Click += BtnMenu_Click;
             btnSetting.Click += BtnMenu_Click;
             btnUserManagement.Click += BtnMenu_Click;
             btnDefectCodeManagement.Click += BtnMenu_Click;
@@ -160,6 +175,11 @@ namespace MaskManager.PopUp
             this.KeyDown += CS_MainForm_KeyDown;
         }
 
+        /// <summary>
+        /// 조회버튼이 있는 화면은 F5 KeyDown시 조회
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CS_MainForm_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.F5)
@@ -299,10 +319,19 @@ namespace MaskManager.PopUp
             Caption = "제조데이터 분석기반 - 조선내화";
             FooterText = "최초 접속시간 : " + DateTime.Now.ToString();
 
-            // 초기화면 환경설정화면으로 세팅
-            panelSetting.BringToFront();
+            // 로고 보이게 설정
+            panelLogo_MICube.Visible = true;
+            panelLogo_Chosun.Visible = true;
 
-            btnList = new List<Button>() { btnSetting, btnUserManagement, btnDefectCodeManagement , btnProductManagement, btnRegWorkorder ,btnAIJubgmentInfo, btnAIJubgmentHistory, btnReport };
+            // 초기화면 Xray판독화면으로 세팅
+            panelXrayDecipher.BringToFront();
+            btnXrayDecipher.Font = CommonFuction.BoldFont;
+
+            btnList = new List<Button>() { btnXrayDecipher, btnSetting, btnUserManagement, btnDefectCodeManagement , btnProductManagement, btnRegWorkorder ,btnAIJubgmentInfo, btnAIJubgmentHistory, btnReport };
+
+            // Xray판독화면 판넬에 세팅
+            CS_XrayDecipher XrayDecipher = new CS_XrayDecipher();
+            panelXrayDecipher.Controls.Add(XrayDecipher);
 
             // 환경설정화면 판넬에 세팅
             CS_Setting Setting = new CS_Setting();
@@ -335,6 +364,7 @@ namespace MaskManager.PopUp
             MMManagedReportControl Report = new MMManagedReportControl();
             p_Report.Controls.Add(Report);
 
+            btnXrayDecipher.Tag = selectedType.XrayDecipher; // Xray판독
             btnSetting.Tag = selectedType.Setting; // 환경설정
             btnUserManagement.Tag = selectedType.UserManagement; // 사용자등록
             btnDefectCodeManagement.Tag = selectedType.DefectCodeManagement; // 불량코드등록

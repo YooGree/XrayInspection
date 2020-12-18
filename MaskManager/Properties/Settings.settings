@@ -5,5 +5,11 @@
     <Setting Name="DgitNumber" Type="System.String" Scope="User">
       <Value Profile="(Default)">D4</Value>
     </Setting>
+    <Setting Name="Site" Type="System.String" Scope="User">
+      <Value Profile="(Default)">SITE01</Value>
+    </Setting>
+    <Setting Name="TargetIP" Type="System.String" Scope="User">
+      <Value Profile="(Default)">localhost</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

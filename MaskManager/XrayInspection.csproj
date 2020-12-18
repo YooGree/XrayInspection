@@ -175,6 +175,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Settings.cs" />
     <Compile Include="TabPages\CS_DefectCodeManagement.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -192,6 +193,12 @@
     </Compile>
     <Compile Include="TabPages\CS_RegWorkorder.designer.cs">
       <DependentUpon>CS_RegWorkorder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TabPages\CS_XrayDecipher.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TabPages\CS_XrayDecipher.Designer.cs">
+      <DependentUpon>CS_XrayDecipher.cs</DependentUpon>
     </Compile>
     <Compile Include="TabPages\CS_UserManagement.cs">
       <SubType>UserControl</SubType>
@@ -368,6 +375,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TabPages\CS_RegWorkorder.resx">
       <DependentUpon>CS_RegWorkorder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TabPages\CS_XrayDecipher.resx">
+      <DependentUpon>CS_XrayDecipher.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TabPages\CS_UserManagement.resx">
       <DependentUpon>CS_UserManagement.cs</DependentUpon>

@@ -32,6 +32,8 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.panelFooter = new System.Windows.Forms.Panel();
             this.lblFooter = new System.Windows.Forms.Label();
+            this.panelLogo_Chosun = new System.Windows.Forms.Panel();
+            this.panelLogo_MICube = new System.Windows.Forms.Panel();
             this.pnlHeader.SuspendLayout();
             this.panelFooter.SuspendLayout();
             this.SuspendLayout();
@@ -39,6 +41,8 @@
             // pnlHeader
             // 
             this.pnlHeader.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.pnlHeader.Controls.Add(this.panelLogo_MICube);
+            this.pnlHeader.Controls.Add(this.panelLogo_Chosun);
             this.pnlHeader.Controls.Add(this.lblTitle);
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
@@ -51,7 +55,7 @@
             // 
             this.lblTitle.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.lblTitle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblTitle.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lblTitle.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Bold);
             this.lblTitle.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.lblTitle.Location = new System.Drawing.Point(0, 0);
             this.lblTitle.Margin = new System.Windows.Forms.Padding(3);
@@ -88,6 +92,30 @@
             this.lblFooter.Text = "FOOTER";
             this.lblFooter.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // panelLogo_Chosun
+            // 
+            this.panelLogo_Chosun.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.panelLogo_Chosun.BackgroundImage = global::MaskManager.Properties.Resources.chosun_label;
+            this.panelLogo_Chosun.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panelLogo_Chosun.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelLogo_Chosun.Location = new System.Drawing.Point(0, 0);
+            this.panelLogo_Chosun.Name = "panelLogo_Chosun";
+            this.panelLogo_Chosun.Size = new System.Drawing.Size(143, 30);
+            this.panelLogo_Chosun.TabIndex = 3;
+            this.panelLogo_Chosun.Visible = false;
+            // 
+            // panelLogo_MICube
+            // 
+            this.panelLogo_MICube.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.panelLogo_MICube.BackgroundImage = global::MaskManager.Properties.Resources.mic;
+            this.panelLogo_MICube.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panelLogo_MICube.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelLogo_MICube.Location = new System.Drawing.Point(220, 0);
+            this.panelLogo_MICube.Name = "panelLogo_MICube";
+            this.panelLogo_MICube.Size = new System.Drawing.Size(164, 30);
+            this.panelLogo_MICube.TabIndex = 4;
+            this.panelLogo_MICube.Visible = false;
+            // 
             // ParentsPop
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
@@ -111,5 +139,7 @@
         public System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Panel panelFooter;
         public System.Windows.Forms.Label lblFooter;
+        protected System.Windows.Forms.Panel panelLogo_MICube;
+        protected System.Windows.Forms.Panel panelLogo_Chosun;
     }
 }
