@@ -264,7 +264,7 @@ namespace MaskManager.UserControls
         /// <summary>
         /// 조회
         /// </summary>
-        private void Search()
+        public void Search()
         {
             try
             {

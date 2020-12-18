@@ -94,6 +94,13 @@ namespace MaskManager.PopUp
                 {
                     panelRegWorkorder.BringToFront();
                     btnRegWorkorder.Font = CommonFuction.BoldFont;
+
+                    // 화면 이동시 자동조회
+                    foreach (Control control in panelRegWorkorder.Controls)
+                    {
+                        CS_RegWorkorder RegWorkorder1 = (CS_RegWorkorder)control;
+                        RegWorkorder1.Search();
+                    }
                 }
                 // 판정정보 화면 보여주기
                 else if (value == selectedType.AIJubgmentInfo)
@@ -150,8 +157,41 @@ namespace MaskManager.PopUp
 
             btnReport.Click += Btn_Report_Click;
             btnMaskInfoCancel.Click += BtnMaskInfoCancel_Click;
-            //tsmStorage.Click += TsmStorage_Click;
-            //toolStripButton1.Click += ToolStripButton1_Click;
+            this.KeyDown += CS_MainForm_KeyDown;
+        }
+
+        private void CS_MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F5)
+            {
+                // 사용자등록
+                if (btnUserManagement.Font.Bold)
+                {
+                    foreach (Control control in panelUserManagement.Controls)
+                    {
+                        CS_UserManagement screen = (CS_UserManagement)control;
+                        screen.Search();
+                    }
+                }
+                // 불량코드등록
+                else if (btnDefectCodeManagement.Font.Bold)
+                {
+                    foreach (Control control in panelDefectCodeManagement.Controls)
+                    {
+                        CS_DefectCodeManagement screen = (CS_DefectCodeManagement)control;
+                        screen.Search();
+                    }
+                }
+                // 제품등록
+                else if (btnProductManagement.Font.Bold)
+                {
+                    foreach (Control control in panelProductManagement.Controls)
+                    {
+                        CS_ProductManagement screen = (CS_ProductManagement)control;
+                        screen.Search();
+                    }
+                }
+            }
         }
 
         /// <summary>

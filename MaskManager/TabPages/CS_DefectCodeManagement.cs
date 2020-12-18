@@ -210,7 +210,7 @@ namespace MaskManager.UserControls
         /// <summary>
         /// 조회
         /// </summary>
-        private void Search(string defectCodeType = "TOP", string parentDefectCode = "Root")
+        public void Search(string defectCodeType = "TOP", string parentDefectCode = "Root")
         {
             try
             {
