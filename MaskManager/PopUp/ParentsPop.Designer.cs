@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.pnlHeader = new System.Windows.Forms.Panel();
+            this.panelLogo_MICube = new System.Windows.Forms.Panel();
+            this.panelLogo_Chosun = new System.Windows.Forms.Panel();
             this.lblTitle = new System.Windows.Forms.Label();
             this.panelFooter = new System.Windows.Forms.Panel();
             this.lblFooter = new System.Windows.Forms.Label();
-            this.panelLogo_Chosun = new System.Windows.Forms.Panel();
-            this.panelLogo_MICube = new System.Windows.Forms.Panel();
             this.pnlHeader.SuspendLayout();
             this.panelFooter.SuspendLayout();
             this.SuspendLayout();
@@ -50,6 +50,30 @@
             this.pnlHeader.Name = "pnlHeader";
             this.pnlHeader.Size = new System.Drawing.Size(384, 30);
             this.pnlHeader.TabIndex = 1;
+            // 
+            // panelLogo_MICube
+            // 
+            this.panelLogo_MICube.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.panelLogo_MICube.BackgroundImage = global::MaskManager.Properties.Resources.mic;
+            this.panelLogo_MICube.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panelLogo_MICube.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelLogo_MICube.Location = new System.Drawing.Point(220, 0);
+            this.panelLogo_MICube.Name = "panelLogo_MICube";
+            this.panelLogo_MICube.Size = new System.Drawing.Size(164, 30);
+            this.panelLogo_MICube.TabIndex = 4;
+            this.panelLogo_MICube.Visible = false;
+            // 
+            // panelLogo_Chosun
+            // 
+            this.panelLogo_Chosun.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.panelLogo_Chosun.BackgroundImage = global::MaskManager.Properties.Resources.chosun_label;
+            this.panelLogo_Chosun.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panelLogo_Chosun.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelLogo_Chosun.Location = new System.Drawing.Point(0, 0);
+            this.panelLogo_Chosun.Name = "panelLogo_Chosun";
+            this.panelLogo_Chosun.Size = new System.Drawing.Size(143, 30);
+            this.panelLogo_Chosun.TabIndex = 3;
+            this.panelLogo_Chosun.Visible = false;
             // 
             // lblTitle
             // 
@@ -91,30 +115,6 @@
             this.lblFooter.TabIndex = 0;
             this.lblFooter.Text = "FOOTER";
             this.lblFooter.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // panelLogo_Chosun
-            // 
-            this.panelLogo_Chosun.BackColor = System.Drawing.SystemColors.WindowFrame;
-            this.panelLogo_Chosun.BackgroundImage = global::MaskManager.Properties.Resources.chosun_label;
-            this.panelLogo_Chosun.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panelLogo_Chosun.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelLogo_Chosun.Location = new System.Drawing.Point(0, 0);
-            this.panelLogo_Chosun.Name = "panelLogo_Chosun";
-            this.panelLogo_Chosun.Size = new System.Drawing.Size(143, 30);
-            this.panelLogo_Chosun.TabIndex = 3;
-            this.panelLogo_Chosun.Visible = false;
-            // 
-            // panelLogo_MICube
-            // 
-            this.panelLogo_MICube.BackColor = System.Drawing.SystemColors.WindowFrame;
-            this.panelLogo_MICube.BackgroundImage = global::MaskManager.Properties.Resources.mic;
-            this.panelLogo_MICube.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panelLogo_MICube.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelLogo_MICube.Location = new System.Drawing.Point(220, 0);
-            this.panelLogo_MICube.Name = "panelLogo_MICube";
-            this.panelLogo_MICube.Size = new System.Drawing.Size(164, 30);
-            this.panelLogo_MICube.TabIndex = 4;
-            this.panelLogo_MICube.Visible = false;
             // 
             // ParentsPop
             // 

@@ -120,6 +120,12 @@
     <Compile Include="PopUp\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="PopUp\CS_CommonPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PopUp\CS_CommonPopup.Designer.cs">
+      <DependentUpon>CS_CommonPopup.cs</DependentUpon>
+    </Compile>
     <Compile Include="PopUp\MMCodeHelper.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -343,6 +349,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PopUp\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PopUp\CS_CommonPopup.resx">
+      <DependentUpon>CS_CommonPopup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PopUp\MMCodeHelper.resx">
       <DependentUpon>MMCodeHelper.cs</DependentUpon>

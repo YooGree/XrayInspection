@@ -49,6 +49,31 @@ namespace MaskManager.UserControls
         private void InitializeEvent()
         {
             grdAIDecipherStatus.RowPostPaint += GrdUser_RowPostPaint;
+
+            btnJudgmentResult.Click += CommonPopup_Click;
+        }
+
+        /// <summary>
+        /// 공통팝업 호출
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CommonPopup_Click(object sender, EventArgs e)
+        {
+            Button btnPop = (Button)sender;
+            CS_CommonPopup commonPopup;
+
+            switch (btnPop.Name)
+            {
+                // 판정결과
+                case "btnJudgmentResult" :
+                    commonPopup = new CS_CommonPopup("JUDGMENTRESULT");
+                    commonPopup.WindowState = FormWindowState.Normal;
+                    commonPopup.StartPosition = FormStartPosition.CenterScreen;
+                    commonPopup.Show();
+                    commonPopup.Activate();
+                    break;
+            }
         }
 
 
