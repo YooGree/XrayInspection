@@ -29,7 +29,7 @@ namespace XrayInspection.UserControls
         //TCPServer _tcpServer = new TCPServer(Properties.Settings.Default.TargetIP, Properties.Settings.Default.TargetPort);
         Socket _mainSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         DBManager _dbManager = new DBManager();
-        bool _deleteFlag;
+        bool _deleteFlag;    
 
         #endregion
 
@@ -384,6 +384,12 @@ namespace XrayInspection.UserControls
             // 제품정보에 데이터 바인딩
             ProductInfoSearch();
 
+            // AI 판독현황 그리드 1초마다 조회될 수 있도록 타이머 설정
+            Timer searchTimer = new Timer();
+            searchTimer.Interval = 1000;
+            searchTimer.Tick += SearchTimer_Tick;
+            searchTimer.Start();
+
             // TCP 서버시작
             //_tcpServer.BeginStartServer();
 
@@ -403,6 +409,34 @@ namespace XrayInspection.UserControls
         }
 
         /// <summary>
+        /// 타이머 발생 조회 이벤트
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SearchTimer_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                List<SqlParameter> parameters = new List<SqlParameter>();
+                parameters.Add(new SqlParameter("@SITE", Properties.Settings.Default.Site)); // Site
+                parameters.Add(new SqlParameter("@LOTNO", txtLotNo.Text)); // LOT NO
+
+                DataSet ds = _dbManager.CallSelectProcedure_ds("USP_SELECT_XRAYDECIPHER_AIJUDGMENTINFO", parameters);
+
+                if (ds.Tables.Count == 0) Console.WriteLine("AI 판독현황 조회실패!");
+                else
+                {
+                    DataTable dt = ds.Tables[0];
+                    grdAIDecipherStatus.DataSource = dt;
+                }
+            }
+            catch (Exception ex)
+            {
+                CustomMessageBox.Show(MessageBoxButtons.OK, "닫기", ex.Message);
+            }
+        }
+
+        /// <summary>
         /// 그리드 세팅
         /// </summary>
         private void InitializeGrid()
@@ -412,8 +446,8 @@ namespace XrayInspection.UserControls
             grdAIDecipherStatus.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomCenter;
             grdAIDecipherStatus.AllowUserToAddRows = false;
 
-            CommonFuction.SetDataGridViewColumnStyle(grdAIDecipherStatus, "Frame", "FRAME", "FRAME", typeof(int), 150, false, true, DataGridViewContentAlignment.MiddleCenter, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdAIDecipherStatus, "AI판정", "AIJUDGMENT", "AIJUDGMENT", typeof(string), 150, false, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIDecipherStatus, "Frame", "FRAMENO", "FRAMENO", typeof(int), 150, false, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIDecipherStatus, "AI판정", "AIRESULT", "AIRESULT", typeof(string), 150, false, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdAIDecipherStatus, "유형", "TYPE", "TYPE", typeof(string), 150, false, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdAIDecipherStatus, "행변경타입", "ROWTYPE", "ROWTYPE", typeof(string), 100, false, false, DataGridViewContentAlignment.MiddleLeft, 10);
         }

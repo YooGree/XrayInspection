@@ -29,8 +29,8 @@ namespace XrayInspection.UserControls
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle133 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle134 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.lblTitle = new System.Windows.Forms.Label();
@@ -307,7 +307,7 @@ namespace XrayInspection.UserControls
             this.tableLayoutPanel16.Name = "tableLayoutPanel16";
             this.tableLayoutPanel16.RowCount = 1;
             this.tableLayoutPanel16.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel16.Size = new System.Drawing.Size(264, 29);
+            this.tableLayoutPanel16.Size = new System.Drawing.Size(222, 29);
             this.tableLayoutPanel16.TabIndex = 0;
             // 
             // txtLotSize
@@ -318,7 +318,7 @@ namespace XrayInspection.UserControls
             this.txtLotSize.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.txtLotSize.Name = "txtLotSize";
             this.txtLotSize.ReadOnly = true;
-            this.txtLotSize.Size = new System.Drawing.Size(158, 24);
+            this.txtLotSize.Size = new System.Drawing.Size(116, 24);
             this.txtLotSize.TabIndex = 12;
             // 
             // lblLotSize
@@ -346,7 +346,7 @@ namespace XrayInspection.UserControls
             this.tableLayoutPanel18.Name = "tableLayoutPanel18";
             this.tableLayoutPanel18.RowCount = 1;
             this.tableLayoutPanel18.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel18.Size = new System.Drawing.Size(264, 29);
+            this.tableLayoutPanel18.Size = new System.Drawing.Size(222, 29);
             this.tableLayoutPanel18.TabIndex = 3;
             // 
             // txtInspectionStd
@@ -357,7 +357,7 @@ namespace XrayInspection.UserControls
             this.txtInspectionStd.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.txtInspectionStd.Name = "txtInspectionStd";
             this.txtInspectionStd.ReadOnly = true;
-            this.txtInspectionStd.Size = new System.Drawing.Size(158, 24);
+            this.txtInspectionStd.Size = new System.Drawing.Size(116, 24);
             this.txtInspectionStd.TabIndex = 12;
             // 
             // lblInspectionStd
@@ -385,7 +385,7 @@ namespace XrayInspection.UserControls
             this.tableLayoutPanel19.Name = "tableLayoutPanel19";
             this.tableLayoutPanel19.RowCount = 1;
             this.tableLayoutPanel19.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel19.Size = new System.Drawing.Size(264, 29);
+            this.tableLayoutPanel19.Size = new System.Drawing.Size(222, 29);
             this.tableLayoutPanel19.TabIndex = 2;
             // 
             // txtPlanPageCount
@@ -396,7 +396,7 @@ namespace XrayInspection.UserControls
             this.txtPlanPageCount.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.txtPlanPageCount.Name = "txtPlanPageCount";
             this.txtPlanPageCount.ReadOnly = true;
-            this.txtPlanPageCount.Size = new System.Drawing.Size(158, 24);
+            this.txtPlanPageCount.Size = new System.Drawing.Size(116, 24);
             this.txtPlanPageCount.TabIndex = 12;
             // 
             // lblPlanPageCount
@@ -424,7 +424,7 @@ namespace XrayInspection.UserControls
             this.tableLayoutPanel20.Name = "tableLayoutPanel20";
             this.tableLayoutPanel20.RowCount = 1;
             this.tableLayoutPanel20.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel20.Size = new System.Drawing.Size(264, 29);
+            this.tableLayoutPanel20.Size = new System.Drawing.Size(222, 29);
             this.tableLayoutPanel20.TabIndex = 1;
             // 
             // txtProgressSequence
@@ -435,7 +435,7 @@ namespace XrayInspection.UserControls
             this.txtProgressSequence.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.txtProgressSequence.Name = "txtProgressSequence";
             this.txtProgressSequence.ReadOnly = true;
-            this.txtProgressSequence.Size = new System.Drawing.Size(158, 24);
+            this.txtProgressSequence.Size = new System.Drawing.Size(116, 24);
             this.txtProgressSequence.TabIndex = 12;
             // 
             // lblProgressSequence
@@ -1394,23 +1394,23 @@ namespace XrayInspection.UserControls
             // 
             // grdAIDecipherStatus
             // 
-            dataGridViewCellStyle133.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle133.BackColor = System.Drawing.SystemColors.ControlDark;
-            dataGridViewCellStyle133.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle133.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle133.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle133.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle133.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grdAIDecipherStatus.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle133;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grdAIDecipherStatus.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.grdAIDecipherStatus.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle134.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle134.BackColor = System.Drawing.Color.LightGray;
-            dataGridViewCellStyle134.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle134.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle134.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle134.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle134.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.grdAIDecipherStatus.DefaultCellStyle = dataGridViewCellStyle134;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grdAIDecipherStatus.DefaultCellStyle = dataGridViewCellStyle2;
             this.grdAIDecipherStatus.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grdAIDecipherStatus.EnableHeadersVisualStyles = false;
             this.grdAIDecipherStatus.Location = new System.Drawing.Point(3, 17);
