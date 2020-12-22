@@ -29,8 +29,8 @@ namespace MaskManager.UserControls
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle133 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle134 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.lblTitle = new System.Windows.Forms.Label();
@@ -273,8 +273,8 @@ namespace MaskManager.UserControls
             // 
             this.tableLayoutPanel13.ColumnCount = 3;
             this.tableLayoutPanel13.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel13.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            this.tableLayoutPanel13.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel13.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55F));
+            this.tableLayoutPanel13.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel13.Controls.Add(this.tableLayoutPanel16, 0, 0);
             this.tableLayoutPanel13.Controls.Add(this.tableLayoutPanel18, 0, 2);
             this.tableLayoutPanel13.Controls.Add(this.tableLayoutPanel19, 0, 4);
@@ -291,7 +291,6 @@ namespace MaskManager.UserControls
             this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 3F));
             this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel13.Size = new System.Drawing.Size(305, 299);
             this.tableLayoutPanel13.TabIndex = 1;
             // 
@@ -299,7 +298,7 @@ namespace MaskManager.UserControls
             // 
             this.tableLayoutPanel16.ColumnCount = 2;
             this.tableLayoutPanel13.SetColumnSpan(this.tableLayoutPanel16, 2);
-            this.tableLayoutPanel16.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
+            this.tableLayoutPanel16.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel16.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel16.Controls.Add(this.txtLotSize, 0, 0);
             this.tableLayoutPanel16.Controls.Add(this.lblLotSize, 0, 0);
@@ -308,27 +307,28 @@ namespace MaskManager.UserControls
             this.tableLayoutPanel16.Name = "tableLayoutPanel16";
             this.tableLayoutPanel16.RowCount = 1;
             this.tableLayoutPanel16.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel16.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
-            this.tableLayoutPanel16.Size = new System.Drawing.Size(238, 29);
+            this.tableLayoutPanel16.Size = new System.Drawing.Size(264, 29);
             this.tableLayoutPanel16.TabIndex = 0;
             // 
             // txtLotSize
             // 
             this.txtLotSize.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtLotSize.Location = new System.Drawing.Point(73, 3);
+            this.txtLotSize.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.txtLotSize.Location = new System.Drawing.Point(103, 5);
+            this.txtLotSize.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.txtLotSize.Name = "txtLotSize";
             this.txtLotSize.ReadOnly = true;
-            this.txtLotSize.Size = new System.Drawing.Size(162, 21);
+            this.txtLotSize.Size = new System.Drawing.Size(158, 24);
             this.txtLotSize.TabIndex = 12;
             // 
             // lblLotSize
             // 
             this.lblLotSize.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblLotSize.Font = new System.Drawing.Font("굴림", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lblLotSize.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lblLotSize.Location = new System.Drawing.Point(3, 3);
             this.lblLotSize.Margin = new System.Windows.Forms.Padding(3);
             this.lblLotSize.Name = "lblLotSize";
-            this.lblLotSize.Size = new System.Drawing.Size(64, 23);
+            this.lblLotSize.Size = new System.Drawing.Size(94, 23);
             this.lblLotSize.TabIndex = 0;
             this.lblLotSize.Text = "LOT 크기";
             this.lblLotSize.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -337,7 +337,7 @@ namespace MaskManager.UserControls
             // 
             this.tableLayoutPanel18.ColumnCount = 2;
             this.tableLayoutPanel13.SetColumnSpan(this.tableLayoutPanel18, 2);
-            this.tableLayoutPanel18.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
+            this.tableLayoutPanel18.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel18.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel18.Controls.Add(this.txtInspectionStd, 0, 0);
             this.tableLayoutPanel18.Controls.Add(this.lblInspectionStd, 0, 0);
@@ -346,26 +346,28 @@ namespace MaskManager.UserControls
             this.tableLayoutPanel18.Name = "tableLayoutPanel18";
             this.tableLayoutPanel18.RowCount = 1;
             this.tableLayoutPanel18.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel18.Size = new System.Drawing.Size(238, 29);
+            this.tableLayoutPanel18.Size = new System.Drawing.Size(264, 29);
             this.tableLayoutPanel18.TabIndex = 3;
             // 
             // txtInspectionStd
             // 
             this.txtInspectionStd.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtInspectionStd.Location = new System.Drawing.Point(73, 3);
+            this.txtInspectionStd.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.txtInspectionStd.Location = new System.Drawing.Point(103, 5);
+            this.txtInspectionStd.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.txtInspectionStd.Name = "txtInspectionStd";
             this.txtInspectionStd.ReadOnly = true;
-            this.txtInspectionStd.Size = new System.Drawing.Size(162, 21);
+            this.txtInspectionStd.Size = new System.Drawing.Size(158, 24);
             this.txtInspectionStd.TabIndex = 12;
             // 
             // lblInspectionStd
             // 
             this.lblInspectionStd.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblInspectionStd.Font = new System.Drawing.Font("굴림", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lblInspectionStd.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lblInspectionStd.Location = new System.Drawing.Point(3, 3);
             this.lblInspectionStd.Margin = new System.Windows.Forms.Padding(3);
             this.lblInspectionStd.Name = "lblInspectionStd";
-            this.lblInspectionStd.Size = new System.Drawing.Size(64, 23);
+            this.lblInspectionStd.Size = new System.Drawing.Size(94, 23);
             this.lblInspectionStd.TabIndex = 0;
             this.lblInspectionStd.Text = "검사기준";
             this.lblInspectionStd.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -374,7 +376,7 @@ namespace MaskManager.UserControls
             // 
             this.tableLayoutPanel19.ColumnCount = 2;
             this.tableLayoutPanel13.SetColumnSpan(this.tableLayoutPanel19, 2);
-            this.tableLayoutPanel19.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
+            this.tableLayoutPanel19.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel19.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel19.Controls.Add(this.txtPlanPageCount, 0, 0);
             this.tableLayoutPanel19.Controls.Add(this.lblPlanPageCount, 0, 0);
@@ -383,26 +385,28 @@ namespace MaskManager.UserControls
             this.tableLayoutPanel19.Name = "tableLayoutPanel19";
             this.tableLayoutPanel19.RowCount = 1;
             this.tableLayoutPanel19.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel19.Size = new System.Drawing.Size(238, 29);
+            this.tableLayoutPanel19.Size = new System.Drawing.Size(264, 29);
             this.tableLayoutPanel19.TabIndex = 2;
             // 
             // txtPlanPageCount
             // 
             this.txtPlanPageCount.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtPlanPageCount.Location = new System.Drawing.Point(73, 3);
+            this.txtPlanPageCount.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.txtPlanPageCount.Location = new System.Drawing.Point(103, 5);
+            this.txtPlanPageCount.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.txtPlanPageCount.Name = "txtPlanPageCount";
             this.txtPlanPageCount.ReadOnly = true;
-            this.txtPlanPageCount.Size = new System.Drawing.Size(162, 21);
+            this.txtPlanPageCount.Size = new System.Drawing.Size(158, 24);
             this.txtPlanPageCount.TabIndex = 12;
             // 
             // lblPlanPageCount
             // 
             this.lblPlanPageCount.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblPlanPageCount.Font = new System.Drawing.Font("굴림", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lblPlanPageCount.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lblPlanPageCount.Location = new System.Drawing.Point(3, 3);
             this.lblPlanPageCount.Margin = new System.Windows.Forms.Padding(3);
             this.lblPlanPageCount.Name = "lblPlanPageCount";
-            this.lblPlanPageCount.Size = new System.Drawing.Size(64, 23);
+            this.lblPlanPageCount.Size = new System.Drawing.Size(94, 23);
             this.lblPlanPageCount.TabIndex = 0;
             this.lblPlanPageCount.Text = "계획본수";
             this.lblPlanPageCount.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -411,7 +415,7 @@ namespace MaskManager.UserControls
             // 
             this.tableLayoutPanel20.ColumnCount = 2;
             this.tableLayoutPanel13.SetColumnSpan(this.tableLayoutPanel20, 2);
-            this.tableLayoutPanel20.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
+            this.tableLayoutPanel20.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel20.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel20.Controls.Add(this.txtProgressSequence, 0, 0);
             this.tableLayoutPanel20.Controls.Add(this.lblProgressSequence, 0, 0);
@@ -420,27 +424,28 @@ namespace MaskManager.UserControls
             this.tableLayoutPanel20.Name = "tableLayoutPanel20";
             this.tableLayoutPanel20.RowCount = 1;
             this.tableLayoutPanel20.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel20.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
-            this.tableLayoutPanel20.Size = new System.Drawing.Size(238, 29);
+            this.tableLayoutPanel20.Size = new System.Drawing.Size(264, 29);
             this.tableLayoutPanel20.TabIndex = 1;
             // 
             // txtProgressSequence
             // 
             this.txtProgressSequence.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtProgressSequence.Location = new System.Drawing.Point(73, 3);
+            this.txtProgressSequence.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.txtProgressSequence.Location = new System.Drawing.Point(103, 5);
+            this.txtProgressSequence.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.txtProgressSequence.Name = "txtProgressSequence";
             this.txtProgressSequence.ReadOnly = true;
-            this.txtProgressSequence.Size = new System.Drawing.Size(162, 21);
+            this.txtProgressSequence.Size = new System.Drawing.Size(158, 24);
             this.txtProgressSequence.TabIndex = 12;
             // 
             // lblProgressSequence
             // 
             this.lblProgressSequence.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblProgressSequence.Font = new System.Drawing.Font("굴림", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lblProgressSequence.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lblProgressSequence.Location = new System.Drawing.Point(3, 3);
             this.lblProgressSequence.Margin = new System.Windows.Forms.Padding(3);
             this.lblProgressSequence.Name = "lblProgressSequence";
-            this.lblProgressSequence.Size = new System.Drawing.Size(64, 23);
+            this.lblProgressSequence.Size = new System.Drawing.Size(94, 23);
             this.lblProgressSequence.TabIndex = 0;
             this.lblProgressSequence.Text = "진행순번";
             this.lblProgressSequence.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -710,15 +715,15 @@ namespace MaskManager.UserControls
             this.tableLayoutPanel14.Location = new System.Drawing.Point(3, 17);
             this.tableLayoutPanel14.Name = "tableLayoutPanel14";
             this.tableLayoutPanel14.RowCount = 10;
-            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 3F));
-            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 3F));
-            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 3F));
-            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 3F));
-            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel14.Size = new System.Drawing.Size(580, 299);
             this.tableLayoutPanel14.TabIndex = 0;
@@ -727,7 +732,7 @@ namespace MaskManager.UserControls
             // 
             this.tableLayoutPanel8.ColumnCount = 2;
             this.tableLayoutPanel14.SetColumnSpan(this.tableLayoutPanel8, 2);
-            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel8.Controls.Add(this.lblCustomer, 0, 0);
             this.tableLayoutPanel8.Controls.Add(this.txtCustomer, 1, 0);
@@ -736,18 +741,17 @@ namespace MaskManager.UserControls
             this.tableLayoutPanel8.Name = "tableLayoutPanel8";
             this.tableLayoutPanel8.RowCount = 1;
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
-            this.tableLayoutPanel8.Size = new System.Drawing.Size(458, 24);
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(458, 29);
             this.tableLayoutPanel8.TabIndex = 0;
             // 
             // lblCustomer
             // 
             this.lblCustomer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblCustomer.Font = new System.Drawing.Font("굴림", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lblCustomer.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lblCustomer.Location = new System.Drawing.Point(3, 3);
             this.lblCustomer.Margin = new System.Windows.Forms.Padding(3);
             this.lblCustomer.Name = "lblCustomer";
-            this.lblCustomer.Size = new System.Drawing.Size(64, 18);
+            this.lblCustomer.Size = new System.Drawing.Size(94, 23);
             this.lblCustomer.TabIndex = 0;
             this.lblCustomer.Text = "고객명";
             this.lblCustomer.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -755,45 +759,48 @@ namespace MaskManager.UserControls
             // txtCustomer
             // 
             this.txtCustomer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtCustomer.Location = new System.Drawing.Point(73, 3);
+            this.txtCustomer.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.txtCustomer.Location = new System.Drawing.Point(103, 5);
+            this.txtCustomer.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.txtCustomer.Name = "txtCustomer";
             this.txtCustomer.ReadOnly = true;
-            this.txtCustomer.Size = new System.Drawing.Size(382, 21);
+            this.txtCustomer.Size = new System.Drawing.Size(352, 24);
             this.txtCustomer.TabIndex = 6;
             // 
             // tableLayoutPanel12
             // 
             this.tableLayoutPanel12.ColumnCount = 2;
-            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
+            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel12.Controls.Add(this.txtUser, 0, 0);
             this.tableLayoutPanel12.Controls.Add(this.lblUser, 0, 0);
             this.tableLayoutPanel12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel12.Location = new System.Drawing.Point(3, 135);
+            this.tableLayoutPanel12.Location = new System.Drawing.Point(3, 155);
             this.tableLayoutPanel12.Name = "tableLayoutPanel12";
             this.tableLayoutPanel12.RowCount = 1;
             this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
-            this.tableLayoutPanel12.Size = new System.Drawing.Size(168, 24);
+            this.tableLayoutPanel12.Size = new System.Drawing.Size(168, 29);
             this.tableLayoutPanel12.TabIndex = 4;
             // 
             // txtUser
             // 
             this.txtUser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtUser.Location = new System.Drawing.Point(73, 3);
+            this.txtUser.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.txtUser.Location = new System.Drawing.Point(103, 5);
+            this.txtUser.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.txtUser.Name = "txtUser";
             this.txtUser.ReadOnly = true;
-            this.txtUser.Size = new System.Drawing.Size(92, 21);
+            this.txtUser.Size = new System.Drawing.Size(62, 24);
             this.txtUser.TabIndex = 11;
             // 
             // lblUser
             // 
             this.lblUser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblUser.Font = new System.Drawing.Font("굴림", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lblUser.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lblUser.Location = new System.Drawing.Point(3, 3);
             this.lblUser.Margin = new System.Windows.Forms.Padding(3);
             this.lblUser.Name = "lblUser";
-            this.lblUser.Size = new System.Drawing.Size(64, 18);
+            this.lblUser.Size = new System.Drawing.Size(94, 23);
             this.lblUser.TabIndex = 0;
             this.lblUser.Text = "성형자";
             this.lblUser.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -802,35 +809,37 @@ namespace MaskManager.UserControls
             // 
             this.tableLayoutPanel11.ColumnCount = 2;
             this.tableLayoutPanel14.SetColumnSpan(this.tableLayoutPanel11, 2);
-            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
+            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel11.Controls.Add(this.txtUsedPlace, 0, 0);
             this.tableLayoutPanel11.Controls.Add(this.lblUsedPlace, 0, 0);
             this.tableLayoutPanel11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel11.Location = new System.Drawing.Point(3, 36);
+            this.tableLayoutPanel11.Location = new System.Drawing.Point(3, 41);
             this.tableLayoutPanel11.Name = "tableLayoutPanel11";
             this.tableLayoutPanel11.RowCount = 1;
             this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel11.Size = new System.Drawing.Size(458, 24);
+            this.tableLayoutPanel11.Size = new System.Drawing.Size(458, 29);
             this.tableLayoutPanel11.TabIndex = 3;
             // 
             // txtUsedPlace
             // 
             this.txtUsedPlace.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtUsedPlace.Location = new System.Drawing.Point(73, 3);
+            this.txtUsedPlace.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.txtUsedPlace.Location = new System.Drawing.Point(103, 5);
+            this.txtUsedPlace.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.txtUsedPlace.Name = "txtUsedPlace";
             this.txtUsedPlace.ReadOnly = true;
-            this.txtUsedPlace.Size = new System.Drawing.Size(382, 21);
+            this.txtUsedPlace.Size = new System.Drawing.Size(352, 24);
             this.txtUsedPlace.TabIndex = 8;
             // 
             // lblUsedPlace
             // 
             this.lblUsedPlace.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblUsedPlace.Font = new System.Drawing.Font("굴림", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lblUsedPlace.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lblUsedPlace.Location = new System.Drawing.Point(3, 3);
             this.lblUsedPlace.Margin = new System.Windows.Forms.Padding(3);
             this.lblUsedPlace.Name = "lblUsedPlace";
-            this.lblUsedPlace.Size = new System.Drawing.Size(64, 18);
+            this.lblUsedPlace.Size = new System.Drawing.Size(94, 23);
             this.lblUsedPlace.TabIndex = 0;
             this.lblUsedPlace.Text = "사용처";
             this.lblUsedPlace.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -839,36 +848,37 @@ namespace MaskManager.UserControls
             // 
             this.tableLayoutPanel10.ColumnCount = 2;
             this.tableLayoutPanel14.SetColumnSpan(this.tableLayoutPanel10, 2);
-            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
+            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel10.Controls.Add(this.txtProductName, 0, 0);
             this.tableLayoutPanel10.Controls.Add(this.lblProductName, 0, 0);
             this.tableLayoutPanel10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel10.Location = new System.Drawing.Point(3, 69);
+            this.tableLayoutPanel10.Location = new System.Drawing.Point(3, 79);
             this.tableLayoutPanel10.Name = "tableLayoutPanel10";
             this.tableLayoutPanel10.RowCount = 1;
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
-            this.tableLayoutPanel10.Size = new System.Drawing.Size(458, 24);
+            this.tableLayoutPanel10.Size = new System.Drawing.Size(458, 29);
             this.tableLayoutPanel10.TabIndex = 2;
             // 
             // txtProductName
             // 
             this.txtProductName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtProductName.Location = new System.Drawing.Point(73, 3);
+            this.txtProductName.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.txtProductName.Location = new System.Drawing.Point(103, 5);
+            this.txtProductName.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.txtProductName.Name = "txtProductName";
             this.txtProductName.ReadOnly = true;
-            this.txtProductName.Size = new System.Drawing.Size(382, 21);
+            this.txtProductName.Size = new System.Drawing.Size(352, 24);
             this.txtProductName.TabIndex = 10;
             // 
             // lblProductName
             // 
             this.lblProductName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblProductName.Font = new System.Drawing.Font("굴림", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lblProductName.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lblProductName.Location = new System.Drawing.Point(3, 3);
             this.lblProductName.Margin = new System.Windows.Forms.Padding(3);
             this.lblProductName.Name = "lblProductName";
-            this.lblProductName.Size = new System.Drawing.Size(64, 18);
+            this.lblProductName.Size = new System.Drawing.Size(94, 23);
             this.lblProductName.TabIndex = 0;
             this.lblProductName.Text = "품명";
             this.lblProductName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -877,36 +887,37 @@ namespace MaskManager.UserControls
             // 
             this.tableLayoutPanel9.ColumnCount = 2;
             this.tableLayoutPanel14.SetColumnSpan(this.tableLayoutPanel9, 2);
-            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
+            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel9.Controls.Add(this.txtProductCode, 0, 0);
             this.tableLayoutPanel9.Controls.Add(this.lblProductCode, 0, 0);
             this.tableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel9.Location = new System.Drawing.Point(3, 102);
+            this.tableLayoutPanel9.Location = new System.Drawing.Point(3, 117);
             this.tableLayoutPanel9.Name = "tableLayoutPanel9";
             this.tableLayoutPanel9.RowCount = 1;
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
-            this.tableLayoutPanel9.Size = new System.Drawing.Size(458, 24);
+            this.tableLayoutPanel9.Size = new System.Drawing.Size(458, 29);
             this.tableLayoutPanel9.TabIndex = 1;
             // 
             // txtProductCode
             // 
             this.txtProductCode.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtProductCode.Location = new System.Drawing.Point(73, 3);
+            this.txtProductCode.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.txtProductCode.Location = new System.Drawing.Point(103, 5);
+            this.txtProductCode.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.txtProductCode.Name = "txtProductCode";
             this.txtProductCode.ReadOnly = true;
-            this.txtProductCode.Size = new System.Drawing.Size(382, 21);
+            this.txtProductCode.Size = new System.Drawing.Size(352, 24);
             this.txtProductCode.TabIndex = 11;
             // 
             // lblProductCode
             // 
             this.lblProductCode.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblProductCode.Font = new System.Drawing.Font("굴림", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lblProductCode.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lblProductCode.Location = new System.Drawing.Point(3, 3);
             this.lblProductCode.Margin = new System.Windows.Forms.Padding(3);
             this.lblProductCode.Name = "lblProductCode";
-            this.lblProductCode.Size = new System.Drawing.Size(64, 18);
+            this.lblProductCode.Size = new System.Drawing.Size(94, 23);
             this.lblProductCode.TabIndex = 0;
             this.lblProductCode.Text = "도번";
             this.lblProductCode.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -914,36 +925,37 @@ namespace MaskManager.UserControls
             // tableLayoutPanel15
             // 
             this.tableLayoutPanel15.ColumnCount = 2;
-            this.tableLayoutPanel15.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
+            this.tableLayoutPanel15.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel15.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel15.Controls.Add(this.txtLotNo, 0, 0);
             this.tableLayoutPanel15.Controls.Add(this.lblLotNo, 0, 0);
             this.tableLayoutPanel15.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel15.Location = new System.Drawing.Point(177, 135);
+            this.tableLayoutPanel15.Location = new System.Drawing.Point(177, 155);
             this.tableLayoutPanel15.Name = "tableLayoutPanel15";
             this.tableLayoutPanel15.RowCount = 1;
             this.tableLayoutPanel15.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel15.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
-            this.tableLayoutPanel15.Size = new System.Drawing.Size(284, 24);
+            this.tableLayoutPanel15.Size = new System.Drawing.Size(284, 29);
             this.tableLayoutPanel15.TabIndex = 5;
             // 
             // txtLotNo
             // 
             this.txtLotNo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtLotNo.Location = new System.Drawing.Point(73, 3);
+            this.txtLotNo.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.txtLotNo.Location = new System.Drawing.Point(103, 5);
+            this.txtLotNo.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.txtLotNo.Name = "txtLotNo";
             this.txtLotNo.ReadOnly = true;
-            this.txtLotNo.Size = new System.Drawing.Size(208, 21);
+            this.txtLotNo.Size = new System.Drawing.Size(178, 24);
             this.txtLotNo.TabIndex = 11;
             // 
             // lblLotNo
             // 
             this.lblLotNo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblLotNo.Font = new System.Drawing.Font("굴림", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lblLotNo.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lblLotNo.Location = new System.Drawing.Point(3, 3);
             this.lblLotNo.Margin = new System.Windows.Forms.Padding(3);
             this.lblLotNo.Name = "lblLotNo";
-            this.lblLotNo.Size = new System.Drawing.Size(64, 18);
+            this.lblLotNo.Size = new System.Drawing.Size(94, 23);
             this.lblLotNo.TabIndex = 0;
             this.lblLotNo.Text = "LOT NO";
             this.lblLotNo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -983,15 +995,15 @@ namespace MaskManager.UserControls
             this.tableLayoutPanel17.Location = new System.Drawing.Point(3, 17);
             this.tableLayoutPanel17.Name = "tableLayoutPanel17";
             this.tableLayoutPanel17.RowCount = 10;
-            this.tableLayoutPanel17.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel17.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel17.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 3F));
-            this.tableLayoutPanel17.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel17.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel17.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 3F));
-            this.tableLayoutPanel17.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel17.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel17.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 3F));
-            this.tableLayoutPanel17.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel17.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel17.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 3F));
-            this.tableLayoutPanel17.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel17.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel17.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel17.Size = new System.Drawing.Size(580, 295);
             this.tableLayoutPanel17.TabIndex = 1;
@@ -1000,36 +1012,37 @@ namespace MaskManager.UserControls
             // 
             this.tableLayoutPanel25.ColumnCount = 2;
             this.tableLayoutPanel17.SetColumnSpan(this.tableLayoutPanel25, 3);
-            this.tableLayoutPanel25.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
+            this.tableLayoutPanel25.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel25.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel25.Controls.Add(this.txtPart, 0, 0);
             this.tableLayoutPanel25.Controls.Add(this.lblPart, 0, 0);
             this.tableLayoutPanel25.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel25.Location = new System.Drawing.Point(3, 102);
+            this.tableLayoutPanel25.Location = new System.Drawing.Point(3, 117);
             this.tableLayoutPanel25.Name = "tableLayoutPanel25";
             this.tableLayoutPanel25.RowCount = 1;
             this.tableLayoutPanel25.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel25.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
-            this.tableLayoutPanel25.Size = new System.Drawing.Size(440, 24);
+            this.tableLayoutPanel25.Size = new System.Drawing.Size(440, 29);
             this.tableLayoutPanel25.TabIndex = 8;
             // 
             // txtPart
             // 
             this.txtPart.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtPart.Location = new System.Drawing.Point(73, 3);
+            this.txtPart.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.txtPart.Location = new System.Drawing.Point(103, 5);
+            this.txtPart.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.txtPart.Name = "txtPart";
             this.txtPart.ReadOnly = true;
-            this.txtPart.Size = new System.Drawing.Size(364, 21);
+            this.txtPart.Size = new System.Drawing.Size(334, 24);
             this.txtPart.TabIndex = 13;
             // 
             // lblPart
             // 
             this.lblPart.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblPart.Font = new System.Drawing.Font("굴림", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lblPart.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lblPart.Location = new System.Drawing.Point(3, 3);
             this.lblPart.Margin = new System.Windows.Forms.Padding(3);
             this.lblPart.Name = "lblPart";
-            this.lblPart.Size = new System.Drawing.Size(64, 18);
+            this.lblPart.Size = new System.Drawing.Size(94, 23);
             this.lblPart.TabIndex = 0;
             this.lblPart.Text = "부위";
             this.lblPart.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1038,7 +1051,7 @@ namespace MaskManager.UserControls
             // 
             this.tableLayoutPanel21.ColumnCount = 2;
             this.tableLayoutPanel17.SetColumnSpan(this.tableLayoutPanel21, 2);
-            this.tableLayoutPanel21.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
+            this.tableLayoutPanel21.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel21.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel21.Controls.Add(this.txtInspector, 0, 0);
             this.tableLayoutPanel21.Controls.Add(this.lblInspector, 0, 0);
@@ -1047,27 +1060,28 @@ namespace MaskManager.UserControls
             this.tableLayoutPanel21.Name = "tableLayoutPanel21";
             this.tableLayoutPanel21.RowCount = 1;
             this.tableLayoutPanel21.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel21.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
-            this.tableLayoutPanel21.Size = new System.Drawing.Size(232, 24);
+            this.tableLayoutPanel21.Size = new System.Drawing.Size(232, 29);
             this.tableLayoutPanel21.TabIndex = 0;
             // 
             // txtInspector
             // 
             this.txtInspector.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtInspector.Location = new System.Drawing.Point(73, 3);
+            this.txtInspector.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.txtInspector.Location = new System.Drawing.Point(103, 5);
+            this.txtInspector.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.txtInspector.Name = "txtInspector";
             this.txtInspector.ReadOnly = true;
-            this.txtInspector.Size = new System.Drawing.Size(156, 21);
+            this.txtInspector.Size = new System.Drawing.Size(126, 24);
             this.txtInspector.TabIndex = 12;
             // 
             // lblInspector
             // 
             this.lblInspector.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblInspector.Font = new System.Drawing.Font("굴림", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lblInspector.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lblInspector.Location = new System.Drawing.Point(3, 3);
             this.lblInspector.Margin = new System.Windows.Forms.Padding(3);
             this.lblInspector.Name = "lblInspector";
-            this.lblInspector.Size = new System.Drawing.Size(64, 18);
+            this.lblInspector.Size = new System.Drawing.Size(94, 23);
             this.lblInspector.TabIndex = 0;
             this.lblInspector.Text = "검사자";
             this.lblInspector.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1076,36 +1090,37 @@ namespace MaskManager.UserControls
             // 
             this.tableLayoutPanel22.ColumnCount = 2;
             this.tableLayoutPanel17.SetColumnSpan(this.tableLayoutPanel22, 3);
-            this.tableLayoutPanel22.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
+            this.tableLayoutPanel22.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel22.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel22.Controls.Add(this.txtLocation, 0, 0);
             this.tableLayoutPanel22.Controls.Add(this.lblLocation, 0, 0);
             this.tableLayoutPanel22.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel22.Location = new System.Drawing.Point(3, 135);
+            this.tableLayoutPanel22.Location = new System.Drawing.Point(3, 155);
             this.tableLayoutPanel22.Name = "tableLayoutPanel22";
             this.tableLayoutPanel22.RowCount = 1;
             this.tableLayoutPanel22.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel22.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
-            this.tableLayoutPanel22.Size = new System.Drawing.Size(440, 24);
+            this.tableLayoutPanel22.Size = new System.Drawing.Size(440, 29);
             this.tableLayoutPanel22.TabIndex = 4;
             // 
             // txtLocation
             // 
             this.txtLocation.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtLocation.Location = new System.Drawing.Point(73, 3);
+            this.txtLocation.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.txtLocation.Location = new System.Drawing.Point(103, 5);
+            this.txtLocation.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.txtLocation.Name = "txtLocation";
             this.txtLocation.ReadOnly = true;
-            this.txtLocation.Size = new System.Drawing.Size(364, 21);
+            this.txtLocation.Size = new System.Drawing.Size(334, 24);
             this.txtLocation.TabIndex = 13;
             // 
             // lblLocation
             // 
             this.lblLocation.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblLocation.Font = new System.Drawing.Font("굴림", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lblLocation.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lblLocation.Location = new System.Drawing.Point(3, 3);
             this.lblLocation.Margin = new System.Windows.Forms.Padding(3);
             this.lblLocation.Name = "lblLocation";
-            this.lblLocation.Size = new System.Drawing.Size(64, 18);
+            this.lblLocation.Size = new System.Drawing.Size(94, 23);
             this.lblLocation.TabIndex = 0;
             this.lblLocation.Text = "위치";
             this.lblLocation.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1113,36 +1128,37 @@ namespace MaskManager.UserControls
             // tableLayoutPanel23
             // 
             this.tableLayoutPanel23.ColumnCount = 2;
-            this.tableLayoutPanel23.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
+            this.tableLayoutPanel23.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel23.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel23.Controls.Add(this.txtJudgmentResult, 0, 0);
             this.tableLayoutPanel23.Controls.Add(this.lblJudgmentResult, 0, 0);
             this.tableLayoutPanel23.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel23.Location = new System.Drawing.Point(3, 36);
+            this.tableLayoutPanel23.Location = new System.Drawing.Point(3, 41);
             this.tableLayoutPanel23.Name = "tableLayoutPanel23";
             this.tableLayoutPanel23.RowCount = 1;
             this.tableLayoutPanel23.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel23.Size = new System.Drawing.Size(202, 24);
+            this.tableLayoutPanel23.Size = new System.Drawing.Size(202, 29);
             this.tableLayoutPanel23.TabIndex = 3;
             // 
             // txtJudgmentResult
             // 
             this.txtJudgmentResult.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtJudgmentResult.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.txtJudgmentResult.Location = new System.Drawing.Point(73, 3);
+            this.txtJudgmentResult.Font = new System.Drawing.Font("굴림", 11F);
+            this.txtJudgmentResult.Location = new System.Drawing.Point(103, 5);
+            this.txtJudgmentResult.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.txtJudgmentResult.Name = "txtJudgmentResult";
             this.txtJudgmentResult.ReadOnly = true;
-            this.txtJudgmentResult.Size = new System.Drawing.Size(126, 21);
+            this.txtJudgmentResult.Size = new System.Drawing.Size(96, 24);
             this.txtJudgmentResult.TabIndex = 12;
             // 
             // lblJudgmentResult
             // 
             this.lblJudgmentResult.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblJudgmentResult.Font = new System.Drawing.Font("굴림", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lblJudgmentResult.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lblJudgmentResult.Location = new System.Drawing.Point(3, 3);
             this.lblJudgmentResult.Margin = new System.Windows.Forms.Padding(3);
             this.lblJudgmentResult.Name = "lblJudgmentResult";
-            this.lblJudgmentResult.Size = new System.Drawing.Size(64, 18);
+            this.lblJudgmentResult.Size = new System.Drawing.Size(94, 23);
             this.lblJudgmentResult.TabIndex = 0;
             this.lblJudgmentResult.Text = "판독결과";
             this.lblJudgmentResult.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1151,35 +1167,37 @@ namespace MaskManager.UserControls
             // 
             this.tableLayoutPanel24.ColumnCount = 2;
             this.tableLayoutPanel17.SetColumnSpan(this.tableLayoutPanel24, 3);
-            this.tableLayoutPanel24.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
+            this.tableLayoutPanel24.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel24.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel24.Controls.Add(this.txtContext, 0, 0);
             this.tableLayoutPanel24.Controls.Add(this.lblContext, 0, 0);
             this.tableLayoutPanel24.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel24.Location = new System.Drawing.Point(3, 69);
+            this.tableLayoutPanel24.Location = new System.Drawing.Point(3, 79);
             this.tableLayoutPanel24.Name = "tableLayoutPanel24";
             this.tableLayoutPanel24.RowCount = 1;
             this.tableLayoutPanel24.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel24.Size = new System.Drawing.Size(440, 24);
+            this.tableLayoutPanel24.Size = new System.Drawing.Size(440, 29);
             this.tableLayoutPanel24.TabIndex = 2;
             // 
             // txtContext
             // 
             this.txtContext.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtContext.Location = new System.Drawing.Point(73, 3);
+            this.txtContext.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.txtContext.Location = new System.Drawing.Point(103, 5);
+            this.txtContext.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.txtContext.Name = "txtContext";
             this.txtContext.ReadOnly = true;
-            this.txtContext.Size = new System.Drawing.Size(364, 21);
+            this.txtContext.Size = new System.Drawing.Size(334, 24);
             this.txtContext.TabIndex = 13;
             // 
             // lblContext
             // 
             this.lblContext.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblContext.Font = new System.Drawing.Font("굴림", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lblContext.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lblContext.Location = new System.Drawing.Point(3, 3);
             this.lblContext.Margin = new System.Windows.Forms.Padding(3);
             this.lblContext.Name = "lblContext";
-            this.lblContext.Size = new System.Drawing.Size(64, 18);
+            this.lblContext.Size = new System.Drawing.Size(94, 23);
             this.lblContext.TabIndex = 0;
             this.lblContext.Text = "항목";
             this.lblContext.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1187,15 +1205,16 @@ namespace MaskManager.UserControls
             // tableLayoutPanel27
             // 
             this.tableLayoutPanel27.ColumnCount = 2;
-            this.tableLayoutPanel27.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
+            this.tableLayoutPanel27.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel27.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel27.Controls.Add(this.txtAiResult, 0, 0);
             this.tableLayoutPanel27.Controls.Add(this.lblAiResult, 0, 0);
-            this.tableLayoutPanel27.Location = new System.Drawing.Point(241, 36);
+            this.tableLayoutPanel27.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel27.Location = new System.Drawing.Point(241, 41);
             this.tableLayoutPanel27.Name = "tableLayoutPanel27";
             this.tableLayoutPanel27.RowCount = 1;
             this.tableLayoutPanel27.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel27.Size = new System.Drawing.Size(202, 24);
+            this.tableLayoutPanel27.Size = new System.Drawing.Size(202, 29);
             this.tableLayoutPanel27.TabIndex = 6;
             // 
             // txtAiResult
@@ -1203,10 +1222,12 @@ namespace MaskManager.UserControls
             this.txtAiResult.BackColor = System.Drawing.Color.CornflowerBlue;
             this.txtAiResult.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtAiResult.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtAiResult.Location = new System.Drawing.Point(73, 3);
+            this.txtAiResult.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.txtAiResult.Location = new System.Drawing.Point(103, 5);
+            this.txtAiResult.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.txtAiResult.Name = "txtAiResult";
             this.txtAiResult.ReadOnly = true;
-            this.txtAiResult.Size = new System.Drawing.Size(126, 21);
+            this.txtAiResult.Size = new System.Drawing.Size(96, 25);
             this.txtAiResult.TabIndex = 12;
             this.txtAiResult.Text = "정상";
             this.txtAiResult.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -1214,11 +1235,11 @@ namespace MaskManager.UserControls
             // lblAiResult
             // 
             this.lblAiResult.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblAiResult.Font = new System.Drawing.Font("굴림", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lblAiResult.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Bold);
             this.lblAiResult.Location = new System.Drawing.Point(3, 3);
             this.lblAiResult.Margin = new System.Windows.Forms.Padding(3);
             this.lblAiResult.Name = "lblAiResult";
-            this.lblAiResult.Size = new System.Drawing.Size(64, 18);
+            this.lblAiResult.Size = new System.Drawing.Size(94, 23);
             this.lblAiResult.TabIndex = 0;
             this.lblAiResult.Text = "AI결과";
             this.lblAiResult.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1229,8 +1250,8 @@ namespace MaskManager.UserControls
             this.btnJudgmentResult.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnJudgmentResult.Font = new System.Drawing.Font("굴림", 4F);
             this.btnJudgmentResult.ForeColor = System.Drawing.Color.White;
-            this.btnJudgmentResult.Location = new System.Drawing.Point(211, 39);
-            this.btnJudgmentResult.Margin = new System.Windows.Forms.Padding(3, 6, 3, 7);
+            this.btnJudgmentResult.Location = new System.Drawing.Point(211, 48);
+            this.btnJudgmentResult.Margin = new System.Windows.Forms.Padding(3, 10, 3, 7);
             this.btnJudgmentResult.Name = "btnJudgmentResult";
             this.btnJudgmentResult.Size = new System.Drawing.Size(24, 17);
             this.btnJudgmentResult.TabIndex = 9;
@@ -1243,8 +1264,8 @@ namespace MaskManager.UserControls
             this.btnContext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnContext.Font = new System.Drawing.Font("굴림", 4F);
             this.btnContext.ForeColor = System.Drawing.Color.White;
-            this.btnContext.Location = new System.Drawing.Point(449, 72);
-            this.btnContext.Margin = new System.Windows.Forms.Padding(3, 6, 3, 7);
+            this.btnContext.Location = new System.Drawing.Point(449, 86);
+            this.btnContext.Margin = new System.Windows.Forms.Padding(3, 10, 3, 7);
             this.btnContext.Name = "btnContext";
             this.btnContext.Size = new System.Drawing.Size(24, 17);
             this.btnContext.TabIndex = 10;
@@ -1257,8 +1278,8 @@ namespace MaskManager.UserControls
             this.btnPart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPart.Font = new System.Drawing.Font("굴림", 4F);
             this.btnPart.ForeColor = System.Drawing.Color.White;
-            this.btnPart.Location = new System.Drawing.Point(449, 105);
-            this.btnPart.Margin = new System.Windows.Forms.Padding(3, 6, 3, 7);
+            this.btnPart.Location = new System.Drawing.Point(449, 124);
+            this.btnPart.Margin = new System.Windows.Forms.Padding(3, 10, 3, 7);
             this.btnPart.Name = "btnPart";
             this.btnPart.Size = new System.Drawing.Size(24, 17);
             this.btnPart.TabIndex = 11;
@@ -1271,8 +1292,8 @@ namespace MaskManager.UserControls
             this.btnLocation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLocation.Font = new System.Drawing.Font("굴림", 4F);
             this.btnLocation.ForeColor = System.Drawing.Color.White;
-            this.btnLocation.Location = new System.Drawing.Point(449, 138);
-            this.btnLocation.Margin = new System.Windows.Forms.Padding(3, 6, 3, 7);
+            this.btnLocation.Location = new System.Drawing.Point(449, 162);
+            this.btnLocation.Margin = new System.Windows.Forms.Padding(3, 10, 3, 7);
             this.btnLocation.Name = "btnLocation";
             this.btnLocation.Size = new System.Drawing.Size(24, 17);
             this.btnLocation.TabIndex = 12;
@@ -1335,6 +1356,7 @@ namespace MaskManager.UserControls
             // btnEnd
             // 
             this.btnEnd.BackColor = System.Drawing.Color.DimGray;
+            this.btnEnd.Enabled = false;
             this.btnEnd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEnd.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btnEnd.ForeColor = System.Drawing.Color.White;
@@ -1372,23 +1394,23 @@ namespace MaskManager.UserControls
             // 
             // grdAIDecipherStatus
             // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ControlDark;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grdAIDecipherStatus.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle133.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle133.BackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle133.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle133.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle133.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle133.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle133.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grdAIDecipherStatus.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle133;
             this.grdAIDecipherStatus.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.LightGray;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.grdAIDecipherStatus.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle134.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle134.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle134.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle134.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle134.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle134.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle134.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grdAIDecipherStatus.DefaultCellStyle = dataGridViewCellStyle134;
             this.grdAIDecipherStatus.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grdAIDecipherStatus.EnableHeadersVisualStyles = false;
             this.grdAIDecipherStatus.Location = new System.Drawing.Point(3, 17);
