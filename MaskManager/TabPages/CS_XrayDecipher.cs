@@ -375,7 +375,7 @@ namespace MaskManager.UserControls
             ProductInfoSearch();
 
             // TCP 서버시작
-            _tcpServer.BeginStartServer();
+            //_tcpServer.BeginStartServer();
 
             // TCP 서버 - 클라이언트 연결
             OnConnectToServer();
@@ -471,7 +471,7 @@ namespace MaskManager.UserControls
             }
 
             // 텍스트로 변환한다.
-            string text = Encoding.UTF8.GetString(obj.Buffer);
+            string text = Encoding.UTF8.GetString(obj.Buffer).TrimEnd('\0');
 
             // 0x01 기준으로 짜른다.
             // tokens[0] - 보낸 사람 IP
