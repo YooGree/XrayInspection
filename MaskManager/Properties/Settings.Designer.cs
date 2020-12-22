@@ -49,13 +49,25 @@ namespace MaskManager.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("localhost")]
+        [global::System.Configuration.DefaultSettingValueAttribute("192.168.25.113")]
         public string TargetIP {
             get {
                 return ((string)(this["TargetIP"]));
             }
             set {
                 this["TargetIP"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1500")]
+        public string TargetPort {
+            get {
+                return ((string)(this["TargetPort"]));
+            }
+            set {
+                this["TargetPort"] = value;
             }
         }
     }

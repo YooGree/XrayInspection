@@ -281,6 +281,9 @@
     <Compile Include="TabPages\VenderTabPageControl.Designer.cs">
       <DependentUpon>VenderTabPageControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="TCPServerConnection\AsyncObject.cs" />
+    <Compile Include="TCPServerConnection\TCPServer.cs" />
+    <Compile Include="TCPServerConnection\MsgBoxHelper.cs" />
     <Compile Include="Test\CS_MainForm2.cs">
       <SubType>Form</SubType>
     </Compile>

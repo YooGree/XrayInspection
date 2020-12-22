@@ -8,6 +8,8 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -23,6 +25,9 @@ namespace MaskManager.UserControls
     public partial class CS_XrayDecipher : UserControl
     {
         #region 변수
+
+        TCPServer _tcpServer = new TCPServer(Properties.Settings.Default.TargetIP, Properties.Settings.Default.TargetPort);
+        Socket mainSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
 
         #endregion
 
@@ -51,6 +56,31 @@ namespace MaskManager.UserControls
             grdAIDecipherStatus.RowPostPaint += GrdUser_RowPostPaint;
 
             btnJudgmentResult.Click += CommonPopup_Click;
+
+            btnStart.Click += BtnStart_Click;
+            btnEnd.Click += BtnEnd_Click;
+        }
+
+        /// <summary>
+        /// 영상녹화종료
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnEnd_Click(object sender, EventArgs e)
+        {
+            string sendData = "END " + txtLotNo.Text + "," + txtProductName.Text;
+            OnSendData(sendData);       
+        }
+
+        /// <summary>
+        /// 영상녹화시작
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnStart_Click(object sender, EventArgs e)
+        {
+            string sendData = "START " + txtLotNo.Text + "," + txtProductName.Text;
+            OnSendData(sendData);
         }
 
         /// <summary>
@@ -75,7 +105,6 @@ namespace MaskManager.UserControls
                     break;
             }
         }
-
 
         /// <summary>
         /// 그리드 행번호 보여주기
@@ -345,10 +374,16 @@ namespace MaskManager.UserControls
             // 제품정보에 데이터 바인딩
             ProductInfoSearch();
 
+            // TCP 서버시작
+            _tcpServer.BeginStartServer();
+
+            // TCP 서버 - 클라이언트 연결
+            OnConnectToServer();
+
             // 조회조건 콤보박스 세팅
-            BindingList<object> userTypeList = new BindingList<object>();
-            userTypeList.Add(new { Text = "검사자", Value = "INSPECTOR" });
-            userTypeList.Add(new { Text = "성형자", Value = "MOLDER" });
+            //BindingList<object> userTypeList = new BindingList<object>();
+            //userTypeList.Add(new { Text = "검사자", Value = "INSPECTOR" });
+            //userTypeList.Add(new { Text = "성형자", Value = "MOLDER" });
 
             //comboUserType.DataSource = userTypeList;
             //comboUserType.DisplayMember = "Text";
@@ -371,6 +406,118 @@ namespace MaskManager.UserControls
             CommonFuction.SetDataGridViewColumnStyle(grdAIDecipherStatus, "AI판정", "AIJUDGMENT", "AIJUDGMENT", typeof(string), 150, false, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdAIDecipherStatus, "유형", "TYPE", "TYPE", typeof(string), 150, false, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdAIDecipherStatus, "행변경타입", "ROWTYPE", "ROWTYPE", typeof(string), 100, false, false, DataGridViewContentAlignment.MiddleLeft, 10);
+        }
+
+        #endregion
+
+        #region TCP 클라이언트
+
+        /// <summary>
+        /// 열려있는 TCP 서버에 클라이언트를 연결
+        /// </summary>
+        private void OnConnectToServer()
+        {
+            if (mainSocket.Connected)
+            {
+                MsgBoxHelper.Error("이미 연결되어 있습니다!");
+                return;
+            }
+
+            //int port;
+            //if (!int.TryParse(txtPort.Text, out port))
+            //{
+            //    MsgBoxHelper.Error("포트 번호가 잘못 입력되었거나 입력되지 않았습니다.");
+            //    txtPort.Focus();
+            //    txtPort.SelectAll();
+            //    return;
+            //}
+
+            try 
+            { 
+                mainSocket.Connect(Properties.Settings.Default.TargetIP, Convert.ToInt32(Properties.Settings.Default.TargetPort)); 
+            }
+            catch (Exception ex)
+            {
+                MsgBoxHelper.Error("연결에 실패했습니다!\n오류 내용: {0}", MessageBoxButtons.OK, ex.Message);
+                return;
+            }
+
+            // 연결 완료되었다는 메세지를 띄워준다.
+            Console.WriteLine("서버와 연결되었습니다.");
+
+            // 연결 완료, 서버에서 데이터가 올 수 있으므로 수신 대기한다.
+            AsyncObject obj = new AsyncObject(4096);
+            obj.WorkingSocket = mainSocket;
+            mainSocket.BeginReceive(obj.Buffer, 0, obj.BufferSize, 0, DataReceived, obj);
+        }
+
+        /// <summary>
+        /// TCP 서버에서 넘어오는 데이터 받기
+        /// </summary>
+        /// <param name="ar"></param>
+        private void DataReceived(IAsyncResult ar)
+        {
+            // BeginReceive에서 추가적으로 넘어온 데이터를 AsyncObject 형식으로 변환한다.
+            AsyncObject obj = (AsyncObject)ar.AsyncState;
+
+            // 데이터 수신을 끝낸다.
+            int received = obj.WorkingSocket.EndReceive(ar);
+
+            // 받은 데이터가 없으면(연결끊어짐) 끝낸다.
+            if (received <= 0)
+            {
+                obj.WorkingSocket.Close();
+                return;
+            }
+
+            // 텍스트로 변환한다.
+            string text = Encoding.UTF8.GetString(obj.Buffer);
+
+            // 0x01 기준으로 짜른다.
+            // tokens[0] - 보낸 사람 IP
+            // tokens[1] - 보낸 메세지
+            string[] tokens = text.Split('\x01');
+            string ip = tokens[0];
+            string msg = tokens[1];
+
+            // 텍스트박스에 추가해준다.
+            // 비동기식으로 작업하기 때문에 폼의 UI 스레드에서 작업을 해줘야 한다.
+            // 따라서 대리자를 통해 처리한다.
+            Console.WriteLine(string.Format("[받음]{0}: {1}", ip, msg));
+
+            // 클라이언트에선 데이터를 전달해줄 필요가 없으므로 바로 수신 대기한다.
+            // 데이터를 받은 후엔 다시 버퍼를 비워주고 같은 방법으로 수신을 대기한다.
+            obj.ClearBuffer();
+
+            // 수신 대기
+            obj.WorkingSocket.BeginReceive(obj.Buffer, 0, 4096, 0, DataReceived, obj);
+        }
+
+        /// <summary>
+        /// 클라이언트 -> TCP 서버로 데이터 보내기
+        /// </summary>
+        /// <param name="stringData"></param>
+        private void OnSendData(string stringData)
+        {
+            // 서버가 대기중인지 확인한다.
+            if (!mainSocket.IsBound)
+            {
+                MsgBoxHelper.Warn("서버가 실행되고 있지 않습니다!");
+                return;
+            }
+
+            // 서버 ip 주소와 메세지를 담도록 만든다.
+            IPEndPoint ip = (IPEndPoint)mainSocket.LocalEndPoint;
+            string addr = ip.Address.ToString();
+
+            // 문자열을 utf8 형식의 바이트로 변환한다.
+            byte[] bDts = Encoding.UTF8.GetBytes(addr + '\x01' + stringData);
+
+            // 서버에 전송한다.
+            mainSocket.Send(bDts);
+
+            // 전송 완료 후 텍스트박스에 추가하고, 원래의 내용은 지운다.
+            Console.WriteLine(string.Format("[보냄]{0}: {1}", addr, stringData));
         }
 
         #endregion
