@@ -52,6 +52,7 @@ namespace XrayInspection.UserControls
             InitializeControlSetting();
             InitializeGrid();
             InitializeEvent();
+            Search();
         }
 
         #endregion
@@ -64,83 +65,9 @@ namespace XrayInspection.UserControls
         private void InitializeEvent()
         {
             btnExport.Click += BtnExport_Click;
-            btnAddRow.Click += BtnAddRow_Click;
-            btnDeleteRow.Click += BtnDeleteRow_Click;
             btnSearch.Click += BtnSearch_Click;
-            btnSave.Click += BtnSave_Click;
 
             grdAIjubgmentHistory.RowPostPaint += GrdAIjubgmentHistory_RowPostPaint;
-            grdAIjubgmentHistory.CellValueChanged += GrdAIjubgmentHistory_CellValueChanged;
-            grdAIjubgmentHistory.CellBeginEdit += GrdAIjubgmentHistory_CellBeginEdit;
-        }
-
-        /// <summary>
-        /// 키값 수정불가하도록 처리
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void GrdAIjubgmentHistory_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
-        {
-            DataGridView dgv = (DataGridView)sender;
-            
-            foreach (DataRow row in _OriginalSearchDt.Rows)
-            {
-                if (dgv.Rows[e.RowIndex].Cells["PRODUCTID"].Value.Equals(row["PRODUCTID"]))
-                {
-                    if (dgv.Columns[e.ColumnIndex].Name.Equals("PRODUCTID"))
-                    {
-                        e.Cancel = true;
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// 셀값을 변경할때 행을 수정상태로 변경
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void GrdAIjubgmentHistory_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            if (grdAIjubgmentHistory.Rows[e.RowIndex].Cells["ROWTYPE"].Value.ToString() == "NORMAL")
-            {
-                DataRow frRow = _OriginalSearchDt.Rows[e.RowIndex];
-                DataRow toRow = _searchDt.Rows[e.RowIndex];
-
-                if (!CompareDataRow(frRow, toRow))
-                {
-                    grdAIjubgmentHistory.Rows[e.RowIndex].Cells["ROWTYPE"].Value = rowChangeType.MODIFIY;
-                    grdAIjubgmentHistory.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Plum;
-                }
-            }
-        }
-
-        /// <summary>
-        /// 최조 조회된 행과 변경된 행의 비교
-        /// </summary>
-        /// <param name="prevRow"></param>
-        /// <param name="curRow"></param>
-        /// <returns></returns>
-        private bool CompareDataRow(DataRow prevRow, DataRow curRow)
-        {
-            bool rValue = true;
-
-            foreach (DataColumn c in prevRow.Table.Columns)
-            {
-                string cName = c.ColumnName;
-
-                if (!prevRow.Table.Columns.Contains(cName) || !curRow.Table.Columns.Contains(cName))
-                    continue;
-
-                if (prevRow[cName].Equals(curRow[cName]))
-                    continue;
-                else
-                {
-                    rValue = false;
-                    break;
-                }
-            }
-            return rValue;
         }
 
         /// <summary>
@@ -150,57 +77,8 @@ namespace XrayInspection.UserControls
         /// <param name="e"></param>
         private void GrdAIjubgmentHistory_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
-            grdAIjubgmentHistory.Rows[e.RowIndex].Cells[0].Value = (e.RowIndex + 1).ToString();
-        }
-
-        /// <summary>
-        /// 현재 선택된 Row 삭제
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void BtnDeleteRow_Click(object sender, EventArgs e)
-        {
-            DataGridViewSelectedRowCollection selectedRows = grdAIjubgmentHistory.SelectedRows;
-
-            foreach (DataGridViewRow selectedRow in selectedRows)
-            {
-                // 신규행이 아니라면 행타입만 바꿔주기
-                if (selectedRow.Cells["ROWTYPE"].Value.ToString() != "CREATE")
-                {
-                    selectedRow.Cells["ROWTYPE"].Value = rowChangeType.DELETE;
-                    selectedRow.DefaultCellStyle.BackColor = Color.Crimson;
-                }
-                // 신규행이라면 행자체를 지우기
-                else
-                {
-                    grdAIjubgmentHistory.Rows.Remove(selectedRow);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Row 추가 버튼 이벤트
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void BtnAddRow_Click(object sender, EventArgs e)
-        {
-            _lastRowIndex = _searchDt.Rows.Count;
-
-            if (_searchDt.Rows.Count == 0)
-            {
-                grdAIjubgmentHistory.Rows.Add();
-                grdAIjubgmentHistory.EndEdit();
-            }
-            else
-            {
-                _searchDt.Rows.Add();
-                grdAIjubgmentHistory.DataSource = _searchDt;
-                grdAIjubgmentHistory.EndEdit();
-            }
-
-            grdAIjubgmentHistory.Rows[grdAIjubgmentHistory.Rows.Count - 1].Cells["ROWTYPE"].Value = rowChangeType.CREATE;
-            grdAIjubgmentHistory.Rows[grdAIjubgmentHistory.Rows.Count - 1].DefaultCellStyle.BackColor = Color.LightSkyBlue;
+            Rectangle rect = new Rectangle(e.RowBounds.Location.X, e.RowBounds.Location.Y, grdAIjubgmentHistory.RowHeadersWidth - 4, e.RowBounds.Height);
+            TextRenderer.DrawText(e.Graphics, (e.RowIndex + 1).ToString(), grdAIjubgmentHistory.RowHeadersDefaultCellStyle.Font, rect, grdAIjubgmentHistory.RowHeadersDefaultCellStyle.ForeColor, TextFormatFlags.VerticalCenter | TextFormatFlags.Right);
         }
 
         /// <summary>
@@ -328,27 +206,28 @@ namespace XrayInspection.UserControls
             {
                 DBManager dbManager = new DBManager();
                 List<SqlParameter> parameters = new List<SqlParameter>();
-                parameters.Add(new SqlParameter("@CUSTOMERNAME", txtCustomerName.Text)); // 고객명
-                parameters.Add(new SqlParameter("@PRODUCTNUMBER", txtProductNumber.Text)); // 도번
-                parameters.Add(new SqlParameter("@FRDATE", dateFrom.Value)); // 조회일자(From)
-                parameters.Add(new SqlParameter("@TODATE", dateTo.Value)); // 조회일자(To)
-                parameters.Add(new SqlParameter("@LOTNUMBER", txtLotNumber.Text)); // LOT 번호
+                parameters.Add(new SqlParameter("@SITE", Properties.Settings.Default.Site)); // Site
+                //parameters.Add(new SqlParameter("@CUSTOMERNAME", txtCustomerName.Text)); // 고객명
+                //parameters.Add(new SqlParameter("@PRODUCTNUMBER", txtProductNumber.Text)); // 도번
+                //parameters.Add(new SqlParameter("@FRDATE", dateFrom.Value)); // 조회일자(From)
+                //parameters.Add(new SqlParameter("@TODATE", dateTo.Value)); // 조회일자(To)
+                //parameters.Add(new SqlParameter("@LOTNUMBER", txtLotNumber.Text)); // LOT 번호
 
-                // 전체조회
-                if (radioAll.Checked == true)
-                {
-                    parameters.Add(new SqlParameter("@STATE", "ALL")); // 상태        
-                }
-                // 정상조회
-                else if (radioNormal.Checked = true)
-                {
-                    parameters.Add(new SqlParameter("@STATE", "NORMAL")); // 상태
-                }
-                // 불량조회
-                else
-                {
-                    parameters.Add(new SqlParameter("@STATE", "DEFECT")); // 상태
-                }
+                //// 전체조회
+                //if (radioAll.Checked == true)
+                //{
+                //    parameters.Add(new SqlParameter("@STATE", "ALL")); // 상태        
+                //}
+                //// 정상조회
+                //else if (radioNormal.Checked = true)
+                //{
+                //    parameters.Add(new SqlParameter("@STATE", "NORMAL")); // 상태
+                //}
+                //// 불량조회
+                //else
+                //{
+                //    parameters.Add(new SqlParameter("@STATE", "DEFECT")); // 상태
+                //}
 
                 DataSet ds = dbManager.CallSelectProcedure_ds("USP_SELECT_AIJUBGMENTHISTORY");
 
@@ -471,17 +350,16 @@ namespace XrayInspection.UserControls
             grdAIjubgmentHistory.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomCenter;
             grdAIjubgmentHistory.AllowUserToAddRows = false;
 
-            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "NO", "NO", "NO", typeof(string), 50, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "품목ID", "PRODUCTID", "PRODUCTID", typeof(string), 150, false, true, DataGridViewContentAlignment.MiddleCenter, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "고객", "PRODUCTTYPE", "rackid", typeof(string), 150, false, true, DataGridViewContentAlignment.MiddleCenter, 20);
-            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "도번", "PRODUCTNAME", "durableid", typeof(int), 180, false, true, DataGridViewContentAlignment.MiddleCenter, 20);
-            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "품번", "PRODUCTNO", "productname", typeof(string), 180, false, true, DataGridViewContentAlignment.MiddleCenter, 80);
-            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "LOT번호", "CUSTOMERNAME", "inputdate", typeof(string), 250, false, true, DataGridViewContentAlignment.MiddleCenter, 60);
-            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "검사일자", "CREATOR", "inputresult", typeof(string), 200, false, true, DataGridViewContentAlignment.MiddleCenter, 35);
-            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "최종판정", "CREATETIME", "usedate", typeof(string), 100, false, true, DataGridViewContentAlignment.MiddleLeft, 60);
-            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "AI판정", "MODIFIER", "usedate", typeof(string), 100, false, true, DataGridViewContentAlignment.MiddleLeft, 60);
-            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "불량유형", "MODIFIEDTIME", "usedate", typeof(string), 100, false, true, DataGridViewContentAlignment.MiddleLeft, 60);
-            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "행변경타입", "ROWTYPE", "ROWTYPE", typeof(string), 100, false, false, DataGridViewContentAlignment.MiddleLeft, 60);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "Site", "SITE", "SITE", typeof(string), 100, false, false, DataGridViewContentAlignment.MiddleLeft, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "고객", "CUSTOMER", "CUSTOMER", typeof(string), 150, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "도번", "PRODUCTCODE", "PRODUCTCODE", typeof(string), 150, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "품번", "PRODUCTID", "PRODUCTID", typeof(string), 150, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "LOT번호", "LOTID", "LOTID", typeof(string), 250, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "검사일자", "INSPECTIONDATE", "INSPECTIONDATE", typeof(string), 200, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "최종판정", "LASTRESULT", "LASTRESULT", typeof(string), 100, true, true, DataGridViewContentAlignment.MiddleLeft, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "AI판정", "AIRESULT", "AIRESULT", typeof(string), 100, true, true, DataGridViewContentAlignment.MiddleLeft, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "불량유형", "DEFECTTYPE", "DEFECTTYPE", typeof(string), 100, true, true, DataGridViewContentAlignment.MiddleLeft, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "행변경타입", "ROWTYPE", "ROWTYPE", typeof(string), 100, false, false, DataGridViewContentAlignment.MiddleLeft, 10);
         }
 
         #endregion

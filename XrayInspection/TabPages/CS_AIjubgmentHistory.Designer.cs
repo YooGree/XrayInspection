@@ -29,6 +29,8 @@ namespace XrayInspection.UserControls
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.gbxSearchCondition = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -45,16 +47,14 @@ namespace XrayInspection.UserControls
             this.lblCustomerName = new System.Windows.Forms.Label();
             this.txtCustomerName = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.btnSearch = new System.Windows.Forms.Button();
             this.dateTo = new System.Windows.Forms.DateTimePicker();
             this.gbxFrameInfo = new System.Windows.Forms.GroupBox();
             this.grdAIjubgmentHistory = new System.Windows.Forms.DataGridView();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.btnDeleteRow = new System.Windows.Forms.Button();
-            this.btnAddRow = new System.Windows.Forms.Button();
-            this.btnExport = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
+            this.btnSearch = new System.Windows.Forms.Button();
+            this.btnExport = new System.Windows.Forms.Button();
+            this.lblJudgmentResult = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.gbxSearchCondition.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -87,6 +87,7 @@ namespace XrayInspection.UserControls
             // 
             this.gbxSearchCondition.Controls.Add(this.tableLayoutPanel2);
             this.gbxSearchCondition.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gbxSearchCondition.ForeColor = System.Drawing.Color.White;
             this.gbxSearchCondition.Location = new System.Drawing.Point(3, 43);
             this.gbxSearchCondition.Name = "gbxSearchCondition";
             this.gbxSearchCondition.Size = new System.Drawing.Size(208, 581);
@@ -99,8 +100,8 @@ namespace XrayInspection.UserControls
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Controls.Add(this.lblJudgmentResult, 0, 5);
             this.tableLayoutPanel2.Controls.Add(this.dateFrom, 1, 2);
-            this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel4, 0, 5);
             this.tableLayoutPanel2.Controls.Add(this.txtLotNumber, 1, 4);
             this.tableLayoutPanel2.Controls.Add(this.txtProductNumber, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.lblLotNumber, 0, 4);
@@ -110,6 +111,7 @@ namespace XrayInspection.UserControls
             this.tableLayoutPanel2.Controls.Add(this.txtCustomerName, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel3, 0, 7);
             this.tableLayoutPanel2.Controls.Add(this.dateTo, 1, 3);
+            this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel4, 1, 5);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 17);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -122,6 +124,7 @@ namespace XrayInspection.UserControls
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(202, 561);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
@@ -137,15 +140,14 @@ namespace XrayInspection.UserControls
             // 
             // flowLayoutPanel4
             // 
-            this.tableLayoutPanel2.SetColumnSpan(this.flowLayoutPanel4, 2);
             this.flowLayoutPanel4.Controls.Add(this.radioAll);
             this.flowLayoutPanel4.Controls.Add(this.radioNormal);
             this.flowLayoutPanel4.Controls.Add(this.radioDefect);
             this.flowLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel4.Location = new System.Drawing.Point(0, 200);
-            this.flowLayoutPanel4.Margin = new System.Windows.Forms.Padding(0);
+            this.flowLayoutPanel4.Location = new System.Drawing.Point(80, 205);
+            this.flowLayoutPanel4.Margin = new System.Windows.Forms.Padding(0, 5, 0, 0);
             this.flowLayoutPanel4.Name = "flowLayoutPanel4";
-            this.flowLayoutPanel4.Size = new System.Drawing.Size(202, 40);
+            this.flowLayoutPanel4.Size = new System.Drawing.Size(122, 35);
             this.flowLayoutPanel4.TabIndex = 23;
             // 
             // radioAll
@@ -163,7 +165,7 @@ namespace XrayInspection.UserControls
             // radioNormal
             // 
             this.radioNormal.Dock = System.Windows.Forms.DockStyle.Top;
-            this.radioNormal.Location = new System.Drawing.Point(74, 3);
+            this.radioNormal.Location = new System.Drawing.Point(3, 33);
             this.radioNormal.Name = "radioNormal";
             this.radioNormal.Size = new System.Drawing.Size(56, 24);
             this.radioNormal.TabIndex = 3;
@@ -174,7 +176,7 @@ namespace XrayInspection.UserControls
             // radioDefect
             // 
             this.radioDefect.Dock = System.Windows.Forms.DockStyle.Top;
-            this.radioDefect.Location = new System.Drawing.Point(136, 3);
+            this.radioDefect.Location = new System.Drawing.Point(3, 63);
             this.radioDefect.Name = "radioDefect";
             this.radioDefect.Size = new System.Drawing.Size(56, 24);
             this.radioDefect.TabIndex = 2;
@@ -271,17 +273,6 @@ namespace XrayInspection.UserControls
             this.tableLayoutPanel3.Size = new System.Drawing.Size(202, 40);
             this.tableLayoutPanel3.TabIndex = 22;
             // 
-            // btnSearch
-            // 
-            this.tableLayoutPanel3.SetColumnSpan(this.btnSearch, 2);
-            this.btnSearch.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btnSearch.Location = new System.Drawing.Point(3, 5);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(196, 32);
-            this.btnSearch.TabIndex = 4;
-            this.btnSearch.Text = "조회";
-            this.btnSearch.UseVisualStyleBackColor = true;
-            // 
             // dateTo
             // 
             this.dateTo.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -295,6 +286,7 @@ namespace XrayInspection.UserControls
             // 
             this.gbxFrameInfo.Controls.Add(this.grdAIjubgmentHistory);
             this.gbxFrameInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gbxFrameInfo.ForeColor = System.Drawing.Color.White;
             this.gbxFrameInfo.Location = new System.Drawing.Point(217, 43);
             this.gbxFrameInfo.Name = "gbxFrameInfo";
             this.gbxFrameInfo.Size = new System.Drawing.Size(854, 581);
@@ -304,8 +296,25 @@ namespace XrayInspection.UserControls
             // 
             // grdAIjubgmentHistory
             // 
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grdAIjubgmentHistory.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.grdAIjubgmentHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grdAIjubgmentHistory.DefaultCellStyle = dataGridViewCellStyle10;
             this.grdAIjubgmentHistory.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdAIjubgmentHistory.EnableHeadersVisualStyles = false;
             this.grdAIjubgmentHistory.Location = new System.Drawing.Point(3, 17);
             this.grdAIjubgmentHistory.Name = "grdAIjubgmentHistory";
             this.grdAIjubgmentHistory.RowTemplate.Height = 23;
@@ -314,9 +323,6 @@ namespace XrayInspection.UserControls
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.Controls.Add(this.btnSave);
-            this.flowLayoutPanel1.Controls.Add(this.btnDeleteRow);
-            this.flowLayoutPanel1.Controls.Add(this.btnAddRow);
             this.flowLayoutPanel1.Controls.Add(this.btnExport);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
@@ -326,46 +332,11 @@ namespace XrayInspection.UserControls
             this.flowLayoutPanel1.Size = new System.Drawing.Size(860, 40);
             this.flowLayoutPanel1.TabIndex = 2;
             // 
-            // btnSave
-            // 
-            this.btnSave.Location = new System.Drawing.Point(777, 3);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(80, 28);
-            this.btnSave.TabIndex = 2;
-            this.btnSave.Text = "저장";
-            this.btnSave.UseVisualStyleBackColor = true;
-            // 
-            // btnDeleteRow
-            // 
-            this.btnDeleteRow.Location = new System.Drawing.Point(691, 3);
-            this.btnDeleteRow.Name = "btnDeleteRow";
-            this.btnDeleteRow.Size = new System.Drawing.Size(80, 28);
-            this.btnDeleteRow.TabIndex = 4;
-            this.btnDeleteRow.Text = "행 삭제";
-            this.btnDeleteRow.UseVisualStyleBackColor = true;
-            // 
-            // btnAddRow
-            // 
-            this.btnAddRow.Location = new System.Drawing.Point(605, 3);
-            this.btnAddRow.Name = "btnAddRow";
-            this.btnAddRow.Size = new System.Drawing.Size(80, 28);
-            this.btnAddRow.TabIndex = 5;
-            this.btnAddRow.Text = "행 추가";
-            this.btnAddRow.UseVisualStyleBackColor = true;
-            // 
-            // btnExport
-            // 
-            this.btnExport.Location = new System.Drawing.Point(482, 3);
-            this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(117, 28);
-            this.btnExport.TabIndex = 3;
-            this.btnExport.Text = "엑셀 내보내기";
-            this.btnExport.UseVisualStyleBackColor = true;
-            // 
             // lblTitle
             // 
             this.lblTitle.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblTitle.Font = new System.Drawing.Font("맑은 고딕", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lblTitle.ForeColor = System.Drawing.Color.White;
             this.lblTitle.Location = new System.Drawing.Point(3, 3);
             this.lblTitle.Margin = new System.Windows.Forms.Padding(3);
             this.lblTitle.Name = "lblTitle";
@@ -373,6 +344,45 @@ namespace XrayInspection.UserControls
             this.lblTitle.TabIndex = 3;
             this.lblTitle.Text = "AI 판정이력";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.BackColor = System.Drawing.Color.DimGray;
+            this.tableLayoutPanel3.SetColumnSpan(this.btnSearch, 2);
+            this.btnSearch.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSearch.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btnSearch.ForeColor = System.Drawing.Color.White;
+            this.btnSearch.Location = new System.Drawing.Point(3, 5);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(196, 32);
+            this.btnSearch.TabIndex = 5;
+            this.btnSearch.Text = "조회";
+            this.btnSearch.UseVisualStyleBackColor = false;
+            // 
+            // btnExport
+            // 
+            this.btnExport.BackColor = System.Drawing.Color.DimGray;
+            this.btnExport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExport.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btnExport.ForeColor = System.Drawing.Color.White;
+            this.btnExport.Location = new System.Drawing.Point(740, 3);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(117, 28);
+            this.btnExport.TabIndex = 4;
+            this.btnExport.Text = "엑셀 내보내기";
+            this.btnExport.UseVisualStyleBackColor = false;
+            // 
+            // lblJudgmentResult
+            // 
+            this.lblJudgmentResult.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblJudgmentResult.Location = new System.Drawing.Point(3, 203);
+            this.lblJudgmentResult.Margin = new System.Windows.Forms.Padding(3);
+            this.lblJudgmentResult.Name = "lblJudgmentResult";
+            this.lblJudgmentResult.Size = new System.Drawing.Size(74, 34);
+            this.lblJudgmentResult.TabIndex = 26;
+            this.lblJudgmentResult.Text = "판정결과";
+            this.lblJudgmentResult.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // CS_AIjubgmentHistory
             // 
@@ -410,18 +420,16 @@ namespace XrayInspection.UserControls
         private System.Windows.Forms.TextBox txtLotNumber;
         private System.Windows.Forms.TextBox txtProductNumber;
         private System.Windows.Forms.TextBox txtCustomerName;
-        private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Button btnExport;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.Label lblTitle;
-        private System.Windows.Forms.Button btnDeleteRow;
-        private System.Windows.Forms.Button btnAddRow;
-        private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel4;
         private System.Windows.Forms.RadioButton radioAll;
         private System.Windows.Forms.RadioButton radioNormal;
         private System.Windows.Forms.RadioButton radioDefect;
         private System.Windows.Forms.DateTimePicker dateTo;
         private System.Windows.Forms.DateTimePicker dateFrom;
+        private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.Button btnExport;
+        private System.Windows.Forms.Label lblJudgmentResult;
     }
 }
