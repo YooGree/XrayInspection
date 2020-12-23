@@ -82,6 +82,7 @@ namespace XrayInspection.TabPages
             // 
             this.btnSave.BackColor = System.Drawing.Color.DimGray;
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSave.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btnSave.ForeColor = System.Drawing.Color.White;
             this.btnSave.Location = new System.Drawing.Point(777, 3);
             this.btnSave.Name = "btnSave";

@@ -214,13 +214,13 @@ namespace XrayInspection.UserControls
             {
                 if (grdAIjubgmentHistory.Rows.Count == 0)
                 {
-                    DialogResult result = CustomMessageBox.Show(MessageBoxButtons.OK, "확인", "엑셀 데이터가 없습니다.");
+                    DialogResult result = MsgBoxHelper.Show("엑셀 데이터가 없습니다.");
                 }
                 else
                 {
                     sfd.Filter = "csv(*.csv) | *.csv";
 
-                    DialogResult result = CustomMessageBox.Show(MessageBoxButtons.OKCancel, "확인", "엑셀 저장 하시겠습니까?");
+                    DialogResult result = MsgBoxHelper.Show("엑셀 저장 하시겠습니까?");
 
                     if (result == DialogResult.OK)
                     {
@@ -302,7 +302,7 @@ namespace XrayInspection.UserControls
             csvExport.Close();
             fs.Close();
 
-            DialogResult result = CustomMessageBox.Show(MessageBoxButtons.OK, "확인", "저장 되었습니다.");
+            DialogResult result = MsgBoxHelper.Show("저장 되었습니다.");
         }
 
         #endregion
@@ -365,7 +365,7 @@ namespace XrayInspection.UserControls
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show(MessageBoxButtons.OK, "닫기", ex.Message);
+                MsgBoxHelper.Error(ex.Message);
             }
 
         }
@@ -384,7 +384,7 @@ namespace XrayInspection.UserControls
             // 그리드뷰에 행이 한개도 없으면 Return
             if (grdAIjubgmentHistory.Rows.Count == 0)
             {
-                CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "저장할 데이터가 없습니다.");
+                MsgBoxHelper.Show("저장할 데이터가 없습니다.");
                 return;
             }
             else
@@ -396,7 +396,7 @@ namespace XrayInspection.UserControls
                     {
                         if (viewRow.Cells["PRODUCTID"].Value == null)
                         {
-                            CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "품목ID가 누락된 행이 있습니다.");
+                            MsgBoxHelper.Show("품목ID가 누락된 행이 있습니다.");
                             return;
                         }
                     }
@@ -409,7 +409,7 @@ namespace XrayInspection.UserControls
                                                                                               || r["ROWTYPE"].Equals("MODIFIY")
                                                                                               || r["ROWTYPE"].Equals("DELETE")).Count() == 0)
                     {
-                        CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "저장할 데이터가 없습니다.");
+                        MsgBoxHelper.Show("저장할 데이터가 없습니다.");
                         return;
                     }
                     // 필수 키값이 입력되지 않았다면 Return
@@ -417,13 +417,13 @@ namespace XrayInspection.UserControls
                                                                                               || r["PRODUCTID"].Equals("")
                                                                                               || r["PRODUCTID"].Equals(DBNull.Value)).Count() > 0)
                     { 
-                        CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "품목ID가 누락된 행이 있습니다.");
+                        MsgBoxHelper.Show("품목ID가 누락된 행이 있습니다.");
                         return;
                     }
                 }
             }
 
-            if (CustomMessageBox.Show(MessageBoxButtons.OKCancel, "저장", "저장 하시겠습니까?") == DialogResult.OK)
+            if (MsgBoxHelper.Show("저장 하시겠습니까?", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
                 DBManager dbManager = new DBManager();
 
@@ -436,12 +436,12 @@ namespace XrayInspection.UserControls
 
                 if (SaveResult > 0)
                 {
-                    CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "저장하였습니다.");
+                    MsgBoxHelper.Show("저장하였습니다.");
                     Search(); // 재조회
                 }
                 else
                 {
-                    CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "저장에 실패하였습니다.");
+                    MsgBoxHelper.Show("저장에 실패하였습니다.");
                 }
             }
         }

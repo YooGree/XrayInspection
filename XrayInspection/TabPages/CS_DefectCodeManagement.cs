@@ -268,7 +268,7 @@ namespace XrayInspection.UserControls
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show(MessageBoxButtons.OK, "닫기", ex.Message);
+                MsgBoxHelper.Error(ex.Message);
             }
 
         }
@@ -296,7 +296,7 @@ namespace XrayInspection.UserControls
                     // 불량코드 입력 필수조건
                     if (string.IsNullOrWhiteSpace(txtTopCode.Text))
                     {
-                        CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "불량코드는 필수입력입니다.");
+                        MsgBoxHelper.Show("불량코드는 필수입력입니다.");
                         return;
                     }
                     else
@@ -320,13 +320,13 @@ namespace XrayInspection.UserControls
                     // 불량코드 입력 필수조건
                     if (string.IsNullOrWhiteSpace(txtMiddleCode.Text))
                     {
-                        CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "불량코드는 필수입력입니다.");
+                        MsgBoxHelper.Show("불량코드는 필수입력입니다.");
                         return;
                     }
                     // 상위불량코드 선택 필수조건
                     else if (grdTopCategory.CurrentRow == null)
                     {
-                        CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "상위 불량코드가 지정되지 않았습니다.");
+                        MsgBoxHelper.Show("상위 불량코드가 지정되지 않았습니다.");
                         return;
                     }
                     else
@@ -350,13 +350,13 @@ namespace XrayInspection.UserControls
                     // 불량코드 입력 필수조건
                     if (string.IsNullOrWhiteSpace(txtDetailCode.Text))
                     {
-                        CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "불량코드는 필수입력입니다.");
+                        MsgBoxHelper.Show("불량코드는 필수입력입니다.");
                         return;
                     }
                     // 상위불량코드 선택 필수조건
                     else if (grdMiddleCategory.CurrentRow == null)
                     {
-                        CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "상위 불량코드가 지정되지 않았습니다.");
+                        MsgBoxHelper.Show("상위 불량코드가 지정되지 않았습니다.");
                         return;
                     }
                     else
@@ -375,7 +375,7 @@ namespace XrayInspection.UserControls
                     }
                 }
 
-                if (CustomMessageBox.Show(MessageBoxButtons.OKCancel, "저장", "저장 하시겠습니까?") == DialogResult.OK)
+                if (MsgBoxHelper.Show("저장 하시겠습니까?", MessageBoxButtons.OKCancel) == DialogResult.OK)
                 {
                     DBManager dbManager = new DBManager();
                     SqlParameter[] sqlPamaters = dbManager.GetSqlParameters(parameters);
@@ -384,18 +384,18 @@ namespace XrayInspection.UserControls
 
                     if (SaveResult > 0)
                     {
-                        CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "저장하였습니다.");
+                        MsgBoxHelper.Show("저장하였습니다.");
                         Search(); // 재조회
                     }
                     else
                     {
-                        CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "저장에 실패하였습니다.");
+                        MsgBoxHelper.Show("저장에 실패하였습니다.");
                     }
                 }
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show(MessageBoxButtons.OK, "저장", ex.Message);
+                MsgBoxHelper.Error(ex.Message);
             }
         }
 

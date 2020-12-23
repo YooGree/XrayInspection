@@ -235,13 +235,13 @@ namespace XrayInspection.UserControls
             {
                 if (grdUser.Rows.Count == 0)
                 {
-                    DialogResult result = CustomMessageBox.Show(MessageBoxButtons.OK, "확인", "엑셀 데이터가 없습니다.");
+                    DialogResult result = MsgBoxHelper.Show("엑셀 데이터가 없습니다.");
                 }
                 else
                 {
                     sfd.Filter = "csv(*.csv) | *.csv";
 
-                    DialogResult result = CustomMessageBox.Show(MessageBoxButtons.OKCancel, "확인", "엑셀 저장 하시겠습니까?");
+                    DialogResult result = MsgBoxHelper.Show("엑셀 저장 하시겠습니까?", MessageBoxButtons.OKCancel);
 
                     if (result == DialogResult.OK)
                     {
@@ -323,7 +323,7 @@ namespace XrayInspection.UserControls
             csvExport.Close();
             fs.Close();
 
-            DialogResult result = CustomMessageBox.Show(MessageBoxButtons.OK, "확인", "저장 되었습니다.");
+            DialogResult result = MsgBoxHelper.Show("저장 되었습니다.");
         }
 
         #endregion
@@ -368,7 +368,7 @@ namespace XrayInspection.UserControls
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show(MessageBoxButtons.OK, "닫기", ex.Message);
+                MsgBoxHelper.Error(ex.Message);
             }
 
         }
@@ -389,7 +389,7 @@ namespace XrayInspection.UserControls
                 // 그리드뷰에 행이 한개도 없으면 Return
                 if (grdUser.Rows.Count == 0)
                 {
-                    CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "저장할 데이터가 없습니다.");
+                    MsgBoxHelper.Show("저장할 데이터가 없습니다.");
                     return;
                 }
                 else
@@ -399,12 +399,12 @@ namespace XrayInspection.UserControls
                                                                                  || r["ROWTYPE"].Equals("MODIFIY")
                                                                                  || r["ROWTYPE"].Equals("DELETE")).Count() == 0)
                     {
-                        CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "저장할 데이터가 없습니다.");
+                        MsgBoxHelper.Show("저장할 데이터가 없습니다.");
                         return;
                     }
                 }
 
-                if (CustomMessageBox.Show(MessageBoxButtons.OKCancel, "저장", "저장 하시겠습니까?") == DialogResult.OK)
+                if (MsgBoxHelper.Show("저장할 데이터가 없습니다.", MessageBoxButtons.OKCancel) == DialogResult.OK)
                 {
                     DBManager dbManager = new DBManager();
 
@@ -418,18 +418,18 @@ namespace XrayInspection.UserControls
 
                     if (SaveResult > 0)
                     {
-                        CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "저장하였습니다.");
+                        MsgBoxHelper.Show("저장하였습니다.");
                         Search(); // 재조회
                     }
                     else
                     {
-                        CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "저장에 실패하였습니다.");
+                        MsgBoxHelper.Show("저장에 실패하였습니다");
                     }
                 }
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show(MessageBoxButtons.OK, "저장", ex.Message);
+                MsgBoxHelper.Error(ex.Message);
             }
         }
 

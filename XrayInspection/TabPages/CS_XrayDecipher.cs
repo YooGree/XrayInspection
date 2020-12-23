@@ -29,7 +29,9 @@ namespace XrayInspection.UserControls
         //TCPServer _tcpServer = new TCPServer(Properties.Settings.Default.TargetIP, Properties.Settings.Default.TargetPort);
         Socket _mainSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         DBManager _dbManager = new DBManager();
-        bool _deleteFlag;    
+        bool _deleteFlag;        
+        Timer _searchTimer = new Timer();
+        string _lotState;
 
         #endregion
 
@@ -41,8 +43,8 @@ namespace XrayInspection.UserControls
         public CS_XrayDecipher()
         {
             InitializeComponent();
-            InitializeControlSetting();
             InitializeGrid();
+            InitializeControlSetting();
             InitializeEvent();
         }
 
@@ -58,9 +60,53 @@ namespace XrayInspection.UserControls
             grdAIDecipherStatus.RowPostPaint += GrdUser_RowPostPaint;
 
             btnJudgmentResult.Click += CommonPopup_Click;
+            btnContext.Click += CommonPopup_Click;
+            btnPart.Click += CommonPopup_Click;
 
             btnStart.Click += BtnStart_Click;
             btnEnd.Click += BtnEnd_Click;
+            btnJudgmentComplete.Click += BtnJudgmentComplete_Click;
+            btnRefresh.Click += BtnRefresh_Click;
+        }
+        
+        /// <summary>
+        /// 새로고침
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnRefresh_Click(object sender, EventArgs e)
+        {
+            Rebinding();
+        }
+
+        /// <summary>
+        /// AI 판정결과 저장
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnJudgmentComplete_Click(object sender, EventArgs e)
+        {
+            // 판정중인 데이터가 없다면 알림
+            if (grdAIDecipherStatus.Rows.Count == 0)
+            {
+                MsgBoxHelper.Show("현재 판정중인 데이터가 없습니다." + Environment.NewLine + "먼저 판정을 시작, 종료한 후 진행해주세요.");
+                return;
+            }
+            // 시작 진행중이라면 알림
+            else if (!btnStart.Enabled && btnEnd.Enabled)
+            {
+                MsgBoxHelper.Show("현재 판정 진행중입니다." + Environment.NewLine + "판정을 종료한 후 진행해주세요.");
+                return;
+            }
+
+            if (MsgBoxHelper.Show("판정완료 하시겠습니까?", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                // AI판정결과 저장
+                UpdateAIJudgmentResult();
+
+                // 데이터 재바인딩
+                Rebinding();
+            }
         }
 
         /// <summary>
@@ -70,11 +116,16 @@ namespace XrayInspection.UserControls
         /// <param name="e"></param>
         private void BtnEnd_Click(object sender, EventArgs e)
         {
+            // 녹화서버에 메세지 전송
             string sendData = "END " + txtLotNo.Text + "," + txtProductName.Text;
             OnSendData(sendData);
 
+            // 버튼활성화, 비활성화
             btnStart.Enabled = true;
             btnEnd.Enabled = false;
+
+            // 타이머 중지
+            _searchTimer.Stop();
         }
 
         /// <summary>
@@ -86,11 +137,19 @@ namespace XrayInspection.UserControls
         {
             _deleteFlag = true;
 
+            // 녹화서버에 메세지 전송
             string sendData = "START " + txtLotNo.Text + "," + txtProductName.Text;
             OnSendData(sendData);
 
+            // 버튼활성화, 비활성화
             btnStart.Enabled = false;
             btnEnd.Enabled = true;
+
+            // 타이머 시작
+            _searchTimer.Start();
+
+            // LOT상태 RUN으로 변경
+            if (_lotState != "RUN") UpdateLotState();
         }
 
         /// <summary>
@@ -105,13 +164,68 @@ namespace XrayInspection.UserControls
 
             switch (btnPop.Name)
             {
-                // 판정결과
-                case "btnJudgmentResult" :
-                    commonPopup = new CS_CommonPopup("JUDGMENTRESULT");
+                // 판정결과(불량코드 대분류)
+                case "btnJudgmentResult":
+                    commonPopup = new CS_CommonPopup("USP_SELECT_XRAYDECIPHER_POPUP_AIJUDGMENTRESULT", "TOP");
                     commonPopup.WindowState = FormWindowState.Normal;
                     commonPopup.StartPosition = FormStartPosition.CenterScreen;
                     commonPopup.Show();
                     commonPopup.Activate();
+                    commonPopup.FormClosed += (formSender, formE) =>
+                    {
+                        if (commonPopup._returnIsOK)
+                        {
+                            if (txtJudgmentResult.Tag.ToString() != commonPopup._returnCodeValue)
+                            {
+                                txtContext.Tag = "None";
+                                txtContext.Text = "";
+                                txtPart.Tag = "None";
+                                txtPart.Text = "";
+                            }
+
+                            txtJudgmentResult.Tag = commonPopup._returnCodeValue;
+                            txtJudgmentResult.Text = commonPopup._returnNameValue;
+                        }
+                    };
+                    break;
+
+                // 부위(불량코드 중분류)
+                case "btnContext":
+                    commonPopup = new CS_CommonPopup("USP_SELECT_XRAYDECIPHER_POPUP_AIJUDGMENTRESULT", "MIDDLE", txtJudgmentResult.Tag.ToString());
+                    commonPopup.WindowState = FormWindowState.Normal;
+                    commonPopup.StartPosition = FormStartPosition.CenterScreen;
+                    commonPopup.Show();
+                    commonPopup.Activate();
+                    commonPopup.FormClosed += (formSender, formE) =>
+                    {
+                        if (commonPopup._returnIsOK)
+                        {
+                            if (txtContext.Tag.ToString() != commonPopup._returnCodeValue)
+                            {
+                                txtPart.Tag = "None";
+                                txtPart.Text = "";
+                            }
+                            txtContext.Tag = commonPopup._returnCodeValue;
+                            txtContext.Text = commonPopup._returnNameValue;
+                        }
+                    };
+                    break;
+
+                // 위치(불량코드 소분류)
+                case "btnPart":
+                    commonPopup = new CS_CommonPopup("USP_SELECT_XRAYDECIPHER_POPUP_AIJUDGMENTRESULT", "DETAIL" , txtContext.Tag.ToString());
+                    commonPopup.WindowState = FormWindowState.Normal;
+                    commonPopup.StartPosition = FormStartPosition.CenterScreen;
+                    commonPopup.Show();
+                    commonPopup.Activate();
+                    commonPopup.FormClosed += (formSender, formE) =>
+                    {
+                        if (commonPopup._returnIsOK)
+                        {
+                            txtPart.Tag = commonPopup._returnCodeValue;
+                            txtPart.Text = commonPopup._returnNameValue;
+                        }
+                    };
                     break;
             }
         }
@@ -234,58 +348,16 @@ namespace XrayInspection.UserControls
         #region 조회
 
         /// <summary>
-        /// 조회버튼 클릭
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void BtnSearch_Click(object sender, EventArgs e)
-        {
-            Search();
-        }
-
-        /// <summary>
-        /// 조회
-        /// </summary>
-        public void Search()
-        {
-            try
-            {
-                DBManager dbManager = new DBManager();
-                List<SqlParameter> parameters = new List<SqlParameter>();
-                //parameters.Add(new SqlParameter("@USERTYPE", comboUserType.SelectedValue)); // 사용자 유형
-                //parameters.Add(new SqlParameter("@USERNUMBER", txtUserNumber.Text)); // 사번
-                //parameters.Add(new SqlParameter("@USERNAME", txtUserName.Text)); // 사용자명
-
-                DataSet ds = dbManager.CallSelectProcedure_ds("USP_SELECT_USERMANAGEMENT", parameters);
-
-                if (ds.Tables.Count == 0)
-                {
-                    MessageBox.Show("Error");
-                }
-                else
-                {
-                    DataTable dt = ds.Tables[0];
-                    grdAIDecipherStatus.DataSource = dt;
-                }
-            }
-            catch (Exception ex)
-            {
-                CustomMessageBox.Show(MessageBoxButtons.OK, "닫기", ex.Message);
-            }
-        }
-
-        /// <summary>
         /// 화면 최초 로드시 제품정보 조회
         /// </summary>
         public void ProductInfoSearch()
         {
             try
             {
-                DBManager dbManager = new DBManager();
                 List<SqlParameter> parameters = new List<SqlParameter>();
                 parameters.Add(new SqlParameter("@SITE", Properties.Settings.Default.Site)); // Site
 
-                DataSet ds = dbManager.CallSelectProcedure_ds("USP_SELECT_XRAYDECIPHER_PRODUCTINFO", parameters);
+                DataSet ds = _dbManager.CallSelectProcedure_ds("USP_SELECT_XRAYDECIPHER_PRODUCTINFO", parameters);
 
                 if (ds.Tables.Count == 0)
                 {
@@ -301,12 +373,138 @@ namespace XrayInspection.UserControls
                         txtProductCode.Text = ds.Tables[0].Rows[0]["PRODUCTCODE"].ToString();
                         txtUser.Text = ds.Tables[0].Rows[0]["MAKERNAME"].ToString();
                         txtLotNo.Text = ds.Tables[0].Rows[0]["LOTID"].ToString();
+                        _lotState = ds.Tables[0].Rows[0]["LOTSTATE"].ToString();
                     }
                 }
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show(MessageBoxButtons.OK, "닫기", ex.Message);
+                Console.WriteLine("제품정보 조회실패!");
+            }
+        }
+
+        /// <summary>
+        /// 화면 최초 로드시 검사자 조회
+        /// </summary>
+        public void InspectorInfoSearch()
+        {
+            try
+            {
+                List<SqlParameter> parameters = new List<SqlParameter>();
+                parameters.Add(new SqlParameter("@SITE", Properties.Settings.Default.Site)); // Site
+
+                DataSet ds = _dbManager.CallSelectProcedure_ds("USP_SELECT_XRAYDECIPHER_INSPECTORINFO", parameters);
+
+                if (ds.Tables.Count == 0)
+                {
+                    MessageBox.Show("Error");
+                }
+                else
+                {
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        txtInspector.Tag = ds.Tables[0].Rows[0]["USERID"].ToString();
+                        txtInspector.Text = ds.Tables[0].Rows[0]["USERNAME"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("검사자정보 조회실패!");
+            }
+        }
+
+        /// <summary>
+        /// 화면 최초 로드시 AI판독정보 조회
+        /// </summary>
+        public void AIJudgmentInfoSearch()
+        {
+            try
+            {
+                DBManager dbManager = new DBManager();
+                List<SqlParameter> parameters = new List<SqlParameter>();
+                parameters.Add(new SqlParameter("@SITE", Properties.Settings.Default.Site)); // Site
+                parameters.Add(new SqlParameter("@LOTNO", txtLotNo.Text)); // LOT NO
+
+                DataSet ds = dbManager.CallSelectProcedure_ds("USP_SELECT_XRAYDECIPHER_AIJUDGMENTINFO", parameters);
+
+                if (ds.Tables.Count == 0) Console.WriteLine("AI 판독현황 조회실패!");
+                else
+                {
+                    grdAIDecipherStatus.DataSource = ds.Tables[0];
+
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        // NG가 한건이라도 있을시 AI판정결과 NG로 세팅
+                        if (ds.Tables[0].AsEnumerable().Where(r => r["AIRESULT"].Equals("NG")).Count() > 0)
+                        {
+                            txtAiResult.Text = "NG";
+                            txtAiResult.BackColor = Color.MediumVioletRed;
+                        }
+                        else
+                        {
+                            txtAiResult.Text = "OK";
+                            txtAiResult.BackColor = Color.CornflowerBlue;
+                        }
+                    }
+                    else
+                    {
+                        txtAiResult.Text = "None";
+                        txtAiResult.BackColor = Color.Lavender;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("AI 판독정보 조회실패!");
+            }
+        }
+
+        /// <summary>
+        /// Xray 판독화면 전체데이터 리바인딩
+        /// </summary>
+        private void Rebinding()
+        {
+            // 검사 실적현황 조회(추가예정)
+
+            // 제품정보 조회
+            ProductInfoSearch();
+
+            // 판정결과 - 검사자 조회
+            InspectorInfoSearch();
+
+            // 판정결과 - 바인딩 데이터 리셋
+            txtJudgmentResult.Tag = "";
+            txtJudgmentResult.Text = "";
+            txtContext.Tag = "";
+            txtContext.Text = "";
+            txtPart.Tag = "";
+            txtPart.Text = "";
+            txtLocation.Text = "";
+
+            // 검사계획/진행현황 조회(추가예정)
+
+            // AI판독현황 리셋 및 AI결과 리셋
+            AIJudgmentInfoSearch();
+
+            if ((grdAIDecipherStatus.DataSource as DataTable).Rows.Count > 0)
+            {
+                // NG가 한건이라도 있을시 AI판정결과 NG로 세팅
+                if ((grdAIDecipherStatus.DataSource as DataTable).AsEnumerable().Where(r => r["AIRESULT"].Equals("NG")).Count() > 0)
+                {
+                    txtAiResult.Text = "NG";
+                    txtAiResult.BackColor = Color.HotPink;
+                }
+                else
+                {
+                    txtAiResult.Text = "OK";
+                    txtAiResult.BackColor = Color.CornflowerBlue;
+                }
+            }
+            else
+            {
+                txtAiResult.Text = "None";
+                txtAiResult.BackColor = Color.Lavender;
             }
         }
 
@@ -315,58 +513,66 @@ namespace XrayInspection.UserControls
         #region 저장
 
         /// <summary>
-        /// 저장
+        /// 해당 제품의 LOT 상태가 Run이 아니라면 Run상태로 변경
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void BtnSave_Click(object sender, EventArgs e)
+        private void UpdateLotState()
         {
             try
             {
-                // 그리드뷰에 행이 한개도 없으면 Return
-                if (grdAIDecipherStatus.Rows.Count == 0)
+                Dictionary<string, object> parameters = new Dictionary<string, object>();
+                parameters.Add("@SITE", Properties.Settings.Default.Site);
+                parameters.Add("@LOTNO", txtLotNo.Text);
+
+                SqlParameter[] sqlParameters = _dbManager.GetSqlParameters(parameters);
+
+                int saveResult = _dbManager.CallNonSelectProcedure("USP_UPDATE_XRAYDECIPHER_LOTSTATE", sqlParameters);
+                if (saveResult > 0) Console.WriteLine("LOT상태 수정성공!");
+                else Console.WriteLine("LOT상태 수정실패!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 해당 제품의 AI판정결과 저장
+        /// </summary>
+        private void UpdateAIJudgmentResult()
+        {
+            try
+            {
+                Dictionary<string, object> parameters = new Dictionary<string, object>();
+                parameters.Add("@SITE", Properties.Settings.Default.Site);
+                parameters.Add("@LOTNO", txtLotNo.Text);
+                parameters.Add("@INSPECTORID", txtInspector.Tag);
+                parameters.Add("@INSPECTORNAME", txtInspector.Text);
+                parameters.Add("@TOPDEFECTCODE", txtJudgmentResult.Tag);
+                parameters.Add("@TOPDEFECTCODENAME", txtJudgmentResult.Text);
+                parameters.Add("@MIDDLEDEFECTCODE", txtContext.Tag);
+                parameters.Add("@MIDDLEDEFECTCODENAME", txtContext.Text);
+                parameters.Add("@DETAILDEFECTCODE", txtPart.Tag);
+                parameters.Add("@DETAILDEFECTCODENAME", txtPart.Text);
+                parameters.Add("@LOCATION", txtLocation.Text);
+                parameters.Add("@AIRESULTCODE", "(TEST)CODE_OK");
+                parameters.Add("@AIRESULTCODENAME", "(TEST)CODENAME_OK");
+
+                SqlParameter[] sqlParameters = _dbManager.GetSqlParameters(parameters);
+
+                int saveResult = _dbManager.CallNonSelectProcedure("USP_UPDATE_XRAYDECIPHER_AIJUDGMENTRESULT", sqlParameters);
+                if (saveResult > 0)
                 {
-                    CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "저장할 데이터가 없습니다.");
-                    return;
+                    MsgBoxHelper.Show("해당 LOT에 대한 판정이 완료되었습니다.");
+                    this.Refresh();
                 }
                 else
                 {
-                    // 그리드에 신규, 수정, 삭제행이 없으면 Return
-                    if ((grdAIDecipherStatus.DataSource as DataTable).AsEnumerable().Where(r => r["ROWTYPE"].Equals("CREATE")
-                                                                                 || r["ROWTYPE"].Equals("MODIFIY")
-                                                                                 || r["ROWTYPE"].Equals("DELETE")).Count() == 0)
-                    {
-                        CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "저장할 데이터가 없습니다.");
-                        return;
-                    }
-                }
-
-                if (CustomMessageBox.Show(MessageBoxButtons.OKCancel, "저장", "저장 하시겠습니까?") == DialogResult.OK)
-                {
-                    DBManager dbManager = new DBManager();
-
-                    Dictionary<string, object> parameters = new Dictionary<string, object>();
-                    //parameters.Add("@USERTYPE", comboUserType.SelectedValue);
-                    parameters.Add("@SAVEDATATABLE", grdAIDecipherStatus.DataSource as DataTable);
-
-                    SqlParameter[] sqlPamaters = dbManager.GetSqlParameters(parameters);
-
-                    int SaveResult = dbManager.CallNonSelectProcedure("USP_UPSERT_USERMANAGEMENT", sqlPamaters);
-
-                    if (SaveResult > 0)
-                    {
-                        CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "저장하였습니다.");
-                        Search(); // 재조회
-                    }
-                    else
-                    {
-                        CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "저장에 실패하였습니다.");
-                    }
+                    MsgBoxHelper.Error("Error");
                 }
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show(MessageBoxButtons.OK, "저장", ex.Message);
+                Console.WriteLine(ex.Message);
             }
         }
 
@@ -384,11 +590,15 @@ namespace XrayInspection.UserControls
             // 제품정보에 데이터 바인딩
             ProductInfoSearch();
 
+            // 검사자 데이터 바인딩
+            InspectorInfoSearch();
+
+            // AI 판독현황에 데이터 바인딩
+            AIJudgmentInfoSearch();
+
             // AI 판독현황 그리드 1초마다 조회될 수 있도록 타이머 설정
-            Timer searchTimer = new Timer();
-            searchTimer.Interval = 1000;
-            searchTimer.Tick += SearchTimer_Tick;
-            searchTimer.Start();
+            _searchTimer.Interval = 1000;
+            _searchTimer.Tick += SearchTimer_Tick;
 
             // TCP 서버시작
             //_tcpServer.BeginStartServer();
@@ -415,25 +625,7 @@ namespace XrayInspection.UserControls
         /// <param name="e"></param>
         private void SearchTimer_Tick(object sender, EventArgs e)
         {
-            try
-            {
-                List<SqlParameter> parameters = new List<SqlParameter>();
-                parameters.Add(new SqlParameter("@SITE", Properties.Settings.Default.Site)); // Site
-                parameters.Add(new SqlParameter("@LOTNO", txtLotNo.Text)); // LOT NO
-
-                DataSet ds = _dbManager.CallSelectProcedure_ds("USP_SELECT_XRAYDECIPHER_AIJUDGMENTINFO", parameters);
-
-                if (ds.Tables.Count == 0) Console.WriteLine("AI 판독현황 조회실패!");
-                else
-                {
-                    DataTable dt = ds.Tables[0];
-                    grdAIDecipherStatus.DataSource = dt;
-                }
-            }
-            catch (Exception ex)
-            {
-                CustomMessageBox.Show(MessageBoxButtons.OK, "닫기", ex.Message);
-            }
+            AIJudgmentInfoSearch();
         }
 
         /// <summary>
@@ -466,15 +658,6 @@ namespace XrayInspection.UserControls
                 MsgBoxHelper.Error("이미 연결되어 있습니다!");
                 return;
             }
-
-            //int port;
-            //if (!int.TryParse(txtPort.Text, out port))
-            //{
-            //    MsgBoxHelper.Error("포트 번호가 잘못 입력되었거나 입력되지 않았습니다.");
-            //    txtPort.Focus();
-            //    txtPort.SelectAll();
-            //    return;
-            //}
 
             try 
             { 
@@ -603,15 +786,15 @@ namespace XrayInspection.UserControls
                 while (_deleteFlag)
                 {
                     deleteResult = _dbManager.CallNonSelectProcedure("USP_DELETE_XRAYDECIPHER_INSPECTRECORD", deleteSqlPamaters);
-                    if (deleteResult > 0) Console.WriteLine("삭제성공!");                  
-                    else Console.WriteLine("삭제실패!");
+                    if (deleteResult > 0) Console.WriteLine("프레임데이터 삭제성공!");                  
+                    else Console.WriteLine("프레임데이터 삭제실패!");
 
                     _deleteFlag = false;
                 }
 
                 int saveResult = _dbManager.CallNonSelectProcedure("USP_INSERT_XRAYDECIPHER_INSPECTRECORD", insertSqlPamaters);
-                if (saveResult > 0)  Console.WriteLine("저장성공!");                
-                else Console.WriteLine("저장실패!");              
+                if (saveResult > 0)  Console.WriteLine("프레임데이터 저장성공!");                
+                else Console.WriteLine("프레임데이터 저장실패!");              
             }
             catch (Exception ex)
             {

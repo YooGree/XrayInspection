@@ -8,18 +8,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using XrayInspection.UserControls;
 
 namespace XrayInspection.PopUp
 {
+    /// <summary>
+    /// 작   성   자  : 유태근
+    /// 작   성   일  : 2020-12-23
+    /// 설        명  : 공통팝업
+    /// 이        력  : 
+    /// </summary>
     public partial class CS_CommonPopup : ParentsPop
     {
         #region 변수
 
-        private string procedureName = ""; // 프로시저명
-        private DBManager conn = new DBManager(); // DB 접속정보    
-        public string returnCodeValue = ""; // 리턴코드값
-        public string returnNameValue = ""; // 리턴명값
-        public string returnCodeNameValue = ""; // 리턴코드+명값
+        private string _procedureName = ""; // 프로시저명
+        private string _type = ""; // 유형
+        private string _parentCode = ""; // 상위코드
+        private DBManager _dbManager = new DBManager(); // DB 접속정보    
+        public string _returnCodeValue = ""; // 리턴코드값
+        public string _returnNameValue = ""; // 리턴명값
+        public string _returnCodeNameValue = ""; // 리턴코드+명값
+        public bool _returnIsOK; // 폼을 확인 닫았는지 닫기로 닫았는지 확인
 
         #endregion
 
@@ -28,12 +38,14 @@ namespace XrayInspection.PopUp
         /// <summary>
         /// 생성자
         /// </summary>
-        /// <param name="type">팝업유형</param>
-        public CS_CommonPopup(string type)
+        /// <param name="procedure"></param>
+        /// <param name="type"></param>
+        /// <param name="parentCode"></param>
+        public CS_CommonPopup(string procedure, string type, string parentCode = "Root")
         {
             InitializeComponent();
-            InitializeControlSetting(type);
-            InitializeGrid(type);
+            InitializeGrid();
+            InitializeControlSetting(procedure, type, parentCode);
             InitializeEvent();
         }
 
@@ -70,6 +82,7 @@ namespace XrayInspection.PopUp
         /// <param name="e"></param>
         private void BtnClose_Click(object sender, EventArgs e)
         {
+            this._returnIsOK = false;
             this.Close();
         }
 
@@ -90,9 +103,10 @@ namespace XrayInspection.PopUp
 
             DataGridViewRow gRow = grdMain.CurrentRow;
 
-            this.returnCodeValue = gRow.Cells["CODE"].Value.ToString();
-            this.returnNameValue = gRow.Cells["NAME"].Value.ToString();
-            this.returnCodeNameValue = returnCodeValue + " : " + returnNameValue;
+            this._returnCodeValue = gRow.Cells["CODEID"].Value.ToString();
+            this._returnNameValue = gRow.Cells["CODENAME"].Value.ToString();
+            this._returnCodeNameValue = _returnCodeValue + " : " + _returnNameValue;
+            this._returnIsOK = true;
             this.Close();
         }
 
@@ -129,9 +143,11 @@ namespace XrayInspection.PopUp
             try
             {
                 List<SqlParameter> parameters = new List<SqlParameter>();
+                parameters.Add(new SqlParameter("@DEFECTCODETYPE", _type)); // 불량타입
+                parameters.Add(new SqlParameter("@PARENTDEFECTCODE", _parentCode)); // 부모불량코드
                 parameters.Add(new SqlParameter("@SEARCHTEXT", txtSearchText.Text)); // 조회조건
 
-                DataSet ds = conn.CallSelectProcedure_ds(procedureName, parameters);
+                DataSet ds = _dbManager.CallSelectProcedure_ds(_procedureName, parameters);
 
                 if (ds.Tables.Count == 0)
                 {
@@ -139,13 +155,12 @@ namespace XrayInspection.PopUp
                 }
                 else
                 {
-                    DataTable dt = ds.Tables[0];
-                    grdMain.DataSource = dt;
+                    grdMain.DataSource = ds.Tables[0];
                 }
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show(MessageBoxButtons.OK, "닫기", ex.Message);
+                MsgBoxHelper.Error(ex.Message);
             }
         }
 
@@ -156,16 +171,37 @@ namespace XrayInspection.PopUp
         /// <summary>
         /// 컨트롤 라벨세팅
         /// </summary>
+        /// <param name="procedure"></param>
         /// <param name="type"></param>
-        private void InitializeControlSetting(string type)
+        private void InitializeControlSetting(string procedure, string type, string parentCode)
         {
+            // Footer 안보이게 처리
             Footer.Visible = false;
 
-            switch(type)
+            // 프로시저 및 유형세팅
+            _procedureName = procedure;
+            _type = type;
+            _parentCode = parentCode;
+
+            // 최초조회
+            Search();
+
+            switch (type)
             {
-                case "JUDGMENTRESULT":
-                    procedureName = "";
+                case "TOP":
                     lblTitle.Text = "판독결과";
+                    lblSearchLabel.Text = "불량코드/명";
+                    gbxMain.Text = "대분류";
+                    break;
+                case "MIDDLE":
+                    lblTitle.Text = "항목";
+                    lblSearchLabel.Text = "불량코드/명";
+                    gbxMain.Text = "중분류";
+                    break;
+                case "DETAIL":
+                    lblTitle.Text = "부위";
+                    lblSearchLabel.Text = "불량코드/명";
+                    gbxMain.Text = "소분류";
                     break;
                 default:
                     break;
@@ -176,32 +212,15 @@ namespace XrayInspection.PopUp
         /// 그리드 세팅
         /// </summary>
         /// <param name="type"></param>
-        private void InitializeGrid(string type)
+        private void InitializeGrid()
         {
-            string codeColumn = "";
-            string nameColumn = "";
-
-            switch (type)
-            {
-                case "VENDER":
-                    codeColumn = "venderid";
-                    nameColumn = "vendername";
-                    break;
-                case "EQUIP":
-                    codeColumn = "equipmentid";
-                    nameColumn = "equipmentname";
-                    break;
-                case "USER":
-                case "LOGIN":
-                    codeColumn = "userid";
-                    nameColumn = "username";
-                    break;
-                default:
-                    break;
-            }
             grdMain.AutoGenerateColumns = false;
-            CommonFuction.SetDataGridViewColumnStyle(grdMain, "코드", codeColumn, "code", typeof(string), 150);
-            CommonFuction.SetDataGridViewColumnStyle(grdMain, "이름", nameColumn, "name", typeof(string), 250);
+            grdMain.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            grdMain.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomCenter;
+            grdMain.AllowUserToAddRows = false;
+
+            CommonFuction.SetDataGridViewColumnStyle(grdMain, "코드", "CODEID", "CODEID", typeof(string), 150, true);
+            CommonFuction.SetDataGridViewColumnStyle(grdMain, "이름", "CODENAME", "CODENAME", typeof(string), 250, true);
         }
 
         #endregion

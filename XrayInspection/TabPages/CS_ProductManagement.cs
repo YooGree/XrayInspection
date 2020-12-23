@@ -301,7 +301,7 @@ namespace XrayInspection.UserControls
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show(MessageBoxButtons.OK, "닫기", ex.Message);
+                MsgBoxHelper.Error(ex.Message);
             }
         }
 
@@ -321,21 +321,21 @@ namespace XrayInspection.UserControls
                 // 그리드뷰에 행이 한개도 없으면 Return
                 if (grdNewProduct.Rows.Count == 0)
                 {
-                    CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "저장할 데이터가 없습니다.");
+                    MsgBoxHelper.Show("저장할 데이터가 없습니다.");
                     return;
                 }
                 else
                 {
                     // 그리드에 신규, 수정, 삭제행이 없으면 Return
                     if ((grdNewProduct.DataSource as DataTable).AsEnumerable().Where(r => r["ROWTYPE"].Equals("CREATE")
-                                                                                 || r["ROWTYPE"].Equals("MODIFIY")).Count() == 0)
+                                                                                  || r["ROWTYPE"].Equals("MODIFIY")).Count() == 0)
                     {
-                        CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "저장할 데이터가 없습니다.");
+                        MsgBoxHelper.Show("저장할 데이터가 없습니다.");
                         return;
                     }
                 }
 
-                if (CustomMessageBox.Show(MessageBoxButtons.OKCancel, "저장", "저장 하시겠습니까?") == DialogResult.OK)
+                if (MsgBoxHelper.Show("저장 하시겠습니까?", MessageBoxButtons.OKCancel) == DialogResult.OK)
                 {
                     DBManager dbManager = new DBManager();
 
@@ -350,18 +350,18 @@ namespace XrayInspection.UserControls
 
                     if (SaveResult > 0)
                     {
-                        CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "저장하였습니다.");
+                        MsgBoxHelper.Show("저장하였습니다.");
                         Search(); // 재조회
                     }
                     else
                     {
-                        CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "저장에 실패하였습니다.");
+                        MsgBoxHelper.Show("저장에 실패하였습니다.");
                     }
                 }
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show(MessageBoxButtons.OK, "저장", ex.Message);
+                MsgBoxHelper.Error(ex.Message);
             }
         }
 
