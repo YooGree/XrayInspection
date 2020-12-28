@@ -68,6 +68,22 @@ namespace XrayInspection.UserControls
             btnSearch.Click += BtnSearch_Click;
 
             grdAIjubgmentHistory.RowPostPaint += GrdAIjubgmentHistory_RowPostPaint;
+
+            grdAIjubgmentHistory.CellDoubleClick += GrdAIjubgmentHistory_CellDoubleClick;
+        }
+
+        /// <summary>
+        /// 행 더블클릭시 Xray 이미지 판독 팝업호출
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void GrdAIjubgmentHistory_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            CS_XrayImagePopup popup = new CS_XrayImagePopup(grdAIjubgmentHistory.Rows[e.RowIndex]);
+            popup.WindowState = FormWindowState.Normal;
+            popup.StartPosition = FormStartPosition.CenterScreen;
+            popup.ShowDialog();
+            popup.Activate();
         }
 
         /// <summary>
@@ -209,8 +225,8 @@ namespace XrayInspection.UserControls
                 parameters.Add(new SqlParameter("@SITE", Properties.Settings.Default.Site)); // Site
                 parameters.Add(new SqlParameter("@CUSTOMERNAME", txtCustomerName.Text)); // 고객명
                 parameters.Add(new SqlParameter("@PRODUCTNUMBER", txtProductNumber.Text)); // 도번
-                parameters.Add(new SqlParameter("@FRDATE", dateFrom.Value.ToString("yyyy-MM-dd"))); // 조회일자(From)
-                parameters.Add(new SqlParameter("@TODATE", dateTo.Value.ToString("yyyy-MM-dd"))); // 조회일자(To)
+                parameters.Add(new SqlParameter("@FRDATE", dateFrom.Value.ToString("yyyy-MM-dd 00:00:00"))); // 조회일자(From)
+                parameters.Add(new SqlParameter("@TODATE", dateTo.Value.ToString("yyyy-MM-dd 23:59:59"))); // 조회일자(To)
                 parameters.Add(new SqlParameter("@LOTNUMBER", txtLotNumber.Text)); // LOT 번호
 
                 // 전체조회

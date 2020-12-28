@@ -395,16 +395,26 @@ namespace XrayInspection.UserControls
 
                 DataSet ds = _dbManager.CallSelectProcedure_ds("USP_SELECT_XRAYDECIPHER_INSPECTORINFO", parameters);
 
-                if (ds.Tables.Count == 0)
+                if (ds.Tables[0].Rows.Count > 0)
                 {
-                    MessageBox.Show("Error");
-                }
-                else
-                {
-                    if (ds.Tables[0].Rows.Count > 0)
+                    // 조회조건 콤보박스 세팅
+                    comboInspector.DataSource = ds.Tables[0];
+                    comboInspector.DisplayMember = "USERNAME";
+                    comboInspector.ValueMember = "USERID";
+                    comboInspector.SelectedIndex = 0;
+                    comboInspector.DropDownStyle = ComboBoxStyle.DropDownList;
+
+                    if (ds.Tables.Count == 0)
                     {
-                        txtInspector.Tag = ds.Tables[0].Rows[0]["USERID"].ToString();
-                        txtInspector.Text = ds.Tables[0].Rows[0]["USERNAME"].ToString();
+                        MessageBox.Show("Error");
+                    }
+                    else
+                    {
+                        if (ds.Tables[0].Rows.Count > 0)
+                        {
+                            comboInspector.SelectedValue = ds.Tables[0].Rows[0]["USERID"].ToString();
+                            comboInspector.Text = ds.Tables[0].Rows[0]["USERNAME"].ToString();
+                        }
                     }
                 }
             }
@@ -545,8 +555,8 @@ namespace XrayInspection.UserControls
                 Dictionary<string, object> parameters = new Dictionary<string, object>();
                 parameters.Add("@SITE", Properties.Settings.Default.Site);
                 parameters.Add("@LOTNO", txtLotNo.Text);
-                parameters.Add("@INSPECTORID", txtInspector.Tag);
-                parameters.Add("@INSPECTORNAME", txtInspector.Text);
+                parameters.Add("@INSPECTORID", comboInspector.SelectedValue);
+                parameters.Add("@INSPECTORNAME", comboInspector.Text);
                 parameters.Add("@TOPDEFECTCODE", txtJudgmentResult.Tag);
                 parameters.Add("@TOPDEFECTCODENAME", txtJudgmentResult.Text);
                 parameters.Add("@MIDDLEDEFECTCODE", txtContext.Tag);
@@ -605,17 +615,6 @@ namespace XrayInspection.UserControls
 
             // TCP 서버 - 클라이언트 연결
             OnConnectToServer();
-
-            // 조회조건 콤보박스 세팅
-            //BindingList<object> userTypeList = new BindingList<object>();
-            //userTypeList.Add(new { Text = "검사자", Value = "INSPECTOR" });
-            //userTypeList.Add(new { Text = "성형자", Value = "MOLDER" });
-
-            //comboUserType.DataSource = userTypeList;
-            //comboUserType.DisplayMember = "Text";
-            //comboUserType.ValueMember = "Value";
-            //comboUserType.SelectedValue = "INSPECTOR";
-            //comboUserType.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
         /// <summary>

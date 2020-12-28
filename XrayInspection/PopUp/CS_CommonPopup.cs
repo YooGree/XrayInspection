@@ -62,7 +62,7 @@ namespace XrayInspection.PopUp
             btnSearch.Click += BtnSearch_Click;
             btnOK.Click += BtnOK_Click;
             btnClose.Click += BtnClose_Click;
-            grdMain.CellContentDoubleClick += grdMain_CellContentDoubleClick;
+            grdMain.CellDoubleClick += GrdMain_CellDoubleClick;
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace XrayInspection.PopUp
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void grdMain_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void GrdMain_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             BtnOK_Click(null, null);
         }
