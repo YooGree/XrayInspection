@@ -200,36 +200,36 @@ namespace XrayInspection.UserControls
         /// <summary>
         /// 조회
         /// </summary>
-        private void Search()
+        public void Search()
         {
             try
             {
                 DBManager dbManager = new DBManager();
                 List<SqlParameter> parameters = new List<SqlParameter>();
                 parameters.Add(new SqlParameter("@SITE", Properties.Settings.Default.Site)); // Site
-                //parameters.Add(new SqlParameter("@CUSTOMERNAME", txtCustomerName.Text)); // 고객명
-                //parameters.Add(new SqlParameter("@PRODUCTNUMBER", txtProductNumber.Text)); // 도번
-                //parameters.Add(new SqlParameter("@FRDATE", dateFrom.Value)); // 조회일자(From)
-                //parameters.Add(new SqlParameter("@TODATE", dateTo.Value)); // 조회일자(To)
-                //parameters.Add(new SqlParameter("@LOTNUMBER", txtLotNumber.Text)); // LOT 번호
+                parameters.Add(new SqlParameter("@CUSTOMERNAME", txtCustomerName.Text)); // 고객명
+                parameters.Add(new SqlParameter("@PRODUCTNUMBER", txtProductNumber.Text)); // 도번
+                parameters.Add(new SqlParameter("@FRDATE", dateFrom.Value.ToString("yyyy-MM-dd"))); // 조회일자(From)
+                parameters.Add(new SqlParameter("@TODATE", dateTo.Value.ToString("yyyy-MM-dd"))); // 조회일자(To)
+                parameters.Add(new SqlParameter("@LOTNUMBER", txtLotNumber.Text)); // LOT 번호
 
-                //// 전체조회
-                //if (radioAll.Checked == true)
-                //{
-                //    parameters.Add(new SqlParameter("@STATE", "ALL")); // 상태        
-                //}
-                //// 정상조회
-                //else if (radioNormal.Checked = true)
-                //{
-                //    parameters.Add(new SqlParameter("@STATE", "NORMAL")); // 상태
-                //}
-                //// 불량조회
-                //else
-                //{
-                //    parameters.Add(new SqlParameter("@STATE", "DEFECT")); // 상태
-                //}
+                // 전체조회
+                if (radioAll.Checked == true)
+                {
+                    parameters.Add(new SqlParameter("@STATE", "ALL")); // 상태        
+                }
+                // 정상조회
+                else if (radioNormal.Checked == true)
+                {
+                    parameters.Add(new SqlParameter("@STATE", "NORMAL")); // 상태
+                }
+                // 불량조회
+                else
+                {
+                    parameters.Add(new SqlParameter("@STATE", "DEFECT")); // 상태
+                }
 
-                DataSet ds = dbManager.CallSelectProcedure_ds("USP_SELECT_AIJUBGMENTHISTORY");
+                DataSet ds = dbManager.CallSelectProcedure_ds("USP_SELECT_AIJUBGMENTHISTORY", parameters);
 
                 if (ds.Tables.Count == 0)
                 {

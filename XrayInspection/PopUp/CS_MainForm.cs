@@ -226,6 +226,15 @@ namespace XrayInspection.PopUp
                         screen.Search();
                     }
                 }
+                // AI 판정이력
+                else if (btnAIJubgmentHistory.Font.Bold)
+                {
+                    foreach (Control control in panelAIjubgmentHistory.Controls)
+                    {
+                        CS_AIjubgmentHistory screen = (CS_AIjubgmentHistory)control;
+                        screen.Search();
+                    }
+                }
             }
         }
 
