@@ -16,8 +16,8 @@ namespace XrayInspection.PopUp
 {
     /// <summary>
     /// 작   성   자  : 유태근
-    /// 작   성   일  : 2020-12-23
-    /// 설        명  : 공통팝업
+    /// 작   성   일  : 2020-12-28
+    /// 설        명  : Xray 이미지 판독화면
     /// 이        력  : 
     /// </summary>
     public partial class CS_XrayImagePopup : ParentsPop
@@ -75,34 +75,45 @@ namespace XrayInspection.PopUp
             //_stopFlag = true;
             //btnStartEnd.Text = "시작";
 
-            if (!_stopFlag && btnStartEnd.Text.Equals("정지"))
+            try
             {
-                MsgBoxHelper.Show("정지 후 진행해주세요.");
-                return;
-            }           
+                if (!_stopFlag && btnStartEnd.Text.Equals("정지"))
+                {
+                    MsgBoxHelper.Show("정지 후 진행해주세요.");
+                    return;
+                }
+                int saveCheckCount = 30 / int.Parse(comboFrameCount.SelectedValue.ToString());
+                _video.PosFrames = (int)(_video.PosFrames / saveCheckCount) * saveCheckCount - 1;
+                _video.Read(_frame);
 
-            int saveCheckCount = 30 / int.Parse(comboFrameCount.SelectedValue.ToString());
-            _video.PosFrames = (int)(_video.PosFrames / saveCheckCount) * saveCheckCount - 1;
-            _video.Read(_frame);
-            picMain.Image = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(_frame);
+                Cv2.Resize(_frame, _frame, new OpenCvSharp.Size(picMain.Width, picMain.Height));
 
-            DirectoryInfo directory = new DirectoryInfo(_makeDirectory + "//bad");
+                picMain.Image = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(_frame);
 
-            if (directory.Exists == false) directory.Create();
-            
-            string saveFileName = _makeDirectory + "//" + _video.PosFrames.ToString() + ".png";
-            if (File.Exists(saveFileName)) File.Delete(saveFileName);
-            
-            string deleteFileName = directory + "//" + _video.PosFrames.ToString() + ".png";
-            if (File.Exists(deleteFileName)) File.Delete(deleteFileName);
+                DirectoryInfo directory = new DirectoryInfo(_makeDirectory + "//bad");
 
-            _video.PosFrames = _video.PosFrames + saveCheckCount - 1;
-            _video.Read(_frame);
+                if (directory.Exists == false) directory.Create();
 
-            if (typeof(Mat).Equals(_frame))
-            picMain.Image = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(_frame);
+                string saveFileName = _makeDirectory + "//" + _video.PosFrames.ToString() + ".png";
+                if (File.Exists(saveFileName)) File.Delete(saveFileName);
 
-            lblFrame.Text = _video.PosFrames.ToString() + " / " + _video.FrameCount.ToString();
+                string deleteFileName = directory + "//" + _video.PosFrames.ToString() + ".png";
+                if (File.Exists(deleteFileName)) File.Delete(deleteFileName);
+
+                _video.PosFrames = _video.PosFrames + saveCheckCount - 1;
+                _video.Read(_frame);
+
+                Cv2.Resize(_frame, _frame, new OpenCvSharp.Size(picMain.Width, picMain.Height));
+
+                if (typeof(Mat).Equals(_frame))
+                    picMain.Image = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(_frame);
+
+                lblFrame.Text = _video.PosFrames.ToString() + " / " + _video.FrameCount.ToString();
+            }
+            catch
+            {
+
+            }
         }
 
         /// <summary>
@@ -115,18 +126,28 @@ namespace XrayInspection.PopUp
             //_stopFlag = true;
             //btnStartEnd.Text = "시작";
 
-            if (!_stopFlag && btnStartEnd.Text.Equals("정지"))
+            try
             {
-                MsgBoxHelper.Show("정지 후 진행해주세요.");
-                return;
+                if (!_stopFlag && btnStartEnd.Text.Equals("정지"))
+                {
+                    MsgBoxHelper.Show("정지 후 진행해주세요.");
+                    return;
+                }
+
+                int saveCheckCount = 30 / int.Parse(comboFrameCount.SelectedValue.ToString());
+                _video.PosFrames = (int)(_video.PosFrames / saveCheckCount) * saveCheckCount - saveCheckCount - 1;
+                _video.Read(_frame);
+
+                Cv2.Resize(_frame, _frame, new OpenCvSharp.Size(picMain.Width, picMain.Height));
+
+                picMain.Image = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(_frame);
+
+                lblFrame.Text = _video.PosFrames.ToString() + " / " + _video.FrameCount.ToString();
             }
+            catch
+            {
 
-            int saveCheckCount = 30 / int.Parse(comboFrameCount.SelectedValue.ToString());
-            _video.PosFrames = (int)(_video.PosFrames / saveCheckCount) * saveCheckCount - saveCheckCount - 1;
-            _video.Read(_frame);
-            picMain.Image = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(_frame);
-
-            lblFrame.Text = _video.PosFrames.ToString() + " / " + _video.FrameCount.ToString();
+            }
         }
 
         /// <summary>
@@ -187,8 +208,17 @@ namespace XrayInspection.PopUp
         {
             // Footer 안보이게 처리
             Footer.Visible = false;
+
             // 폼 제목 설정
             lblTitle.Text = "X-Ray 이미지 조회 및 이미지 판정";
+
+            // 라벨 - 정상인지 불량인지 표시
+            lblResult.Text = _currentRow.Cells["LASTRESULT"].Value.ToString();
+            if (_currentRow.Cells["LASTRESULT"].Value.ToString() == "합격")
+                lblResult.ForeColor = Color.CornflowerBlue;
+            else
+                lblResult.ForeColor = Color.Crimson;
+
             // 콤보박스 설정
             BindingList<object> frameCount = new BindingList<object>();
             frameCount.Add(new { Text = "1", Value = "1" });
@@ -235,7 +265,8 @@ namespace XrayInspection.PopUp
 
             try
             {
-                Cv2.Resize(_frame, _frame, new OpenCvSharp.Size(_frame.Width, _frame.Height));
+                //Cv2.Resize(_frame, _frame, new OpenCvSharp.Size(_frame.Width, _frame.Height));
+                Cv2.Resize(_frame, _frame, new OpenCvSharp.Size(picMain.Width, picMain.Height));
 
                 string saveFileName = directory + "//" + _video.PosFrames.ToString() + ".png";
                 picMain.Image = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(_frame);
@@ -274,7 +305,11 @@ namespace XrayInspection.PopUp
             }
 
             // 동영상 썸네일 다시세팅
-            GetMediaFile();
+            if (_endFlag)
+            {
+                GetMediaFile();
+                _endFlag = false;
+            }
 
             // 슬라이싱 시작
             int saveCheckCount = 30 / int.Parse(comboFrameCount.SelectedValue.ToString());
@@ -306,7 +341,7 @@ namespace XrayInspection.PopUp
                 {
                     try
                     {
-                        Cv2.Resize(_frame, _frame, new OpenCvSharp.Size(_frame.Width, _frame.Height));
+                        Cv2.Resize(_frame, _frame, new OpenCvSharp.Size(picMain.Width, picMain.Height));
 
                         if (_video.PosFrames % saveCheckCount == 0)
                         {
@@ -330,6 +365,7 @@ namespace XrayInspection.PopUp
                 {
                     MsgBoxHelper.Show("이미지 슬라이싱 완료");
                     _stopFlag = true;
+                    _endFlag = true;
                     btnStartEnd.Text = "시작";
                     break;
                 }

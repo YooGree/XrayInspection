@@ -367,15 +367,16 @@ namespace XrayInspection.UserControls
             grdAIjubgmentHistory.AllowUserToAddRows = false;
 
             CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "Site", "SITE", "SITE", typeof(string), 100, false, false, DataGridViewContentAlignment.MiddleLeft, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "고객", "CUSTOMER", "CUSTOMER", typeof(string), 150, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "도번", "PRODUCTCODE", "PRODUCTCODE", typeof(string), 150, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "품번", "PRODUCTID", "PRODUCTID", typeof(string), 150, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "LOT번호", "LOTID", "LOTID", typeof(string), 250, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "고객", "CUSTOMER", "CUSTOMER", typeof(string), 150, true, true, DataGridViewContentAlignment.MiddleLeft, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "도번", "PRODUCTCODE", "PRODUCTCODE", typeof(string), 150, true, true, DataGridViewContentAlignment.MiddleLeft, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "품번", "PRODUCTID", "PRODUCTID", typeof(string), 250, true, true, DataGridViewContentAlignment.MiddleLeft, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "LOT번호", "LOTID", "LOTID", typeof(string), 200, true, true, DataGridViewContentAlignment.MiddleLeft, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "검사자", "INSPECTORNAME", "INSPECTORNAME", typeof(string), 120, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "검사일자", "INSPECTIONDATE", "INSPECTIONDATE", typeof(string), 200, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "최종판정", "LASTRESULT", "LASTRESULT", typeof(string), 100, true, true, DataGridViewContentAlignment.MiddleLeft, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "AI판정", "AIRESULT", "AIRESULT", typeof(string), 100, true, true, DataGridViewContentAlignment.MiddleLeft, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "불량유형", "DEFECTTYPE", "DEFECTTYPE", typeof(string), 100, true, true, DataGridViewContentAlignment.MiddleLeft, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "행변경타입", "ROWTYPE", "ROWTYPE", typeof(string), 100, false, false, DataGridViewContentAlignment.MiddleLeft, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "최종판정", "LASTRESULT", "LASTRESULT", typeof(string), 100, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "AI판정", "AIRESULT", "AIRESULT", typeof(string), 100, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "불량유형", "DEFECTTYPE", "DEFECTTYPE", typeof(string), 100, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "행변경타입", "ROWTYPE", "ROWTYPE", typeof(string), 100, false, false, DataGridViewContentAlignment.MiddleCenter, 10);
         }
 
         #endregion

@@ -31,7 +31,10 @@ namespace XrayInspection.UserControls
         DBManager _dbManager = new DBManager();
         bool _deleteFlag;        
         Timer _searchTimer = new Timer();
-        string _lotState;
+        //string _sh
+        string _lotState; // 현재 LOT상태
+        string _workorderNumber; // 현재 WorkOrder번호
+        string _userShiftId; // 유저 부서번호
 
         #endregion
 
@@ -98,9 +101,18 @@ namespace XrayInspection.UserControls
                 MsgBoxHelper.Show("현재 판정 진행중입니다." + Environment.NewLine + "판정을 종료한 후 진행해주세요.");
                 return;
             }
+            // 판독결과를 입력하지 않았다면 알림
+            else if (string.IsNullOrWhiteSpace(txtJudgmentResult.Text))
+            {
+                MsgBoxHelper.Show("판독결과는 필수입력입니다.");
+                return;
+            }
 
             if (MsgBoxHelper.Show("판정완료 하시겠습니까?", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
+                // LOT크기 변경
+                UpdateLotSize();
+
                 // AI판정결과 저장
                 UpdateAIJudgmentResult();
 
@@ -148,8 +160,14 @@ namespace XrayInspection.UserControls
             // 타이머 시작
             _searchTimer.Start();
 
+            // LOT크기 변경
+            UpdateLotSize();
+
             // LOT상태 RUN으로 변경
-            if (_lotState != "RUN") UpdateLotState();
+            if (_lotState != "RUN")
+            {
+                UpdateLotState();
+            }
         }
 
         /// <summary>
@@ -175,6 +193,25 @@ namespace XrayInspection.UserControls
                     {
                         if (commonPopup._returnIsOK)
                         {
+                            // 판독결과가 합격이라면 항목, 부위, 위치 Enable, ReadOnly
+                            if (commonPopup._returnCodeValue == "0")
+                            {
+                                txtContext.Tag = "None";
+                                txtContext.Text = "";
+                                btnContext.Enabled = false;
+                                txtPart.Tag = "None";
+                                txtPart.Text = "";
+                                btnPart.Enabled = false;
+                                txtLocation.ReadOnly = true;
+                            }
+                            // 판독결과가 합격이 아니라면 항복, 부위, 위치 입력할 수 있도록
+                            else
+                            {
+                                btnContext.Enabled = true;
+                                btnPart.Enabled = true;
+                                txtLocation.ReadOnly = false;
+                            }
+
                             if (txtJudgmentResult.Tag.ToString() != commonPopup._returnCodeValue)
                             {
                                 txtContext.Tag = "None";
@@ -348,7 +385,41 @@ namespace XrayInspection.UserControls
         #region 조회
 
         /// <summary>
-        /// 화면 최초 로드시 제품정보 조회
+        /// 화면 최초 로드시 검사진행현황 조회
+        /// </summary>
+        public void InspectionCurrentStateSrarch()
+        {
+            try
+            {
+                List<SqlParameter> parameters = new List<SqlParameter>();
+                parameters.Add(new SqlParameter("@SITE", Properties.Settings.Default.Site)); // Site
+
+                DataSet ds = _dbManager.CallSelectProcedure_ds("USP_SELECT_XRAYDECIPHER_CURRENTSTATEINFO", parameters);
+
+                if (ds.Tables.Count == 0)
+                {
+                    MessageBox.Show("Error");
+                }
+                else
+                {
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        // 검사현황
+                        lblCompleteCount.Text = ds.Tables[0].Rows[0]["COMPLETECOUNT"].ToString();
+                        lblPassCount.Text = ds.Tables[0].Rows[0]["PASSCOUNT"].ToString();
+                        lblNotPassCount.Text = ds.Tables[0].Rows[0]["NOTPASSCOUNT"].ToString();
+                        lblDefectRateCount.Text = ds.Tables[0].Rows[0]["DEFECTRATE"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("검사현황 조회실패!");
+            }
+        }
+
+        /// <summary>
+        /// 화면 최초 로드시 제품정보 및 검사계획/진행현황 조회
         /// </summary>
         public void ProductInfoSearch()
         {
@@ -367,13 +438,24 @@ namespace XrayInspection.UserControls
                 {
                     if (ds.Tables[0].Rows.Count > 0)
                     {
+                        // 제품정보
                         txtCustomer.Text = ds.Tables[0].Rows[0]["CUSTOMER"].ToString();
                         txtUsedPlace.Text = ds.Tables[0].Rows[0]["USEDPLACE"].ToString();
                         txtProductName.Text = ds.Tables[0].Rows[0]["PRODUCTNAME"].ToString();
                         txtProductCode.Text = ds.Tables[0].Rows[0]["PRODUCTCODE"].ToString();
                         txtUser.Text = ds.Tables[0].Rows[0]["MAKERNAME"].ToString();
                         txtLotNo.Text = ds.Tables[0].Rows[0]["LOTID"].ToString();
+
+                        // 검사계획/진행현황
+                        txtLotSize.Text = ds.Tables[0].Rows[0]["PRODUCTIONQTY"].ToString();
+                        txtInspectionStd.Text = ds.Tables[0].Rows[0]["INSPECTRATE"].ToString();
+                        txtPlanPageCount.Text = ds.Tables[0].Rows[0]["INSPECTQTY"].ToString();
+                        txtProgressSequence.Text = ds.Tables[0].Rows[0]["INSPECTSEQUENCE"].ToString();
+
+                        // 현재 LOT상태
                         _lotState = ds.Tables[0].Rows[0]["LOTSTATE"].ToString();
+                        // WorkOrder 번호
+                        _workorderNumber = ds.Tables[0].Rows[0]["WORKORDERNUMBER"].ToString();
                     }
                 }
             }
@@ -403,6 +485,11 @@ namespace XrayInspection.UserControls
                     comboInspector.ValueMember = "USERID";
                     comboInspector.SelectedIndex = 0;
                     comboInspector.DropDownStyle = ComboBoxStyle.DropDownList;
+                    comboInspector.SelectedValueChanged += (s, e) =>
+                    {
+                        string shiftId = ds.Tables[0].AsEnumerable().Where(r => r["USERID"].Equals(comboInspector.SelectedValue)).CopyToDataTable().Rows[0]["SHIFTID"].ToString();
+                        comboInspector.Tag = shiftId;
+                    };
 
                     if (ds.Tables.Count == 0)
                     {
@@ -414,6 +501,7 @@ namespace XrayInspection.UserControls
                         {
                             comboInspector.SelectedValue = ds.Tables[0].Rows[0]["USERID"].ToString();
                             comboInspector.Text = ds.Tables[0].Rows[0]["USERNAME"].ToString();
+                            comboInspector.Tag = ds.Tables[0].Rows[0]["SHIFTID"].ToString();
                         }
                     }
                 }
@@ -475,7 +563,8 @@ namespace XrayInspection.UserControls
         /// </summary>
         private void Rebinding()
         {
-            // 검사 실적현황 조회(추가예정)
+            // 검사실적현황 바인딩
+            InspectionCurrentStateSrarch();
 
             // 제품정보 조회
             ProductInfoSearch();
@@ -546,6 +635,30 @@ namespace XrayInspection.UserControls
         }
 
         /// <summary>
+        /// LOT크기 사용자가 입력한 크기로 변경
+        /// </summary>
+        private void UpdateLotSize()
+        {
+            try
+            {
+                Dictionary<string, object> parameters = new Dictionary<string, object>();
+                parameters.Add("@SITE", Properties.Settings.Default.Site);
+                parameters.Add("@WORKORDERNO", _workorderNumber);
+                parameters.Add("@LOTSIZE", Convert.ToInt32(txtLotSize.Text));
+
+                SqlParameter[] sqlParameters = _dbManager.GetSqlParameters(parameters);
+
+                int saveResult = _dbManager.CallNonSelectProcedure("USP_UPDATE_XRAYDECIPHER_LOTSIZE", sqlParameters);
+                if (saveResult > 0) Console.WriteLine("LOT크기 수정성공!");
+                else Console.WriteLine("LOT크기 수정실패!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        /// <summary>
         /// 해당 제품의 AI판정결과 저장
         /// </summary>
         private void UpdateAIJudgmentResult()
@@ -557,6 +670,7 @@ namespace XrayInspection.UserControls
                 parameters.Add("@LOTNO", txtLotNo.Text);
                 parameters.Add("@INSPECTORID", comboInspector.SelectedValue);
                 parameters.Add("@INSPECTORNAME", comboInspector.Text);
+                parameters.Add("@SHIFTID", comboInspector.Tag);
                 parameters.Add("@TOPDEFECTCODE", txtJudgmentResult.Tag);
                 parameters.Add("@TOPDEFECTCODENAME", txtJudgmentResult.Text);
                 parameters.Add("@MIDDLEDEFECTCODE", txtContext.Tag);
@@ -566,6 +680,7 @@ namespace XrayInspection.UserControls
                 parameters.Add("@LOCATION", txtLocation.Text);
                 parameters.Add("@AIRESULTCODE", "(TEST)CODE_OK");
                 parameters.Add("@AIRESULTCODENAME", "(TEST)CODENAME_OK");
+                
 
                 SqlParameter[] sqlParameters = _dbManager.GetSqlParameters(parameters);
 
@@ -597,7 +712,10 @@ namespace XrayInspection.UserControls
         {
             this.Dock = DockStyle.Fill;
 
-            // 제품정보에 데이터 바인딩
+            // 검사실적현황 바인딩
+            InspectionCurrentStateSrarch();
+
+            // 제품정보 및 검사계획/진행현황에 데이터 바인딩
             ProductInfoSearch();
 
             // 검사자 데이터 바인딩

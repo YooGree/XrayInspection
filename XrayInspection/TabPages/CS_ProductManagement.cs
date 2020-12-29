@@ -29,6 +29,7 @@ namespace XrayInspection.UserControls
         DataTable _searchDt2 = new DataTable();
         DateTimePicker _dtp = new DateTimePicker();
         Rectangle _rectangle;
+        string _nextCellValue;
 
         /// <summary>
         /// 행 상태 타입
@@ -110,18 +111,50 @@ namespace XrayInspection.UserControls
         {
             string name = grdNewProduct.CurrentCell.OwningColumn.Name;
 
+            // 단중
             if (name == "PRODUCTWEIGHT")      
-                e.Control.KeyPress += new KeyPressEventHandler(txtCheckNumeric_KeyPress);       
+                e.Control.KeyPress += new KeyPressEventHandler(txtCheckNumeric_KeyPress_ProductWeight);       
             else       
-                e.Control.KeyPress -= new KeyPressEventHandler(txtCheckNumeric_KeyPress);        
+                e.Control.KeyPress -= new KeyPressEventHandler(txtCheckNumeric_KeyPress_ProductWeight);
+
+            // 검사기준
+            if (name == "INSPECTRATE")
+                e.Control.KeyPress += new KeyPressEventHandler(txtCheckNumeric_KeyPress_InspectRate);
+            else
+                e.Control.KeyPress -= new KeyPressEventHandler(txtCheckNumeric_KeyPress_InspectRate);
         }
-        
+
         /// <summary>
-        /// .을 제외한 모든문자 입력불가
+        /// 0 ~ 100사이의 정수형 숫자만 입력가능
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void txtCheckNumeric_KeyPress(object sender, KeyPressEventArgs e)
+        private void txtCheckNumeric_KeyPress_InspectRate(object sender, KeyPressEventArgs e)
+        {            
+            if (!(char.IsDigit(e.KeyChar) || e.KeyChar == Convert.ToChar(Keys.Back)))
+                e.Handled = true;     
+            else
+            {
+                string strValue = Convert.ToString(grdNewProduct.CurrentCell.EditedFormattedValue) + Convert.ToString(char.GetNumericValue(e.KeyChar));
+                int value;
+                bool isNum = int.TryParse(strValue, out value);
+
+                if (isNum)
+                {
+                    if (value < 0 || value > 100)
+                    {
+                        e.Handled = true;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// .을 제외한 모든문자 입력불가(단중)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtCheckNumeric_KeyPress_ProductWeight(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == '.')
                 return;
@@ -432,6 +465,7 @@ namespace XrayInspection.UserControls
             CommonFuction.SetDataGridViewColumnStyle(grdNewProduct, "고객명", "CUSTOMER", "CUSTOMER", typeof(string), 150, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdNewProduct, "사용처", "USEDPLACE", "USEDPLACE", typeof(string), 150, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdNewProduct, "단중", "PRODUCTWEIGHT", "PRODUCTWEIGHT", typeof(string), 150, false, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdNewProduct, "검사기준", "INSPECTRATE", "INSPECTRATE", typeof(string), 100, false, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdNewProduct, "도면구분", "DWGTYPE", "DWGTYPE", typeof(string), 100, false, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdNewProduct, "관리구분", "MANAGEMENTTYPE", "MANAGEMENTTYPE", typeof(string), 100, false, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdNewProduct, "도면개정일", "DWGUSEDATE", "DWGUSEDATE", typeof(string), 180, false, true, DataGridViewContentAlignment.MiddleCenter, 10);
