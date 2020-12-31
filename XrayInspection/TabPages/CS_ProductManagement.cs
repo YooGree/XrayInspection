@@ -437,6 +437,8 @@ namespace XrayInspection.UserControls
         private void InitializeGrid()
         {
             // 기존제품 그리드
+            grdOriginalProduct.DefaultCellStyle.ForeColor = Color.Black;
+
             grdOriginalProduct.AutoGenerateColumns = false;
             grdOriginalProduct.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             grdOriginalProduct.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomCenter;
@@ -453,6 +455,8 @@ namespace XrayInspection.UserControls
             CommonFuction.SetDataGridViewColumnStyle(grdOriginalProduct, "행변경타입", "ROWTYPE", "ROWTYPE", typeof(string), 100, true, false, DataGridViewContentAlignment.MiddleLeft, 10);
 
             // 신규제품 그리드
+            grdNewProduct.DefaultCellStyle.ForeColor = Color.Black;
+
             grdNewProduct.AutoGenerateColumns = false;
             grdNewProduct.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             grdNewProduct.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomCenter;

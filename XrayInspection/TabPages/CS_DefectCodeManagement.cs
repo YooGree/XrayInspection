@@ -464,6 +464,8 @@ namespace XrayInspection.UserControls
         private void InitializeGrid()
         {
             // 대분류
+            grdTopCategory.DefaultCellStyle.ForeColor = Color.Black;
+
             grdTopCategory.AutoGenerateColumns = false;
             grdTopCategory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             grdTopCategory.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomCenter;
@@ -480,6 +482,8 @@ namespace XrayInspection.UserControls
             CommonFuction.SetDataGridViewColumnStyle(grdTopCategory, "행변경타입", "ROWTYPE", "ROWTYPE", typeof(string), 100, true, false, DataGridViewContentAlignment.MiddleLeft, 10);
 
             // 중분류
+            grdMiddleCategory.DefaultCellStyle.ForeColor = Color.Black;
+
             grdMiddleCategory.AutoGenerateColumns = false;
             grdMiddleCategory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             grdMiddleCategory.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomCenter;
@@ -496,6 +500,8 @@ namespace XrayInspection.UserControls
             CommonFuction.SetDataGridViewColumnStyle(grdMiddleCategory, "행변경타입", "ROWTYPE", "ROWTYPE", typeof(string), 100, true, false, DataGridViewContentAlignment.MiddleLeft, 10);
 
             // 불량상세
+            grdDetailCategory.DefaultCellStyle.ForeColor = Color.Black;
+
             grdDetailCategory.AutoGenerateColumns = false;
             grdDetailCategory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             grdDetailCategory.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomCenter;

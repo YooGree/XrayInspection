@@ -351,6 +351,8 @@ namespace XrayInspection.UserControls
         /// </summary>
         private void InitializeGrid()
         {
+            grdWorkorder.DefaultCellStyle.ForeColor = Color.Black;
+
             grdWorkorder.AutoGenerateColumns = false;
             grdWorkorder.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             grdWorkorder.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomCenter;
