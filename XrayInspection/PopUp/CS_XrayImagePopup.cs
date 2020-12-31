@@ -44,6 +44,7 @@ namespace XrayInspection.PopUp
         {
             _currentRow = currentRow;
             InitializeComponent();
+            InitializeGrid();
             InitializeControlSetting();
             InitializeEvent();
         }
@@ -57,12 +58,52 @@ namespace XrayInspection.PopUp
         /// </summary>
         private void InitializeEvent()
         {
-            btnSave.Click += BtnSave_Click;
             btnClose.Click += BtnClose_Click;
 
             btnStartEnd.Click += BtnStart_Click;
             btnPrev.Click += BtnPrev_Click;
             btnNext.Click += BtnNext_Click;
+
+            grdAIDecipherStatus.SelectionChanged += GrdAIDecipherStatus_SelectionChanged;
+        }
+
+        /// <summary>
+        /// AI 판정이력 그리드의 행 변경시 해당 프레임에 해당하는 이미지 보여주기
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void GrdAIDecipherStatus_SelectionChanged(object sender, EventArgs e)
+        {
+            int frameNo;
+
+            // 마지막 프레임일때
+            if (grdAIDecipherStatus.CurrentRow.Index == 0)
+            {
+                frameNo = _video.FrameCount;
+            }
+            // 그 외의 프레임일때
+            else
+            {
+                frameNo = Convert.ToInt32(grdAIDecipherStatus.CurrentRow.Cells["FRAMENO"].Value);
+            }
+
+            try
+            {
+                int saveCheckCount = 30 / int.Parse(comboFrameCount.SelectedValue.ToString());
+                _video.PosFrames = frameNo - 1;
+                //_video.PosFrames = (int)(_video.PosFrames / saveCheckCount) * saveCheckCount - saveCheckCount - 1;
+                _video.Read(_frame);
+
+                Cv2.Resize(_frame, _frame, new OpenCvSharp.Size(picMain.Width, picMain.Height));
+
+                picMain.Image = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(_frame);
+
+                lblFrame.Text = _video.PosFrames.ToString() + " / " + _video.FrameCount.ToString();
+            }
+            catch
+            {
+
+            }
         }
 
         /// <summary>
@@ -90,15 +131,15 @@ namespace XrayInspection.PopUp
 
                 picMain.Image = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(_frame);
 
-                DirectoryInfo directory = new DirectoryInfo(_makeDirectory + "//bad");
+                //DirectoryInfo directory = new DirectoryInfo(_makeDirectory + "//bad");
 
-                if (directory.Exists == false) directory.Create();
+                //if (directory.Exists == false) directory.Create();
 
-                string saveFileName = _makeDirectory + "//" + _video.PosFrames.ToString() + ".png";
-                if (File.Exists(saveFileName)) File.Delete(saveFileName);
+                //string saveFileName = _makeDirectory + "//" + _video.PosFrames.ToString() + ".png";
+                //if (File.Exists(saveFileName)) File.Delete(saveFileName);
 
-                string deleteFileName = directory + "//" + _video.PosFrames.ToString() + ".png";
-                if (File.Exists(deleteFileName)) File.Delete(deleteFileName);
+                //string deleteFileName = directory + "//" + _video.PosFrames.ToString() + ".png";
+                //if (File.Exists(deleteFileName)) File.Delete(deleteFileName);
 
                 _video.PosFrames = _video.PosFrames + saveCheckCount - 1;
                 _video.Read(_frame);
@@ -197,6 +238,33 @@ namespace XrayInspection.PopUp
 
         #endregion
 
+        #region 조회
+
+        /// <summary>
+        /// 화면 최초 로드시 AI판독정보 조회
+        /// </summary>
+        public void AIJudgmentInfoSearch()
+        {
+            try
+            {
+                DBManager dbManager = new DBManager();
+                List<SqlParameter> parameters = new List<SqlParameter>();
+                parameters.Add(new SqlParameter("@SITE", Properties.Settings.Default.Site)); // Site
+                parameters.Add(new SqlParameter("@LOTNO", _currentRow.Cells["LOTID"].Value)); // LOT NO
+
+                DataSet ds = dbManager.CallSelectProcedure_ds("USP_SELECT_XRAYDECIPHER_AIJUDGMENTINFO", parameters);
+
+                if (ds.Tables.Count == 0) Console.WriteLine("AI 판독현황 조회실패!");
+                else grdAIDecipherStatus.DataSource = ds.Tables[0];              
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        #endregion
+
         #region 사용자 정의 함수
 
         /// <summary>
@@ -231,11 +299,14 @@ namespace XrayInspection.PopUp
             comboFrameCount.DataSource = frameCount;
             comboFrameCount.DisplayMember = "Text";
             comboFrameCount.ValueMember = "Value";
-            comboFrameCount.SelectedValue = "1";
+            comboFrameCount.SelectedValue = "3";
             comboFrameCount.DropDownStyle = ComboBoxStyle.DropDownList;
 
             // 특정경로에 저장된 동영상파일 불러오기
             GetMediaFile();
+
+            // AI 판독결과 프레임 레코드 데이터 조회
+            AIJudgmentInfoSearch();
         }
 
         /// <summary>
@@ -363,13 +434,34 @@ namespace XrayInspection.PopUp
                 }
                 else
                 {
-                    MsgBoxHelper.Show("이미지 슬라이싱 완료");
+                    //MsgBoxHelper.Show("이미지 슬라이싱 완료");
                     _stopFlag = true;
                     _endFlag = true;
                     btnStartEnd.Text = "시작";
                     break;
                 }
             }
+        }
+
+        /// <summary>
+        /// 그리드 세팅
+        /// </summary>
+        private void InitializeGrid()
+        {
+            grdAIDecipherStatus.DefaultCellStyle.ForeColor = Color.Black;
+
+            grdAIDecipherStatus.AutoGenerateColumns = false;
+            grdAIDecipherStatus.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            grdAIDecipherStatus.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomCenter;
+            grdAIDecipherStatus.AllowUserToAddRows = false;
+            grdAIDecipherStatus.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            grdAIDecipherStatus.DefaultCellStyle.SelectionBackColor = Color.Yellow;
+            grdAIDecipherStatus.DefaultCellStyle.SelectionForeColor = Color.Black;
+
+            CommonFuction.SetDataGridViewColumnStyle(grdAIDecipherStatus, "Frame", "FRAMENO", "FRAMENO", typeof(int), 100, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIDecipherStatus, "AI판정", "AIRESULT", "AIRESULT", typeof(string), 100, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIDecipherStatus, "유형", "TYPE", "TYPE", typeof(string), 130, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIDecipherStatus, "행변경타입", "ROWTYPE", "ROWTYPE", typeof(string), 100, false, false, DataGridViewContentAlignment.MiddleLeft, 10);
         }
 
         #endregion

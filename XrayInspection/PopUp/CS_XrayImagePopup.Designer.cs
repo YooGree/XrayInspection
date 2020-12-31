@@ -30,6 +30,8 @@ namespace XrayInspection.PopUp
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
@@ -41,9 +43,6 @@ namespace XrayInspection.PopUp
             this.btnNext = new System.Windows.Forms.Button();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnClose = new System.Windows.Forms.Button();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.gbxMain = new System.Windows.Forms.GroupBox();
-            this.picMain = new System.Windows.Forms.PictureBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.lblFrame = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -58,39 +57,47 @@ namespace XrayInspection.PopUp
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.lblFileName = new System.Windows.Forms.Label();
             this.lblFileNameTitle = new System.Windows.Forms.Label();
+            this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
+            this.gbxAIDecipherStatus = new System.Windows.Forms.GroupBox();
+            this.grdAIDecipherStatus = new System.Windows.Forms.DataGridView();
+            this.gbxMain = new System.Windows.Forms.GroupBox();
+            this.picMain = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
-            this.gbxMain.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picMain)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel7.SuspendLayout();
+            this.tableLayoutPanel8.SuspendLayout();
+            this.gbxAIDecipherStatus.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdAIDecipherStatus)).BeginInit();
+            this.gbxMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picMain)).BeginInit();
             this.SuspendLayout();
             // 
             // lblTitle
             // 
-            this.lblTitle.Size = new System.Drawing.Size(1295, 30);
+            this.lblTitle.Size = new System.Drawing.Size(1409, 30);
             // 
             // lblFooter
             // 
-            this.lblFooter.Size = new System.Drawing.Size(1295, 30);
+            this.lblFooter.Size = new System.Drawing.Size(1409, 30);
             // 
             // panelLogo_MICube
             // 
-            this.panelLogo_MICube.Location = new System.Drawing.Point(1131, 0);
+            this.panelLogo_MICube.Location = new System.Drawing.Point(1245, 0);
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel5, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.gbxMain, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel8, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 30);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -98,7 +105,7 @@ namespace XrayInspection.PopUp
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1295, 795);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1409, 861);
             this.tableLayoutPanel1.TabIndex = 3;
             // 
             // tableLayoutPanel5
@@ -109,12 +116,12 @@ namespace XrayInspection.PopUp
             this.tableLayoutPanel5.Controls.Add(this.flowLayoutPanel3, 0, 0);
             this.tableLayoutPanel5.Controls.Add(this.flowLayoutPanel2, 1, 0);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 755);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 821);
             this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 1;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(1295, 40);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(1409, 40);
             this.tableLayoutPanel5.TabIndex = 9;
             // 
             // flowLayoutPanel3
@@ -126,7 +133,7 @@ namespace XrayInspection.PopUp
             this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel3.Location = new System.Drawing.Point(3, 3);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-            this.flowLayoutPanel3.Size = new System.Drawing.Size(1030, 34);
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(1121, 34);
             this.flowLayoutPanel3.TabIndex = 3;
             // 
             // tableLayoutPanel6
@@ -143,6 +150,7 @@ namespace XrayInspection.PopUp
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel6.Size = new System.Drawing.Size(203, 28);
             this.tableLayoutPanel6.TabIndex = 17;
+            this.tableLayoutPanel6.Visible = false;
             // 
             // label2
             // 
@@ -207,12 +215,11 @@ namespace XrayInspection.PopUp
             // flowLayoutPanel2
             // 
             this.flowLayoutPanel2.Controls.Add(this.btnClose);
-            this.flowLayoutPanel2.Controls.Add(this.btnSave);
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(1039, 3);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(1130, 3);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(253, 34);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(276, 34);
             this.flowLayoutPanel2.TabIndex = 2;
             // 
             // btnClose
@@ -221,49 +228,12 @@ namespace XrayInspection.PopUp
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClose.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btnClose.ForeColor = System.Drawing.Color.White;
-            this.btnClose.Location = new System.Drawing.Point(175, 3);
+            this.btnClose.Location = new System.Drawing.Point(198, 3);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 28);
             this.btnClose.TabIndex = 2;
             this.btnClose.Text = "닫기";
             this.btnClose.UseVisualStyleBackColor = false;
-            // 
-            // btnSave
-            // 
-            this.btnSave.BackColor = System.Drawing.Color.DimGray;
-            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSave.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btnSave.ForeColor = System.Drawing.Color.White;
-            this.btnSave.Location = new System.Drawing.Point(94, 3);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 28);
-            this.btnSave.TabIndex = 1;
-            this.btnSave.Text = "저장";
-            this.btnSave.UseVisualStyleBackColor = false;
-            // 
-            // gbxMain
-            // 
-            this.gbxMain.Controls.Add(this.picMain);
-            this.gbxMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gbxMain.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.gbxMain.ForeColor = System.Drawing.Color.White;
-            this.gbxMain.Location = new System.Drawing.Point(3, 3);
-            this.gbxMain.Name = "gbxMain";
-            this.gbxMain.Size = new System.Drawing.Size(1289, 709);
-            this.gbxMain.TabIndex = 1;
-            this.gbxMain.TabStop = false;
-            this.gbxMain.Text = "Xray 이미지 판정";
-            // 
-            // picMain
-            // 
-            this.picMain.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.picMain.Location = new System.Drawing.Point(3, 17);
-            this.picMain.Name = "picMain";
-            this.picMain.Padding = new System.Windows.Forms.Padding(3);
-            this.picMain.Size = new System.Drawing.Size(1283, 689);
-            this.picMain.TabIndex = 8;
-            this.picMain.TabStop = false;
             // 
             // flowLayoutPanel1
             // 
@@ -273,9 +243,9 @@ namespace XrayInspection.PopUp
             this.flowLayoutPanel1.Controls.Add(this.tableLayoutPanel4);
             this.flowLayoutPanel1.Controls.Add(this.tableLayoutPanel7);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 718);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 784);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1289, 34);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1403, 34);
             this.flowLayoutPanel1.TabIndex = 3;
             // 
             // lblFrame
@@ -450,25 +420,110 @@ namespace XrayInspection.PopUp
             this.lblFileNameTitle.Text = "파일명 :";
             this.lblFileNameTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // tableLayoutPanel8
+            // 
+            this.tableLayoutPanel8.ColumnCount = 3;
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 10F));
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel8.Controls.Add(this.gbxAIDecipherStatus, 2, 0);
+            this.tableLayoutPanel8.Controls.Add(this.gbxMain, 0, 0);
+            this.tableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel8.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel8.Name = "tableLayoutPanel8";
+            this.tableLayoutPanel8.RowCount = 1;
+            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(1403, 775);
+            this.tableLayoutPanel8.TabIndex = 19;
+            // 
+            // gbxAIDecipherStatus
+            // 
+            this.gbxAIDecipherStatus.Controls.Add(this.grdAIDecipherStatus);
+            this.gbxAIDecipherStatus.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gbxAIDecipherStatus.ForeColor = System.Drawing.Color.White;
+            this.gbxAIDecipherStatus.Location = new System.Drawing.Point(1057, 3);
+            this.gbxAIDecipherStatus.Name = "gbxAIDecipherStatus";
+            this.gbxAIDecipherStatus.Size = new System.Drawing.Size(343, 769);
+            this.gbxAIDecipherStatus.TabIndex = 2;
+            this.gbxAIDecipherStatus.TabStop = false;
+            this.gbxAIDecipherStatus.Text = "AI 판독현황";
+            // 
+            // grdAIDecipherStatus
+            // 
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grdAIDecipherStatus.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.grdAIDecipherStatus.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grdAIDecipherStatus.DefaultCellStyle = dataGridViewCellStyle2;
+            this.grdAIDecipherStatus.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdAIDecipherStatus.EnableHeadersVisualStyles = false;
+            this.grdAIDecipherStatus.Location = new System.Drawing.Point(3, 19);
+            this.grdAIDecipherStatus.Name = "grdAIDecipherStatus";
+            this.grdAIDecipherStatus.RowHeadersVisible = false;
+            this.grdAIDecipherStatus.RowTemplate.Height = 23;
+            this.grdAIDecipherStatus.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.grdAIDecipherStatus.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.grdAIDecipherStatus.Size = new System.Drawing.Size(337, 747);
+            this.grdAIDecipherStatus.TabIndex = 0;
+            // 
+            // gbxMain
+            // 
+            this.gbxMain.Controls.Add(this.picMain);
+            this.gbxMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gbxMain.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.gbxMain.ForeColor = System.Drawing.Color.White;
+            this.gbxMain.Location = new System.Drawing.Point(3, 3);
+            this.gbxMain.Name = "gbxMain";
+            this.gbxMain.Size = new System.Drawing.Size(1038, 769);
+            this.gbxMain.TabIndex = 1;
+            this.gbxMain.TabStop = false;
+            this.gbxMain.Text = "Xray 이미지 판정";
+            // 
+            // picMain
+            // 
+            this.picMain.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.picMain.Location = new System.Drawing.Point(3, 17);
+            this.picMain.Name = "picMain";
+            this.picMain.Padding = new System.Windows.Forms.Padding(3);
+            this.picMain.Size = new System.Drawing.Size(1032, 749);
+            this.picMain.TabIndex = 8;
+            this.picMain.TabStop = false;
+            // 
             // CS_XrayImagePopup
             // 
-            this.ClientSize = new System.Drawing.Size(1295, 855);
+            this.ClientSize = new System.Drawing.Size(1409, 921);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "CS_XrayImagePopup";
-            this.Text = "공통팝업";
+            this.Text = "Xray Image 팝업";
             this.Controls.SetChildIndex(this.tableLayoutPanel1, 0);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
             this.flowLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel6.ResumeLayout(false);
             this.flowLayoutPanel2.ResumeLayout(false);
-            this.gbxMain.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.picMain)).EndInit();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel7.ResumeLayout(false);
+            this.tableLayoutPanel8.ResumeLayout(false);
+            this.gbxAIDecipherStatus.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grdAIDecipherStatus)).EndInit();
+            this.gbxMain.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picMain)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -476,7 +531,6 @@ namespace XrayInspection.PopUp
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.GroupBox gbxMain;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
-        private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.PictureBox picMain;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Label lblFrame;
@@ -501,6 +555,9 @@ namespace XrayInspection.PopUp
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
         private System.Windows.Forms.Label lblFileName;
         private System.Windows.Forms.Label lblFileNameTitle;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel8;
+        private System.Windows.Forms.GroupBox gbxAIDecipherStatus;
+        private System.Windows.Forms.DataGridView grdAIDecipherStatus;
 
         #endregion
         //private System.Windows.Forms.Panel pnlHeader;
