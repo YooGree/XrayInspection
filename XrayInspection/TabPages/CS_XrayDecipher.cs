@@ -31,10 +31,9 @@ namespace XrayInspection.UserControls
         DBManager _dbManager = new DBManager();
         bool _deleteFlag;        
         Timer _searchTimer = new Timer();
-        //string _sh
         string _lotState; // 현재 LOT상태
         string _workorderNumber; // 현재 WorkOrder번호
-        string _userShiftId; // 유저 부서번호
+        string _originalLotId; // 최초검색 LOT ID
 
         #endregion
 
@@ -128,6 +127,9 @@ namespace XrayInspection.UserControls
         /// <param name="e"></param>
         private void BtnEnd_Click(object sender, EventArgs e)
         {
+            // LOT ID 수정가능
+            txtLotNo.ReadOnly = false;
+
             // 녹화서버에 메세지 전송
             string sendData = "END " + txtLotNo.Text + "," + txtProductName.Text;
             OnSendData(sendData);
@@ -147,26 +149,43 @@ namespace XrayInspection.UserControls
         /// <param name="e"></param>
         private void BtnStart_Click(object sender, EventArgs e)
         {
-            _deleteFlag = true;
-
-            // 녹화서버에 메세지 전송
-            string sendData = "START " + txtLotNo.Text + "," + txtProductName.Text;
-            OnSendData(sendData);
-
-            // 버튼활성화, 비활성화
-            btnStart.Enabled = false;
-            btnEnd.Enabled = true;
-
-            // 타이머 시작
-            _searchTimer.Start();
-
-            // LOT크기 변경
-            UpdateLotSize();
-
-            // LOT상태 RUN으로 변경
-            if (_lotState != "RUN")
+            if (MsgBoxHelper.Show("판독을 시작하시겠습니까?", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
-                UpdateLotState();
+                _deleteFlag = true;
+
+                // 최초조회 LOT ID랑 현재 TextBox의 LOT ID랑 다른지 Check
+                if (!_originalLotId.Trim().Equals(txtLotNo.Text.Trim()))
+                {
+                    // 현재 MC_Lotinspect 테이블에 중복되는 LOT ID가 있는지 Check
+                    if (!IsOverlapLotId(txtLotNo.Text.Trim()))
+                    {
+                        // MC_LotInspect의 LOT ID 수정
+                        UpdateLotNo();
+                    }
+                }
+
+                // LOT ID 수정불가능
+                txtLotNo.ReadOnly = true;
+
+                // 녹화서버에 메세지 전송
+                string sendData = "START " + txtLotNo.Text + "," + txtProductName.Text;
+                OnSendData(sendData);
+
+                // 버튼활성화, 비활성화
+                btnStart.Enabled = false;
+                btnEnd.Enabled = true;
+
+                // 타이머 시작
+                _searchTimer.Start();
+
+                // LOT크기 변경
+                UpdateLotSize();
+
+                // LOT상태 RUN으로 변경
+                if (_lotState != "RUN")
+                {
+                    UpdateLotState();
+                }
             }
         }
 
@@ -454,6 +473,8 @@ namespace XrayInspection.UserControls
 
                         // 현재 LOT상태
                         _lotState = ds.Tables[0].Rows[0]["LOTSTATE"].ToString();
+                        // 최초 검색 LOT ID
+                        _originalLotId = ds.Tables[0].Rows[0]["LOTID"].ToString();
                         // WorkOrder 번호
                         _workorderNumber = ds.Tables[0].Rows[0]["WORKORDERNUMBER"].ToString();
                     }
@@ -561,7 +582,7 @@ namespace XrayInspection.UserControls
         /// <summary>
         /// Xray 판독화면 전체데이터 리바인딩
         /// </summary>
-        private void Rebinding()
+        public void Rebinding()
         {
             // 검사실적현황 바인딩
             InspectionCurrentStateSrarch();
@@ -651,6 +672,34 @@ namespace XrayInspection.UserControls
                 int saveResult = _dbManager.CallNonSelectProcedure("USP_UPDATE_XRAYDECIPHER_LOTSIZE", sqlParameters);
                 if (saveResult > 0) Console.WriteLine("LOT크기 수정성공!");
                 else Console.WriteLine("LOT크기 수정실패!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 기존 LOTID 사용자가 입력한 LOTID로 변경
+        /// </summary>
+        private void UpdateLotNo()
+        {
+            try
+            {
+                Dictionary<string, object> parameters = new Dictionary<string, object>();
+                parameters.Add("@SITE", Properties.Settings.Default.Site);
+                parameters.Add("@ORIGINALLOTNO", _originalLotId.Trim());
+                parameters.Add("@CURRENTLOTNO", txtLotNo.Text.Trim());
+
+                SqlParameter[] sqlParameters = _dbManager.GetSqlParameters(parameters);
+
+                int saveResult = _dbManager.CallNonSelectProcedure("USP_UPDATE_XRAYDECIPHER_LOTNO", sqlParameters);
+                if (saveResult > 0)
+                {
+                    Console.WriteLine("LOTID 수정성공!");
+                    _originalLotId = txtLotNo.Text.Trim();
+                } 
+                else Console.WriteLine("LOTID 수정실패!");
             }
             catch (Exception ex)
             {
@@ -750,6 +799,8 @@ namespace XrayInspection.UserControls
         /// </summary>
         private void InitializeGrid()
         {
+            grdAIDecipherStatus.DefaultCellStyle.ForeColor = Color.Black;
+
             grdAIDecipherStatus.AutoGenerateColumns = false;
             grdAIDecipherStatus.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             grdAIDecipherStatus.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomCenter;
@@ -759,6 +810,44 @@ namespace XrayInspection.UserControls
             CommonFuction.SetDataGridViewColumnStyle(grdAIDecipherStatus, "AI판정", "AIRESULT", "AIRESULT", typeof(string), 150, false, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdAIDecipherStatus, "유형", "TYPE", "TYPE", typeof(string), 150, false, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdAIDecipherStatus, "행변경타입", "ROWTYPE", "ROWTYPE", typeof(string), 100, false, false, DataGridViewContentAlignment.MiddleLeft, 10);
+        }
+
+        /// <summary>
+        /// MC_LotInspect에 중복되는 LOT ID가 있는지 체크
+        /// </summary>
+        /// <param name="lotNo"></param>
+        /// <returns></returns>
+        private bool IsOverlapLotId(string lotNo)
+        {
+            bool returnFlag = true;
+
+            try
+            {
+                List<SqlParameter> parameters = new List<SqlParameter>();
+                parameters.Add(new SqlParameter("@SITE", Properties.Settings.Default.Site)); 
+                parameters.Add(new SqlParameter("@LOTNO", lotNo)); 
+
+                DataSet ds = _dbManager.CallSelectProcedure_ds("USP_SELECT_XRAYDECIPHER_ISOVERLAPLOTID", parameters);
+
+                if (ds.Tables.Count > 0)
+                {
+                    Console.WriteLine("중복 LOT ID 검색성공");
+
+                    if (ds.Tables[0].Rows.Count > 0) returnFlag = true;
+                    else returnFlag = false;
+                }
+                else
+                {
+                    Console.WriteLine("중복 LOT ID 검색실패");
+                    returnFlag = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return returnFlag;
         }
 
         #endregion

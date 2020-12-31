@@ -199,8 +199,17 @@ namespace XrayInspection.PopUp
         {
             if (e.KeyCode == Keys.F5)
             {
+                // Xray 판정
+                if (btnXrayDecipher.Font.Bold)
+                {
+                    foreach (Control control in panelXrayDecipher.Controls)
+                    {
+                        CS_XrayDecipher screen = (CS_XrayDecipher)control;
+                        screen.Rebinding();
+                    }
+                }
                 // 사용자등록
-                if (btnUserManagement.Font.Bold)
+                else if (btnUserManagement.Font.Bold)
                 {
                     foreach (Control control in panelUserManagement.Controls)
                     {
