@@ -28,7 +28,7 @@ namespace XrayInspection.PopUp
         Mat _frame = new Mat();
         VideoCapture _video = null;
         bool _stopFlag = true;
-        bool _endFlag = false;
+        bool _endFlag = true;
         string _makeDirectory = string.Empty;
         string _fileName = string.Empty;
         string _filePath = string.Empty;
@@ -74,6 +74,8 @@ namespace XrayInspection.PopUp
         /// <param name="e"></param>
         private void GrdAIDecipherStatus_SelectionChanged(object sender, EventArgs e)
         {
+            if (!_endFlag) return;
+
             int frameNo;
 
             // 마지막 프레임일때
@@ -123,6 +125,7 @@ namespace XrayInspection.PopUp
                     MsgBoxHelper.Show("정지 후 진행해주세요.");
                     return;
                 }
+
                 int saveCheckCount = 30 / int.Parse(comboFrameCount.SelectedValue.ToString());
                 _video.PosFrames = (int)(_video.PosFrames / saveCheckCount) * saveCheckCount - 1;
                 _video.Read(_frame);
@@ -455,6 +458,7 @@ namespace XrayInspection.PopUp
             grdAIDecipherStatus.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomCenter;
             grdAIDecipherStatus.AllowUserToAddRows = false;
             grdAIDecipherStatus.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            grdAIDecipherStatus.MultiSelect = false;
             grdAIDecipherStatus.DefaultCellStyle.SelectionBackColor = Color.Yellow;
             grdAIDecipherStatus.DefaultCellStyle.SelectionForeColor = Color.Black;
 
