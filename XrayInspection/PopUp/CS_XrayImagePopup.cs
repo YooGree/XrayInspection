@@ -74,8 +74,6 @@ namespace XrayInspection.PopUp
         /// <param name="e"></param>
         private void GrdAIDecipherStatus_SelectionChanged(object sender, EventArgs e)
         {
-            if (!_endFlag) return;
-
             int frameNo;
 
             // 마지막 프레임일때
