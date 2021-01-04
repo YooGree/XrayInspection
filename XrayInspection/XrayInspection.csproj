@@ -227,6 +227,12 @@
     <Compile Include="TabPages\CS_SelectWorkorder.designer.cs">
       <DependentUpon>CS_SelectWorkorder.cs</DependentUpon>
     </Compile>
+    <Compile Include="TabPages\CS_AIjudgmentStatus.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TabPages\CS_AIjudgmentStatus.Designer.cs">
+      <DependentUpon>CS_AIjudgmentStatus.cs</DependentUpon>
+    </Compile>
     <Compile Include="TabPages\CS_XrayDecipher.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -239,17 +245,17 @@
     <Compile Include="TabPages\CS_UserManagement.Designer.cs">
       <DependentUpon>CS_UserManagement.cs</DependentUpon>
     </Compile>
-    <Compile Include="TabPages\CS_AIjubgmentHistory.cs">
+    <Compile Include="TabPages\CS_AIjudgmentHistory.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="TabPages\CS_AIjubgmentHistory.Designer.cs">
-      <DependentUpon>CS_AIjubgmentHistory.cs</DependentUpon>
+    <Compile Include="TabPages\CS_AIjudgmentHistory.Designer.cs">
+      <DependentUpon>CS_AIjudgmentHistory.cs</DependentUpon>
     </Compile>
-    <Compile Include="TabPages\CS_AIjubgmentInfo.cs">
+    <Compile Include="TabPages\CS_AIjudgmentInfo.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="TabPages\CS_AIjubgmentInfo.Designer.cs">
-      <DependentUpon>CS_AIjubgmentInfo.cs</DependentUpon>
+    <Compile Include="TabPages\CS_AIjudgmentInfo.Designer.cs">
+      <DependentUpon>CS_AIjudgmentInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="TabPages\DurableProdTabPageControl.cs">
       <SubType>UserControl</SubType>
@@ -421,17 +427,20 @@
     <EmbeddedResource Include="TabPages\CS_SelectWorkorder.resx">
       <DependentUpon>CS_SelectWorkorder.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="TabPages\CS_AIjudgmentStatus.resx">
+      <DependentUpon>CS_AIjudgmentStatus.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TabPages\CS_XrayDecipher.resx">
       <DependentUpon>CS_XrayDecipher.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TabPages\CS_UserManagement.resx">
       <DependentUpon>CS_UserManagement.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TabPages\CS_AIjubgmentHistory.resx">
-      <DependentUpon>CS_AIjubgmentHistory.cs</DependentUpon>
+    <EmbeddedResource Include="TabPages\CS_AIjudgmentHistory.resx">
+      <DependentUpon>CS_AIjudgmentHistory.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TabPages\CS_AIjubgmentInfo.resx">
-      <DependentUpon>CS_AIjubgmentInfo.cs</DependentUpon>
+    <EmbeddedResource Include="TabPages\CS_AIjudgmentInfo.resx">
+      <DependentUpon>CS_AIjudgmentInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TabPages\DurableProdTabPageControl.resx">
       <DependentUpon>DurableProdTabPageControl.cs</DependentUpon>

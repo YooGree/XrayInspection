@@ -773,8 +773,8 @@ namespace XrayInspection.UserControls
             // AI 판독현황에 데이터 바인딩
             AIJudgmentInfoSearch();
 
-            // AI 판독현황 그리드 0.7초마다 조회될 수 있도록 타이머 설정
-            _searchTimer.Interval = 700;
+            // AI 판독현황 그리드 0.5초마다 조회될 수 있도록 타이머 설정
+            _searchTimer.Interval = 500;
             _searchTimer.Tick += SearchTimer_Tick;
 
             // TCP 서버시작

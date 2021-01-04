@@ -356,11 +356,11 @@ namespace XrayInspection.PopUp
             panelRegWorkorder.Controls.Add(RegWorkorder);
 
             // AI 판정정보화면 판넬에 세팅 
-            CS_AIjubgmentInfo AIjubgmentInfo = new CS_AIjubgmentInfo();
+            CS_AIjudgmentInfo AIjubgmentInfo = new CS_AIjudgmentInfo();
             panelAIjubgmentInfo.Controls.Add(AIjubgmentInfo);
 
             // AI 판정이력화면 판넬에 세팅 
-            CS_AIjubgmentHistory AIjubgmentHistory = new CS_AIjubgmentHistory();
+            CS_AIjudgmentHistory AIjubgmentHistory = new CS_AIjudgmentHistory();
             panelAIjubgmentHistory.Controls.Add(AIjubgmentHistory);
 
             MMManagedReportControl Report = new MMManagedReportControl();

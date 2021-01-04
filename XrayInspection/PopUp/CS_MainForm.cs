@@ -24,10 +24,6 @@ namespace XrayInspection.PopUp
         #region 변수
 
         DBManager conn = new DBManager();
-        private string ProcedureName = "GetMaskDataByRack";
-        private string ProcedureName2 = "SelectRackReport";
-        private string ProcedureName3 = "SelectMaskChangeInfo";
-        private string ProcedureName4 = "SaveMaskStateChange";
 
         private List<Button> btnList;
         DataModelPop dataModelPop = new DataModelPop(SelectedTabType.User);
@@ -49,8 +45,9 @@ namespace XrayInspection.PopUp
             ProductManagement, // 제품등록
             RegWorkorder, // 작업계획등록
             SearchWorkorder, // 작업계획조회
-            AIJubgmentInfo, // AI 판정정보
-            AIJubgmentHistory, // AI 판정이력
+            AIJudgmentStatus, // AI 판정현황
+            AIJudgmentHistory, // AI 판정이력
+            AIJudgmentInfo, // AI 판정정보
             Report,
             Main
         }
@@ -130,17 +127,30 @@ namespace XrayInspection.PopUp
                         SelectWorkorder.Search();
                     }
                 }
-                // 판정정보 화면 보여주기
-                else if (value == selectedType.AIJubgmentInfo)
+                // 판정현황 화면 보여주기
+                else if (value == selectedType.AIJudgmentStatus)
                 {
-                    panelAIjubgmentInfo.BringToFront();
-                    btnAIJubgmentInfo.Font = CommonFuction.BoldFont;
+                    panelAIjudgmentStatus.BringToFront();
+                    btnAIJudgmentStatus.Font = CommonFuction.BoldFont;
+
+                    // 화면 이동시 자동조회
+                    foreach (Control control in panelAIjudgmentStatus.Controls)
+                    {
+                        CS_AIjudgmentStatus aiJudgmentStatus = (CS_AIjudgmentStatus)control;
+                        aiJudgmentStatus.Rebinding();
+                    }
                 }
                 // 판정이력 화면 보여주기
-                else if (value == selectedType.AIJubgmentHistory)
+                else if (value == selectedType.AIJudgmentHistory)
                 {
-                    panelAIjubgmentHistory.BringToFront();
-                    btnAIJubgmentHistory.Font = CommonFuction.BoldFont;
+                    panelAIjudgmentHistory.BringToFront();
+                    btnAIJudgmentHistory.Font = CommonFuction.BoldFont;
+                }
+                // 판정정보 화면 보여주기
+                else if (value == selectedType.AIJudgmentInfo)
+                {
+                    panelAIjudgmentInfo.BringToFront();
+                    btnAIJubgmentInfo.Font = CommonFuction.BoldFont;
                 }
                 else if (value == selectedType.Report)
                 {
@@ -182,8 +192,9 @@ namespace XrayInspection.PopUp
             btnProductManagement.Click += BtnMenu_Click;
             btnRegWorkorder.Click += BtnMenu_Click;
             btnSearchWorkorder.Click += BtnMenu_Click;
+            btnAIJudgmentStatus.Click += BtnMenu_Click;
+            btnAIJudgmentHistory.Click += BtnMenu_Click;
             btnAIJubgmentInfo.Click += BtnMenu_Click;
-            btnAIJubgmentHistory.Click += BtnMenu_Click;
 
             btnReport.Click += Btn_Report_Click;
             btnMaskInfoCancel.Click += BtnMaskInfoCancel_Click;
@@ -235,12 +246,21 @@ namespace XrayInspection.PopUp
                         screen.Search();
                     }
                 }
-                // AI 판정이력
-                else if (btnAIJubgmentHistory.Font.Bold)
+                // AI 판정현황
+                else if (btnAIJudgmentStatus.Font.Bold)
                 {
-                    foreach (Control control in panelAIjubgmentHistory.Controls)
+                    foreach (Control control in panelAIjudgmentStatus.Controls)
                     {
-                        CS_AIjubgmentHistory screen = (CS_AIjubgmentHistory)control;
+                        CS_AIjudgmentStatus screen = (CS_AIjudgmentStatus)control;
+                        screen.Rebinding();
+                    }
+                }
+                // AI 판정이력
+                else if (btnAIJudgmentHistory.Font.Bold)
+                {
+                    foreach (Control control in panelAIjudgmentHistory.Controls)
+                    {
+                        CS_AIjudgmentHistory screen = (CS_AIjudgmentHistory)control;
                         screen.Search();
                     }
                 }
@@ -360,7 +380,7 @@ namespace XrayInspection.PopUp
             panelXrayDecipher.BringToFront();
             btnXrayDecipher.Font = CommonFuction.BoldFont;
 
-            btnList = new List<Button>() { btnXrayDecipher, btnSetting, btnUserManagement, btnDefectCodeManagement, btnProductManagement, btnRegWorkorder, btnSearchWorkorder, btnAIJubgmentInfo, btnAIJubgmentHistory, btnReport };
+            btnList = new List<Button>() { btnXrayDecipher, btnSetting, btnUserManagement, btnDefectCodeManagement, btnProductManagement, btnRegWorkorder, btnSearchWorkorder, btnAIJudgmentStatus, btnAIJudgmentHistory, btnAIJubgmentInfo, btnReport };
 
             // Xray판독화면 판넬에 세팅
             CS_XrayDecipher XrayDecipher = new CS_XrayDecipher();
@@ -390,13 +410,17 @@ namespace XrayInspection.PopUp
             CS_SelectWorkorder SearchWorkOrder = new CS_SelectWorkorder();
             panelSearchWorkorder.Controls.Add(SearchWorkOrder);
 
-            // AI 판정정보화면 판넬에 세팅 
-            CS_AIjubgmentInfo AIjubgmentInfo = new CS_AIjubgmentInfo();
-            panelAIjubgmentInfo.Controls.Add(AIjubgmentInfo);
+            // AI 판정현황화면 판넬에 세팅 
+            CS_AIjudgmentStatus AIjudgmentStatus = new CS_AIjudgmentStatus();
+            panelAIjudgmentStatus.Controls.Add(AIjudgmentStatus);
 
             // AI 판정이력화면 판넬에 세팅 
-            CS_AIjubgmentHistory AIjubgmentHistory = new CS_AIjubgmentHistory();
-            panelAIjubgmentHistory.Controls.Add(AIjubgmentHistory);
+            CS_AIjudgmentHistory AIjudgmentHistory = new CS_AIjudgmentHistory();
+            panelAIjudgmentHistory.Controls.Add(AIjudgmentHistory);
+
+            // AI 판정정보화면 판넬에 세팅 
+            CS_AIjudgmentInfo AIjudgmentInfo = new CS_AIjudgmentInfo();
+            panelAIjudgmentInfo.Controls.Add(AIjudgmentInfo);
 
             MMManagedReportControl Report = new MMManagedReportControl();
             p_Report.Controls.Add(Report);
@@ -408,8 +432,9 @@ namespace XrayInspection.PopUp
             btnProductManagement.Tag = selectedType.ProductManagement; // 제품등록
             btnRegWorkorder.Tag = selectedType.RegWorkorder; // 작업계획등록
             btnSearchWorkorder.Tag = selectedType.SearchWorkorder; // 작업계획조회
-            btnAIJubgmentInfo.Tag = selectedType.AIJubgmentInfo; // AI 판정정보
-            btnAIJubgmentHistory.Tag = selectedType.AIJubgmentHistory; // AI 판정이력
+            btnAIJudgmentStatus.Tag = selectedType.AIJudgmentStatus; // AI 판정현황
+            btnAIJudgmentHistory.Tag = selectedType.AIJudgmentHistory; // AI 판정이력
+            btnAIJubgmentInfo.Tag = selectedType.AIJudgmentInfo; // AI 판정정보
             btnReport.Tag = selectedType.Report;
         }
 

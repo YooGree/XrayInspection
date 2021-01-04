@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Data.OleDb;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
@@ -17,10 +16,10 @@ namespace XrayInspection.UserControls
     /// <summary>
     /// 작   성   자  : 유태근
     /// 작   성   일  : 2020-12-08
-    /// 설        명  : AI 판정이력 화면
+    /// 설        명  : AI 판정정보 화면
     /// 이        력  : 
     /// </summary>
-    public partial class CS_AIjubgmentHistory : UserControl
+    public partial class CS_AIjudgmentInfo : UserControl
     {
         #region 변수
 
@@ -33,9 +32,9 @@ namespace XrayInspection.UserControls
         /// </summary>
         private enum rowChangeType
         {
-            NORMAL, 
-            CREATE, 
-            MODIFIY, 
+            NORMAL,
+            CREATE,
+            MODIFIY,
             DELETE
         }
 
@@ -46,13 +45,12 @@ namespace XrayInspection.UserControls
         /// <summary>
         /// 생성자
         /// </summary>
-        public CS_AIjubgmentHistory()
+        public CS_AIjudgmentInfo()
         {
             InitializeComponent();
             InitializeControlSetting();
             InitializeGrid();
             InitializeEvent();
-            Search();
         }
 
         #endregion
@@ -65,25 +63,83 @@ namespace XrayInspection.UserControls
         private void InitializeEvent()
         {
             btnExport.Click += BtnExport_Click;
-            btnSearch.Click += BtnSearch_Click;
+            btnAddRow.Click += BtnAddRow_Click;
+            btnDeleteRow.Click += BtnDeleteRow_Click;
+            //btnSearch.Click += BtnSearch_Click;
+            //btnSave.Click += BtnSave_Click;
 
-            grdAIjubgmentHistory.RowPostPaint += GrdAIjubgmentHistory_RowPostPaint;
-
-            grdAIjubgmentHistory.CellDoubleClick += GrdAIjubgmentHistory_CellDoubleClick;
+            grdFrameInfo.RowPostPaint += grdFrameInfo_RowPostPaint;
+            grdFrameInfo.CellValueChanged += grdFrameInfo_CellValueChanged;
+            grdFrameInfo.CellBeginEdit += GrdFrameInfo_CellBeginEdit;
         }
 
         /// <summary>
-        /// 행 더블클릭시 Xray 이미지 판독 팝업호출
+        /// 키값 수정불가하도록 처리
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void GrdAIjubgmentHistory_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void GrdFrameInfo_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
-            CS_XrayImagePopup popup = new CS_XrayImagePopup(grdAIjubgmentHistory.Rows[e.RowIndex]);
-            popup.WindowState = FormWindowState.Normal;
-            popup.StartPosition = FormStartPosition.CenterScreen;
-            popup.ShowDialog();
-            popup.Activate();
+            DataGridView dgv = (DataGridView)sender;
+
+            foreach (DataRow row in _OriginalSearchDt.Rows)
+            {
+                if (dgv.Rows[e.RowIndex].Cells["PRODUCTID"].Value.Equals(row["PRODUCTID"]))
+                {
+                    if (dgv.Columns[e.ColumnIndex].Name.Equals("PRODUCTID"))
+                    {
+                        e.Cancel = true;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 셀값을 변경할때 행을 수정상태로 변경
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void grdFrameInfo_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (grdFrameInfo.Rows[e.RowIndex].Cells["ROWTYPE"].Value.ToString() == "NORMAL")
+            {
+                DataRow frRow = _OriginalSearchDt.Rows[e.RowIndex];
+                DataRow toRow = _searchDt.Rows[e.RowIndex];
+
+                if (!CompareDataRow(frRow, toRow))
+                {
+                    grdFrameInfo.Rows[e.RowIndex].Cells["ROWTYPE"].Value = rowChangeType.MODIFIY;
+                    grdFrameInfo.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Plum;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 최조 조회된 행과 변경된 행의 비교
+        /// </summary>
+        /// <param name="prevRow"></param>
+        /// <param name="curRow"></param>
+        /// <returns></returns>
+        private bool CompareDataRow(DataRow prevRow, DataRow curRow)
+        {
+            bool rValue = true;
+
+            foreach (DataColumn c in prevRow.Table.Columns)
+            {
+                string cName = c.ColumnName;
+
+                if (!prevRow.Table.Columns.Contains(cName) || !curRow.Table.Columns.Contains(cName))
+                    continue;
+
+                if (prevRow[cName].Equals(curRow[cName]))
+                    continue;
+                else
+                {
+                    rValue = false;
+                    break;
+                }
+            }
+            return rValue;
         }
 
         /// <summary>
@@ -91,10 +147,54 @@ namespace XrayInspection.UserControls
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void GrdAIjubgmentHistory_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        private void grdFrameInfo_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
-            Rectangle rect = new Rectangle(e.RowBounds.Location.X, e.RowBounds.Location.Y, grdAIjubgmentHistory.RowHeadersWidth - 4, e.RowBounds.Height);
-            TextRenderer.DrawText(e.Graphics, (e.RowIndex + 1).ToString(), grdAIjubgmentHistory.RowHeadersDefaultCellStyle.Font, rect, grdAIjubgmentHistory.RowHeadersDefaultCellStyle.ForeColor, TextFormatFlags.VerticalCenter | TextFormatFlags.Right);
+            grdFrameInfo.Rows[e.RowIndex].Cells[0].Value = (e.RowIndex + 1).ToString();
+        }
+
+        /// <summary>
+        /// 현재 선택된 Row 삭제
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnDeleteRow_Click(object sender, EventArgs e)
+        {
+            // 신규행이 아니라면 행타입만 바꿔주기
+            if (grdFrameInfo.Rows[grdFrameInfo.CurrentCellAddress.Y].Cells["ROWTYPE"].Value.ToString() != "CREATE")
+            {
+                grdFrameInfo.Rows[grdFrameInfo.CurrentCellAddress.Y].Cells["ROWTYPE"].Value = rowChangeType.DELETE;
+                grdFrameInfo.Rows[grdFrameInfo.CurrentCellAddress.Y].DefaultCellStyle.BackColor = Color.Crimson;
+            }
+            // 신규행이라면 행자체를 지우기
+            else
+            {
+                for (int i = 0; i < grdFrameInfo.Rows.Count; i++)
+                {
+                    // 행 선택 여부
+                    grdFrameInfo.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+                    if (grdFrameInfo.Rows[i].Selected == true)
+                    {
+                        // 현재 선택된 인덱스에 해당된 Row 삭제
+                        grdFrameInfo.Rows.Remove(grdFrameInfo.Rows[i]);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Row 추가 버튼 이벤트
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnAddRow_Click(object sender, EventArgs e)
+        {
+            _lastRowIndex = _searchDt.Rows.Count;
+            _searchDt.Rows.Add();
+            grdFrameInfo.DataSource = _searchDt;
+
+            grdFrameInfo.Rows[grdFrameInfo.Rows.Count - 1].Cells["ROWTYPE"].Value = rowChangeType.CREATE;
+            grdFrameInfo.Rows[grdFrameInfo.Rows.Count - 1].DefaultCellStyle.BackColor = Color.LightSkyBlue;
         }
 
         /// <summary>
@@ -106,7 +206,7 @@ namespace XrayInspection.UserControls
         {
             using (SaveFileDialog sfd = new SaveFileDialog())
             {
-                if (grdAIjubgmentHistory.Rows.Count == 0)
+                if (grdFrameInfo.Rows.Count == 0)
                 {
                     DialogResult result = MsgBoxHelper.Show("엑셀 데이터가 없습니다.");
                 }
@@ -114,13 +214,13 @@ namespace XrayInspection.UserControls
                 {
                     sfd.Filter = "csv(*.csv) | *.csv";
 
-                    DialogResult result = MsgBoxHelper.Show("엑셀 저장 하시겠습니까?");
+                    DialogResult result = MsgBoxHelper.Show("엑셀 저장 하시겠습니까?", MessageBoxButtons.OKCancel);
 
                     if (result == DialogResult.OK)
                     {
                         if (sfd.ShowDialog() == DialogResult.OK)
                         {
-                            this.SaveCsv(sfd.FileName, grdAIjubgmentHistory, true);
+                            this.SaveCsv(sfd.FileName, grdFrameInfo, true);
                         }
                     }
 
@@ -204,7 +304,7 @@ namespace XrayInspection.UserControls
         #region 조회
 
         /// <summary>
-        /// 조회버튼 클릭
+        /// 조회
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -216,17 +316,14 @@ namespace XrayInspection.UserControls
         /// <summary>
         /// 조회
         /// </summary>
-        public void Search()
+        private void Search()
         {
             try
             {
                 DBManager dbManager = new DBManager();
                 List<SqlParameter> parameters = new List<SqlParameter>();
-                parameters.Add(new SqlParameter("@SITE", Properties.Settings.Default.Site)); // Site
                 parameters.Add(new SqlParameter("@CUSTOMERNAME", txtCustomerName.Text)); // 고객명
                 parameters.Add(new SqlParameter("@PRODUCTNUMBER", txtProductNumber.Text)); // 도번
-                parameters.Add(new SqlParameter("@FRDATE", dateFrom.Value.ToString("yyyy-MM-dd 00:00:00"))); // 조회일자(From)
-                parameters.Add(new SqlParameter("@TODATE", dateTo.Value.ToString("yyyy-MM-dd 23:59:59"))); // 조회일자(To)
                 parameters.Add(new SqlParameter("@LOTNUMBER", txtLotNumber.Text)); // LOT 번호
 
                 // 전체조회
@@ -235,7 +332,7 @@ namespace XrayInspection.UserControls
                     parameters.Add(new SqlParameter("@STATE", "ALL")); // 상태        
                 }
                 // 정상조회
-                else if (radioNormal.Checked == true)
+                else if (radioNormal.Checked = true)
                 {
                     parameters.Add(new SqlParameter("@STATE", "NORMAL")); // 상태
                 }
@@ -245,7 +342,7 @@ namespace XrayInspection.UserControls
                     parameters.Add(new SqlParameter("@STATE", "DEFECT")); // 상태
                 }
 
-                DataSet ds = dbManager.CallSelectProcedure_ds("USP_SELECT_AIJUBGMENTHISTORY", parameters);
+                DataSet ds = dbManager.CallSelectProcedure_ds("USP_SELECT_AIJUBGMENTHISTORY");
 
                 if (ds.Tables.Count == 0)
                 {
@@ -255,14 +352,13 @@ namespace XrayInspection.UserControls
                 {
                     _searchDt = ds.Tables[0];
                     _OriginalSearchDt = _searchDt.Copy();
-                    grdAIjubgmentHistory.DataSource = _searchDt;
+                    grdFrameInfo.DataSource = _searchDt;
                 }
             }
             catch (Exception ex)
             {
                 MsgBoxHelper.Error(ex.Message);
             }
-
         }
 
         #endregion
@@ -277,7 +373,7 @@ namespace XrayInspection.UserControls
         private void BtnSave_Click(object sender, EventArgs e)
         {
             // 그리드뷰에 행이 한개도 없으면 Return
-            if (grdAIjubgmentHistory.Rows.Count == 0)
+            if (grdFrameInfo.Rows.Count == 0)
             {
                 MsgBoxHelper.Show("저장할 데이터가 없습니다.");
                 return;
@@ -287,7 +383,7 @@ namespace XrayInspection.UserControls
                 // 조회해온 데이터가 없을경우
                 if (_searchDt.Rows.Count == 0)
                 {
-                    foreach (DataGridViewRow viewRow in grdAIjubgmentHistory.Rows)
+                    foreach (DataGridViewRow viewRow in grdFrameInfo.Rows)
                     {
                         if (viewRow.Cells["PRODUCTID"].Value == null)
                         {
@@ -300,18 +396,18 @@ namespace XrayInspection.UserControls
                 else
                 {
                     // 그리드에 신규, 수정, 삭제행이 없으면 Return
-                    if ((grdAIjubgmentHistory.DataSource as DataTable).AsEnumerable().Where(r => r["ROWTYPE"].Equals("CREATE")
-                                                                                              || r["ROWTYPE"].Equals("MODIFIY")
-                                                                                              || r["ROWTYPE"].Equals("DELETE")).Count() == 0)
+                    if ((grdFrameInfo.DataSource as DataTable).AsEnumerable().Where(r => r["ROWTYPE"].Equals("CREATE")
+                                                                                      || r["ROWTYPE"].Equals("MODIFIY")
+                                                                                      || r["ROWTYPE"].Equals("DELETE")).Count() == 0)
                     {
                         MsgBoxHelper.Show("저장할 데이터가 없습니다.");
                         return;
                     }
                     // 필수 키값이 입력되지 않았다면 Return
-                    if ((grdAIjubgmentHistory.DataSource as DataTable).AsEnumerable().Where(r => r["PRODUCTID"].Equals(null)
-                                                                                              || r["PRODUCTID"].Equals("")
-                                                                                              || r["PRODUCTID"].Equals(DBNull.Value)).Count() > 0)
-                    { 
+                    if ((grdFrameInfo.DataSource as DataTable).AsEnumerable().Where(r => r["PRODUCTID"].Equals(null)
+                                                                                      || r["PRODUCTID"].Equals("")
+                                                                                      || r["PRODUCTID"].Equals(DBNull.Value)).Count() > 0)
+                    {
                         MsgBoxHelper.Show("품목ID가 누락된 행이 있습니다.");
                         return;
                     }
@@ -323,7 +419,7 @@ namespace XrayInspection.UserControls
                 DBManager dbManager = new DBManager();
 
                 Dictionary<string, object> parameters = new Dictionary<string, object>();
-                parameters.Add("@SAVEDATATABLE", grdAIjubgmentHistory.DataSource as DataTable);
+                parameters.Add("@SAVEDATATABLE", grdFrameInfo.DataSource as DataTable);
 
                 SqlParameter[] sqlPamaters = dbManager.GetSqlParameters(parameters);
 
@@ -351,9 +447,7 @@ namespace XrayInspection.UserControls
         private void InitializeControlSetting()
         {
             this.Dock = DockStyle.Fill;
-            radioAll.Checked = true; // 조회조건 기본 전체로 세팅
-            dateTo.Value = DateTime.Now; // 조회조건의 To 날짜는 오늘로 세팅
-            dateFrom.Value = DateTime.Now.AddDays(-7); // 조회조건의 From 날짜는 To 날짜의 7일전으로 세팅
+            radioAll.Checked = true;
         }
 
         /// <summary>
@@ -361,47 +455,21 @@ namespace XrayInspection.UserControls
         /// </summary>
         private void InitializeGrid()
         {
-            grdAIjubgmentHistory.DefaultCellStyle.ForeColor = Color.Black;
+            grdFrameInfo.DefaultCellStyle.ForeColor = Color.Black;
 
-            grdAIjubgmentHistory.AutoGenerateColumns = false;
-            grdAIjubgmentHistory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            grdAIjubgmentHistory.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomCenter;
-            grdAIjubgmentHistory.AllowUserToAddRows = false;
+            grdFrameInfo.AutoGenerateColumns = false;
+            grdFrameInfo.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            grdFrameInfo.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomCenter;
+            grdFrameInfo.AllowUserToAddRows = false;
 
-            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "Site", "SITE", "SITE", typeof(string), 100, false, false, DataGridViewContentAlignment.MiddleLeft, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "고객", "CUSTOMER", "CUSTOMER", typeof(string), 150, true, true, DataGridViewContentAlignment.MiddleLeft, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "도번", "PRODUCTCODE", "PRODUCTCODE", typeof(string), 150, true, true, DataGridViewContentAlignment.MiddleLeft, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "품번", "PRODUCTID", "PRODUCTID", typeof(string), 250, true, true, DataGridViewContentAlignment.MiddleLeft, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "LOT번호", "LOTID", "LOTID", typeof(string), 200, true, true, DataGridViewContentAlignment.MiddleLeft, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "검사자", "INSPECTORNAME", "INSPECTORNAME", typeof(string), 120, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "검사일자", "INSPECTIONDATE", "INSPECTIONDATE", typeof(string), 200, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "최종판정", "LASTRESULT", "LASTRESULT", typeof(string), 100, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "AI판정", "AIRESULT", "AIRESULT", typeof(string), 100, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "불량유형", "DEFECTTYPE", "DEFECTTYPE", typeof(string), 100, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "행변경타입", "ROWTYPE", "ROWTYPE", typeof(string), 100, false, false, DataGridViewContentAlignment.MiddleCenter, 10);
-        }
-
-        #endregion
-
-        #region Test
-
-        /// <summary>
-        /// MSAccess 테스트
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void BtnTest_Click(object sender, EventArgs e)
-        {
-            DataSet ds = new DataSet();
-
-            string connStr = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=D:\05. 조선내화 프로젝트\02.Document\MSAccess\XDB.mdb";
-            OleDbConnection conn = new OleDbConnection(connStr);
-
-            string sqlStr = "SELECT * FROM T품명마스타";
-            OleDbDataAdapter adp = new OleDbDataAdapter(sqlStr, conn);
-            adp.Fill(ds);
-
-            grdAIjubgmentHistory.DataSource = ds.Tables[0];
+            CommonFuction.SetDataGridViewColumnStyle(grdFrameInfo, "NO", "NO", "NO", typeof(string), 50, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdFrameInfo, "시간", "PRODUCTTYPE", "rackid", typeof(string), 200, false, true, DataGridViewContentAlignment.MiddleCenter, 20);
+            CommonFuction.SetDataGridViewColumnStyle(grdFrameInfo, "프레임", "PRODUCTNAME", "durableid", typeof(int), 100, false, true, DataGridViewContentAlignment.MiddleCenter, 20);
+            CommonFuction.SetDataGridViewColumnStyle(grdFrameInfo, "자동판정등급", "PRODUCTNO", "productname", typeof(string), 100, false, true, DataGridViewContentAlignment.MiddleCenter, 80);
+            CommonFuction.SetDataGridViewColumnStyle(grdFrameInfo, "불량유형", "CUSTOMERNAME", "inputdate", typeof(string), 100, false, true, DataGridViewContentAlignment.MiddleCenter, 60);
+            CommonFuction.SetDataGridViewColumnStyle(grdFrameInfo, "최종판정", "CREATOR", "inputresult", typeof(string), 100, false, true, DataGridViewContentAlignment.MiddleCenter, 35);
+            CommonFuction.SetDataGridViewColumnStyle(grdFrameInfo, "위치", "CREATETIME", "usedate", typeof(string), 500, false, true, DataGridViewContentAlignment.MiddleLeft, 60);
+            CommonFuction.SetDataGridViewColumnStyle(grdFrameInfo, "행변경타입", "ROWTYPE", "ROWTYPE", typeof(string), 100, false, false, DataGridViewContentAlignment.MiddleLeft, 60);
         }
 
         #endregion

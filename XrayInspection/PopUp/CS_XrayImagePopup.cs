@@ -142,7 +142,11 @@ namespace XrayInspection.PopUp
                 //string deleteFileName = directory + "//" + _video.PosFrames.ToString() + ".png";
                 //if (File.Exists(deleteFileName)) File.Delete(deleteFileName);
 
-                _video.PosFrames = _video.PosFrames + saveCheckCount - 1;
+                if (_video.FrameCount - _video.PosFrames < saveCheckCount)
+                    _video.PosFrames = _video.FrameCount - 1;
+                else
+                    _video.PosFrames = _video.PosFrames + saveCheckCount - 1;
+
                 _video.Read(_frame);
 
                 Cv2.Resize(_frame, _frame, new OpenCvSharp.Size(picMain.Width, picMain.Height));
