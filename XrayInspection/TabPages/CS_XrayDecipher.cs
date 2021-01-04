@@ -773,8 +773,8 @@ namespace XrayInspection.UserControls
             // AI 판독현황에 데이터 바인딩
             AIJudgmentInfoSearch();
 
-            // AI 판독현황 그리드 1초마다 조회될 수 있도록 타이머 설정
-            _searchTimer.Interval = 1000;
+            // AI 판독현황 그리드 0.7초마다 조회될 수 있도록 타이머 설정
+            _searchTimer.Interval = 700;
             _searchTimer.Tick += SearchTimer_Tick;
 
             // TCP 서버시작
@@ -983,20 +983,24 @@ namespace XrayInspection.UserControls
                 parameters.Add("@LOTNO", lotNo);
                 parameters.Add("@FILENAME", fileName);
                 parameters.Add("@FRAMENO", frameNo);
-
-                SqlParameter[] deleteSqlPamaters = _dbManager.GetSqlParameters(parameters);
-                SqlParameter[] insertSqlPamaters = _dbManager.GetSqlParameters(parameters);
-
-                int deleteResult;
+                
+                // 데이터 삭제
+                SqlParameter[] deleteSqlPamaters = _dbManager.GetSqlParameters(parameters);              
 
                 while (_deleteFlag)
                 {
-                    deleteResult = _dbManager.CallNonSelectProcedure("USP_DELETE_XRAYDECIPHER_INSPECTRECORD", deleteSqlPamaters);
+                    int deleteResult = _dbManager.CallNonSelectProcedure("USP_DELETE_XRAYDECIPHER_INSPECTRECORD", deleteSqlPamaters);
                     if (deleteResult > 0) Console.WriteLine("프레임데이터 삭제성공!");                  
                     else Console.WriteLine("프레임데이터 삭제실패!");
 
                     _deleteFlag = false;
                 }
+
+                // 이미지 경로
+                string path = "D://05. 조선내화 프로젝트//01.Source//02.Server//videosource//bin//Debug//File//" + lotNo + "_" + frameNo.ToString() + ".png";
+                parameters.Add("@FRAMEIMAGEFILE", GetImage(path));
+
+                SqlParameter[] insertSqlPamaters = _dbManager.GetSqlParameters(parameters);
 
                 int saveResult = _dbManager.CallNonSelectProcedure("USP_INSERT_XRAYDECIPHER_INSPECTRECORD", insertSqlPamaters);
                 if (saveResult > 0)  Console.WriteLine("프레임데이터 저장성공!");                
@@ -1006,6 +1010,23 @@ namespace XrayInspection.UserControls
             {
                 Console.WriteLine(ex.Message);
             }
+        }
+        
+        /// <summary>
+        /// 이미지 파일을 byte[] 형식으로 변환
+        /// </summary>
+        /// <param name="path">파일경로</param>
+        /// <returns></returns>
+        private byte[] GetImage(string path)
+        {
+            FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read);
+            BinaryReader reader = new BinaryReader(stream);
+
+            byte[] image = reader.ReadBytes((int)stream.Length);
+            reader.Close();
+            stream.Close();
+
+            return image;
         }
 
         #endregion
