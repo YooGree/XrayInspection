@@ -70,5 +70,78 @@ namespace XrayInspection.Properties {
                 this["TargetPort"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("D://05. 조선내화 프로젝트//03.Etc//Image//")]
+        public string ImagePath {
+            get {
+                return ((string)(this["ImagePath"]));
+            }
+            set {
+                this["ImagePath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("D://05. 조선내화 프로젝트//03.Etc//Video//")]
+        public string VideoPath {
+            get {
+                return ((string)(this["VideoPath"]));
+            }
+            set {
+                this["VideoPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("D://05. 조선내화 프로젝트//03.Etc//Video//OK//")]
+        public string OKVideoPath {
+            get {
+                return ((string)(this["OKVideoPath"]));
+            }
+            set {
+                this["OKVideoPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("D://05. 조선내화 프로젝트//03.Etc//Video//NG//")]
+        public string NGVideoPath {
+            get {
+                return ((string)(this["NGVideoPath"]));
+            }
+            set {
+                this["NGVideoPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=D://05. 조선내화 프로젝트//02.Document//MSA" +
+            "ccess//XDB.mdb")]
+        public string MSAccessPath {
+            get {
+                return ((string)(this["MSAccessPath"]));
+            }
+            set {
+                this["MSAccessPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool IsMSAccessConnect {
+            get {
+                return ((bool)(this["IsMSAccessConnect"]));
+            }
+            set {
+                this["IsMSAccessConnect"] = value;
+            }
+        }
     }
 }

@@ -210,7 +210,7 @@ namespace XrayInspection.PopUp
                 btnStartEnd.Text = "정지";
 
                 // 이미지 슬라이싱
-                FileSlicing(_filePath, _fileName);
+                FileSlicing();
             }
             // 정지 -> 시작(정지상태)
             else
@@ -320,7 +320,7 @@ namespace XrayInspection.PopUp
         private void GetMediaFile()
         {
             string fileName = _currentRow.Cells["LOTID"].Value.ToString() + ".mp4";
-            string filePath = "D://05. 조선내화 프로젝트//01.Source//02.Server//videosource//bin//Debug//";
+            string filePath = Properties.Settings.Default.VideoPath;
             _fileName = fileName;
             _filePath = filePath;
             lblFileName.Text = fileName;
@@ -330,11 +330,11 @@ namespace XrayInspection.PopUp
 
             int saveCheckCount = 30 / int.Parse(comboFrameCount.SelectedValue.ToString());
 
-            _makeDirectory = filePath + fileName.Substring(0, fileName.LastIndexOf(".")).Trim();
+            //_makeDirectory = filePath + fileName.Substring(0, fileName.LastIndexOf(".")).Trim();
 
-            DirectoryInfo directory = new DirectoryInfo(_makeDirectory);
+            //DirectoryInfo directory = new DirectoryInfo(_makeDirectory);
 
-            if (directory.Exists == false) directory.Create();
+            //if (directory.Exists == false) directory.Create();
             
             _video.Read(_frame);
             lblFrame.Text = _video.PosFrames.ToString() + " / " + _video.FrameCount.ToString();
@@ -344,16 +344,16 @@ namespace XrayInspection.PopUp
                 //Cv2.Resize(_frame, _frame, new OpenCvSharp.Size(_frame.Width, _frame.Height));
                 Cv2.Resize(_frame, _frame, new OpenCvSharp.Size(picMain.Width, picMain.Height));
 
-                string saveFileName = directory + "//" + _video.PosFrames.ToString() + ".png";
+                //string saveFileName = directory + "//" + _video.PosFrames.ToString() + ".png";
                 picMain.Image = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(_frame);
-                Cv2.ImWrite(saveFileName, _frame);
+                //Cv2.ImWrite(saveFileName, _frame);
 
-                string deleteFileName = _makeDirectory + "//bad//" + _video.PosFrames.ToString() + ".png";
+                //string deleteFileName = _makeDirectory + "//bad//" + _video.PosFrames.ToString() + ".png";
 
-                if (File.Exists(deleteFileName))
-                {
-                    File.Delete(deleteFileName);
-                }
+                //if (File.Exists(deleteFileName))
+                //{
+                //    File.Delete(deleteFileName);
+                //}
 
                 Cv2.WaitKey(33);
             }
@@ -364,7 +364,66 @@ namespace XrayInspection.PopUp
         }
 
         /// <summary>
-        /// 영상파일 이미지로 슬라이징 시작
+        /// 영상파일 이미지로 슬라이징 시작(이미지 파일로 저장 안하는 Ver)
+        /// </summary>
+        private void FileSlicing()
+        {
+            // 동영상 썸네일 다시세팅
+            if (_endFlag)
+            {
+                GetMediaFile();
+                _endFlag = false;
+            }
+
+            // 슬라이싱 시작
+            int saveCheckCount = 30 / int.Parse(comboFrameCount.SelectedValue.ToString());
+
+            while (true)
+            {
+                if (_endFlag)
+                {
+                    return;
+                }
+
+                if (_stopFlag)
+                {
+                    Cv2.WaitKey(33);
+                    continue;
+                }
+
+                _video.Read(_frame);
+
+                lblFrame.Text = _video.PosFrames.ToString() + " / " + _video.FrameCount.ToString();
+
+                if (!_frame.Empty())
+                {
+                    try
+                    {
+                        Cv2.Resize(_frame, _frame, new OpenCvSharp.Size(picMain.Width, picMain.Height));
+
+                        if (_video.PosFrames % saveCheckCount == 0)
+                        {
+                            picMain.Image = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(_frame);
+                            Cv2.WaitKey(33);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MsgBoxHelper.Error(ex.Message);
+                    }
+                }
+                else
+                {
+                    _stopFlag = true;
+                    _endFlag = true;
+                    btnStartEnd.Text = "시작";
+                    break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 영상파일 이미지로 슬라이징 시작(이미지 파일로 저장 Ver)
         /// </summary>
         /// <param name="filePath"></param>
         /// <param name="fileName"></param>
@@ -432,9 +491,9 @@ namespace XrayInspection.PopUp
                             Cv2.WaitKey(33);
                         }
                     }
-                    catch 
+                    catch (Exception ex) 
                     {
-                        MsgBoxHelper.Error("이미지 슬라이싱 실패");
+                        MsgBoxHelper.Error(ex.Message);
                     }
                 }
                 else

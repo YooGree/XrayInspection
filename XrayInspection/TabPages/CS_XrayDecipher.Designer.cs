@@ -114,6 +114,7 @@ namespace XrayInspection.UserControls
             this.btnContext = new System.Windows.Forms.Button();
             this.btnPart = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnTest = new System.Windows.Forms.Button();
             this.btnJudgmentComplete = new System.Windows.Forms.Button();
             this.btnEnd = new System.Windows.Forms.Button();
             this.btnStart = new System.Windows.Forms.Button();
@@ -1300,6 +1301,7 @@ namespace XrayInspection.UserControls
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.btnTest);
             this.panel2.Controls.Add(this.btnJudgmentComplete);
             this.panel2.Controls.Add(this.btnEnd);
             this.panel2.Controls.Add(this.btnStart);
@@ -1309,6 +1311,19 @@ namespace XrayInspection.UserControls
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(311, 319);
             this.panel2.TabIndex = 4;
+            // 
+            // btnTest
+            // 
+            this.btnTest.BackColor = System.Drawing.Color.DimGray;
+            this.btnTest.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTest.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btnTest.ForeColor = System.Drawing.Color.White;
+            this.btnTest.Location = new System.Drawing.Point(87, 113);
+            this.btnTest.Name = "btnTest";
+            this.btnTest.Size = new System.Drawing.Size(80, 28);
+            this.btnTest.TabIndex = 8;
+            this.btnTest.Text = "테스트";
+            this.btnTest.UseVisualStyleBackColor = false;
             // 
             // btnJudgmentComplete
             // 
@@ -1542,5 +1557,6 @@ namespace XrayInspection.UserControls
         private System.Windows.Forms.Button btnPart;
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.ComboBox comboInspector;
+        private System.Windows.Forms.Button btnTest;
     }
 }
