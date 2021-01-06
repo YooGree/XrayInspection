@@ -404,7 +404,7 @@ namespace XrayInspection.UserControls
                     }
                 }
 
-                if (MsgBoxHelper.Show("저장할 데이터가 없습니다.", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                if (MsgBoxHelper.Show("저장하시겠습니까?", MessageBoxButtons.OKCancel) == DialogResult.OK)
                 {
                     DBManager dbManager = new DBManager();
 
