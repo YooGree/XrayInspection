@@ -1350,17 +1350,16 @@ namespace XrayInspection.UserControls
                     _deleteFlag = false;
                 }
 
-                // 이미지 경로
-                string path = Properties.Settings.Default.ImagePath + lotNo + "_" + frameNo.ToString() + ".png";
-                string base64FileData = GetImage(path);
-                parameters.Add("@FRAMEIMAGEFILE", base64FileData);
-
                 SqlParameter[] insertSqlPamaters = _dbManager.GetSqlParameters(parameters);
 
+                // 데이터 저장
                 int saveResult = _dbManager.CallNonSelectProcedure("USP_INSERT_XRAYDECIPHER_INSPECTRECORD", insertSqlPamaters);              
                 if (saveResult > 0)
                 {
                     Console.WriteLine("프레임데이터 저장성공!");
+
+                    string path = Properties.Settings.Default.ImagePath + lotNo + "_" + frameNo.ToString() + ".png";
+                    string base64FileData = GetImage(path);
 
                     // AI_DB에 이미지 데이터 저장
                     Dictionary<string, object> aiParameters = new Dictionary<string, object>();
