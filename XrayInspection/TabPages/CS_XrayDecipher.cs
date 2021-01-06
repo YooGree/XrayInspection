@@ -30,6 +30,7 @@ namespace XrayInspection.UserControls
         //TCPServer _tcpServer = new TCPServer(Properties.Settings.Default.TargetIP, Properties.Settings.Default.TargetPort);
         Socket _mainSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         DBManager _dbManager = new DBManager(); // XRAY_DB 연결객체
+        AIDBManager _aiDbManager = new AIDBManager(); // AI_DB 연결객체
         bool _deleteFlag = true;        
         Timer _searchTimer = new Timer();
         string _lotState; // 현재 LOT상태
@@ -1353,12 +1354,30 @@ namespace XrayInspection.UserControls
                 string path = Properties.Settings.Default.ImagePath + lotNo + "_" + frameNo.ToString() + ".png";
                 string base64FileData = GetImage(path);
                 parameters.Add("@FRAMEIMAGEFILE", base64FileData);
-                parameters.Add("@PRODUCTID", txtProductName.Text);
 
                 SqlParameter[] insertSqlPamaters = _dbManager.GetSqlParameters(parameters);
 
-                int saveResult = _dbManager.CallNonSelectProcedure("USP_INSERT_XRAYDECIPHER_INSPECTRECORD", insertSqlPamaters);
-                if (saveResult > 0) Console.WriteLine("프레임데이터 저장성공!");                           
+                int saveResult = _dbManager.CallNonSelectProcedure("USP_INSERT_XRAYDECIPHER_INSPECTRECORD", insertSqlPamaters);              
+                if (saveResult > 0)
+                {
+                    Console.WriteLine("프레임데이터 저장성공!");
+
+                    // AI_DB에 이미지 데이터 저장
+                    Dictionary<string, object> aiParameters = new Dictionary<string, object>();
+                    aiParameters.Add("@FILENAME", fileName);
+                    aiParameters.Add("@FILEDATA", base64FileData);
+                    aiParameters.Add("@TXNID", "XRAY_INSPECT");
+                    aiParameters.Add("@USERID", "admin");
+                    aiParameters.Add("@MACHINE", "1");
+                    aiParameters.Add("@PRODID", txtProductName.Text);
+                    aiParameters.Add("@LOTID", lotNo);
+
+                    SqlParameter[] aiSqlParameters = _aiDbManager.GetSqlParameters(aiParameters);
+
+                    int aiSaveResult = _aiDbManager.CallNonSelectProcedure("AI_SET_IBA_RECORD_IMAGE", aiSqlParameters);
+                    if (aiSaveResult > 0) Console.WriteLine("AI 데이터 저장성공!");
+                    else Console.WriteLine("AI 데이터 저장실패!");
+                }                            
                 else Console.WriteLine("프레임데이터 저장실패!");              
             }
             catch (Exception ex)

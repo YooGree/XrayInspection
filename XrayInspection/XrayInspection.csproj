@@ -97,6 +97,7 @@
     <Compile Include="CommonFuction.cs" />
     <Compile Include="DataModel\ComboCodeModel.cs" />
     <Compile Include="DataModel\MC_DURABLE.cs" />
+    <Compile Include="AIDBManager.cs" />
     <Compile Include="PopUp\CS_XrayImagePopup.cs">
       <SubType>Form</SubType>
     </Compile>
