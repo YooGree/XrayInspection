@@ -29,7 +29,7 @@ namespace XrayInspection.UserControls
 
         //TCPServer _tcpServer = new TCPServer(Properties.Settings.Default.TargetIP, Properties.Settings.Default.TargetPort);
         Socket _mainSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-        DBManager _dbManager = new DBManager();
+        DBManager _dbManager = new DBManager(); // XRAY_DB 연결객체
         bool _deleteFlag = true;        
         Timer _searchTimer = new Timer();
         string _lotState; // 현재 LOT상태
@@ -1351,12 +1351,14 @@ namespace XrayInspection.UserControls
 
                 // 이미지 경로
                 string path = Properties.Settings.Default.ImagePath + lotNo + "_" + frameNo.ToString() + ".png";
-                parameters.Add("@FRAMEIMAGEFILE", GetImage(path));
+                string base64FileData = GetImage(path);
+                parameters.Add("@FRAMEIMAGEFILE", base64FileData);
+                parameters.Add("@PRODUCTID", txtProductName.Text);
 
                 SqlParameter[] insertSqlPamaters = _dbManager.GetSqlParameters(parameters);
 
                 int saveResult = _dbManager.CallNonSelectProcedure("USP_INSERT_XRAYDECIPHER_INSPECTRECORD", insertSqlPamaters);
-                if (saveResult > 0)  Console.WriteLine("프레임데이터 저장성공!");                
+                if (saveResult > 0) Console.WriteLine("프레임데이터 저장성공!");                           
                 else Console.WriteLine("프레임데이터 저장실패!");              
             }
             catch (Exception ex)
@@ -1366,7 +1368,7 @@ namespace XrayInspection.UserControls
         }
         
         /// <summary>
-        /// 이미지 파일을 byte[] 형식으로 변환
+        /// 이미지 파일을 byte[] 형식으로 변환한 뒤 Base64로 변형하여 저장
         /// </summary>
         /// <param name="path">파일경로</param>
         /// <returns></returns>
