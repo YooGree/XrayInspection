@@ -69,8 +69,9 @@ namespace XrayInspection.UserControls
             grdAIDecipherStatus.RowPostPaint += GrdUser_RowPostPaint;
 
             btnJudgmentResult.Click += CommonPopup_Click;
-            btnContext.Click += CommonPopup_Click;
-            btnPart.Click += CommonPopup_Click;
+            btnDetailClass.Click += CommonPopup_Click;
+            btnDetailCode.Click += CommonPopup_Click;
+            btnDetailPart.Click += CommonPopup_Click;
 
             btnStart.Click += BtnStart_Click;
             btnEnd.Click += BtnEnd_Click;
@@ -230,31 +231,57 @@ namespace XrayInspection.UserControls
                     {
                         if (commonPopup._returnIsOK)
                         {
-                            // 판독결과가 합격이라면 항목, 부위, 위치 Enable, ReadOnly
-                            if (commonPopup._returnCodeValue == "0")
+                            // 판독결과가 합격 또는 불합격이라면 항목, 세부항목, 부위, 위치 Enable, ReadOnly
+                            if (commonPopup._returnCodeValue == "0" ||
+                                commonPopup._returnCodeValue == "1" ||
+                                commonPopup._returnCodeValue == "2" ||
+                                commonPopup._returnCodeValue == "3")
                             {
-                                txtContext.Tag = "None";
-                                txtContext.Text = "";
-                                btnContext.Enabled = false;
-                                txtPart.Tag = "None";
-                                txtPart.Text = "";
-                                btnPart.Enabled = false;
+                                // 항목
+                                txtDetailClass.Tag = "None";
+                                txtDetailClass.Text = "";
+                                btnDetailClass.Enabled = false;
+                                // 세부항목
+                                txtDetailCode.Tag = "None";
+                                txtDetailCode.Text = "";
+                                btnDetailCode.Enabled = false;
+                                // 부위
+                                txtDetailPart.Tag = "None";
+                                txtDetailPart.Text = "";
+                                btnDetailPart.Enabled = false;
+                                // 위치
                                 txtLocation.ReadOnly = true;
+                                txtLocation.Text = "";
                             }
-                            // 판독결과가 합격이 아니라면 항복, 부위, 위치 입력할 수 있도록
+                            // 판독결과가 부위라면 항목, 세부항목 Enable, ReadOnly
+                            else if (commonPopup._returnCodeValue == "5")
+                            {
+                                // 항목
+                                txtDetailClass.Tag = "None";
+                                txtDetailClass.Text = "";
+                                btnDetailClass.Enabled = false;
+                                // 세부항목
+                                txtDetailCode.Tag = "None";
+                                txtDetailCode.Text = "";
+                                btnDetailCode.Enabled = false;
+                            }
+                            // 판독결과가 위에 해당하지 않는다면 항목, 세부항목, 부위, 위치 입력할 수 있도록
                             else
                             {
-                                btnContext.Enabled = true;
-                                btnPart.Enabled = true;
+                                btnDetailClass.Enabled = true;
+                                btnDetailCode.Enabled = true;
+                                btnDetailPart.Enabled = true;
                                 txtLocation.ReadOnly = false;
                             }
 
                             if (txtJudgmentResult.Tag.ToString() != commonPopup._returnCodeValue)
                             {
-                                txtContext.Tag = "None";
-                                txtContext.Text = "";
-                                txtPart.Tag = "None";
-                                txtPart.Text = "";
+                                txtDetailClass.Tag = "None";
+                                txtDetailClass.Text = "";
+                                txtDetailCode.Tag = "None";
+                                txtDetailCode.Text = "";
+                                txtDetailPart.Tag = "None";
+                                txtDetailPart.Text = "";
                             }
 
                             txtJudgmentResult.Tag = commonPopup._returnCodeValue;
@@ -263,8 +290,8 @@ namespace XrayInspection.UserControls
                     };
                     break;
 
-                // 부위(불량코드 중분류)
-                case "btnContext":
+                // 항목(불량코드 중분류)
+                case "btnDetailClass":
                     commonPopup = new CS_CommonPopup("USP_SELECT_XRAYDECIPHER_POPUP_AIJUDGMENTRESULT", "MIDDLE", txtJudgmentResult.Tag.ToString());
                     commonPopup.WindowState = FormWindowState.Normal;
                     commonPopup.StartPosition = FormStartPosition.CenterScreen;
@@ -274,20 +301,20 @@ namespace XrayInspection.UserControls
                     {
                         if (commonPopup._returnIsOK)
                         {
-                            if (txtContext.Tag.ToString() != commonPopup._returnCodeValue)
+                            if (txtDetailClass.Tag.ToString() != commonPopup._returnCodeValue)
                             {
-                                txtPart.Tag = "None";
-                                txtPart.Text = "";
+                                txtDetailCode.Tag = "None";
+                                txtDetailCode.Text = "";
                             }
-                            txtContext.Tag = commonPopup._returnCodeValue;
-                            txtContext.Text = commonPopup._returnNameValue;
+                            txtDetailClass.Tag = commonPopup._returnCodeValue;
+                            txtDetailClass.Text = commonPopup._returnNameValue;
                         }
                     };
                     break;
 
-                // 위치(불량코드 소분류)
-                case "btnPart":
-                    commonPopup = new CS_CommonPopup("USP_SELECT_XRAYDECIPHER_POPUP_AIJUDGMENTRESULT", "DETAIL" , txtContext.Tag.ToString());
+                // 세부항목(불량코드 소분류)
+                case "btnDetailCode":
+                    commonPopup = new CS_CommonPopup("USP_SELECT_XRAYDECIPHER_POPUP_AIJUDGMENTRESULT", "DETAIL" , txtDetailClass.Tag.ToString());
                     commonPopup.WindowState = FormWindowState.Normal;
                     commonPopup.StartPosition = FormStartPosition.CenterScreen;
                     commonPopup.Show();
@@ -296,8 +323,25 @@ namespace XrayInspection.UserControls
                     {
                         if (commonPopup._returnIsOK)
                         {
-                            txtPart.Tag = commonPopup._returnCodeValue;
-                            txtPart.Text = commonPopup._returnNameValue;
+                            txtDetailCode.Tag = commonPopup._returnCodeValue;
+                            txtDetailCode.Text = commonPopup._returnNameValue;
+                        }
+                    };
+                    break;
+
+                // 부위(불량코드 중분류)
+                case "btnDetailPart":
+                    commonPopup = new CS_CommonPopup("USP_SELECT_XRAYDECIPHER_POPUP_AIJUDGMENTRESULT", "MIDDLE", "5");
+                    commonPopup.WindowState = FormWindowState.Normal;
+                    commonPopup.StartPosition = FormStartPosition.CenterScreen;
+                    commonPopup.Show();
+                    commonPopup.Activate();
+                    commonPopup.FormClosed += (formSender, formE) =>
+                    {
+                        if (commonPopup._returnIsOK)
+                        {
+                            txtDetailPart.Tag = commonPopup._returnCodeValue;
+                            txtDetailPart.Text = commonPopup._returnNameValue;
                         }
                     };
                     break;
@@ -623,10 +667,10 @@ namespace XrayInspection.UserControls
             // 판정결과 - 바인딩 데이터 리셋
             txtJudgmentResult.Tag = "";
             txtJudgmentResult.Text = "";
-            txtContext.Tag = "";
-            txtContext.Text = "";
-            txtPart.Tag = "";
-            txtPart.Text = "";
+            txtDetailClass.Tag = "";
+            txtDetailClass.Text = "";
+            txtDetailPart.Tag = "";
+            txtDetailPart.Text = "";
             txtLocation.Text = "";
 
             // 검사계획/진행현황 조회(추가예정)
@@ -742,7 +786,7 @@ namespace XrayInspection.UserControls
             try
             {
                 // MSAccessDB에 데이터 저장
-                InsertMSAccessDataByNonProduct();
+                // InsertMSAccessDataByNonProduct();
 
                 Dictionary<string, object> parameters = new Dictionary<string, object>();
                 parameters.Add("@SITE", Properties.Settings.Default.Site);
@@ -750,12 +794,19 @@ namespace XrayInspection.UserControls
                 parameters.Add("@INSPECTORID", comboInspector.SelectedValue);
                 parameters.Add("@INSPECTORNAME", comboInspector.Text);
                 parameters.Add("@SHIFTID", comboInspector.Tag);
-                parameters.Add("@TOPDEFECTCODE", txtJudgmentResult.Tag);
-                parameters.Add("@TOPDEFECTCODENAME", txtJudgmentResult.Text);
-                parameters.Add("@MIDDLEDEFECTCODE", txtContext.Tag);
-                parameters.Add("@MIDDLEDEFECTCODENAME", txtContext.Text);
-                parameters.Add("@DETAILDEFECTCODE", txtPart.Tag);
-                parameters.Add("@DETAILDEFECTCODENAME", txtPart.Text);
+
+
+                parameters.Add("@JUDGMENTRESULTID", txtJudgmentResult.Tag);
+                parameters.Add("@JUDGMENTRESULTNAME", txtJudgmentResult.Text);
+                parameters.Add("@DETAILCLASSID", txtDetailClass.Tag);
+                parameters.Add("@DETAILCLASSNAME", txtDetailClass.Text);
+                parameters.Add("@DETAILCODEID", txtDetailCode.Tag);
+                parameters.Add("@DETAILCODENAME", txtDetailCode.Text);
+                parameters.Add("@DETAILPARTID", txtDetailPart.Tag);
+                parameters.Add("@DETAILPARTNAME", txtDetailPart.Text);
+
+
+
                 parameters.Add("@LOCATION", txtLocation.Text);
                 parameters.Add("@AIRESULTCODE", "(TEST)CODE_OK");
                 parameters.Add("@AIRESULTCODENAME", "(TEST)CODENAME_OK");
@@ -1017,9 +1068,9 @@ namespace XrayInspection.UserControls
                     if (fmKey != -1)
                     {
                         string pCnt = Regex.Replace(txtJudgmentResult.Tag.ToString(), @"[^0-9]", "");
-                        string iCnt = Regex.Replace(txtContext.Tag.ToString(), @"[^0-9]", "");
+                        string iCnt = Regex.Replace(txtDetailClass.Tag.ToString(), @"[^0-9]", "");
                         string passCntColumn = txtJudgmentResult.Tag.ToString().Equals("None") ? "F합격0" : "F합격" + pCnt;
-                        string itemCntColumn = txtContext.Tag.ToString().Equals("None") ? "F항목0" : "F항목" + iCnt;
+                        string itemCntColumn = txtDetailClass.Tag.ToString().Equals("None") ? "F항목0" : "F항목" + iCnt;
                         string aiResult = txtAiResult.Text == "OK" ? "합격" : "부적합";
                         string filePath = @".\DBMOVIE_J\" + txtLotNo.Text + ".mp4";
 
@@ -1037,9 +1088,9 @@ namespace XrayInspection.UserControls
                         comm.Parameters.AddWithValue("@FLOTNO", txtLotNo.Text);
                         comm.Parameters.AddWithValue("@F판독결과", Convert.ToInt32(txtJudgmentResult.Tag));
                         comm.Parameters.AddWithValue(passCntColumn, 1);
-                        comm.Parameters.AddWithValue(itemCntColumn, txtContext.Tag.ToString().Equals("None") ? 0 : 1);
-                        comm.Parameters.AddWithValue("@F확인사항_항목", txtContext.Text);
-                        comm.Parameters.AddWithValue("@F확인사항_재질", txtPart.Text);
+                        comm.Parameters.AddWithValue(itemCntColumn, txtDetailClass.Tag.ToString().Equals("None") ? 0 : 1);
+                        comm.Parameters.AddWithValue("@F확인사항_항목", txtDetailClass.Text);
+                        comm.Parameters.AddWithValue("@F확인사항_재질", txtDetailPart.Text);
                         comm.Parameters.AddWithValue("@F확인사항_위치", txtLocation.Text);
                         comm.Parameters.AddWithValue("@F판정", aiResult);
                         comm.Parameters.AddWithValue("@FPATH", filePath);
@@ -1163,9 +1214,9 @@ namespace XrayInspection.UserControls
                     if (fmKey != -1)
                     {
                         string pCnt = Regex.Replace(txtJudgmentResult.Tag.ToString(), @"[^0-9]", "");
-                        string iCnt = Regex.Replace(txtContext.Tag.ToString(), @"[^0-9]", "");
+                        string iCnt = Regex.Replace(txtDetailClass.Tag.ToString(), @"[^0-9]", "");
                         string passCntColumn = txtJudgmentResult.Tag.ToString().Equals("None") ? "F합격0" : "F합격" + pCnt;
-                        string itemCntColumn = txtContext.Tag.ToString().Equals("None") ? "F항목0" : "F항목" + iCnt;
+                        string itemCntColumn = txtDetailClass.Tag.ToString().Equals("None") ? "F항목0" : "F항목" + iCnt;
                         string aiResult = txtAiResult.Text == "OK" ? "합격" : "부적합";
                         string filePath = @".\DBMOVIE_J\" + txtLotNo.Text + ".mp4"; 
 
@@ -1183,9 +1234,9 @@ namespace XrayInspection.UserControls
                         comm.Parameters.AddWithValue("@FLOTNO", txtLotNo.Text);
                         comm.Parameters.AddWithValue("@F판독결과", Convert.ToInt32(txtJudgmentResult.Tag));
                         comm.Parameters.AddWithValue(passCntColumn, 1);
-                        comm.Parameters.AddWithValue(itemCntColumn, txtContext.Tag.ToString().Equals("None") ? 0 : 1);
-                        comm.Parameters.AddWithValue("@F확인사항_항목", txtContext.Text);
-                        comm.Parameters.AddWithValue("@F확인사항_재질", txtPart.Text);
+                        comm.Parameters.AddWithValue(itemCntColumn, txtDetailClass.Tag.ToString().Equals("None") ? 0 : 1);
+                        comm.Parameters.AddWithValue("@F확인사항_항목", txtDetailClass.Text);
+                        comm.Parameters.AddWithValue("@F확인사항_재질", txtDetailPart.Text);
                         comm.Parameters.AddWithValue("@F확인사항_위치", txtLocation.Text);
                         comm.Parameters.AddWithValue("@F판정", aiResult);
                         comm.Parameters.AddWithValue("@FPATH", filePath);

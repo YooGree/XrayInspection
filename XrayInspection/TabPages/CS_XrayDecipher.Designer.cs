@@ -29,8 +29,8 @@ namespace XrayInspection.UserControls
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnRefresh = new System.Windows.Forms.Button();
@@ -93,8 +93,8 @@ namespace XrayInspection.UserControls
             this.gbxJudgmentResult = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel17 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel25 = new System.Windows.Forms.TableLayoutPanel();
-            this.txtPart = new System.Windows.Forms.TextBox();
-            this.lblPart = new System.Windows.Forms.Label();
+            this.txtDetailPart = new System.Windows.Forms.TextBox();
+            this.lblDetailPart = new System.Windows.Forms.Label();
             this.tableLayoutPanel21 = new System.Windows.Forms.TableLayoutPanel();
             this.lblInspector = new System.Windows.Forms.Label();
             this.comboInspector = new System.Windows.Forms.ComboBox();
@@ -105,20 +105,24 @@ namespace XrayInspection.UserControls
             this.txtJudgmentResult = new System.Windows.Forms.TextBox();
             this.lblJudgmentResult = new System.Windows.Forms.Label();
             this.tableLayoutPanel24 = new System.Windows.Forms.TableLayoutPanel();
-            this.txtContext = new System.Windows.Forms.TextBox();
-            this.lblContext = new System.Windows.Forms.Label();
+            this.txtDetailClass = new System.Windows.Forms.TextBox();
+            this.lblDetailClass = new System.Windows.Forms.Label();
             this.tableLayoutPanel27 = new System.Windows.Forms.TableLayoutPanel();
             this.txtAiResult = new System.Windows.Forms.TextBox();
             this.lblAiResult = new System.Windows.Forms.Label();
             this.btnJudgmentResult = new System.Windows.Forms.Button();
-            this.btnContext = new System.Windows.Forms.Button();
-            this.btnPart = new System.Windows.Forms.Button();
+            this.btnDetailClass = new System.Windows.Forms.Button();
+            this.btnDetailPart = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnJudgmentComplete = new System.Windows.Forms.Button();
             this.btnEnd = new System.Windows.Forms.Button();
             this.btnStart = new System.Windows.Forms.Button();
             this.gbxAIDecipherStatus = new System.Windows.Forms.GroupBox();
             this.grdAIDecipherStatus = new System.Windows.Forms.DataGridView();
+            this.tableLayoutPanel26 = new System.Windows.Forms.TableLayoutPanel();
+            this.txtDetailCode = new System.Windows.Forms.TextBox();
+            this.lblDetailCode = new System.Windows.Forms.Label();
+            this.btnDetailCode = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
@@ -155,6 +159,7 @@ namespace XrayInspection.UserControls
             this.panel2.SuspendLayout();
             this.gbxAIDecipherStatus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdAIDecipherStatus)).BeginInit();
+            this.tableLayoutPanel26.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -987,10 +992,11 @@ namespace XrayInspection.UserControls
             // 
             this.tableLayoutPanel17.ColumnCount = 5;
             this.tableLayoutPanel17.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
-            this.tableLayoutPanel17.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel17.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel17.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
-            this.tableLayoutPanel17.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel17.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel17.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel17.Controls.Add(this.tableLayoutPanel26, 2, 4);
             this.tableLayoutPanel17.Controls.Add(this.tableLayoutPanel25, 0, 6);
             this.tableLayoutPanel17.Controls.Add(this.tableLayoutPanel21, 0, 0);
             this.tableLayoutPanel17.Controls.Add(this.tableLayoutPanel22, 0, 8);
@@ -998,8 +1004,9 @@ namespace XrayInspection.UserControls
             this.tableLayoutPanel17.Controls.Add(this.tableLayoutPanel24, 0, 4);
             this.tableLayoutPanel17.Controls.Add(this.tableLayoutPanel27, 2, 2);
             this.tableLayoutPanel17.Controls.Add(this.btnJudgmentResult, 1, 2);
-            this.tableLayoutPanel17.Controls.Add(this.btnContext, 3, 4);
-            this.tableLayoutPanel17.Controls.Add(this.btnPart, 3, 6);
+            this.tableLayoutPanel17.Controls.Add(this.btnDetailClass, 1, 4);
+            this.tableLayoutPanel17.Controls.Add(this.btnDetailPart, 3, 6);
+            this.tableLayoutPanel17.Controls.Add(this.btnDetailCode, 3, 4);
             this.tableLayoutPanel17.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel17.Location = new System.Drawing.Point(3, 17);
             this.tableLayoutPanel17.Name = "tableLayoutPanel17";
@@ -1023,39 +1030,39 @@ namespace XrayInspection.UserControls
             this.tableLayoutPanel17.SetColumnSpan(this.tableLayoutPanel25, 3);
             this.tableLayoutPanel25.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel25.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel25.Controls.Add(this.txtPart, 0, 0);
-            this.tableLayoutPanel25.Controls.Add(this.lblPart, 0, 0);
+            this.tableLayoutPanel25.Controls.Add(this.txtDetailPart, 0, 0);
+            this.tableLayoutPanel25.Controls.Add(this.lblDetailPart, 0, 0);
             this.tableLayoutPanel25.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel25.Location = new System.Drawing.Point(3, 117);
             this.tableLayoutPanel25.Name = "tableLayoutPanel25";
             this.tableLayoutPanel25.RowCount = 1;
             this.tableLayoutPanel25.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel25.Size = new System.Drawing.Size(440, 29);
+            this.tableLayoutPanel25.Size = new System.Drawing.Size(437, 29);
             this.tableLayoutPanel25.TabIndex = 8;
             // 
-            // txtPart
+            // txtDetailPart
             // 
-            this.txtPart.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtPart.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.txtPart.Location = new System.Drawing.Point(103, 5);
-            this.txtPart.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
-            this.txtPart.Name = "txtPart";
-            this.txtPart.ReadOnly = true;
-            this.txtPart.Size = new System.Drawing.Size(334, 24);
-            this.txtPart.TabIndex = 13;
-            this.txtPart.Tag = " ";
+            this.txtDetailPart.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtDetailPart.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.txtDetailPart.Location = new System.Drawing.Point(103, 5);
+            this.txtDetailPart.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
+            this.txtDetailPart.Name = "txtDetailPart";
+            this.txtDetailPart.ReadOnly = true;
+            this.txtDetailPart.Size = new System.Drawing.Size(331, 24);
+            this.txtDetailPart.TabIndex = 13;
+            this.txtDetailPart.Tag = " ";
             // 
-            // lblPart
+            // lblDetailPart
             // 
-            this.lblPart.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblPart.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lblPart.Location = new System.Drawing.Point(3, 3);
-            this.lblPart.Margin = new System.Windows.Forms.Padding(3);
-            this.lblPart.Name = "lblPart";
-            this.lblPart.Size = new System.Drawing.Size(94, 23);
-            this.lblPart.TabIndex = 0;
-            this.lblPart.Text = "부위";
-            this.lblPart.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblDetailPart.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblDetailPart.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lblDetailPart.Location = new System.Drawing.Point(3, 3);
+            this.lblDetailPart.Margin = new System.Windows.Forms.Padding(3);
+            this.lblDetailPart.Name = "lblDetailPart";
+            this.lblDetailPart.Size = new System.Drawing.Size(94, 23);
+            this.lblDetailPart.TabIndex = 0;
+            this.lblDetailPart.Text = "부위";
+            this.lblDetailPart.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tableLayoutPanel21
             // 
@@ -1070,7 +1077,7 @@ namespace XrayInspection.UserControls
             this.tableLayoutPanel21.Name = "tableLayoutPanel21";
             this.tableLayoutPanel21.RowCount = 1;
             this.tableLayoutPanel21.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel21.Size = new System.Drawing.Size(232, 29);
+            this.tableLayoutPanel21.Size = new System.Drawing.Size(233, 29);
             this.tableLayoutPanel21.TabIndex = 0;
             // 
             // lblInspector
@@ -1093,7 +1100,7 @@ namespace XrayInspection.UserControls
             this.comboInspector.Location = new System.Drawing.Point(103, 5);
             this.comboInspector.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.comboInspector.Name = "comboInspector";
-            this.comboInspector.Size = new System.Drawing.Size(126, 23);
+            this.comboInspector.Size = new System.Drawing.Size(127, 23);
             this.comboInspector.TabIndex = 1;
             // 
             // tableLayoutPanel22
@@ -1109,7 +1116,7 @@ namespace XrayInspection.UserControls
             this.tableLayoutPanel22.Name = "tableLayoutPanel22";
             this.tableLayoutPanel22.RowCount = 1;
             this.tableLayoutPanel22.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel22.Size = new System.Drawing.Size(470, 29);
+            this.tableLayoutPanel22.Size = new System.Drawing.Size(472, 29);
             this.tableLayoutPanel22.TabIndex = 4;
             // 
             // txtLocation
@@ -1119,7 +1126,7 @@ namespace XrayInspection.UserControls
             this.txtLocation.Location = new System.Drawing.Point(103, 5);
             this.txtLocation.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.txtLocation.Name = "txtLocation";
-            this.txtLocation.Size = new System.Drawing.Size(364, 24);
+            this.txtLocation.Size = new System.Drawing.Size(366, 24);
             this.txtLocation.TabIndex = 13;
             // 
             // lblLocation
@@ -1146,7 +1153,7 @@ namespace XrayInspection.UserControls
             this.tableLayoutPanel23.Name = "tableLayoutPanel23";
             this.tableLayoutPanel23.RowCount = 1;
             this.tableLayoutPanel23.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel23.Size = new System.Drawing.Size(202, 29);
+            this.tableLayoutPanel23.Size = new System.Drawing.Size(198, 29);
             this.tableLayoutPanel23.TabIndex = 3;
             // 
             // txtJudgmentResult
@@ -1157,7 +1164,7 @@ namespace XrayInspection.UserControls
             this.txtJudgmentResult.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.txtJudgmentResult.Name = "txtJudgmentResult";
             this.txtJudgmentResult.ReadOnly = true;
-            this.txtJudgmentResult.Size = new System.Drawing.Size(96, 24);
+            this.txtJudgmentResult.Size = new System.Drawing.Size(92, 24);
             this.txtJudgmentResult.TabIndex = 12;
             this.txtJudgmentResult.Tag = " ";
             // 
@@ -1177,42 +1184,41 @@ namespace XrayInspection.UserControls
             // tableLayoutPanel24
             // 
             this.tableLayoutPanel24.ColumnCount = 2;
-            this.tableLayoutPanel17.SetColumnSpan(this.tableLayoutPanel24, 3);
             this.tableLayoutPanel24.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel24.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel24.Controls.Add(this.txtContext, 0, 0);
-            this.tableLayoutPanel24.Controls.Add(this.lblContext, 0, 0);
+            this.tableLayoutPanel24.Controls.Add(this.txtDetailClass, 0, 0);
+            this.tableLayoutPanel24.Controls.Add(this.lblDetailClass, 0, 0);
             this.tableLayoutPanel24.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel24.Location = new System.Drawing.Point(3, 79);
             this.tableLayoutPanel24.Name = "tableLayoutPanel24";
             this.tableLayoutPanel24.RowCount = 1;
             this.tableLayoutPanel24.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel24.Size = new System.Drawing.Size(440, 29);
+            this.tableLayoutPanel24.Size = new System.Drawing.Size(198, 29);
             this.tableLayoutPanel24.TabIndex = 2;
             // 
-            // txtContext
+            // txtDetailClass
             // 
-            this.txtContext.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtContext.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.txtContext.Location = new System.Drawing.Point(103, 5);
-            this.txtContext.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
-            this.txtContext.Name = "txtContext";
-            this.txtContext.ReadOnly = true;
-            this.txtContext.Size = new System.Drawing.Size(334, 24);
-            this.txtContext.TabIndex = 13;
-            this.txtContext.Tag = " ";
+            this.txtDetailClass.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtDetailClass.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.txtDetailClass.Location = new System.Drawing.Point(103, 5);
+            this.txtDetailClass.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
+            this.txtDetailClass.Name = "txtDetailClass";
+            this.txtDetailClass.ReadOnly = true;
+            this.txtDetailClass.Size = new System.Drawing.Size(92, 24);
+            this.txtDetailClass.TabIndex = 13;
+            this.txtDetailClass.Tag = " ";
             // 
-            // lblContext
+            // lblDetailClass
             // 
-            this.lblContext.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblContext.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lblContext.Location = new System.Drawing.Point(3, 3);
-            this.lblContext.Margin = new System.Windows.Forms.Padding(3);
-            this.lblContext.Name = "lblContext";
-            this.lblContext.Size = new System.Drawing.Size(94, 23);
-            this.lblContext.TabIndex = 0;
-            this.lblContext.Text = "항목";
-            this.lblContext.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblDetailClass.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblDetailClass.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lblDetailClass.Location = new System.Drawing.Point(3, 3);
+            this.lblDetailClass.Margin = new System.Windows.Forms.Padding(3);
+            this.lblDetailClass.Name = "lblDetailClass";
+            this.lblDetailClass.Size = new System.Drawing.Size(94, 23);
+            this.lblDetailClass.TabIndex = 0;
+            this.lblDetailClass.Text = "항목";
+            this.lblDetailClass.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tableLayoutPanel27
             // 
@@ -1222,11 +1228,11 @@ namespace XrayInspection.UserControls
             this.tableLayoutPanel27.Controls.Add(this.txtAiResult, 0, 0);
             this.tableLayoutPanel27.Controls.Add(this.lblAiResult, 0, 0);
             this.tableLayoutPanel27.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel27.Location = new System.Drawing.Point(241, 41);
+            this.tableLayoutPanel27.Location = new System.Drawing.Point(242, 41);
             this.tableLayoutPanel27.Name = "tableLayoutPanel27";
             this.tableLayoutPanel27.RowCount = 1;
             this.tableLayoutPanel27.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel27.Size = new System.Drawing.Size(202, 29);
+            this.tableLayoutPanel27.Size = new System.Drawing.Size(198, 29);
             this.tableLayoutPanel27.TabIndex = 6;
             // 
             // txtAiResult
@@ -1239,7 +1245,7 @@ namespace XrayInspection.UserControls
             this.txtAiResult.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.txtAiResult.Name = "txtAiResult";
             this.txtAiResult.ReadOnly = true;
-            this.txtAiResult.Size = new System.Drawing.Size(96, 25);
+            this.txtAiResult.Size = new System.Drawing.Size(92, 25);
             this.txtAiResult.TabIndex = 12;
             this.txtAiResult.Text = "None";
             this.txtAiResult.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -1259,44 +1265,47 @@ namespace XrayInspection.UserControls
             // btnJudgmentResult
             // 
             this.btnJudgmentResult.BackColor = System.Drawing.Color.DimGray;
+            this.btnJudgmentResult.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnJudgmentResult.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnJudgmentResult.Font = new System.Drawing.Font("굴림", 4F);
             this.btnJudgmentResult.ForeColor = System.Drawing.Color.White;
-            this.btnJudgmentResult.Location = new System.Drawing.Point(211, 48);
+            this.btnJudgmentResult.Location = new System.Drawing.Point(207, 48);
             this.btnJudgmentResult.Margin = new System.Windows.Forms.Padding(3, 10, 3, 7);
             this.btnJudgmentResult.Name = "btnJudgmentResult";
-            this.btnJudgmentResult.Size = new System.Drawing.Size(24, 17);
+            this.btnJudgmentResult.Size = new System.Drawing.Size(29, 18);
             this.btnJudgmentResult.TabIndex = 9;
             this.btnJudgmentResult.Text = "...";
             this.btnJudgmentResult.UseVisualStyleBackColor = false;
             // 
-            // btnContext
+            // btnDetailClass
             // 
-            this.btnContext.BackColor = System.Drawing.Color.DimGray;
-            this.btnContext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnContext.Font = new System.Drawing.Font("굴림", 4F);
-            this.btnContext.ForeColor = System.Drawing.Color.White;
-            this.btnContext.Location = new System.Drawing.Point(449, 86);
-            this.btnContext.Margin = new System.Windows.Forms.Padding(3, 10, 3, 7);
-            this.btnContext.Name = "btnContext";
-            this.btnContext.Size = new System.Drawing.Size(24, 17);
-            this.btnContext.TabIndex = 10;
-            this.btnContext.Text = "...";
-            this.btnContext.UseVisualStyleBackColor = false;
+            this.btnDetailClass.BackColor = System.Drawing.Color.DimGray;
+            this.btnDetailClass.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnDetailClass.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDetailClass.Font = new System.Drawing.Font("굴림", 4F);
+            this.btnDetailClass.ForeColor = System.Drawing.Color.White;
+            this.btnDetailClass.Location = new System.Drawing.Point(207, 86);
+            this.btnDetailClass.Margin = new System.Windows.Forms.Padding(3, 10, 3, 7);
+            this.btnDetailClass.Name = "btnDetailClass";
+            this.btnDetailClass.Size = new System.Drawing.Size(29, 18);
+            this.btnDetailClass.TabIndex = 10;
+            this.btnDetailClass.Text = "...";
+            this.btnDetailClass.UseVisualStyleBackColor = false;
             // 
-            // btnPart
+            // btnDetailPart
             // 
-            this.btnPart.BackColor = System.Drawing.Color.DimGray;
-            this.btnPart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPart.Font = new System.Drawing.Font("굴림", 4F);
-            this.btnPart.ForeColor = System.Drawing.Color.White;
-            this.btnPart.Location = new System.Drawing.Point(449, 124);
-            this.btnPart.Margin = new System.Windows.Forms.Padding(3, 10, 3, 7);
-            this.btnPart.Name = "btnPart";
-            this.btnPart.Size = new System.Drawing.Size(24, 17);
-            this.btnPart.TabIndex = 11;
-            this.btnPart.Text = "...";
-            this.btnPart.UseVisualStyleBackColor = false;
+            this.btnDetailPart.BackColor = System.Drawing.Color.DimGray;
+            this.btnDetailPart.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnDetailPart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDetailPart.Font = new System.Drawing.Font("굴림", 4F);
+            this.btnDetailPart.ForeColor = System.Drawing.Color.White;
+            this.btnDetailPart.Location = new System.Drawing.Point(446, 124);
+            this.btnDetailPart.Margin = new System.Windows.Forms.Padding(3, 10, 3, 7);
+            this.btnDetailPart.Name = "btnDetailPart";
+            this.btnDetailPart.Size = new System.Drawing.Size(29, 18);
+            this.btnDetailPart.TabIndex = 11;
+            this.btnDetailPart.Text = "...";
+            this.btnDetailPart.UseVisualStyleBackColor = false;
             // 
             // panel2
             // 
@@ -1364,23 +1373,23 @@ namespace XrayInspection.UserControls
             // 
             // grdAIDecipherStatus
             // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ControlDark;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grdAIDecipherStatus.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle15.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grdAIDecipherStatus.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle15;
             this.grdAIDecipherStatus.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.LightGray;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.grdAIDecipherStatus.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle16.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle16.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle16.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grdAIDecipherStatus.DefaultCellStyle = dataGridViewCellStyle16;
             this.grdAIDecipherStatus.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grdAIDecipherStatus.EnableHeadersVisualStyles = false;
             this.grdAIDecipherStatus.Location = new System.Drawing.Point(3, 17);
@@ -1388,6 +1397,60 @@ namespace XrayInspection.UserControls
             this.grdAIDecipherStatus.RowTemplate.Height = 23;
             this.grdAIDecipherStatus.Size = new System.Drawing.Size(394, 690);
             this.grdAIDecipherStatus.TabIndex = 0;
+            // 
+            // tableLayoutPanel26
+            // 
+            this.tableLayoutPanel26.ColumnCount = 2;
+            this.tableLayoutPanel26.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanel26.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel26.Controls.Add(this.txtDetailCode, 0, 0);
+            this.tableLayoutPanel26.Controls.Add(this.lblDetailCode, 0, 0);
+            this.tableLayoutPanel26.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel26.Location = new System.Drawing.Point(242, 79);
+            this.tableLayoutPanel26.Name = "tableLayoutPanel26";
+            this.tableLayoutPanel26.RowCount = 1;
+            this.tableLayoutPanel26.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel26.Size = new System.Drawing.Size(198, 29);
+            this.tableLayoutPanel26.TabIndex = 12;
+            // 
+            // txtDetailCode
+            // 
+            this.txtDetailCode.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtDetailCode.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.txtDetailCode.Location = new System.Drawing.Point(103, 5);
+            this.txtDetailCode.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
+            this.txtDetailCode.Name = "txtDetailCode";
+            this.txtDetailCode.ReadOnly = true;
+            this.txtDetailCode.Size = new System.Drawing.Size(92, 24);
+            this.txtDetailCode.TabIndex = 13;
+            this.txtDetailCode.Tag = " ";
+            // 
+            // lblDetailCode
+            // 
+            this.lblDetailCode.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblDetailCode.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lblDetailCode.Location = new System.Drawing.Point(3, 3);
+            this.lblDetailCode.Margin = new System.Windows.Forms.Padding(3);
+            this.lblDetailCode.Name = "lblDetailCode";
+            this.lblDetailCode.Size = new System.Drawing.Size(94, 23);
+            this.lblDetailCode.TabIndex = 0;
+            this.lblDetailCode.Text = "세부항목";
+            this.lblDetailCode.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // btnDetailCode
+            // 
+            this.btnDetailCode.BackColor = System.Drawing.Color.DimGray;
+            this.btnDetailCode.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnDetailCode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDetailCode.Font = new System.Drawing.Font("굴림", 4F);
+            this.btnDetailCode.ForeColor = System.Drawing.Color.White;
+            this.btnDetailCode.Location = new System.Drawing.Point(446, 86);
+            this.btnDetailCode.Margin = new System.Windows.Forms.Padding(3, 10, 3, 7);
+            this.btnDetailCode.Name = "btnDetailCode";
+            this.btnDetailCode.Size = new System.Drawing.Size(29, 18);
+            this.btnDetailCode.TabIndex = 13;
+            this.btnDetailCode.Text = "...";
+            this.btnDetailCode.UseVisualStyleBackColor = false;
             // 
             // CS_XrayDecipher
             // 
@@ -1448,6 +1511,8 @@ namespace XrayInspection.UserControls
             this.panel2.ResumeLayout(false);
             this.gbxAIDecipherStatus.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grdAIDecipherStatus)).EndInit();
+            this.tableLayoutPanel26.ResumeLayout(false);
+            this.tableLayoutPanel26.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1517,7 +1582,7 @@ namespace XrayInspection.UserControls
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel23;
         private System.Windows.Forms.Label lblJudgmentResult;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel24;
-        private System.Windows.Forms.Label lblContext;
+        private System.Windows.Forms.Label lblDetailClass;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel27;
         private System.Windows.Forms.Label lblAiResult;
         private System.Windows.Forms.TextBox txtCustomer;
@@ -1532,15 +1597,19 @@ namespace XrayInspection.UserControls
         private System.Windows.Forms.TextBox txtProgressSequence;
         private System.Windows.Forms.TextBox txtAiResult;
         private System.Windows.Forms.TextBox txtLocation;
-        private System.Windows.Forms.TextBox txtContext;
+        private System.Windows.Forms.TextBox txtDetailClass;
         public System.Windows.Forms.TextBox txtJudgmentResult;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel25;
-        private System.Windows.Forms.TextBox txtPart;
-        private System.Windows.Forms.Label lblPart;
+        private System.Windows.Forms.TextBox txtDetailPart;
+        private System.Windows.Forms.Label lblDetailPart;
         private System.Windows.Forms.Button btnJudgmentResult;
-        private System.Windows.Forms.Button btnContext;
-        private System.Windows.Forms.Button btnPart;
+        private System.Windows.Forms.Button btnDetailClass;
+        private System.Windows.Forms.Button btnDetailPart;
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.ComboBox comboInspector;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel26;
+        private System.Windows.Forms.TextBox txtDetailCode;
+        private System.Windows.Forms.Label lblDetailCode;
+        private System.Windows.Forms.Button btnDetailCode;
     }
 }
