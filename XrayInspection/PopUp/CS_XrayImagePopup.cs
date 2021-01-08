@@ -355,7 +355,7 @@ namespace XrayInspection.PopUp
                 //    File.Delete(deleteFileName);
                 //}
 
-                Cv2.WaitKey(33);
+                Cv2.WaitKey(150);
             }
             catch (Exception ex)
             {
@@ -387,7 +387,7 @@ namespace XrayInspection.PopUp
 
                 if (_stopFlag)
                 {
-                    Cv2.WaitKey(33);
+                    Cv2.WaitKey(150);
                     continue;
                 }
 
@@ -404,7 +404,7 @@ namespace XrayInspection.PopUp
                         if (_video.PosFrames % saveCheckCount == 0)
                         {
                             picMain.Image = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(_frame);
-                            Cv2.WaitKey(33);
+                            Cv2.WaitKey(150);
                         }
                     }
                     catch (Exception ex)
@@ -464,7 +464,7 @@ namespace XrayInspection.PopUp
 
                 if (_stopFlag)
                 {
-                    Cv2.WaitKey(33);
+                    Cv2.WaitKey(150);
                     continue;
                 }
 
@@ -488,7 +488,7 @@ namespace XrayInspection.PopUp
 
                             if (File.Exists(deleteFileName)) File.Delete(deleteFileName);
                             
-                            Cv2.WaitKey(33);
+                            Cv2.WaitKey(150);
                         }
                     }
                     catch (Exception ex) 
