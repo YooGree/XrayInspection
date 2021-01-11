@@ -231,11 +231,8 @@ namespace XrayInspection.UserControls
                     {
                         if (commonPopup._returnIsOK)
                         {
-                            // 판독결과가 합격 또는 불합격이라면 항목, 세부항목, 부위, 위치 Enable, ReadOnly
-                            if (commonPopup._returnCodeValue == "0" ||
-                                commonPopup._returnCodeValue == "1" ||
-                                commonPopup._returnCodeValue == "2" ||
-                                commonPopup._returnCodeValue == "3")
+                            // 판독결과가 합격이라면 항목, 세부항목, 부위, 위치 Enable, ReadOnly
+                            if (commonPopup._returnCodeValue == "0")
                             {
                                 // 항목
                                 txtDetailClass.Tag = "None";
@@ -252,18 +249,6 @@ namespace XrayInspection.UserControls
                                 // 위치
                                 txtLocation.ReadOnly = true;
                                 txtLocation.Text = "";
-                            }
-                            // 판독결과가 부위라면 항목, 세부항목 Enable, ReadOnly
-                            else if (commonPopup._returnCodeValue == "5")
-                            {
-                                // 항목
-                                txtDetailClass.Tag = "None";
-                                txtDetailClass.Text = "";
-                                btnDetailClass.Enabled = false;
-                                // 세부항목
-                                txtDetailCode.Tag = "None";
-                                txtDetailCode.Text = "";
-                                btnDetailCode.Enabled = false;
                             }
                             // 판독결과가 위에 해당하지 않는다면 항목, 세부항목, 부위, 위치 입력할 수 있도록
                             else
@@ -292,7 +277,7 @@ namespace XrayInspection.UserControls
 
                 // 항목(불량코드 중분류)
                 case "btnDetailClass":
-                    commonPopup = new CS_CommonPopup("USP_SELECT_XRAYDECIPHER_POPUP_AIJUDGMENTRESULT", "MIDDLE", txtJudgmentResult.Tag.ToString());
+                    commonPopup = new CS_CommonPopup("USP_SELECT_XRAYDECIPHER_POPUP_AIJUDGMENTRESULT", "MIDDLE", "4");
                     commonPopup.WindowState = FormWindowState.Normal;
                     commonPopup.StartPosition = FormStartPosition.CenterScreen;
                     commonPopup.Show();

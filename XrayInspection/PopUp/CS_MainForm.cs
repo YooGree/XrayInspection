@@ -195,10 +195,22 @@ namespace XrayInspection.PopUp
             btnAIJudgmentStatus.Click += BtnMenu_Click;
             btnAIJudgmentHistory.Click += BtnMenu_Click;
             btnAIJubgmentInfo.Click += BtnMenu_Click;
+            btnPopupWorkerChange.Click += BtnPopupWorkerChange_Click;
 
             btnReport.Click += Btn_Report_Click;
             btnMaskInfoCancel.Click += BtnMaskInfoCancel_Click;
             this.KeyDown += CS_MainForm_KeyDown;
+        }
+
+        /// <summary>
+        /// 작업자변경 팝업 호출
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnPopupWorkerChange_Click(object sender, EventArgs e)
+        {
+            MMWorkeUserChange mMWorkeUserChange = new MMWorkeUserChange();
+            mMWorkeUserChange.ShowDialog();
         }
 
         /// <summary>

@@ -69,6 +69,7 @@
             this.btnAIJudgmentStatus = new System.Windows.Forms.Button();
             this.btnAIJudgmentHistory = new System.Windows.Forms.Button();
             this.btnAIJubgmentInfo = new System.Windows.Forms.Button();
+            this.btnPopupWorkerChange = new System.Windows.Forms.Button();
             this.panelAIjudgmentInfo = new System.Windows.Forms.Panel();
             this.panelAIjudgmentHistory = new System.Windows.Forms.Panel();
             this.panelUserManagement = new System.Windows.Forms.Panel();
@@ -96,15 +97,15 @@
             // 
             this.lblTitle.Margin = new System.Windows.Forms.Padding(2);
             this.lblTitle.Padding = new System.Windows.Forms.Padding(2);
-            this.lblTitle.Size = new System.Drawing.Size(1077, 30);
+            this.lblTitle.Size = new System.Drawing.Size(1246, 30);
             // 
             // lblFooter
             // 
-            this.lblFooter.Size = new System.Drawing.Size(1077, 30);
+            this.lblFooter.Size = new System.Drawing.Size(1246, 30);
             // 
             // panelLogo_MICube
             // 
-            this.panelLogo_MICube.Location = new System.Drawing.Point(913, 0);
+            this.panelLogo_MICube.Location = new System.Drawing.Point(1082, 0);
             // 
             // p_Report
             // 
@@ -114,7 +115,7 @@
             this.p_Report.Location = new System.Drawing.Point(0, 75);
             this.p_Report.Margin = new System.Windows.Forms.Padding(2);
             this.p_Report.Name = "p_Report";
-            this.p_Report.Size = new System.Drawing.Size(1077, 529);
+            this.p_Report.Size = new System.Drawing.Size(1246, 529);
             this.p_Report.TabIndex = 31;
             // 
             // tableLayoutPanel3
@@ -362,7 +363,7 @@
             this.panelSetting.Location = new System.Drawing.Point(0, 75);
             this.panelSetting.Margin = new System.Windows.Forms.Padding(2);
             this.panelSetting.Name = "panelSetting";
-            this.panelSetting.Size = new System.Drawing.Size(1077, 645);
+            this.panelSetting.Size = new System.Drawing.Size(1246, 645);
             this.panelSetting.TabIndex = 31;
             // 
             // btnReport
@@ -481,7 +482,7 @@
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.RowCount = 1;
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(1077, 40);
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(1246, 40);
             this.tableLayoutPanel6.TabIndex = 38;
             // 
             // flowLayoutPanel3
@@ -496,11 +497,12 @@
             this.flowLayoutPanel3.Controls.Add(this.btnAIJudgmentStatus);
             this.flowLayoutPanel3.Controls.Add(this.btnAIJudgmentHistory);
             this.flowLayoutPanel3.Controls.Add(this.btnAIJubgmentInfo);
+            this.flowLayoutPanel3.Controls.Add(this.btnPopupWorkerChange);
             this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel3.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel3.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-            this.flowLayoutPanel3.Size = new System.Drawing.Size(1077, 40);
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(1246, 40);
             this.flowLayoutPanel3.TabIndex = 1;
             // 
             // btnXrayDecipher
@@ -705,6 +707,26 @@
             this.btnAIJubgmentInfo.UseVisualStyleBackColor = false;
             this.btnAIJubgmentInfo.Visible = false;
             // 
+            // btnPopupWorkerChange
+            // 
+            this.btnPopupWorkerChange.BackColor = System.Drawing.Color.Transparent;
+            this.btnPopupWorkerChange.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnPopupWorkerChange.FlatAppearance.BorderColor = System.Drawing.Color.LightSlateGray;
+            this.btnPopupWorkerChange.FlatAppearance.BorderSize = 0;
+            this.btnPopupWorkerChange.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
+            this.btnPopupWorkerChange.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro;
+            this.btnPopupWorkerChange.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPopupWorkerChange.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btnPopupWorkerChange.ForeColor = System.Drawing.SystemColors.Window;
+            this.btnPopupWorkerChange.Image = ((System.Drawing.Image)(resources.GetObject("btnPopupWorkerChange.Image")));
+            this.btnPopupWorkerChange.Location = new System.Drawing.Point(983, 2);
+            this.btnPopupWorkerChange.Margin = new System.Windows.Forms.Padding(2);
+            this.btnPopupWorkerChange.Name = "btnPopupWorkerChange";
+            this.btnPopupWorkerChange.Size = new System.Drawing.Size(92, 33);
+            this.btnPopupWorkerChange.TabIndex = 48;
+            this.btnPopupWorkerChange.Text = "작업자변경";
+            this.btnPopupWorkerChange.UseVisualStyleBackColor = false;
+            // 
             // panelAIjudgmentInfo
             // 
             this.panelAIjudgmentInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -713,7 +735,7 @@
             this.panelAIjudgmentInfo.Location = new System.Drawing.Point(0, 75);
             this.panelAIjudgmentInfo.Margin = new System.Windows.Forms.Padding(2);
             this.panelAIjudgmentInfo.Name = "panelAIjudgmentInfo";
-            this.panelAIjudgmentInfo.Size = new System.Drawing.Size(1077, 645);
+            this.panelAIjudgmentInfo.Size = new System.Drawing.Size(1246, 645);
             this.panelAIjudgmentInfo.TabIndex = 39;
             // 
             // panelAIjudgmentHistory
@@ -724,7 +746,7 @@
             this.panelAIjudgmentHistory.Location = new System.Drawing.Point(0, 75);
             this.panelAIjudgmentHistory.Margin = new System.Windows.Forms.Padding(2);
             this.panelAIjudgmentHistory.Name = "panelAIjudgmentHistory";
-            this.panelAIjudgmentHistory.Size = new System.Drawing.Size(1077, 645);
+            this.panelAIjudgmentHistory.Size = new System.Drawing.Size(1246, 645);
             this.panelAIjudgmentHistory.TabIndex = 40;
             // 
             // panelUserManagement
@@ -735,7 +757,7 @@
             this.panelUserManagement.Location = new System.Drawing.Point(0, 75);
             this.panelUserManagement.Margin = new System.Windows.Forms.Padding(2);
             this.panelUserManagement.Name = "panelUserManagement";
-            this.panelUserManagement.Size = new System.Drawing.Size(1077, 645);
+            this.panelUserManagement.Size = new System.Drawing.Size(1246, 645);
             this.panelUserManagement.TabIndex = 42;
             // 
             // panelDefectCodeManagement
@@ -746,7 +768,7 @@
             this.panelDefectCodeManagement.Location = new System.Drawing.Point(0, 75);
             this.panelDefectCodeManagement.Margin = new System.Windows.Forms.Padding(2);
             this.panelDefectCodeManagement.Name = "panelDefectCodeManagement";
-            this.panelDefectCodeManagement.Size = new System.Drawing.Size(1077, 645);
+            this.panelDefectCodeManagement.Size = new System.Drawing.Size(1246, 645);
             this.panelDefectCodeManagement.TabIndex = 43;
             // 
             // panelProductManagement
@@ -757,7 +779,7 @@
             this.panelProductManagement.Location = new System.Drawing.Point(0, 75);
             this.panelProductManagement.Margin = new System.Windows.Forms.Padding(2);
             this.panelProductManagement.Name = "panelProductManagement";
-            this.panelProductManagement.Size = new System.Drawing.Size(1077, 645);
+            this.panelProductManagement.Size = new System.Drawing.Size(1246, 645);
             this.panelProductManagement.TabIndex = 44;
             // 
             // panelRegWorkorder
@@ -768,7 +790,7 @@
             this.panelRegWorkorder.Location = new System.Drawing.Point(0, 75);
             this.panelRegWorkorder.Margin = new System.Windows.Forms.Padding(2);
             this.panelRegWorkorder.Name = "panelRegWorkorder";
-            this.panelRegWorkorder.Size = new System.Drawing.Size(1077, 645);
+            this.panelRegWorkorder.Size = new System.Drawing.Size(1246, 645);
             this.panelRegWorkorder.TabIndex = 45;
             // 
             // panel1
@@ -791,7 +813,7 @@
             this.panelXrayDecipher.Location = new System.Drawing.Point(0, 75);
             this.panelXrayDecipher.Margin = new System.Windows.Forms.Padding(2);
             this.panelXrayDecipher.Name = "panelXrayDecipher";
-            this.panelXrayDecipher.Size = new System.Drawing.Size(1077, 645);
+            this.panelXrayDecipher.Size = new System.Drawing.Size(1246, 645);
             this.panelXrayDecipher.TabIndex = 46;
             // 
             // panelSearchWorkorder
@@ -802,7 +824,7 @@
             this.panelSearchWorkorder.Location = new System.Drawing.Point(0, 75);
             this.panelSearchWorkorder.Margin = new System.Windows.Forms.Padding(2);
             this.panelSearchWorkorder.Name = "panelSearchWorkorder";
-            this.panelSearchWorkorder.Size = new System.Drawing.Size(1077, 645);
+            this.panelSearchWorkorder.Size = new System.Drawing.Size(1246, 645);
             this.panelSearchWorkorder.TabIndex = 47;
             // 
             // panelAIjudgmentStatus
@@ -813,14 +835,14 @@
             this.panelAIjudgmentStatus.Location = new System.Drawing.Point(0, 75);
             this.panelAIjudgmentStatus.Margin = new System.Windows.Forms.Padding(2);
             this.panelAIjudgmentStatus.Name = "panelAIjudgmentStatus";
-            this.panelAIjudgmentStatus.Size = new System.Drawing.Size(1077, 645);
+            this.panelAIjudgmentStatus.Size = new System.Drawing.Size(1246, 645);
             this.panelAIjudgmentStatus.TabIndex = 48;
             // 
             // CS_MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1077, 752);
+            this.ClientSize = new System.Drawing.Size(1246, 752);
             this.Controls.Add(this.panelXrayDecipher);
             this.Controls.Add(this.tableLayoutPanel6);
             this.Controls.Add(this.p_Report);
@@ -913,5 +935,6 @@
         private System.Windows.Forms.Panel panelSearchWorkorder;
         public System.Windows.Forms.Button btnAIJudgmentStatus;
         private System.Windows.Forms.Panel panelAIjudgmentStatus;
+        public System.Windows.Forms.Button btnPopupWorkerChange;
     }
 }
