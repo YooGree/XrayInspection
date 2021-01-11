@@ -31,8 +31,8 @@ namespace XrayInspection.UserControls
         Socket _mainSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         DBManager _dbManager = new DBManager(); // XRAY_DB 연결객체
         AIDBManager _aiDbManager = new AIDBManager(); // AI_DB 연결객체
-        bool _deleteFlag = true;        
         Timer _searchTimer = new Timer();
+        bool _deleteFlag;
         string _lotState; // 현재 LOT상태
         string _originalLotId; // 최초검색 LOT ID
         string _workorderNumber; // 현재 WorkOrder번호
@@ -495,7 +495,7 @@ namespace XrayInspection.UserControls
             }
             catch (Exception ex)
             {
-                Console.WriteLine("검사현황 조회실패!");
+                Console.WriteLine(ex.Message);
             }
         }
 
@@ -600,7 +600,7 @@ namespace XrayInspection.UserControls
             }
             catch (Exception ex)
             {
-                Console.WriteLine("검사자정보 조회실패!");
+                Console.WriteLine(ex.Message);
             }
         }
 
@@ -646,7 +646,7 @@ namespace XrayInspection.UserControls
             }
             catch (Exception ex)
             {
-                Console.WriteLine("AI 판독정보 조회실패!");
+                Console.WriteLine(ex.Message);
             }
         }
 
