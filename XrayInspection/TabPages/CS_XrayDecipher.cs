@@ -115,20 +115,32 @@ namespace XrayInspection.UserControls
                 return;
             }
 
-            if (MsgBoxHelper.Show("판정완료 하시겠습니까?", MessageBoxButtons.OKCancel) == DialogResult.OK)
-            {
-                // 판정결과 판단하여 동영상 OK 혹은 NG 폴더로 분기
-                VideoMoveDirectory();
+            // 판정결과 판단하여 동영상 OK 혹은 NG 폴더로 분기
+            VideoMoveDirectory();
 
-                // 검사계획/진행현황 변경
-                UpdateInspectPlan();
+            // 검사계획/진행현황 변경
+            UpdateInspectPlan();
 
-                // AI판정결과 저장 및 MSAccess DB 접근 
-                UpdateAIJudgmentResult();
+            // AI판정결과 저장 및 MSAccess DB 접근 
+            UpdateAIJudgmentResult();
 
-                // 데이터 재바인딩
-                Rebinding();
-            }
+            // 데이터 재바인딩
+            Rebinding();
+
+            //if (MsgBoxHelper.Show("판정완료 하시겠습니까?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            //{
+            //    // 판정결과 판단하여 동영상 OK 혹은 NG 폴더로 분기
+            //    VideoMoveDirectory();
+
+            //    // 검사계획/진행현황 변경
+            //    UpdateInspectPlan();
+
+            //    // AI판정결과 저장 및 MSAccess DB 접근 
+            //    UpdateAIJudgmentResult();
+
+            //    // 데이터 재바인딩
+            //    Rebinding();
+            //}
         }
 
         /// <summary>
@@ -188,15 +200,15 @@ namespace XrayInspection.UserControls
                             if (commonPopup._returnCodeValue == "0")
                             {
                                 // 항목
-                                txtDetailClass.Tag = "None";
+                                txtDetailClass.Tag = "";
                                 txtDetailClass.Text = "";
                                 btnDetailClass.Enabled = false;
                                 // 세부항목
-                                txtDetailCode.Tag = "None";
+                                txtDetailCode.Tag = "";
                                 txtDetailCode.Text = "";
                                 btnDetailCode.Enabled = false;
                                 // 부위
-                                txtDetailPart.Tag = "None";
+                                txtDetailPart.Tag = "";
                                 txtDetailPart.Text = "";
                                 btnDetailPart.Enabled = false;
                                 // 위치
@@ -214,11 +226,11 @@ namespace XrayInspection.UserControls
 
                             if (txtJudgmentResult.Tag.ToString() != commonPopup._returnCodeValue)
                             {
-                                txtDetailClass.Tag = "None";
+                                txtDetailClass.Tag = "";
                                 txtDetailClass.Text = "";
-                                txtDetailCode.Tag = "None";
+                                txtDetailCode.Tag = "";
                                 txtDetailCode.Text = "";
-                                txtDetailPart.Tag = "None";
+                                txtDetailPart.Tag = "";
                                 txtDetailPart.Text = "";
                             }
 
@@ -241,7 +253,7 @@ namespace XrayInspection.UserControls
                         {
                             if (txtDetailClass.Tag.ToString() != commonPopup._returnCodeValue)
                             {
-                                txtDetailCode.Tag = "None";
+                                txtDetailCode.Tag = "";
                                 txtDetailCode.Text = "";
                             }
                             txtDetailClass.Tag = commonPopup._returnCodeValue;
@@ -1123,8 +1135,8 @@ namespace XrayInspection.UserControls
                     {
                         string pCnt = Regex.Replace(txtJudgmentResult.Tag.ToString(), @"[^0-9]", "");
                         string iCnt = Regex.Replace(txtDetailClass.Tag.ToString(), @"[^0-9]", "");
-                        string passCntColumn = txtJudgmentResult.Tag.ToString().Equals("None") ? "F합격0" : "F합격" + pCnt;
-                        string itemCntColumn = txtDetailClass.Tag.ToString().Equals("None") ? "F항목0" : "F항목" + iCnt;
+                        string passCntColumn = txtJudgmentResult.Tag.ToString().Equals("") ? "F합격0" : "F합격" + pCnt;
+                        string itemCntColumn = txtDetailClass.Tag.ToString().Equals("") ? "F항목0" : "F항목" + iCnt;
                         string aiResult = txtAiResult.Text == "OK" ? "합격" : "부적합";
                         string filePath = @".\DBMOVIE_J\" + txtLotNo.Text + ".mp4";
 
@@ -1142,7 +1154,7 @@ namespace XrayInspection.UserControls
                         comm.Parameters.AddWithValue("@FLOTNO", txtLotNo.Text);
                         comm.Parameters.AddWithValue("@F판독결과", Convert.ToInt32(txtJudgmentResult.Tag));
                         comm.Parameters.AddWithValue(passCntColumn, 1);
-                        comm.Parameters.AddWithValue(itemCntColumn, txtDetailClass.Tag.ToString().Equals("None") ? 0 : 1);
+                        comm.Parameters.AddWithValue(itemCntColumn, txtDetailClass.Tag.ToString().Equals("") ? 0 : 1);
                         comm.Parameters.AddWithValue("@F확인사항_항목", txtDetailClass.Text);
                         comm.Parameters.AddWithValue("@F확인사항_재질", txtDetailPart.Text);
                         comm.Parameters.AddWithValue("@F확인사항_위치", txtLocation.Text);
@@ -1269,8 +1281,8 @@ namespace XrayInspection.UserControls
                     {
                         string pCnt = Regex.Replace(txtJudgmentResult.Tag.ToString(), @"[^0-9]", "");
                         string iCnt = Regex.Replace(txtDetailClass.Tag.ToString(), @"[^0-9]", "");
-                        string passCntColumn = txtJudgmentResult.Tag.ToString().Equals("None") ? "F합격0" : "F합격" + pCnt;
-                        string itemCntColumn = txtDetailClass.Tag.ToString().Equals("None") ? "F항목0" : "F항목" + iCnt;
+                        string passCntColumn = txtJudgmentResult.Tag.ToString().Equals("") ? "F합격0" : "F합격" + pCnt;
+                        string itemCntColumn = txtDetailClass.Tag.ToString().Equals("") ? "F항목0" : "F항목" + iCnt;
                         string aiResult = txtAiResult.Text == "OK" ? "합격" : "부적합";
                         string filePath = @".\DBMOVIE_J\" + txtLotNo.Text + ".mp4"; 
 
@@ -1288,7 +1300,7 @@ namespace XrayInspection.UserControls
                         comm.Parameters.AddWithValue("@FLOTNO", txtLotNo.Text);
                         comm.Parameters.AddWithValue("@F판독결과", Convert.ToInt32(txtJudgmentResult.Tag));
                         comm.Parameters.AddWithValue(passCntColumn, 1);
-                        comm.Parameters.AddWithValue(itemCntColumn, txtDetailClass.Tag.ToString().Equals("None") ? 0 : 1);
+                        comm.Parameters.AddWithValue(itemCntColumn, txtDetailClass.Tag.ToString().Equals("") ? 0 : 1);
                         comm.Parameters.AddWithValue("@F확인사항_항목", txtDetailClass.Text);
                         comm.Parameters.AddWithValue("@F확인사항_재질", txtDetailPart.Text);
                         comm.Parameters.AddWithValue("@F확인사항_위치", txtLocation.Text);

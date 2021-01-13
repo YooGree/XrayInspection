@@ -29,8 +29,8 @@ namespace XrayInspection.UserControls
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle47 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle48 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnRefresh = new System.Windows.Forms.Button();
@@ -199,10 +199,10 @@ namespace XrayInspection.UserControls
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRefresh.Font = new System.Drawing.Font("굴림", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btnRefresh.ForeColor = System.Drawing.Color.White;
-            this.btnRefresh.Location = new System.Drawing.Point(0, 0);
+            this.btnRefresh.Location = new System.Drawing.Point(0, 8);
             this.btnRefresh.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(240, 55);
+            this.btnRefresh.Size = new System.Drawing.Size(240, 45);
             this.btnRefresh.TabIndex = 8;
             this.btnRefresh.Text = "새로고침(F5)";
             this.btnRefresh.UseVisualStyleBackColor = false;
@@ -1415,10 +1415,10 @@ namespace XrayInspection.UserControls
             this.btnJudgmentComplete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnJudgmentComplete.Font = new System.Drawing.Font("굴림", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btnJudgmentComplete.ForeColor = System.Drawing.Color.White;
-            this.btnJudgmentComplete.Location = new System.Drawing.Point(0, 210);
+            this.btnJudgmentComplete.Location = new System.Drawing.Point(0, 218);
             this.btnJudgmentComplete.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnJudgmentComplete.Name = "btnJudgmentComplete";
-            this.btnJudgmentComplete.Size = new System.Drawing.Size(240, 55);
+            this.btnJudgmentComplete.Size = new System.Drawing.Size(240, 45);
             this.btnJudgmentComplete.TabIndex = 7;
             this.btnJudgmentComplete.Text = "판정완료(F10)";
             this.btnJudgmentComplete.UseVisualStyleBackColor = false;
@@ -1430,10 +1430,10 @@ namespace XrayInspection.UserControls
             this.btnEnd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEnd.Font = new System.Drawing.Font("굴림", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btnEnd.ForeColor = System.Drawing.Color.White;
-            this.btnEnd.Location = new System.Drawing.Point(0, 140);
+            this.btnEnd.Location = new System.Drawing.Point(0, 148);
             this.btnEnd.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnEnd.Name = "btnEnd";
-            this.btnEnd.Size = new System.Drawing.Size(240, 55);
+            this.btnEnd.Size = new System.Drawing.Size(240, 45);
             this.btnEnd.TabIndex = 4;
             this.btnEnd.Text = "녹화종료(F2)";
             this.btnEnd.UseVisualStyleBackColor = false;
@@ -1444,10 +1444,10 @@ namespace XrayInspection.UserControls
             this.btnStart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStart.Font = new System.Drawing.Font("굴림", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btnStart.ForeColor = System.Drawing.Color.White;
-            this.btnStart.Location = new System.Drawing.Point(0, 70);
+            this.btnStart.Location = new System.Drawing.Point(0, 78);
             this.btnStart.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(240, 55);
+            this.btnStart.Size = new System.Drawing.Size(240, 45);
             this.btnStart.TabIndex = 3;
             this.btnStart.Text = "녹화시작(F1)";
             this.btnStart.UseVisualStyleBackColor = false;
@@ -1469,23 +1469,23 @@ namespace XrayInspection.UserControls
             // 
             // grdAIDecipherStatus
             // 
-            dataGridViewCellStyle47.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle47.BackColor = System.Drawing.SystemColors.ControlDark;
-            dataGridViewCellStyle47.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle47.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle47.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle47.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle47.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grdAIDecipherStatus.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle47;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grdAIDecipherStatus.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.grdAIDecipherStatus.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle48.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle48.BackColor = System.Drawing.Color.LightGray;
-            dataGridViewCellStyle48.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle48.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle48.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle48.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle48.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.grdAIDecipherStatus.DefaultCellStyle = dataGridViewCellStyle48;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grdAIDecipherStatus.DefaultCellStyle = dataGridViewCellStyle6;
             this.grdAIDecipherStatus.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grdAIDecipherStatus.EnableHeadersVisualStyles = false;
             this.grdAIDecipherStatus.Location = new System.Drawing.Point(3, 26);
