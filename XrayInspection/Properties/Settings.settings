@@ -9,7 +9,7 @@
       <Value Profile="(Default)">SITE01</Value>
     </Setting>
     <Setting Name="TargetIP" Type="System.String" Scope="User">
-      <Value Profile="(Default)">192.168.25.113</Value>
+      <Value Profile="(Default)">192.168.242.219</Value>
     </Setting>
     <Setting Name="TargetPort" Type="System.String" Scope="User">
       <Value Profile="(Default)">1500</Value>

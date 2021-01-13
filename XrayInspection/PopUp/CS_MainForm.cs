@@ -220,10 +220,11 @@ namespace XrayInspection.PopUp
         /// <param name="e"></param>
         private void CS_MainForm_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.F5)
+            // Xray 판정
+            if (btnXrayDecipher.Font.Bold)
             {
-                // Xray 판정
-                if (btnXrayDecipher.Font.Bold)
+                // F5일때 새로고침
+                if (e.KeyCode == Keys.F5)
                 {
                     foreach (Control control in panelXrayDecipher.Controls)
                     {
@@ -231,8 +232,39 @@ namespace XrayInspection.PopUp
                         screen.Rebinding();
                     }
                 }
+                // F1일때 녹화시작
+                else if (e.KeyCode == Keys.F1)
+                {
+                    foreach (Control control in panelXrayDecipher.Controls)
+                    {
+                        CS_XrayDecipher screen = (CS_XrayDecipher)control;
+                        screen.btnStart.PerformClick();
+                    }
+                }
+                // F2일때 녹화종료
+                else if (e.KeyCode == Keys.F2)
+                {
+                    foreach (Control control in panelXrayDecipher.Controls)
+                    {
+                        CS_XrayDecipher screen = (CS_XrayDecipher)control;
+                        screen.btnEnd.PerformClick();
+                    }
+                }
+                // F10일때 판정완료
+                else if (e.KeyCode == Keys.F10)
+                {
+                    foreach (Control control in panelXrayDecipher.Controls)
+                    {
+                        CS_XrayDecipher screen = (CS_XrayDecipher)control;
+                        screen.btnJudgmentComplete.PerformClick();
+                    }
+                }
+            }
+            // 나머지 화면에서 F5 눌렀을때 조회
+            else if (e.KeyCode == Keys.F5)
+            {
                 // 사용자등록
-                else if (btnUserManagement.Font.Bold)
+                if (btnUserManagement.Font.Bold)
                 {
                     foreach (Control control in panelUserManagement.Controls)
                     {

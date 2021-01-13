@@ -120,8 +120,8 @@ namespace XrayInspection.UserControls
                 // 판정결과 판단하여 동영상 OK 혹은 NG 폴더로 분기
                 VideoMoveDirectory();
 
-                // LOT크기 변경
-                UpdateLotSize();
+                // 검사계획/진행현황 변경
+                UpdateInspectPlan();
 
                 // AI판정결과 저장 및 MSAccess DB 접근 
                 UpdateAIJudgmentResult();
@@ -138,19 +138,7 @@ namespace XrayInspection.UserControls
         /// <param name="e"></param>
         private void BtnEnd_Click(object sender, EventArgs e)
         {
-            // LOT ID 수정가능
-            txtLotNo.ReadOnly = false;
-
-            // 녹화서버에 메세지 전송
-            string sendData = "END " + txtLotNo.Text + "," + txtProductName.Text;
-            OnSendData(sendData);
-
-            // 버튼활성화, 비활성화
-            btnStart.Enabled = true;
-            btnEnd.Enabled = false;
-
-            // 타이머 중지
-            _searchTimer.Stop();
+            EndRecording();
         }
 
         /// <summary>
@@ -158,53 +146,18 @@ namespace XrayInspection.UserControls
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void BtnStart_Click(object sender, EventArgs e)
+        public void BtnStart_Click(object sender, EventArgs e)
         {
-            if (MsgBoxHelper.Show("판독을 시작하시겠습니까?", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            if (grdAIDecipherStatus.Rows.Count == 0)
             {
-                _deleteFlag = true;
-
-                // 최초조회 LOT ID랑 현재 TextBox의 LOT ID랑 다른지 Check
-                if (!_originalLotId.Trim().Equals(txtLotNo.Text.Trim()))
+                StartRecording();
+            }
+            else
+            {
+                if (MsgBoxHelper.Show("이미 진행한 녹화가 있습니다. 다시 녹화를 시작하시겠습니까?", MessageBoxButtons.OKCancel) == DialogResult.OK)
                 {
-                    // 현재 MC_Lotinspect 테이블에 중복되는 LOT ID가 있는지 Check
-                    if (!IsOverlapLotId(txtLotNo.Text.Trim()))
-                    {
-                        // MC_LotInspect의 LOT ID 수정
-                        UpdateLotNo();
-                    }
+                    StartRecording();
                 }
-
-                // LOT ID 수정불가능
-                txtLotNo.ReadOnly = true;
-
-                // 시작시간이 없다면 화면에서 시작버튼을 누른 시간을 시작시간으로 세팅
-                if (_startTime.Equals(DBNull.Value))
-                {
-                    _startTime = DateTime.Now.ToString("yyyyMMddHHmmss");
-                }
-                else
-                {
-                    if (_startTime is DateTime)
-                        _startTime = Convert.ToDateTime(_startTime).ToString("yyyyMMddHHmmss");
-                }
-
-                // 녹화서버에 메세지 전송
-                string sendData = "START " + txtLotNo.Text + "," + txtProductName.Text;
-                OnSendData(sendData);
-
-                // 버튼활성화, 비활성화
-                btnStart.Enabled = false;
-                btnEnd.Enabled = true;
-
-                // 타이머 시작
-                _searchTimer.Start();
-
-                // LOT크기 변경
-                UpdateLotSize();
-
-                // LOT상태 RUN으로 변경 및 시작시간 변경
-                UpdateLotState();
             }
         }
 
@@ -222,7 +175,7 @@ namespace XrayInspection.UserControls
             {
                 // 판정결과(불량코드 대분류)
                 case "btnJudgmentResult":
-                    commonPopup = new CS_CommonPopup("USP_SELECT_XRAYDECIPHER_POPUP_AIJUDGMENTRESULT", "TOP");
+                    commonPopup = new CS_CommonPopup("USP_SELECT_XRAYDECIPHER_POPUP_AIJUDGMENTRESULT", "TOP", "판정결과");
                     commonPopup.WindowState = FormWindowState.Normal;
                     commonPopup.StartPosition = FormStartPosition.CenterScreen;
                     commonPopup.Show();
@@ -277,7 +230,7 @@ namespace XrayInspection.UserControls
 
                 // 항목(불량코드 중분류)
                 case "btnDetailClass":
-                    commonPopup = new CS_CommonPopup("USP_SELECT_XRAYDECIPHER_POPUP_AIJUDGMENTRESULT", "MIDDLE", "4");
+                    commonPopup = new CS_CommonPopup("USP_SELECT_XRAYDECIPHER_POPUP_AIJUDGMENTRESULT", "MIDDLE", "항목", "4");
                     commonPopup.WindowState = FormWindowState.Normal;
                     commonPopup.StartPosition = FormStartPosition.CenterScreen;
                     commonPopup.Show();
@@ -299,7 +252,7 @@ namespace XrayInspection.UserControls
 
                 // 세부항목(불량코드 소분류)
                 case "btnDetailCode":
-                    commonPopup = new CS_CommonPopup("USP_SELECT_XRAYDECIPHER_POPUP_AIJUDGMENTRESULT", "DETAIL" , txtDetailClass.Tag.ToString());
+                    commonPopup = new CS_CommonPopup("USP_SELECT_XRAYDECIPHER_POPUP_AIJUDGMENTRESULT", "DETAIL", "세부항목", txtDetailClass.Tag.ToString());
                     commonPopup.WindowState = FormWindowState.Normal;
                     commonPopup.StartPosition = FormStartPosition.CenterScreen;
                     commonPopup.Show();
@@ -316,7 +269,7 @@ namespace XrayInspection.UserControls
 
                 // 부위(불량코드 중분류)
                 case "btnDetailPart":
-                    commonPopup = new CS_CommonPopup("USP_SELECT_XRAYDECIPHER_POPUP_AIJUDGMENTRESULT", "MIDDLE", "5");
+                    commonPopup = new CS_CommonPopup("USP_SELECT_XRAYDECIPHER_POPUP_AIJUDGMENTRESULT", "MIDDLE", "부위", "5");
                     commonPopup.WindowState = FormWindowState.Normal;
                     commonPopup.StartPosition = FormStartPosition.CenterScreen;
                     commonPopup.Show();
@@ -514,10 +467,32 @@ namespace XrayInspection.UserControls
                         txtLotNo.Text = ds.Tables[0].Rows[0]["LOTID"].ToString();
 
                         // 검사계획/진행현황
-                        txtLotSize.Text = ds.Tables[0].Rows[0]["PRODUCTIONQTY"].ToString();
-                        txtInspectionStd.Text = ds.Tables[0].Rows[0]["INSPECTRATE"].ToString();
-                        txtPlanPageCount.Text = ds.Tables[0].Rows[0]["INSPECTQTY"].ToString();
-                        txtProgressSequence.Text = ds.Tables[0].Rows[0]["INSPECTSEQUENCE"].ToString();
+                        List<SqlParameter> parameters2 = new List<SqlParameter>();
+                        parameters2.Add(new SqlParameter("@SITE", Properties.Settings.Default.Site)); // Site
+                        parameters2.Add(new SqlParameter("@PRODUCTCODE", txtProductCode.Text)); // 도번
+                        DataSet ds2 = _dbManager.CallSelectProcedure_ds("USP_SELECT_XRAYDECIPHER_SHIFTWORKINFO", parameters2);
+
+                        txtLotSize.Text = "";
+                        txtInspectionStd.Text = "";
+                        txtPlanPageCount.Text = "";
+                        txtProgressSequence.Text = "1";
+
+                        if (ds2.Tables.Count > 0)
+                        {
+                            if (ds2.Tables[0].Rows.Count > 0)
+                            {
+                                txtLotSize.Text = ds2.Tables[0].Rows[0]["PRODUCTIONQTY"].ToString();
+                                txtInspectionStd.Text = ds2.Tables[0].Rows[0]["INSPECTRATE"].ToString();
+                                txtPlanPageCount.Text = ds2.Tables[0].Rows[0]["INSPECTQTY"].ToString();
+                                txtProgressSequence.Text = ds2.Tables[0].Rows[0]["INSPECTSEQUENCE"].ToString();
+                            }
+                        }
+
+                        // 검사계획/진행현황
+                        //txtLotSize.Text = ds.Tables[0].Rows[0]["PRODUCTIONQTY"].ToString();
+                        //txtInspectionStd.Text = ds.Tables[0].Rows[0]["INSPECTRATE"].ToString();
+                        //txtPlanPageCount.Text = ds.Tables[0].Rows[0]["INSPECTQTY"].ToString();
+                        //txtProgressSequence.Text = ds.Tables[0].Rows[0]["INSPECTSEQUENCE"].ToString();
 
                         _lotState = ds.Tables[0].Rows[0]["LOTSTATE"].ToString(); // 현재 LOT상태
                         _originalLotId = ds.Tables[0].Rows[0]["LOTID"].ToString(); // 최초 검색 LOT ID
@@ -530,6 +505,16 @@ namespace XrayInspection.UserControls
                             _startTime = Convert.ToDateTime(ds.Tables[0].Rows[0]["STARTTIME"]).ToString("yyyyMMddHHmmss"); // 판독시작시간
                         else
                             _startTime = DBNull.Value;
+                    }
+                    else
+                    {
+                        txtCustomer.Text = "";
+                        txtUsedPlace.Text = "";
+                        txtProductName.Text = "";
+                        txtProductCode.Text = "";
+                        txtUser.Text = "";
+                        txtUser.Tag = "";
+                        txtLotNo.Text = "";
                     }
                 }
             }
@@ -560,7 +545,9 @@ namespace XrayInspection.UserControls
                     comboInspector.SelectedIndex = 0;
                     comboInspector.DropDownStyle = ComboBoxStyle.DropDownList;
                     // 2021-01-05 유태근 - 검사자의 근무조는 작업계획등록에서 바꾸지 않는 한 판정화면에서는 고정
-                    comboInspector.Tag = ds.Tables[0].AsEnumerable().Where(r => r["USERID"].Equals(comboInspector.SelectedValue)).CopyToDataTable().Rows[0]["SHIFTID"].ToString();
+                    string shiftiD = ds.Tables[0].AsEnumerable().Where(r => r["USERID"].Equals(comboInspector.SelectedValue)).CopyToDataTable().Rows[0]["SHIFTID"].ToString();
+                    comboInspector.Tag = shiftiD;
+                    txtShift.Text = shiftiD;
 
                     //comboInspector.SelectedValueChanged += (s, e) =>
                     //{
@@ -654,6 +641,8 @@ namespace XrayInspection.UserControls
             txtJudgmentResult.Text = "";
             txtDetailClass.Tag = "";
             txtDetailClass.Text = "";
+            txtDetailCode.Tag = "";
+            txtDetailCode.Text = "";
             txtDetailPart.Tag = "";
             txtDetailPart.Text = "";
             txtLocation.Text = "";
@@ -712,28 +701,56 @@ namespace XrayInspection.UserControls
         }
 
         /// <summary>
-        /// LOT크기 사용자가 입력한 크기로 변경
+        /// 검사계획/진행현황 변경
         /// </summary>
-        private void UpdateLotSize()
+        private void UpdateInspectPlan()
         {
             try
             {
                 Dictionary<string, object> parameters = new Dictionary<string, object>();
+                parameters.Add("@INSERFLAG", txtProgressSequence.Text == "1" ? "Y" : "N");
                 parameters.Add("@SITE", Properties.Settings.Default.Site);
-                parameters.Add("@WORKORDERNO", _workorderNumber);
+                parameters.Add("@SHIFTID", comboInspector.Tag);
+                parameters.Add("@PRODUCTCODE", _productCode);
                 parameters.Add("@LOTSIZE", Convert.ToInt32(txtLotSize.Text));
+                parameters.Add("@INSPECTQTY", txtPlanPageCount.Text);
+                parameters.Add("@INSPECTRATE", Convert.ToInt32(txtInspectionStd.Text));
 
                 SqlParameter[] sqlParameters = _dbManager.GetSqlParameters(parameters);
 
-                int saveResult = _dbManager.CallNonSelectProcedure("USP_UPDATE_XRAYDECIPHER_LOTSIZE", sqlParameters);
-                if (saveResult > 0) Console.WriteLine("LOT크기 수정성공!");
-                else Console.WriteLine("LOT크기 수정실패!");
+                int saveResult = _dbManager.CallNonSelectProcedure("USP_UPSERT_XRAYDECIPHER_INSPECTPLAN", sqlParameters);
+                if (saveResult > 0) Console.WriteLine("검사계획 수정성공!");
+                else Console.WriteLine("검사계획 수정실패!");
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Lot Size 사용자가 입력한 크기로 변경
+        /// </summary>
+        //private void UpdateLotSize()
+        //{
+        //    try
+        //    {
+        //        Dictionary<string, object> parameters = new Dictionary<string, object>();
+        //        parameters.Add("@SITE", Properties.Settings.Default.Site);
+        //        parameters.Add("@WORKORDERNO", _workorderNumber);
+        //        parameters.Add("@LOTSIZE", Convert.ToInt32(txtLotSize.Text));
+
+        //        SqlParameter[] sqlParameters = _dbManager.GetSqlParameters(parameters);
+
+        //        int saveResult = _dbManager.CallNonSelectProcedure("USP_UPDATE_XRAYDECIPHER_LOTSIZE", sqlParameters);
+        //        if (saveResult > 0) Console.WriteLine("LOT크기 수정성공!");
+        //        else Console.WriteLine("LOT크기 수정실패!");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine(ex.Message);
+        //    }
+        //}
 
         /// <summary>
         /// 기존 LOTID 사용자가 입력한 LOTID로 변경
@@ -779,8 +796,6 @@ namespace XrayInspection.UserControls
                 parameters.Add("@INSPECTORID", comboInspector.SelectedValue);
                 parameters.Add("@INSPECTORNAME", comboInspector.Text);
                 parameters.Add("@SHIFTID", comboInspector.Tag);
-
-
                 parameters.Add("@JUDGMENTRESULTID", txtJudgmentResult.Tag);
                 parameters.Add("@JUDGMENTRESULTNAME", txtJudgmentResult.Text);
                 parameters.Add("@DETAILCLASSID", txtDetailClass.Tag);
@@ -789,30 +804,17 @@ namespace XrayInspection.UserControls
                 parameters.Add("@DETAILCODENAME", txtDetailCode.Text);
                 parameters.Add("@DETAILPARTID", txtDetailPart.Tag);
                 parameters.Add("@DETAILPARTNAME", txtDetailPart.Text);
-
-
-
                 parameters.Add("@LOCATION", txtLocation.Text);
                 parameters.Add("@AIRESULTCODE", "(TEST)CODE_OK");
-                parameters.Add("@AIRESULTCODENAME", "(TEST)CODENAME_OK");
-                
+                parameters.Add("@AIRESULTCODENAME", "(TEST)CODENAME_OK");            
 
                 SqlParameter[] sqlParameters = _dbManager.GetSqlParameters(parameters);
 
                 int saveResult = _dbManager.CallNonSelectProcedure("USP_UPDATE_XRAYDECIPHER_AIJUDGMENTRESULT", sqlParameters);
-                if (saveResult > 0)
-                {
-                    MsgBoxHelper.Show("해당 LOT에 대한 판정이 완료되었습니다.");
-                    this.Refresh();
-                }
-                else
-                {
-                    MsgBoxHelper.Error("Error");
-                }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                MsgBoxHelper.Error(ex.Message);
             }
         }
 
@@ -872,10 +874,77 @@ namespace XrayInspection.UserControls
             grdAIDecipherStatus.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomCenter;
             grdAIDecipherStatus.AllowUserToAddRows = false;
 
-            CommonFuction.SetDataGridViewColumnStyle(grdAIDecipherStatus, "Frame", "FRAMENO", "FRAMENO", typeof(int), 150, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdAIDecipherStatus, "AI판정", "AIRESULT", "AIRESULT", typeof(string), 150, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIDecipherStatus, "Frame", "FRAMENO", "FRAMENO", typeof(int), 120, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIDecipherStatus, "AI판정", "AIRESULT", "AIRESULT", typeof(string), 120, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdAIDecipherStatus, "유형", "TYPE", "TYPE", typeof(string), 150, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdAIDecipherStatus, "행변경타입", "ROWTYPE", "ROWTYPE", typeof(string), 100, false, false, DataGridViewContentAlignment.MiddleLeft, 10);
+        }
+
+        /// <summary>
+        /// 영상녹화시작 메서드
+        /// </summary>
+        private void StartRecording()
+        {
+            _deleteFlag = true;
+
+            // 최초조회 LOT ID랑 현재 TextBox의 LOT ID랑 다른지 Check
+            if (!_originalLotId.Trim().Equals(txtLotNo.Text.Trim()))
+            {
+                // 현재 MC_Lotinspect 테이블에 중복되는 LOT ID가 있는지 Check
+                if (!IsOverlapLotId(txtLotNo.Text.Trim()))
+                {
+                    // MC_LotInspect의 LOT ID 수정
+                    UpdateLotNo();
+                }
+            }
+
+            // LOT ID 수정불가능
+            txtLotNo.ReadOnly = true;
+
+            // 시작시간이 없다면 화면에서 시작버튼을 누른 시간을 시작시간으로 세팅
+            if (_startTime.Equals(DBNull.Value))
+            {
+                _startTime = DateTime.Now.ToString("yyyyMMddHHmmss");
+            }
+            else
+            {
+                if (_startTime is DateTime)
+                    _startTime = Convert.ToDateTime(_startTime).ToString("yyyyMMddHHmmss");
+            }
+
+            // 녹화서버에 메세지 전송
+            string sendData = "START " + txtLotNo.Text + "," + txtProductName.Text;
+            OnSendData(sendData);
+
+            // 버튼활성화, 비활성화
+            btnStart.Enabled = false;
+            btnEnd.Enabled = true;
+
+            // 타이머 시작
+            _searchTimer.Start();
+
+            // LOT상태 RUN으로 변경 및 시작시간 변경
+            UpdateLotState();
+        }
+
+        /// <summary>
+        /// 영상녹화종료 메서드
+        /// </summary>
+        private void EndRecording()
+        {
+            // LOT ID 수정가능
+            txtLotNo.ReadOnly = false;
+
+            // 녹화서버에 메세지 전송
+            string sendData = "END " + txtLotNo.Text + "," + txtProductName.Text;
+            OnSendData(sendData);
+
+            // 버튼활성화, 비활성화
+            btnStart.Enabled = true;
+            btnEnd.Enabled = false;
+
+            // 타이머 중지
+            _searchTimer.Stop();
         }
 
         /// <summary>

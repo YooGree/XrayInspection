@@ -41,11 +41,11 @@ namespace XrayInspection.PopUp
         /// <param name="procedure"></param>
         /// <param name="type"></param>
         /// <param name="parentCode"></param>
-        public CS_CommonPopup(string procedure, string type, string parentCode = "Root")
+        public CS_CommonPopup(string procedure, string type, string gridTitle = "리스트", string parentCode = "Root")
         {
             InitializeComponent();
             InitializeGrid();
-            InitializeControlSetting(procedure, type, parentCode);
+            InitializeControlSetting(procedure, type, gridTitle, parentCode);
             InitializeEvent();
         }
 
@@ -173,7 +173,7 @@ namespace XrayInspection.PopUp
         /// </summary>
         /// <param name="procedure"></param>
         /// <param name="type"></param>
-        private void InitializeControlSetting(string procedure, string type, string parentCode)
+        private void InitializeControlSetting(string procedure, string type, string gridTitle, string parentCode)
         {
             // Footer 안보이게 처리
             Footer.Visible = false;
@@ -189,19 +189,19 @@ namespace XrayInspection.PopUp
             switch (type)
             {
                 case "TOP":
-                    lblTitle.Text = "판독결과";
+                    lblTitle.Text = "선택팝업";
                     lblSearchLabel.Text = "불량코드/명";
-                    gbxMain.Text = "대분류";
+                    gbxMain.Text = gridTitle;
                     break;
                 case "MIDDLE":
-                    lblTitle.Text = "항목";
+                    lblTitle.Text = "선택팝업";
                     lblSearchLabel.Text = "불량코드/명";
-                    gbxMain.Text = "중분류";
+                    gbxMain.Text = gridTitle;
                     break;
                 case "DETAIL":
-                    lblTitle.Text = "부위";
+                    lblTitle.Text = "선택팝업";
                     lblSearchLabel.Text = "불량코드/명";
-                    gbxMain.Text = "소분류";
+                    gbxMain.Text = gridTitle;
                     break;
                 default:
                     break;
