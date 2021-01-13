@@ -232,8 +232,8 @@ namespace XrayInspection.PopUp
                         screen.Rebinding();
                     }
                 }
-                // F1일때 녹화시작
-                else if (e.KeyCode == Keys.F1)
+                // F2일때 녹화시작
+                else if (e.KeyCode == Keys.F2)
                 {
                     foreach (Control control in panelXrayDecipher.Controls)
                     {
@@ -241,8 +241,8 @@ namespace XrayInspection.PopUp
                         screen.btnStart.PerformClick();
                     }
                 }
-                // F2일때 녹화종료
-                else if (e.KeyCode == Keys.F2)
+                // F3일때 녹화종료
+                else if (e.KeyCode == Keys.F3)
                 {
                     foreach (Control control in panelXrayDecipher.Controls)
                     {

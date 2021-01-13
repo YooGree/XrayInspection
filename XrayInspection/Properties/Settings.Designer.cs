@@ -49,7 +49,7 @@ namespace XrayInspection.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("192.168.242.219")]
+        [global::System.Configuration.DefaultSettingValueAttribute("192.168.43.222")]
         public string TargetIP {
             get {
                 return ((string)(this["TargetIP"]));
@@ -121,8 +121,8 @@ namespace XrayInspection.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=D://05. 조선내화 프로젝트//02.Document//MSA" +
-            "ccess//XDB.mdb")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=D://05. 조선내화 프로젝트//02.Document//MSAc" +
+            "cess//XRAYDB1.mdb")]
         public string MSAccessPath {
             get {
                 return ((string)(this["MSAccessPath"]));

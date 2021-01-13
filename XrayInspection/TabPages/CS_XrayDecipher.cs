@@ -160,6 +160,14 @@ namespace XrayInspection.UserControls
         /// <param name="e"></param>
         public void BtnStart_Click(object sender, EventArgs e)
         {
+            // MC_LotInspect에 Ready인 데이터가 없다면 녹화시작 불가능
+            if (string.IsNullOrWhiteSpace(txtProductName.Text)
+                || string.IsNullOrWhiteSpace(txtLotNo.Text))
+            {
+                MsgBoxHelper.Show("현재 시작 가능한 LOT이 없습니다.");
+                return;
+            }
+
             if (grdAIDecipherStatus.Rows.Count == 0)
             {
                 StartRecording();
@@ -491,11 +499,11 @@ namespace XrayInspection.UserControls
 
                         if (ds2.Tables.Count > 0)
                         {
-                            if (ds2.Tables[0].Rows.Count > 0)
+                            if (ds2.Tables[0].Rows.Count > 0) 
                             {
-                                txtLotSize.Text = ds2.Tables[0].Rows[0]["PRODUCTIONQTY"].ToString();
-                                txtInspectionStd.Text = ds2.Tables[0].Rows[0]["INSPECTRATE"].ToString();
-                                txtPlanPageCount.Text = ds2.Tables[0].Rows[0]["INSPECTQTY"].ToString();
+                                txtLotSize.Text = ds2.Tables[0].Rows[0]["PRODUCTIONQTY"].ToString(); // LOT크기
+                                txtInspectionStd.Text = ds2.Tables[0].Rows[0]["INSPECTRATE"].ToString(); // 검사기준(%)
+                                txtPlanPageCount.Text = ds2.Tables[0].Rows[0]["INSPECTQTY"].ToString(); // 계획본수
                                 txtProgressSequence.Text = ds2.Tables[0].Rows[0]["INSPECTSEQUENCE"].ToString();
                             }
                         }
@@ -658,6 +666,7 @@ namespace XrayInspection.UserControls
             txtDetailPart.Tag = "";
             txtDetailPart.Text = "";
             txtLocation.Text = "";
+            txtComment.Text = "";
 
             // 검사계획/진행현황 조회(추가예정)
 
@@ -800,7 +809,7 @@ namespace XrayInspection.UserControls
             try
             {
                 // MSAccessDB에 데이터 저장
-                // InsertMSAccessDataByNonProduct();
+                InsertMSAccessDataByNonProduct();
 
                 Dictionary<string, object> parameters = new Dictionary<string, object>();
                 parameters.Add("@SITE", Properties.Settings.Default.Site);
@@ -817,6 +826,7 @@ namespace XrayInspection.UserControls
                 parameters.Add("@DETAILPARTID", txtDetailPart.Tag);
                 parameters.Add("@DETAILPARTNAME", txtDetailPart.Text);
                 parameters.Add("@LOCATION", txtLocation.Text);
+                parameters.Add("@COMMENT", txtComment.Text);
                 parameters.Add("@AIRESULTCODE", "(TEST)CODE_OK");
                 parameters.Add("@AIRESULTCODENAME", "(TEST)CODENAME_OK");            
 
@@ -1155,7 +1165,7 @@ namespace XrayInspection.UserControls
                         comm.Parameters.AddWithValue("@F판독결과", Convert.ToInt32(txtJudgmentResult.Tag));
                         comm.Parameters.AddWithValue(passCntColumn, 1);
                         comm.Parameters.AddWithValue(itemCntColumn, txtDetailClass.Tag.ToString().Equals("") ? 0 : 1);
-                        comm.Parameters.AddWithValue("@F확인사항_항목", txtDetailClass.Text);
+                        comm.Parameters.AddWithValue("@F확인사항_항목", txtDetailClass.Text + "(" + txtDetailCode.Text + ")");
                         comm.Parameters.AddWithValue("@F확인사항_재질", txtDetailPart.Text);
                         comm.Parameters.AddWithValue("@F확인사항_위치", txtLocation.Text);
                         comm.Parameters.AddWithValue("@F판정", aiResult);
