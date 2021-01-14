@@ -116,12 +116,27 @@ namespace XrayInspection.UserControls
                 MsgBoxHelper.Show("판독결과는 필수입력입니다.");
                 return;
             }
-            // 판독결과를 텍스트박스에 직접 입력했지만 합격(0)이 아닌경우
-            else if (!string.IsNullOrWhiteSpace(txtJudgmentResult.Text))
+            // LOT크기와 계획본수를 입력하지 않았다면 알림
+            else if (txtLotSize.Text.Trim() == "0" || txtPlanPageCount.Text.Trim() == "0" 
+                    || txtLotSize.Text.Trim() == "" || txtPlanPageCount.Text.Trim() == "")
             {
-                if (txtJudgmentResult.Text != "0")
+                MsgBoxHelper.Show("LOT크기와 계획본수는 필수입력입니다.");
+                return;
+            }
+            // 판독결과를 텍스트박스에 직접 입력했지만 합격(0)이 아닌경우 알림
+            else if (txtJudgmentResult.Tag.ToString().Trim() == "" && txtJudgmentResult.Text != "0")
+            {
+                MsgBoxHelper.Show("판독결과가 합격(0)이 아닌경우 팝업에서 선택해서 입력해야합니다.");
+                return;
+            }
+            // 판독결과가 합격(0)이 아닌경우, 항목, 세부항목, 부위 필수입력 알림
+            else if (txtJudgmentResult.Tag.ToString().Trim() != "0" && txtJudgmentResult.Text != "0")
+            {
+                if (string.IsNullOrWhiteSpace(txtDetailClass.Text)
+                    || string.IsNullOrWhiteSpace(txtDetailCode.Text)
+                    || string.IsNullOrWhiteSpace(txtDetailPart.Text))
                 {
-                    MsgBoxHelper.Show("판독결과가 합격(0)이 아닌경우 팝업에서 선택해서 입력해야합니다.");
+                    MsgBoxHelper.Show("판독결과가 합격(0)이 아닌경우 항목, 세부항목, 부위는 필수입력입니다.");
                     return;
                 }
             }
@@ -831,7 +846,6 @@ namespace XrayInspection.UserControls
                     lastResultName = "합격";
                     txtJudgmentResult.Tag = "0";
                     txtJudgmentResult.Text = "합격";
-
                 }
                 // 합격이 아닐때
                 else
@@ -1531,24 +1545,24 @@ namespace XrayInspection.UserControls
                 {
                     Console.WriteLine("프레임데이터 저장성공!");
 
-                    string path = Properties.Settings.Default.ImagePath + lotNo + "_" + frameNo.ToString() + ".png";
-                    string base64FileData = GetImage(path);
+                    //string path = Properties.Settings.Default.ImagePath + lotNo + "_" + frameNo.ToString() + ".png";
+                    //string base64FileData = GetImage(path);
 
-                    // AI_DB에 이미지 데이터 저장
-                    Dictionary<string, object> aiParameters = new Dictionary<string, object>();
-                    aiParameters.Add("@FILENAME", fileName);
-                    aiParameters.Add("@FILEDATA", base64FileData);
-                    aiParameters.Add("@TXNID", "XRAY_INSPECT");
-                    aiParameters.Add("@USERID", "admin");
-                    aiParameters.Add("@MACHINE", "1");
-                    aiParameters.Add("@PRODID", txtProductName.Text);
-                    aiParameters.Add("@LOTID", lotNo);
+                    //// AI_DB에 이미지 데이터 저장
+                    //Dictionary<string, object> aiParameters = new Dictionary<string, object>();
+                    //aiParameters.Add("@FILENAME", fileName);
+                    //aiParameters.Add("@FILEDATA", base64FileData);
+                    //aiParameters.Add("@TXNID", "XRAY_INSPECT");
+                    //aiParameters.Add("@USERID", "admin");
+                    //aiParameters.Add("@MACHINE", "1");
+                    //aiParameters.Add("@PRODID", txtProductName.Text);
+                    //aiParameters.Add("@LOTID", lotNo);
 
-                    SqlParameter[] aiSqlParameters = _aiDbManager.GetSqlParameters(aiParameters);
+                    //SqlParameter[] aiSqlParameters = _aiDbManager.GetSqlParameters(aiParameters);
 
-                    int aiSaveResult = _aiDbManager.CallNonSelectProcedure("AI_SET_IBA_RECORD_IMAGE", aiSqlParameters);
-                    if (aiSaveResult > 0) Console.WriteLine("AI 데이터 저장성공!");
-                    else Console.WriteLine("AI 데이터 저장실패!");
+                    //int aiSaveResult = _aiDbManager.CallNonSelectProcedure("AI_SET_IBA_RECORD_IMAGE", aiSqlParameters);
+                    //if (aiSaveResult > 0) Console.WriteLine("AI 데이터 저장성공!");
+                    //else Console.WriteLine("AI 데이터 저장실패!");
                 }                            
                 else Console.WriteLine("프레임데이터 저장실패!");              
             }

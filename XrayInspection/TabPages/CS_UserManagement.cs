@@ -195,7 +195,7 @@ namespace XrayInspection.UserControls
             _lastRowIndex = _searchDt.Rows.Count;
 
             if (_searchDt.Rows.Count == 0)
-            {
+            {           
                 grdUser.Rows.Add();
                 grdUser.EndEdit();
             }
