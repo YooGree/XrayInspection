@@ -42,7 +42,7 @@ namespace XrayInspection.UserControls
         string _productWeight; // 단중
         object _startTime; // 판독시작시간
         string _workuserCreatTime; // 근무조 변경시간
-        BackgroundWorker _backWorker = new BackgroundWorker(); // BackgroundWorker 객체 생성
+        CS_LoadingForm _loadingForm = new CS_LoadingForm(); 
 
         #endregion
 
@@ -76,9 +76,24 @@ namespace XrayInspection.UserControls
             btnDetailPart.Click += CommonPopup_Click;
 
             btnStart.Click += BtnStart_Click;
+            btnStart.EnabledChanged += BtnEnabledChanged;
             btnEnd.Click += BtnEnd_Click;
+            btnEnd.EnabledChanged += BtnEnabledChanged;
             btnJudgmentComplete.Click += BtnJudgmentComplete_Click;
             btnRefresh.Click += BtnRefresh_Click;
+        }
+
+        /// <summary>
+        /// 버튼 활성화 유무에 따라 색깔처리
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnEnabledChanged(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+
+            btn.ForeColor = btn.Enabled == false ? Color.Black : Color.White;
+            btn.BackColor = btn.Enabled == false ? Color.White : Color.DimGray;
         }
 
         /// <summary>
@@ -141,17 +156,29 @@ namespace XrayInspection.UserControls
                 }
             }
 
-            // 판정결과 판단하여 동영상 OK 혹은 NG 폴더로 분기
-            VideoMoveDirectory();
+            try
+            {
+                //_loadingForm.ShowDialog();
 
-            // 검사계획/진행현황 변경
-            UpdateInspectPlan();
+                // 판정결과 판단하여 동영상 OK 혹은 NG 폴더로 분기
+                VideoMoveDirectory();
 
-            // AI판정결과 저장 및 MSAccess DB 접근 
-            UpdateAIJudgmentResult();
+                // 검사계획/진행현황 변경
+                UpdateInspectPlan();
 
-            // 데이터 재바인딩
-            Rebinding();
+                // AI판정결과 저장 및 MSAccess DB 접근 
+                UpdateAIJudgmentResult();
+
+                // 데이터 재바인딩
+                Rebinding();
+
+                //_loadingForm.Close();
+            }
+            catch (Exception ex)
+            {
+                this.Enabled = true;
+                MsgBoxHelper.Error(ex.Message);
+            }
 
             //if (MsgBoxHelper.Show("판정완료 하시겠습니까?", MessageBoxButtons.YesNo) == DialogResult.Yes)
             //{
@@ -1196,10 +1223,10 @@ namespace XrayInspection.UserControls
                     // FMKEY가 삽입됬다면 XRAY실데이타 테이블에 데이터 삽입
                     if (fmKey != -1)
                     {
-                        string pCnt = Regex.Replace(txtJudgmentResult.Tag.ToString(), @"[^0-9]", "");
-                        string iCnt = Regex.Replace(txtDetailClass.Tag.ToString(), @"[^0-9]", "");
-                        string passCntColumn = txtJudgmentResult.Tag.ToString().Equals("") ? "F합격0" : "F합격" + pCnt;
-                        string itemCntColumn = txtDetailClass.Tag.ToString().Equals("") ? "F항목0" : "F항목" + iCnt;
+                        string pCnt = Regex.Replace(txtJudgmentResult.Tag.ToString().Trim(), @"[^0-9]", "");
+                        string iCnt = Regex.Replace(txtDetailClass.Tag.ToString().Trim(), @"[^0-9]", "");
+                        string passCntColumn = txtJudgmentResult.Tag.ToString().Trim().Equals("") ? "F합격0" : "F합격" + pCnt;
+                        string itemCntColumn = txtDetailClass.Tag.ToString().Trim().Equals("") ? "F항목0" : "F항목" + iCnt;
                         string aiResult = txtAiResult.Text == "OK" ? "합격" : "부적합";
                         string filePath = @".\DBMOVIE_J\" + txtLotNo.Text + ".mp4";
 
