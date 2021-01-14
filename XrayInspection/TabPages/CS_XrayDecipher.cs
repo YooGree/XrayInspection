@@ -41,6 +41,8 @@ namespace XrayInspection.UserControls
         string _productCode; // 도번
         string _productWeight; // 단중
         object _startTime; // 판독시작시간
+        string _workuserCreatTime; // 근무조 변경시간
+        BackgroundWorker _backWorker = new BackgroundWorker(); // BackgroundWorker 객체 생성
 
         #endregion
 
@@ -113,6 +115,15 @@ namespace XrayInspection.UserControls
             {
                 MsgBoxHelper.Show("판독결과는 필수입력입니다.");
                 return;
+            }
+            // 판독결과를 텍스트박스에 직접 입력했지만 합격(0)이 아닌경우
+            else if (!string.IsNullOrWhiteSpace(txtJudgmentResult.Text))
+            {
+                if (txtJudgmentResult.Text != "0")
+                {
+                    MsgBoxHelper.Show("판독결과가 합격(0)이 아닌경우 팝업에서 선택해서 입력해야합니다.");
+                    return;
+                }
             }
 
             // 판정결과 판단하여 동영상 OK 혹은 NG 폴더로 분기
@@ -492,9 +503,9 @@ namespace XrayInspection.UserControls
                         parameters2.Add(new SqlParameter("@PRODUCTCODE", txtProductCode.Text)); // 도번
                         DataSet ds2 = _dbManager.CallSelectProcedure_ds("USP_SELECT_XRAYDECIPHER_SHIFTWORKINFO", parameters2);
 
-                        txtLotSize.Text = "";
-                        txtInspectionStd.Text = "";
-                        txtPlanPageCount.Text = "";
+                        txtLotSize.Text = "0";
+                        txtInspectionStd.Text = "0";
+                        txtPlanPageCount.Text = "0";
                         txtProgressSequence.Text = "1";
 
                         if (ds2.Tables.Count > 0)
@@ -568,6 +579,7 @@ namespace XrayInspection.UserControls
                     string shiftiD = ds.Tables[0].AsEnumerable().Where(r => r["USERID"].Equals(comboInspector.SelectedValue)).CopyToDataTable().Rows[0]["SHIFTID"].ToString();
                     comboInspector.Tag = shiftiD;
                     txtShift.Text = shiftiD;
+                    _workuserCreatTime = ds.Tables[0].AsEnumerable().Where(r => r["USERID"].Equals(comboInspector.SelectedValue)).CopyToDataTable().Rows[0]["WORKUSERCREATEDTIME"].ToString();
 
                     //comboInspector.SelectedValueChanged += (s, e) =>
                     //{
@@ -808,6 +820,26 @@ namespace XrayInspection.UserControls
         {
             try
             {
+                // 2021-01-14 유태근 / 판독결과 팝업창에서 직접 입력했을때 추가할 수 있도록 수정
+                string lastResultCode = "";
+                string lastResultName = "";
+
+                // 합격일때
+                if (txtJudgmentResult.Text.Trim() == "0")
+                {
+                    lastResultCode = "0";
+                    lastResultName = "합격";
+                    txtJudgmentResult.Tag = "0";
+                    txtJudgmentResult.Text = "합격";
+
+                }
+                // 합격이 아닐때
+                else
+                {
+                    lastResultCode = txtJudgmentResult.Tag.ToString();
+                    lastResultName = txtJudgmentResult.Text;
+                }
+
                 // MSAccessDB에 데이터 저장
                 InsertMSAccessDataByNonProduct();
 
@@ -817,8 +849,8 @@ namespace XrayInspection.UserControls
                 parameters.Add("@INSPECTORID", comboInspector.SelectedValue);
                 parameters.Add("@INSPECTORNAME", comboInspector.Text);
                 parameters.Add("@SHIFTID", comboInspector.Tag);
-                parameters.Add("@JUDGMENTRESULTID", txtJudgmentResult.Tag);
-                parameters.Add("@JUDGMENTRESULTNAME", txtJudgmentResult.Text);
+                parameters.Add("@JUDGMENTRESULTID", lastResultCode);
+                parameters.Add("@JUDGMENTRESULTNAME", lastResultName);
                 parameters.Add("@DETAILCLASSID", txtDetailClass.Tag);
                 parameters.Add("@DETAILCLASSNAME", txtDetailClass.Text);
                 parameters.Add("@DETAILCODEID", txtDetailCode.Tag);
@@ -1054,10 +1086,17 @@ namespace XrayInspection.UserControls
                     OleDbConnection conn = new OleDbConnection(connStr);
                     OleDbDataAdapter adp;
 
-                    // TXRAY검사정보 테이블에 현재 작업지시번호에 해당하는 데이터가 있는지 확인
+                    // TXRAY검사정보 테이블에 현재 날짜, 근무조, 도번에 해당하는 데이터가 있는지 확인
                     string InspectionInfoSelectSql = "SELECT  FMKEY " +
                                                      "FROM    TXRAY검사정보 " +
-                                                     "WHERE   FWORKORDERNO = '" + _workorderNumber + "'";
+                                                     "WHERE   F검사일시 = '" + _workuserCreatTime + "' " +
+                                                     "AND     F근무조 = '" + txtShift.Text + "' " +
+                                                     "AND     F도번 = '" + _productCode + "' ";
+
+                    //// TXRAY검사정보 테이블에 현재 작업지시번호에 해당하는 데이터가 있는지 확인
+                    //string InspectionInfoSelectSql = "SELECT  FMKEY " +
+                    //                                 "FROM    TXRAY검사정보 " +
+                    //                                 "WHERE   FWORKORDERNO = '" + _workorderNumber + "'";
 
                     // TXRAY실데이타 테이블의 FMKEY컬럼
                     int fmKey = -1;
@@ -1202,10 +1241,17 @@ namespace XrayInspection.UserControls
                     OleDbConnection conn = new OleDbConnection(connStr);
                     OleDbDataAdapter adp;
 
-                    // TXRAY검사정보 테이블에 현재 작업지시번호에 해당하는 데이터가 있는지 확인
+                    // TXRAY검사정보 테이블에 현재 날짜, 근무조, 도번에 해당하는 데이터가 있는지 확인
                     string InspectionInfoSelectSql = "SELECT  FMKEY " +
                                                      "FROM    TXRAY검사정보 " +
-                                                     "WHERE   FWORKORDERNO = '" + _workorderNumber + "'";
+                                                     "WHERE   F검사일시 = '" + DateTime.Now.ToString("yyyyMMdd") + "'" +
+                                                     "AND     F근무조 = '" + txtShift.Text + "'" +
+                                                     "AND     F도번 = '" + _productCode + "'";
+
+                    //// TXRAY검사정보 테이블에 현재 작업지시번호에 해당하는 데이터가 있는지 확인
+                    //string InspectionInfoSelectSql = "SELECT  FMKEY " +
+                    //                                 "FROM    TXRAY검사정보 " +
+                    //                                 "WHERE   FWORKORDERNO = '" + _workorderNumber + "'";
 
                     // TXRAY실데이타 테이블의 FMKEY컬럼
                     int fmKey = -1;

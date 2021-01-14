@@ -74,7 +74,7 @@ namespace XrayInspection.PopUp
                     foreach (Control control in panelXrayDecipher.Controls)
                     {
                         CS_XrayDecipher XrayDecipher = (CS_XrayDecipher)control;
-                        XrayDecipher.ProductInfoSearch();
+                        XrayDecipher.Rebinding();
                     }
                 }
                 // 환경설정 화면 보여주기
@@ -217,7 +217,14 @@ namespace XrayInspection.PopUp
         private void BtnPopupWorkerChange_Click(object sender, EventArgs e)
         {
             MMWorkeUserChange mMWorkeUserChange = new MMWorkeUserChange();
-            mMWorkeUserChange.ShowDialog();
+            if (mMWorkeUserChange.ShowDialog() == DialogResult.OK)
+            {
+                foreach (Control control in panelXrayDecipher.Controls)
+                {
+                    CS_XrayDecipher XrayDecipher = (CS_XrayDecipher)control;
+                    XrayDecipher.Rebinding();
+                }
+            }
         }
 
         /// <summary>

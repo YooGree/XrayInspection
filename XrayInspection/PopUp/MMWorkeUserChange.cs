@@ -90,11 +90,14 @@ namespace XrayInspection.PopUp
             {
                 CustomMessageBox.Show(MessageBoxButtons.OK, "저장", "저장에 실패하였습니다.");
             }
+
+            this.DialogResult = DialogResult.OK;
             this.Close();
         }
 
         private void BtnCancel_Click(object sender, EventArgs e)
         {
+            this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
     }

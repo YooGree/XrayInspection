@@ -93,12 +93,12 @@ namespace XrayInspection.UserControls
         /// <param name="e"></param>
         private void GrdAIjubgmentHistory_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
-            DataGridView dgv = (DataGridView)sender;
+            //DataGridView dgv = (DataGridView)sender;
 
-            if (dgv.Columns[e.ColumnIndex].Name.Equals("SEQUENCE"))
-            {
-                e.Cancel = true;
-            }
+            //if (dgv.Columns[e.ColumnIndex].Name.Equals("SEQUENCE"))
+            //{
+            //    e.Cancel = true;
+            //}
         }
 
         /// <summary>
@@ -207,17 +207,17 @@ namespace XrayInspection.UserControls
             }
 
             // 최초 행 생성시 사용자 순번생성
-            int maxSeq = 0;
-            if (grdUser.DataSource == null)
-            {
-                grdUser.Rows[grdUser.Rows.Count - 1].Cells["SEQUENCE"].Value = 1;
-            }
-            else
-            {
-                DataTable dt = grdUser.DataSource as DataTable;
-                maxSeq = dt.AsEnumerable().Where(r => !r["SEQUENCE"].Equals(DBNull.Value)).Select(r => Convert.ToInt32(r["SEQUENCE"])).Max();
-                grdUser.Rows[grdUser.Rows.Count - 1].Cells["SEQUENCE"].Value = maxSeq + 1;
-            }
+            //int maxSeq = 0;
+            //if (grdUser.DataSource == null)
+            //{
+            //    grdUser.Rows[grdUser.Rows.Count - 1].Cells["SEQUENCE"].Value = 1;
+            //}
+            //else
+            //{
+            //    DataTable dt = grdUser.DataSource as DataTable;
+            //    maxSeq = dt.AsEnumerable().Where(r => !r["SEQUENCE"].Equals(DBNull.Value)).Select(r => Convert.ToInt32(r["SEQUENCE"])).Max();
+            //    grdUser.Rows[grdUser.Rows.Count - 1].Cells["SEQUENCE"].Value = maxSeq + 1;
+            //}
 
             // 최초 행 생성시 행변경타입 CREATE
             grdUser.Rows[grdUser.Rows.Count - 1].Cells["ROWTYPE"].Value = rowChangeType.CREATE;
@@ -384,27 +384,27 @@ namespace XrayInspection.UserControls
         /// <param name="e"></param>
         private void BtnSave_Click(object sender, EventArgs e)
         {
-            try
+            // 그리드뷰에 행이 한개도 없으면 Return
+            if (grdUser.Rows.Count == 0)
             {
-                // 그리드뷰에 행이 한개도 없으면 Return
-                if (grdUser.Rows.Count == 0)
+                MsgBoxHelper.Show("저장할 데이터가 없습니다.");
+                return;
+            }
+            else
+            {
+                // 그리드에 신규, 수정, 삭제행이 없으면 Return
+                if ((grdUser.DataSource as DataTable).AsEnumerable().Where(r => r["ROWTYPE"].Equals("CREATE")
+                                                                                || r["ROWTYPE"].Equals("MODIFIY")
+                                                                                || r["ROWTYPE"].Equals("DELETE")).Count() == 0)
                 {
                     MsgBoxHelper.Show("저장할 데이터가 없습니다.");
                     return;
                 }
-                else
-                {
-                    // 그리드에 신규, 수정, 삭제행이 없으면 Return
-                    if ((grdUser.DataSource as DataTable).AsEnumerable().Where(r => r["ROWTYPE"].Equals("CREATE")
-                                                                                 || r["ROWTYPE"].Equals("MODIFIY")
-                                                                                 || r["ROWTYPE"].Equals("DELETE")).Count() == 0)
-                    {
-                        MsgBoxHelper.Show("저장할 데이터가 없습니다.");
-                        return;
-                    }
-                }
+            }
 
-                if (MsgBoxHelper.Show("저장하시겠습니까?", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            if (MsgBoxHelper.Show("저장하시겠습니까?", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                try
                 {
                     DBManager dbManager = new DBManager();
 
@@ -426,10 +426,17 @@ namespace XrayInspection.UserControls
                         MsgBoxHelper.Show("저장에 실패하였습니다");
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                MsgBoxHelper.Error(ex.Message);
+                catch (Exception ex)
+                {
+                    if (ex.Message.Contains("중복 키"))
+                    {
+                        MsgBoxHelper.Error("중복된 사용자 ID가 존재합니다.");
+                    }
+                    else
+                    {
+                        MsgBoxHelper.Error(ex.Message);
+                    }
+                }
             }
         }
 
