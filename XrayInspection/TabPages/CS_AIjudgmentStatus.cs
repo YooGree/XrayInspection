@@ -389,12 +389,15 @@ namespace XrayInspection.UserControls
             CommonFuction.SetDataGridViewColumnStyle(grdJobInfo, "도번", "ProductCode", "ProductCode", typeof(string), 100, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdJobInfo, "생산년도", "MakeYear", "MakeYear", typeof(string), 100, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdJobInfo, "Input LotID", "InputLotID", "InputLotID", typeof(string), 120, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdJobInfo, "LotID", "LotID", "LotID", typeof(string), 180, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdJobInfo, "성형자", "Maker", "Maker", typeof(string), 120, true, true, DataGridViewContentAlignment.MiddleLeft, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdJobInfo, "검사자", "Inspector", "Inspector", typeof(string), 120, true, true, DataGridViewContentAlignment.MiddleLeft, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdJobInfo, "진행상태", "LotState", "LotState", typeof(string), 80, true, true, DataGridViewContentAlignment.MiddleLeft, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdJobInfo, "판독결과", "LastResult", "LastResult", typeof(string), 80, true, true, DataGridViewContentAlignment.MiddleLeft, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdJobInfo, "작업시간", "ModifiedTime", "ModifiedTime", typeof(string), 180, true, true, DataGridViewContentAlignment.MiddleLeft, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdJobInfo, "판독결과", "LastResult", "LastResult", typeof(string), 80, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdJobInfo, "항목", "DETAILTEXT", "DETAILTEXT", typeof(string), 180, true, true, DataGridViewContentAlignment.MiddleLeft, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdJobInfo, "부위", "DefectPartText", "DefectPartText", typeof(string), 120, true, true, DataGridViewContentAlignment.MiddleLeft, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdJobInfo, "LotID", "LotID", "LotID", typeof(string), 180, true, false, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdJobInfo, "성형자", "Maker", "Maker", typeof(string), 120, true, false, DataGridViewContentAlignment.MiddleLeft, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdJobInfo, "검사자", "Inspector", "Inspector", typeof(string), 120, true, false, DataGridViewContentAlignment.MiddleLeft, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdJobInfo, "진행상태", "LotState", "LotState", typeof(string), 80, true, false, DataGridViewContentAlignment.MiddleLeft, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdJobInfo, "판독결과", "LastResult", "LastResult", typeof(string), 80, true, false, DataGridViewContentAlignment.MiddleLeft, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdJobInfo, "작업시간", "ModifiedTime", "ModifiedTime", typeof(string), 180, true, false, DataGridViewContentAlignment.MiddleLeft, 10);
         }
 
         #endregion

@@ -145,6 +145,13 @@ namespace XrayInspection.PopUp
                 {
                     panelAIjudgmentHistory.BringToFront();
                     btnAIJudgmentHistory.Font = CommonFuction.BoldFont;
+
+                    // 화면 이동시 자동조회
+                    foreach (Control control in panelAIjudgmentHistory.Controls)
+                    {
+                        CS_AIjudgmentHistory AIjudgmentHistory = (CS_AIjudgmentHistory)control;
+                        AIjudgmentHistory.Search();
+                    }
                 }
                 // 판정정보 화면 보여주기
                 else if (value == selectedType.AIJudgmentInfo)
