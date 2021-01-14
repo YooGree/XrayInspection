@@ -376,6 +376,19 @@ namespace XrayInspection.PopUp
         {
             string fileName = _currentRow.Cells["LOTID"].Value.ToString() + ".mp4";
             string filePath = Properties.Settings.Default.VideoPath;
+
+            // 테스트 필요
+            //NG일때
+            //if (_currentRow.Cells["LASTRESULTCODE"].Value.ToString() == "3")
+            //{
+            //    filePath = Properties.Settings.Default.NGVideoPath;
+            //}
+            //OK일때
+            //else
+            //{
+            //    filePath = Properties.Settings.Default.OKVideoPath;
+            //}
+
             _fileName = fileName;
             _filePath = filePath;
             lblFileName.Text = fileName;
