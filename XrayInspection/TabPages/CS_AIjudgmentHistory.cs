@@ -82,7 +82,7 @@ namespace XrayInspection.UserControls
             CS_XrayImagePopup popup = new CS_XrayImagePopup(grdAIjubgmentHistory.Rows[e.RowIndex]);
             popup.WindowState = FormWindowState.Normal;
             popup.StartPosition = FormStartPosition.CenterScreen;
-            popup.ShowDialog();
+            if (popup.ShowDialog() == DialogResult.OK) Search();         
             popup.Activate();
         }
 
@@ -379,6 +379,18 @@ namespace XrayInspection.UserControls
             CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "AI판정", "AIRESULT", "AIRESULT", typeof(string), 100, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "불량유형", "DEFECTTYPE", "DEFECTTYPE", typeof(string), 100, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "행변경타입", "ROWTYPE", "ROWTYPE", typeof(string), 100, false, false, DataGridViewContentAlignment.MiddleCenter, 10);
+            // 2021-01-14 유태근 - 수정을 위한 컬럼 추가
+            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "INSPECTORID", "INSPECTORID", "INSPECTORID", typeof(string), 100, false, false, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "MAKERID", "MAKERID", "MAKERID", typeof(string), 100, false, false, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "LASTRESULTCODE", "LASTRESULTCODE", "LASTRESULTCODE", typeof(string), 100, false, false, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "DETAILCLASSID", "DETAILCLASSID", "DETAILCLASSID", typeof(string), 100, false, false, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "DETAILCLASSTEXT", "DETAILCLASSTEXT", "DETAILCLASSTEXT", typeof(string), 100, false, false, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "DETAILCODE", "DETAILCODE", "DETAILCODE", typeof(string), 100, false, false, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "DETAILTEXT", "DETAILTEXT", "DETAILTEXT", typeof(string), 100, false, false, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "DEFECTPART", "DEFECTPART", "DEFECTPART", typeof(string), 100, false, false, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "DEFECTPARTTEXT", "DEFECTPARTTEXT", "DEFECTPARTTEXT", typeof(string), 100, false, false, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "LOCATION", "LOCATION", "LOCATION", typeof(string), 100, false, false, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "COMMENTS", "COMMENTS", "COMMENTS", typeof(string), 100, false, false, DataGridViewContentAlignment.MiddleCenter, 10);
         }
 
         #endregion

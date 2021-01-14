@@ -18,12 +18,13 @@ namespace XrayInspection.PopUp
     /// 작   성   자  : 유태근
     /// 작   성   일  : 2020-12-28
     /// 설        명  : Xray 이미지 판독화면
-    /// 이        력  : 
+    /// 이        력  : 2021-01-14 유태근 / 이력에서 수정할 수 있도록 기능추가
     /// </summary>
     public partial class CS_XrayImagePopup : ParentsPop
     {
         #region 변수
 
+        DBManager _dbManager = new DBManager(); // XRAY_DB 연결객체
         private DataGridViewRow _currentRow;
         Mat _frame = new Mat();
         VideoCapture _video = null;
@@ -58,11 +59,17 @@ namespace XrayInspection.PopUp
         /// </summary>
         private void InitializeEvent()
         {
+            btnSave.Click += BtnSave_Click;
             btnClose.Click += BtnClose_Click;
 
             btnStartEnd.Click += BtnStart_Click;
             btnPrev.Click += BtnPrev_Click;
             btnNext.Click += BtnNext_Click;
+
+            btnJudgmentResult.Click += CommonPopup_Click;
+            btnDetailClass.Click += CommonPopup_Click;
+            btnDetailCode.Click += CommonPopup_Click;
+            btnDetailPart.Click += CommonPopup_Click;
 
             grdAIDecipherStatus.SelectionChanged += GrdAIDecipherStatus_SelectionChanged;
         }
@@ -231,16 +238,6 @@ namespace XrayInspection.PopUp
             this.Close();
         }
 
-        /// <summary>
-        /// 확인
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void BtnSave_Click(object sender, EventArgs e)
-        {
-
-        }
-
         #endregion
 
         #region 조회
@@ -248,7 +245,7 @@ namespace XrayInspection.PopUp
         /// <summary>
         /// 화면 최초 로드시 AI판독정보 조회
         /// </summary>
-        public void AIJudgmentInfoSearch()
+        public void AIJudgmentInfoFrameRecordSearch()
         {
             try
             {
@@ -265,6 +262,55 @@ namespace XrayInspection.PopUp
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+            }
+        }
+
+        #endregion
+
+        #region 저장
+
+        /// <summary>
+        /// AI 판독결과 저장
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnSave_Click(object sender, EventArgs e)
+        {
+            if (MsgBoxHelper.Show("저장 하시겠습니까?", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                try
+                {
+                    Dictionary<string, object> parameters = new Dictionary<string, object>();
+                    parameters.Add("@SITE", Properties.Settings.Default.Site);
+                    parameters.Add("@LOTNO", _currentRow.Cells["LOTID"].Value.ToString());
+                    parameters.Add("@INSPECTORID", comboInspector.SelectedValue);
+                    parameters.Add("@MAKERID", comboMaker.SelectedValue);
+                    parameters.Add("@JUDGMENTRESULTID", txtJudgmentResult.Tag);
+                    parameters.Add("@DETAILCLASSID", txtDetailClass.Tag);
+                    parameters.Add("@DETAILCLASSNAME", txtDetailClass.Text);
+                    parameters.Add("@DETAILCODEID", txtDetailCode.Tag);
+                    parameters.Add("@DETAILCODENAME", txtDetailCode.Text);
+                    parameters.Add("@DETAILPARTID", txtDetailPart.Tag);
+                    parameters.Add("@DETAILPARTNAME", txtDetailPart.Text);
+                    parameters.Add("@LOCATION", txtLocation.Text);
+                    parameters.Add("@COMMENT", txtComment.Text);
+
+                    SqlParameter[] sqlParameters = _dbManager.GetSqlParameters(parameters);
+
+                    int saveResult = _dbManager.CallNonSelectProcedure("USP_UPDATE_AIJUBGMENTHISTORY_AIJUDGMENTRESULT", sqlParameters);
+                    if (saveResult > 0)
+                    {
+                        Console.WriteLine("AI 판독결과 수정성공!");
+                        _endFlag = true;
+                        this.DialogResult = DialogResult.OK;
+                        this.Close();
+                    }
+                    else Console.WriteLine("AI 판독결과 수정실패!");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
             }
         }
 
@@ -307,10 +353,19 @@ namespace XrayInspection.PopUp
             comboFrameCount.SelectedValue = "3";
             comboFrameCount.DropDownStyle = ComboBoxStyle.DropDownList;
 
+            // 검사자 콤보박스 데이터 바인딩
+            InspectorInfoSearch();
+
+            // 성형자 콤보박스 데이터 바인딩
+            MakerInfoSearch();
+
             // 특정경로에 저장된 동영상파일 불러오기
             GetMediaFile();
 
             // AI 판독결과 프레임 레코드 데이터 조회
+            AIJudgmentInfoFrameRecordSearch();
+
+            // AI 판독결과 데이터 바인딩
             AIJudgmentInfoSearch();
         }
 
@@ -523,10 +578,244 @@ namespace XrayInspection.PopUp
             grdAIDecipherStatus.DefaultCellStyle.SelectionBackColor = Color.Yellow;
             grdAIDecipherStatus.DefaultCellStyle.SelectionForeColor = Color.Black;
 
-            CommonFuction.SetDataGridViewColumnStyle(grdAIDecipherStatus, "Frame", "FRAMENO", "FRAMENO", typeof(int), 100, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdAIDecipherStatus, "AI판정", "AIRESULT", "AIRESULT", typeof(string), 100, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdAIDecipherStatus, "유형", "TYPE", "TYPE", typeof(string), 130, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIDecipherStatus, "Frame", "FRAMENO", "FRAMENO", typeof(int), 120, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIDecipherStatus, "AI판정", "AIRESULT", "AIRESULT", typeof(string), 120, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIDecipherStatus, "유형", "TYPE", "TYPE", typeof(string), 150, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdAIDecipherStatus, "행변경타입", "ROWTYPE", "ROWTYPE", typeof(string), 100, false, false, DataGridViewContentAlignment.MiddleLeft, 10);
+        }
+
+        /// <summary>
+        /// 화면 최초 로드시 검사자 조회
+        /// </summary>
+        public void InspectorInfoSearch()
+        {
+            try
+            {
+                List<SqlParameter> parameters = new List<SqlParameter>();
+                parameters.Add(new SqlParameter("@SITE", Properties.Settings.Default.Site)); // Site
+
+                DataSet ds = _dbManager.CallSelectProcedure_ds("USP_SELECT_XRAYDECIPHER_INSPECTORINFO", parameters);
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    // 조회조건 콤보박스 세팅
+                    comboInspector.DataSource = ds.Tables[0];
+                    comboInspector.DisplayMember = "USERNAME";
+                    comboInspector.ValueMember = "USERID";
+                    comboInspector.SelectedIndex = 0;
+                    comboInspector.DropDownStyle = ComboBoxStyle.DropDownList;
+                    // 2021-01-05 유태근 - 검사자의 근무조는 작업계획등록에서 바꾸지 않는 한 판정화면에서는 고정
+                    string shiftiD = ds.Tables[0].AsEnumerable().Where(r => r["USERID"].Equals(comboInspector.SelectedValue)).CopyToDataTable().Rows[0]["SHIFTID"].ToString();
+                    comboInspector.Tag = shiftiD;
+
+                    if (ds.Tables.Count == 0)
+                    {
+                        MessageBox.Show("Error");
+                    }
+                    else
+                    {
+                        if (ds.Tables[0].Rows.Count > 0)
+                        {
+                            comboInspector.SelectedValue = ds.Tables[0].Rows[0]["USERID"].ToString();
+                            comboInspector.Text = ds.Tables[0].Rows[0]["USERNAME"].ToString();
+                            comboInspector.Tag = ds.Tables[0].Rows[0]["SHIFTID"].ToString();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 화면 최초 로드시 성형자 조회
+        /// </summary>
+        public void MakerInfoSearch()
+        {
+            try
+            {
+                List<SqlParameter> parameters = new List<SqlParameter>();
+                parameters.Add(new SqlParameter("@SITE", Properties.Settings.Default.Site)); // Site
+
+                DataSet ds = _dbManager.CallSelectProcedure_ds("USP_SELECT_MAKERINFO", parameters);
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    // 조회조건 콤보박스 세팅
+                    comboMaker.DataSource = ds.Tables[0];
+                    comboMaker.DisplayMember = "USERNAME";
+                    comboMaker.ValueMember = "USERID";
+                    comboMaker.SelectedIndex = 0;
+                    comboMaker.DropDownStyle = ComboBoxStyle.DropDownList;
+
+                    if (ds.Tables.Count == 0)
+                    {
+                        MessageBox.Show("Error");
+                    }
+                    else
+                    {
+                        if (ds.Tables[0].Rows.Count > 0)
+                        {
+                            comboMaker.SelectedValue = ds.Tables[0].Rows[0]["USERID"].ToString();
+                            comboMaker.Text = ds.Tables[0].Rows[0]["USERNAME"].ToString();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// AI 판독결과 바인딩
+        /// </summary>
+       private void AIJudgmentInfoSearch()
+        {
+            comboInspector.SelectedValue = _currentRow.Cells["INSPECTORID"].Value;
+            comboMaker.SelectedValue = _currentRow.Cells["MAKERID"].Value;
+            txtJudgmentResult.Tag = _currentRow.Cells["LASTRESULTCODE"].Value;
+            txtJudgmentResult.Text = _currentRow.Cells["LASTRESULT"].Value.ToString();
+            txtDetailClass.Tag = _currentRow.Cells["DETAILCLASSID"].Value;
+            txtDetailClass.Text = _currentRow.Cells["DETAILCLASSTEXT"].Value.ToString();
+            txtDetailCode.Tag = _currentRow.Cells["DETAILCODE"].Value;
+            txtDetailCode.Text = _currentRow.Cells["DETAILTEXT"].Value.ToString();
+            txtDetailPart.Tag = _currentRow.Cells["DEFECTPART"].Value;
+            txtDetailPart.Text = _currentRow.Cells["DEFECTPARTTEXT"].Value.ToString();
+            txtLocation.Text = _currentRow.Cells["LOCATION"].Value.ToString();
+            txtComment.Text = _currentRow.Cells["COMMENTS"].Value.ToString();
+        }
+
+        #endregion
+
+        #region 공통팝업
+
+        /// <summary>
+        /// 공통팝업 호출
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CommonPopup_Click(object sender, EventArgs e)
+        {
+            Button btnPop = (Button)sender;
+            CS_CommonPopup commonPopup;
+
+            switch (btnPop.Name)
+            {
+                // 판정결과(불량코드 대분류)
+                case "btnJudgmentResult":
+                    commonPopup = new CS_CommonPopup("USP_SELECT_XRAYDECIPHER_POPUP_AIJUDGMENTRESULT", "TOP", "판정결과");
+                    commonPopup.WindowState = FormWindowState.Normal;
+                    commonPopup.StartPosition = FormStartPosition.CenterScreen;
+                    commonPopup.Show();
+                    commonPopup.Activate();
+                    commonPopup.FormClosed += (formSender, formE) =>
+                    {
+                        if (commonPopup._returnIsOK)
+                        {
+                            // 판독결과가 합격이라면 항목, 세부항목, 부위, 위치 Enable, ReadOnly
+                            if (commonPopup._returnCodeValue == "0")
+                            {
+                                // 항목
+                                txtDetailClass.Tag = "";
+                                txtDetailClass.Text = "";
+                                btnDetailClass.Enabled = false;
+                                // 세부항목
+                                txtDetailCode.Tag = "";
+                                txtDetailCode.Text = "";
+                                btnDetailCode.Enabled = false;
+                                // 부위
+                                txtDetailPart.Tag = "";
+                                txtDetailPart.Text = "";
+                                btnDetailPart.Enabled = false;
+                                // 위치
+                                txtLocation.ReadOnly = true;
+                                txtLocation.Text = "";
+                            }
+                            // 판독결과가 위에 해당하지 않는다면 항목, 세부항목, 부위, 위치 입력할 수 있도록
+                            else
+                            {
+                                btnDetailClass.Enabled = true;
+                                btnDetailCode.Enabled = true;
+                                btnDetailPart.Enabled = true;
+                                txtLocation.ReadOnly = false;
+                            }
+
+                            if (txtJudgmentResult.Tag.ToString() != commonPopup._returnCodeValue)
+                            {
+                                txtDetailClass.Tag = "";
+                                txtDetailClass.Text = "";
+                                txtDetailCode.Tag = "";
+                                txtDetailCode.Text = "";
+                                txtDetailPart.Tag = "";
+                                txtDetailPart.Text = "";
+                            }
+
+                            txtJudgmentResult.Tag = commonPopup._returnCodeValue;
+                            txtJudgmentResult.Text = commonPopup._returnNameValue;
+                        }
+                    };
+                    break;
+
+                // 항목(불량코드 중분류)
+                case "btnDetailClass":
+                    commonPopup = new CS_CommonPopup("USP_SELECT_XRAYDECIPHER_POPUP_AIJUDGMENTRESULT", "MIDDLE", "항목", "4");
+                    commonPopup.WindowState = FormWindowState.Normal;
+                    commonPopup.StartPosition = FormStartPosition.CenterScreen;
+                    commonPopup.Show();
+                    commonPopup.Activate();
+                    commonPopup.FormClosed += (formSender, formE) =>
+                    {
+                        if (commonPopup._returnIsOK)
+                        {
+                            if (txtDetailClass.Tag.ToString() != commonPopup._returnCodeValue)
+                            {
+                                txtDetailCode.Tag = "";
+                                txtDetailCode.Text = "";
+                            }
+                            txtDetailClass.Tag = commonPopup._returnCodeValue;
+                            txtDetailClass.Text = commonPopup._returnNameValue;
+                        }
+                    };
+                    break;
+
+                // 세부항목(불량코드 소분류)
+                case "btnDetailCode":
+                    commonPopup = new CS_CommonPopup("USP_SELECT_XRAYDECIPHER_POPUP_AIJUDGMENTRESULT", "DETAIL", "세부항목", txtDetailClass.Tag.ToString());
+                    commonPopup.WindowState = FormWindowState.Normal;
+                    commonPopup.StartPosition = FormStartPosition.CenterScreen;
+                    commonPopup.Show();
+                    commonPopup.Activate();
+                    commonPopup.FormClosed += (formSender, formE) =>
+                    {
+                        if (commonPopup._returnIsOK)
+                        {
+                            txtDetailCode.Tag = commonPopup._returnCodeValue;
+                            txtDetailCode.Text = commonPopup._returnNameValue;
+                        }
+                    };
+                    break;
+
+                // 부위(불량코드 중분류)
+                case "btnDetailPart":
+                    commonPopup = new CS_CommonPopup("USP_SELECT_XRAYDECIPHER_POPUP_AIJUDGMENTRESULT", "MIDDLE", "부위", "5");
+                    commonPopup.WindowState = FormWindowState.Normal;
+                    commonPopup.StartPosition = FormStartPosition.CenterScreen;
+                    commonPopup.Show();
+                    commonPopup.Activate();
+                    commonPopup.FormClosed += (formSender, formE) =>
+                    {
+                        if (commonPopup._returnIsOK)
+                        {
+                            txtDetailPart.Tag = commonPopup._returnCodeValue;
+                            txtDetailPart.Text = commonPopup._returnNameValue;
+                        }
+                    };
+                    break;
+            }
         }
 
         #endregion
