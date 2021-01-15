@@ -49,7 +49,7 @@ namespace XrayInspection.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("192.168.0.20")]
+        [global::System.Configuration.DefaultSettingValueAttribute("192.168.43.222")]
         public string TargetIP {
             get {
                 return ((string)(this["TargetIP"]));

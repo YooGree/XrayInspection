@@ -93,7 +93,7 @@ namespace XrayInspection.UserControls
             Button btn = sender as Button;
 
             btn.ForeColor = btn.Enabled == false ? Color.Black : Color.White;
-            btn.BackColor = btn.Enabled == false ? Color.White : Color.DimGray;
+            btn.BackColor = btn.Enabled == false ? Color.Yellow : Color.DimGray;
         }
 
         /// <summary>
@@ -1227,8 +1227,8 @@ namespace XrayInspection.UserControls
                         string iCnt = Regex.Replace(txtDetailClass.Tag.ToString().Trim(), @"[^0-9]", "");
                         string passCntColumn = txtJudgmentResult.Tag.ToString().Trim().Equals("") ? "F합격0" : "F합격" + pCnt;
                         string itemCntColumn = txtDetailClass.Tag.ToString().Trim().Equals("") ? "F항목0" : "F항목" + iCnt;
-                        string aiResult = txtAiResult.Text == "OK" ? "합격" : "부적합";
-                        string filePath = @".\DBMOVIE_J\" + txtLotNo.Text + ".mp4";
+                        string lastResult = (txtJudgmentResult.Tag.ToString().Trim() == "3") ? "부적합" : "합격";
+                        string filePath = lastResult == "합격" ? @".\DBMOVIE_J\" + txtLotNo.Text + ".mp4" : @".\DBMOVIE_E\" + txtLotNo.Text + ".mp4";
 
                         conn.Open();
                         string InspectionDataInsertSql = "INSERT INTO TXRAY실데이타 (FMKEY, F검사원, F성형자, F제품구분, F근무조, F검사일시, FLOTNO, F판독결과, " + passCntColumn + ", " + itemCntColumn + ", " + "F확인사항_항목, F확인사항_재질, F확인사항_위치, F판정, FPATH, F측정시작시간, F측정종료시간) " +
@@ -1248,7 +1248,7 @@ namespace XrayInspection.UserControls
                         comm.Parameters.AddWithValue("@F확인사항_항목", txtDetailClass.Text + "(" + txtDetailCode.Text + ")");
                         comm.Parameters.AddWithValue("@F확인사항_재질", txtDetailPart.Text);
                         comm.Parameters.AddWithValue("@F확인사항_위치", txtLocation.Text);
-                        comm.Parameters.AddWithValue("@F판정", aiResult);
+                        comm.Parameters.AddWithValue("@F판정", lastResult);
                         comm.Parameters.AddWithValue("@FPATH", filePath);
                         comm.Parameters.AddWithValue("@F측정시작시간", _startTime);
                         comm.Parameters.AddWithValue("@F측정종료시간", DateTime.Now.ToString("yyyyMMddHHmmss"));
@@ -1380,8 +1380,8 @@ namespace XrayInspection.UserControls
                         string iCnt = Regex.Replace(txtDetailClass.Tag.ToString(), @"[^0-9]", "");
                         string passCntColumn = txtJudgmentResult.Tag.ToString().Equals("") ? "F합격0" : "F합격" + pCnt;
                         string itemCntColumn = txtDetailClass.Tag.ToString().Equals("") ? "F항목0" : "F항목" + iCnt;
-                        string aiResult = txtAiResult.Text == "OK" ? "합격" : "부적합";
-                        string filePath = @".\DBMOVIE_J\" + txtLotNo.Text + ".mp4"; 
+                        string lastResult = (txtJudgmentResult.Tag.ToString().Trim() == "3") ? "부적합" : "합격";
+                        string filePath = lastResult == "합격" ? @".\DBMOVIE_J\" + txtLotNo.Text + ".mp4" : @".\DBMOVIE_E\" + txtLotNo.Text + ".mp4";
 
                         conn.Open();
                         string InspectionDataInsertSql = "INSERT INTO TXRAY실데이타 (FMKEY, F검사원, F성형자, F제품구분, F근무조, F검사일시, FLOTNO, F판독결과, " + passCntColumn + ", " + itemCntColumn + ", " + "F확인사항_항목, F확인사항_재질, F확인사항_위치, F판정, FPATH, F측정시작시간, F측정종료시간) " +
@@ -1401,7 +1401,7 @@ namespace XrayInspection.UserControls
                         comm.Parameters.AddWithValue("@F확인사항_항목", txtDetailClass.Text);
                         comm.Parameters.AddWithValue("@F확인사항_재질", txtDetailPart.Text);
                         comm.Parameters.AddWithValue("@F확인사항_위치", txtLocation.Text);
-                        comm.Parameters.AddWithValue("@F판정", aiResult);
+                        comm.Parameters.AddWithValue("@F판정", lastResult);
                         comm.Parameters.AddWithValue("@FPATH", filePath);
                         comm.Parameters.AddWithValue("@F측정시작시간", _startTime);
                         comm.Parameters.AddWithValue("@F측정종료시간", DateTime.Now.ToString("yyyyMMddHHmmss"));
