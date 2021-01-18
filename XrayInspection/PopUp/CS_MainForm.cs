@@ -273,8 +273,8 @@ namespace XrayInspection.PopUp
                         screen.btnJudgmentComplete.PerformClick();
                     }
                 }
-                // .일때 합격처리
-                else if (e.KeyCode == Keys.Decimal)
+                // F12일때 합격처리
+                else if (e.KeyCode == Keys.F12)
                 {
                     foreach (Control control in panelXrayDecipher.Controls)
                     {

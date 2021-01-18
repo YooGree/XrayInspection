@@ -41,8 +41,7 @@ namespace XrayInspection.UserControls
         string _productCode; // 도번
         string _productWeight; // 단중
         object _startTime; // 판독시작시간
-        string _workuserCreatTime; // 근무조 변경시간
-        CS_LoadingForm _loadingForm = new CS_LoadingForm(); 
+        string _workuserCreatTime; // 근무조 변경시간      
 
         #endregion
 
@@ -121,26 +120,37 @@ namespace XrayInspection.UserControls
             {
                 txtJudgmentResult.Tag = "0";
                 txtJudgmentResult.Text = "합격";
+                txtDetailClass.Tag = "";
+                txtDetailClass.Text = "";
+                txtDetailCode.Tag = "";
+                txtDetailCode.Text = "";
+                txtDetailPart.Tag = "";
+                txtDetailPart.Text = "";
 
-                //_loadingForm.ShowDialog();
+                CS_LoadingForm loadingForm = new CS_LoadingForm();
+                BackgroundWorker worker = new BackgroundWorker(); 
 
-                // 판정결과 판단하여 동영상 OK 혹은 NG 폴더로 분기
-                VideoMoveDirectory();
+                worker.DoWork += (doworkSender, args) =>
+                {
+                    // 크로스 쓰레드 문제 해결을 위한 Invoke
+                    this.Invoke(new Action(delegate ()
+                    {
+                        JudgmentComplete(); // 백그라운드로 실행할 메소드 이벤트 생성
+                     
+                    }));
+                };
 
-                // 검사계획/진행현황 변경
-                UpdateInspectPlan();
-
-                // AI판정결과 저장 및 MSAccess DB 접근 
-                UpdateAIJudgmentResult();
-
-                // 데이터 재바인딩
-                Rebinding();
-
-                //_loadingForm.Close();
+                worker.RunWorkerCompleted += (completeSender, args) =>
+                {
+                    System.Threading.Thread.Sleep(4000);
+                    loadingForm.Close(); // 종료시 실행할 이벤트
+                };
+                
+                worker.RunWorkerAsync(); // 백그라운드로 비동기 실행
+                loadingForm.ShowDialog(); // 로딩폼 나타내기
             }
             catch (Exception ex)
             {
-                this.Enabled = true;
                 MsgBoxHelper.Error(ex.Message);
             }
         }
@@ -220,42 +230,32 @@ namespace XrayInspection.UserControls
 
             try
             {
-                //_loadingForm.ShowDialog();
+                CS_LoadingForm loadingForm = new CS_LoadingForm();
+                BackgroundWorker worker = new BackgroundWorker();
 
-                // 판정결과 판단하여 동영상 OK 혹은 NG 폴더로 분기
-                VideoMoveDirectory();
+                worker.DoWork += (doworkSender, args) =>
+                {
+                    // 크로스 쓰레드 문제 해결을 위한 Invoke
+                    this.Invoke(new Action(delegate ()
+                    {
+                        JudgmentComplete(); // 백그라운드로 실행할 메소드 이벤트 생성
 
-                // 검사계획/진행현황 변경
-                UpdateInspectPlan();
+                    }));
+                };
 
-                // AI판정결과 저장 및 MSAccess DB 접근 
-                UpdateAIJudgmentResult();
+                worker.RunWorkerCompleted += (completeSender, args) =>
+                {
+                    System.Threading.Thread.Sleep(4000);
+                    loadingForm.Close(); // 종료시 실행할 이벤트
+                };
 
-                // 데이터 재바인딩
-                Rebinding();
-
-                //_loadingForm.Close();
+                worker.RunWorkerAsync(); // 백그라운드로 비동기 실행
+                loadingForm.ShowDialog(); // 로딩폼 나타내기
             }
             catch (Exception ex)
             {
-                this.Enabled = true;
                 MsgBoxHelper.Error(ex.Message);
             }
-
-            //if (MsgBoxHelper.Show("판정완료 하시겠습니까?", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            //{
-            //    // 판정결과 판단하여 동영상 OK 혹은 NG 폴더로 분기
-            //    VideoMoveDirectory();
-
-            //    // 검사계획/진행현황 변경
-            //    UpdateInspectPlan();
-
-            //    // AI판정결과 저장 및 MSAccess DB 접근 
-            //    UpdateAIJudgmentResult();
-
-            //    // 데이터 재바인딩
-            //    Rebinding();
-            //}
         }
 
         /// <summary>
@@ -1439,6 +1439,27 @@ namespace XrayInspection.UserControls
                     MsgBoxHelper.Error(ex.Message);
                 }
             }
+        }
+
+        /// <summary>
+        /// 판정완료 처리
+        /// </summary>
+        private void JudgmentComplete()
+        {
+            // 아래에 데이터 로딩 등 오래 걸리는 작업 
+            //System.Threading.Thread.Sleep(5000);
+
+            // 판정결과 판단하여 동영상 OK 혹은 NG 폴더로 분기
+            VideoMoveDirectory();
+
+            // 검사계획/진행현황 변경
+            UpdateInspectPlan();
+
+            // AI판정결과 저장 및 MSAccess DB 접근 
+            UpdateAIJudgmentResult();
+
+            // 데이터 재바인딩
+            Rebinding();
         }
 
         #endregion
