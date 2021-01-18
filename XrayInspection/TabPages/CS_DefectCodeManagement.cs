@@ -422,8 +422,8 @@ namespace XrayInspection.UserControls
             comboSearchLevel.DropDownStyle = ComboBoxStyle.DropDownList;
 
             BindingList<object> usableTypeList1 = new BindingList<object>();
-            usableTypeList1.Add(new { Text = "유효", Value = "Valid" });
-            usableTypeList1.Add(new { Text = "미유효", Value = "InValid" });
+            usableTypeList1.Add(new { Text = "사용", Value = "Valid" });
+            usableTypeList1.Add(new { Text = "미사용", Value = "InValid" });
             comboSearchValidState.DataSource = usableTypeList1;
             comboSearchValidState.DisplayMember = "Text";
             comboSearchValidState.ValueMember = "Value";
@@ -431,8 +431,8 @@ namespace XrayInspection.UserControls
             comboSearchValidState.DropDownStyle = ComboBoxStyle.DropDownList;
 
             BindingList<object> usableTypeList2 = new BindingList<object>();
-            usableTypeList2.Add(new { Text = "유효", Value = "Valid" });
-            usableTypeList2.Add(new { Text = "미유효", Value = "InValid" });
+            usableTypeList2.Add(new { Text = "사용", Value = "Valid" });
+            usableTypeList2.Add(new { Text = "미사용", Value = "InValid" });
             comboTopValidState.DataSource = usableTypeList2;
             comboTopValidState.DisplayMember = "Text";
             comboTopValidState.ValueMember = "Value";
@@ -440,8 +440,8 @@ namespace XrayInspection.UserControls
             comboTopValidState.DropDownStyle = ComboBoxStyle.DropDownList;
 
             BindingList<object> usableTypeList3 = new BindingList<object>();
-            usableTypeList3.Add(new { Text = "유효", Value = "Valid" });
-            usableTypeList3.Add(new { Text = "미유효", Value = "InValid" });
+            usableTypeList3.Add(new { Text = "사용", Value = "Valid" });
+            usableTypeList3.Add(new { Text = "미사용", Value = "InValid" });
             comboMiddleValidState.DataSource = usableTypeList3;
             comboMiddleValidState.DisplayMember = "Text";
             comboMiddleValidState.ValueMember = "Value";
@@ -449,8 +449,8 @@ namespace XrayInspection.UserControls
             comboMiddleValidState.DropDownStyle = ComboBoxStyle.DropDownList;
 
             BindingList<object> usableTypeList4 = new BindingList<object>();
-            usableTypeList4.Add(new { Text = "유효", Value = "Valid" });
-            usableTypeList4.Add(new { Text = "미유효", Value = "InValid" });
+            usableTypeList4.Add(new { Text = "사용", Value = "Valid" });
+            usableTypeList4.Add(new { Text = "미사용", Value = "InValid" });
             comboDetailValidState.DataSource = usableTypeList4;
             comboDetailValidState.DisplayMember = "Text";
             comboDetailValidState.ValueMember = "Value";

@@ -246,8 +246,8 @@ namespace XrayInspection.PopUp
                         screen.Rebinding();
                     }
                 }
-                // F2일때 녹화시작
-                else if (e.KeyCode == Keys.F2)
+                // -일때 녹화시작
+                else if (e.KeyCode == Keys.Subtract)
                 {
                     foreach (Control control in panelXrayDecipher.Controls)
                     {
@@ -255,8 +255,8 @@ namespace XrayInspection.PopUp
                         screen.btnStart.PerformClick();
                     }
                 }
-                // F3일때 녹화종료
-                else if (e.KeyCode == Keys.F3)
+                // +일때 녹화종료
+                else if (e.KeyCode == Keys.Add)
                 {
                     foreach (Control control in panelXrayDecipher.Controls)
                     {
@@ -271,6 +271,15 @@ namespace XrayInspection.PopUp
                     {
                         CS_XrayDecipher screen = (CS_XrayDecipher)control;
                         screen.btnJudgmentComplete.PerformClick();
+                    }
+                }
+                // .일때 합격처리
+                else if (e.KeyCode == Keys.Decimal)
+                {
+                    foreach (Control control in panelXrayDecipher.Controls)
+                    {
+                        CS_XrayDecipher screen = (CS_XrayDecipher)control;
+                        screen.btnPass.PerformClick();
                     }
                 }
             }

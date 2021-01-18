@@ -81,6 +81,68 @@ namespace XrayInspection.UserControls
             btnEnd.EnabledChanged += BtnEnabledChanged;
             btnJudgmentComplete.Click += BtnJudgmentComplete_Click;
             btnRefresh.Click += BtnRefresh_Click;
+            btnPass.Click += BtnPass_Click;
+        }
+
+        /// <summary>
+        /// 합격버튼으로 바로 처리
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnPass_Click(object sender, EventArgs e)
+        {
+            // 녹화중인 데이터가 없다면 알림
+            if (grdAIDecipherStatus.Rows.Count == 0)
+            {
+                MsgBoxHelper.Show("현재 녹화중인 데이터가 없습니다." + Environment.NewLine + "먼저 녹화를 시작, 종료한 후 진행해주세요.");
+                return;
+            }
+            // 녹화 진행중이라면 알림
+            else if (!btnStart.Enabled && btnEnd.Enabled)
+            {
+                MsgBoxHelper.Show("현재 녹화 진행중입니다." + Environment.NewLine + "녹화를 종료한 후 진행해주세요.");
+                return;
+            }
+            // LOT크기와 계획본수를 입력하지 않았다면 알림
+            else if (txtLotSize.Text.Trim() == "0" || txtPlanPageCount.Text.Trim() == "0"
+                    || txtLotSize.Text.Trim() == "" || txtPlanPageCount.Text.Trim() == "")
+            {
+                MsgBoxHelper.Show("LOT크기와 계획본수는 필수입력입니다.");
+                return;
+            }
+            // 계획본수 대비 진행순번이 초과한다면 알림
+            //else if (Convert.ToInt32(txtPlanPageCount.Text.Trim()) < Convert.ToInt32(txtProgressSequence.Text.Trim()))
+            //{
+            //    MsgBoxHelper.Show("계획본수보다 진행순번이 높기때문에 진행 불가능합니다.");
+            //    return;
+            //}
+
+            try
+            {
+                txtJudgmentResult.Tag = "0";
+                txtJudgmentResult.Text = "합격";
+
+                //_loadingForm.ShowDialog();
+
+                // 판정결과 판단하여 동영상 OK 혹은 NG 폴더로 분기
+                VideoMoveDirectory();
+
+                // 검사계획/진행현황 변경
+                UpdateInspectPlan();
+
+                // AI판정결과 저장 및 MSAccess DB 접근 
+                UpdateAIJudgmentResult();
+
+                // 데이터 재바인딩
+                Rebinding();
+
+                //_loadingForm.Close();
+            }
+            catch (Exception ex)
+            {
+                this.Enabled = true;
+                MsgBoxHelper.Error(ex.Message);
+            }
         }
 
         /// <summary>
@@ -113,16 +175,16 @@ namespace XrayInspection.UserControls
         /// <param name="e"></param>
         private void BtnJudgmentComplete_Click(object sender, EventArgs e)
         {
-            // 판정중인 데이터가 없다면 알림
+            // 녹화중인 데이터가 없다면 알림
             if (grdAIDecipherStatus.Rows.Count == 0)
             {
-                MsgBoxHelper.Show("현재 판정중인 데이터가 없습니다." + Environment.NewLine + "먼저 판정을 시작, 종료한 후 진행해주세요.");
+                MsgBoxHelper.Show("현재 녹화중인 데이터가 없습니다." + Environment.NewLine + "먼저 녹화를 시작, 종료한 후 진행해주세요.");
                 return;
             }
-            // 시작 진행중이라면 알림
+            // 녹화 진행중이라면 알림
             else if (!btnStart.Enabled && btnEnd.Enabled)
             {
-                MsgBoxHelper.Show("현재 판정 진행중입니다." + Environment.NewLine + "판정을 종료한 후 진행해주세요.");
+                MsgBoxHelper.Show("현재 녹화 진행중입니다." + Environment.NewLine + "녹화를 종료한 후 진행해주세요.");
                 return;
             }
             // 판독결과를 입력하지 않았다면 알림
@@ -138,14 +200,14 @@ namespace XrayInspection.UserControls
                 MsgBoxHelper.Show("LOT크기와 계획본수는 필수입력입니다.");
                 return;
             }
-            // 판독결과를 텍스트박스에 직접 입력했지만 합격(0)이 아닌경우 알림
-            else if (txtJudgmentResult.Tag.ToString().Trim() == "" && txtJudgmentResult.Text != "0")
-            {
-                MsgBoxHelper.Show("판독결과가 합격(0)이 아닌경우 팝업에서 선택해서 입력해야합니다.");
-                return;
-            }
+            // 계획본수 대비 진행순번이 초과한다면 알림
+            //else if (Convert.ToInt32(txtPlanPageCount.Text.Trim()) < Convert.ToInt32(txtProgressSequence.Text.Trim()))
+            //{
+            //    MsgBoxHelper.Show("계획본수보다 진행순번이 높기때문에 진행 불가능합니다.");
+            //    return;
+            //}
             // 판독결과가 합격(0)이 아닌경우, 항목, 세부항목, 부위 필수입력 알림
-            else if (txtJudgmentResult.Tag.ToString().Trim() != "0" && txtJudgmentResult.Text != "0")
+            else if (txtJudgmentResult.Tag.ToString().Trim() != "0")
             {
                 if (string.IsNullOrWhiteSpace(txtDetailClass.Text)
                     || string.IsNullOrWhiteSpace(txtDetailCode.Text)
@@ -251,54 +313,49 @@ namespace XrayInspection.UserControls
                     commonPopup = new CS_CommonPopup("USP_SELECT_XRAYDECIPHER_POPUP_AIJUDGMENTRESULT", "TOP", "판정결과");
                     commonPopup.WindowState = FormWindowState.Normal;
                     commonPopup.StartPosition = FormStartPosition.CenterScreen;
-                    commonPopup.Show();
-                    commonPopup.Activate();
-                    commonPopup.FormClosed += (formSender, formE) =>
+                    if (commonPopup.ShowDialog() == DialogResult.OK)
                     {
-                        if (commonPopup._returnIsOK)
+                        // 판독결과가 합격이라면 항목, 세부항목, 부위, 위치 Enable, ReadOnly
+                        if (commonPopup._returnCodeValue == "0")
                         {
-                            // 판독결과가 합격이라면 항목, 세부항목, 부위, 위치 Enable, ReadOnly
-                            if (commonPopup._returnCodeValue == "0")
-                            {
-                                // 항목
-                                txtDetailClass.Tag = "";
-                                txtDetailClass.Text = "";
-                                btnDetailClass.Enabled = false;
-                                // 세부항목
-                                txtDetailCode.Tag = "";
-                                txtDetailCode.Text = "";
-                                btnDetailCode.Enabled = false;
-                                // 부위
-                                txtDetailPart.Tag = "";
-                                txtDetailPart.Text = "";
-                                btnDetailPart.Enabled = false;
-                                // 위치
-                                txtLocation.ReadOnly = true;
-                                txtLocation.Text = "";
-                            }
-                            // 판독결과가 위에 해당하지 않는다면 항목, 세부항목, 부위, 위치 입력할 수 있도록
-                            else
-                            {
-                                btnDetailClass.Enabled = true;
-                                btnDetailCode.Enabled = true;
-                                btnDetailPart.Enabled = true;
-                                txtLocation.ReadOnly = false;
-                            }
-
-                            if (txtJudgmentResult.Tag.ToString() != commonPopup._returnCodeValue)
-                            {
-                                txtDetailClass.Tag = "";
-                                txtDetailClass.Text = "";
-                                txtDetailCode.Tag = "";
-                                txtDetailCode.Text = "";
-                                txtDetailPart.Tag = "";
-                                txtDetailPart.Text = "";
-                            }
-
-                            txtJudgmentResult.Tag = commonPopup._returnCodeValue;
-                            txtJudgmentResult.Text = commonPopup._returnNameValue;
+                            // 항목
+                            txtDetailClass.Tag = "";
+                            txtDetailClass.Text = "";
+                            btnDetailClass.Enabled = false;
+                            // 세부항목
+                            txtDetailCode.Tag = "";
+                            txtDetailCode.Text = "";
+                            btnDetailCode.Enabled = false;
+                            // 부위
+                            txtDetailPart.Tag = "";
+                            txtDetailPart.Text = "";
+                            btnDetailPart.Enabled = false;
+                            // 위치
+                            txtLocation.ReadOnly = true;
+                            txtLocation.Text = "";
                         }
-                    };
+                        // 판독결과가 위에 해당하지 않는다면 항목, 세부항목, 부위, 위치 입력할 수 있도록
+                        else
+                        {
+                            btnDetailClass.Enabled = true;
+                            btnDetailCode.Enabled = true;
+                            btnDetailPart.Enabled = true;
+                            txtLocation.ReadOnly = false;
+                        }
+
+                        if (txtJudgmentResult.Tag.ToString() != commonPopup._returnCodeValue)
+                        {
+                            txtDetailClass.Tag = "";
+                            txtDetailClass.Text = "";
+                            txtDetailCode.Tag = "";
+                            txtDetailCode.Text = "";
+                            txtDetailPart.Tag = "";
+                            txtDetailPart.Text = "";
+                        }
+
+                        txtJudgmentResult.Tag = commonPopup._returnCodeValue;
+                        txtJudgmentResult.Text = commonPopup._returnNameValue;
+                    }
                     break;
 
                 // 항목(불량코드 중분류)
@@ -306,21 +363,16 @@ namespace XrayInspection.UserControls
                     commonPopup = new CS_CommonPopup("USP_SELECT_XRAYDECIPHER_POPUP_AIJUDGMENTRESULT", "MIDDLE", "항목", "4");
                     commonPopup.WindowState = FormWindowState.Normal;
                     commonPopup.StartPosition = FormStartPosition.CenterScreen;
-                    commonPopup.Show();
-                    commonPopup.Activate();
-                    commonPopup.FormClosed += (formSender, formE) =>
+                    if (commonPopup.ShowDialog() == DialogResult.OK)
                     {
-                        if (commonPopup._returnIsOK)
+                        if (txtDetailClass.Tag.ToString() != commonPopup._returnCodeValue)
                         {
-                            if (txtDetailClass.Tag.ToString() != commonPopup._returnCodeValue)
-                            {
-                                txtDetailCode.Tag = "";
-                                txtDetailCode.Text = "";
-                            }
-                            txtDetailClass.Tag = commonPopup._returnCodeValue;
-                            txtDetailClass.Text = commonPopup._returnNameValue;
+                            txtDetailCode.Tag = "";
+                            txtDetailCode.Text = "";
                         }
-                    };
+                        txtDetailClass.Tag = commonPopup._returnCodeValue;
+                        txtDetailClass.Text = commonPopup._returnNameValue;
+                    }
                     break;
 
                 // 세부항목(불량코드 소분류)
@@ -328,16 +380,11 @@ namespace XrayInspection.UserControls
                     commonPopup = new CS_CommonPopup("USP_SELECT_XRAYDECIPHER_POPUP_AIJUDGMENTRESULT", "DETAIL", "세부항목", txtDetailClass.Tag.ToString());
                     commonPopup.WindowState = FormWindowState.Normal;
                     commonPopup.StartPosition = FormStartPosition.CenterScreen;
-                    commonPopup.Show();
-                    commonPopup.Activate();
-                    commonPopup.FormClosed += (formSender, formE) =>
+                    if (commonPopup.ShowDialog() == DialogResult.OK)
                     {
-                        if (commonPopup._returnIsOK)
-                        {
-                            txtDetailCode.Tag = commonPopup._returnCodeValue;
-                            txtDetailCode.Text = commonPopup._returnNameValue;
-                        }
-                    };
+                        txtDetailCode.Tag = commonPopup._returnCodeValue;
+                        txtDetailCode.Text = commonPopup._returnNameValue;
+                    }
                     break;
 
                 // 부위(불량코드 중분류)
@@ -345,16 +392,11 @@ namespace XrayInspection.UserControls
                     commonPopup = new CS_CommonPopup("USP_SELECT_XRAYDECIPHER_POPUP_AIJUDGMENTRESULT", "MIDDLE", "부위", "5");
                     commonPopup.WindowState = FormWindowState.Normal;
                     commonPopup.StartPosition = FormStartPosition.CenterScreen;
-                    commonPopup.Show();
-                    commonPopup.Activate();
-                    commonPopup.FormClosed += (formSender, formE) =>
+                    if (commonPopup.ShowDialog() == DialogResult.OK)
                     {
-                        if (commonPopup._returnIsOK)
-                        {
-                            txtDetailPart.Tag = commonPopup._returnCodeValue;
-                            txtDetailPart.Text = commonPopup._returnNameValue;
-                        }
-                    };
+                        txtDetailPart.Tag = commonPopup._returnCodeValue;
+                        txtDetailPart.Text = commonPopup._returnNameValue;
+                    }
                     break;
             }
         }
@@ -862,25 +904,6 @@ namespace XrayInspection.UserControls
         {
             try
             {
-                // 2021-01-14 유태근 / 판독결과 팝업창에서 직접 입력했을때 추가할 수 있도록 수정
-                string lastResultCode = "";
-                string lastResultName = "";
-
-                // 합격일때
-                if (txtJudgmentResult.Text.Trim() == "0")
-                {
-                    lastResultCode = "0";
-                    lastResultName = "합격";
-                    txtJudgmentResult.Tag = "0";
-                    txtJudgmentResult.Text = "합격";
-                }
-                // 합격이 아닐때
-                else
-                {
-                    lastResultCode = txtJudgmentResult.Tag.ToString();
-                    lastResultName = txtJudgmentResult.Text;
-                }
-
                 // MSAccessDB에 데이터 저장
                 InsertMSAccessDataByNonProduct();
 
@@ -890,8 +913,8 @@ namespace XrayInspection.UserControls
                 parameters.Add("@INSPECTORID", comboInspector.SelectedValue);
                 parameters.Add("@INSPECTORNAME", comboInspector.Text);
                 parameters.Add("@SHIFTID", comboInspector.Tag);
-                parameters.Add("@JUDGMENTRESULTID", lastResultCode);
-                parameters.Add("@JUDGMENTRESULTNAME", lastResultName);
+                parameters.Add("@JUDGMENTRESULTID", txtJudgmentResult.Tag);
+                parameters.Add("@JUDGMENTRESULTNAME", txtJudgmentResult.Text);
                 parameters.Add("@DETAILCLASSID", txtDetailClass.Tag);
                 parameters.Add("@DETAILCLASSNAME", txtDetailClass.Text);
                 parameters.Add("@DETAILCODEID", txtDetailCode.Tag);
@@ -1091,7 +1114,7 @@ namespace XrayInspection.UserControls
                 string CopyPath;
 
                 // 합격(OK)
-                if (txtJudgmentResult.Tag.Equals("0"))
+                if (txtJudgmentResult.Tag.Equals("0") || txtJudgmentResult.Tag.Equals("1") || txtJudgmentResult.Tag.Equals("2"))
 
                 {
                     CopyPath = Properties.Settings.Default.OKVideoPath + txtLotNo.Text + ".mp4";

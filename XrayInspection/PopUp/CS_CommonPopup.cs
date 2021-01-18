@@ -29,7 +29,7 @@ namespace XrayInspection.PopUp
         public string _returnCodeValue = ""; // 리턴코드값
         public string _returnNameValue = ""; // 리턴명값
         public string _returnCodeNameValue = ""; // 리턴코드+명값
-        public bool _returnIsOK; // 폼을 확인 닫았는지 닫기로 닫았는지 확인
+        public bool _returnIsOK = false;
 
         #endregion
 
@@ -82,7 +82,7 @@ namespace XrayInspection.PopUp
         /// <param name="e"></param>
         private void BtnClose_Click(object sender, EventArgs e)
         {
-            this._returnIsOK = false;
+            this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
 
@@ -106,8 +106,7 @@ namespace XrayInspection.PopUp
             this._returnCodeValue = gRow.Cells["CODEID"].Value.ToString();
             this._returnNameValue = gRow.Cells["CODENAME"].Value.ToString();
             this._returnCodeNameValue = _returnCodeValue + " : " + _returnNameValue;
-            this._returnIsOK = true;
-            this.Close();
+            this.DialogResult = DialogResult.OK;
         }
 
         /// <summary>

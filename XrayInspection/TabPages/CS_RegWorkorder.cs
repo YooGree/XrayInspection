@@ -122,6 +122,7 @@ namespace XrayInspection.UserControls
                 }
                 else
                 {
+                    sfd.FileName = lblTitle.Text + "_" + DateTime.Now.ToString("yyyyMMddHHmmss");
                     sfd.Filter = "csv(*.csv) | *.csv";
 
                     DialogResult result = MsgBoxHelper.Show("엑셀 저장 하시겠습니까?", MessageBoxButtons.OKCancel);
