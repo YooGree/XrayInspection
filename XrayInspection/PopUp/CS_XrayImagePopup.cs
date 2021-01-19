@@ -375,8 +375,19 @@ namespace XrayInspection.PopUp
         private void GetMediaFile()
         {
             string fileName = _currentRow.Cells["LOTID"].Value.ToString() + ".mp4";
-            string filePath = Properties.Settings.Default.VideoPath;
+            string filePath = "";
 
+            if (_currentRow.Cells["LASTRESULTCODE"].Value.ToString() == "0"
+                || _currentRow.Cells["LASTRESULTCODE"].Value.ToString() == "1"
+                || _currentRow.Cells["LASTRESULTCODE"].Value.ToString() == "2")
+            {
+                filePath = Properties.Settings.Default.OKVideoPath;
+            }
+            else
+            {
+                filePath = Properties.Settings.Default.NGVideoPath;
+            }
+    
             // 테스트 필요
             //NG일때
             //if (_currentRow.Cells["LASTRESULTCODE"].Value.ToString() == "3")
@@ -723,54 +734,52 @@ namespace XrayInspection.PopUp
                     commonPopup = new CS_CommonPopup("USP_SELECT_XRAYDECIPHER_POPUP_AIJUDGMENTRESULT", "TOP", "판정결과");
                     commonPopup.WindowState = FormWindowState.Normal;
                     commonPopup.StartPosition = FormStartPosition.CenterScreen;
-                    commonPopup.Show();
-                    commonPopup.Activate();
-                    commonPopup.FormClosed += (formSender, formE) =>
+                    if (commonPopup.ShowDialog() == DialogResult.OK)
                     {
-                        if (commonPopup._returnIsOK)
+                        // 판독결과가 합격이라면 항목, 세부항목, 부위, 위치 Enable, ReadOnly
+                        if (commonPopup._returnCodeValue == "0")
                         {
-                            // 판독결과가 합격이라면 항목, 세부항목, 부위, 위치 Enable, ReadOnly
-                            if (commonPopup._returnCodeValue == "0")
-                            {
-                                // 항목
-                                txtDetailClass.Tag = "";
-                                txtDetailClass.Text = "";
-                                btnDetailClass.Enabled = false;
-                                // 세부항목
-                                txtDetailCode.Tag = "";
-                                txtDetailCode.Text = "";
-                                btnDetailCode.Enabled = false;
-                                // 부위
-                                txtDetailPart.Tag = "";
-                                txtDetailPart.Text = "";
-                                btnDetailPart.Enabled = false;
-                                // 위치
-                                txtLocation.ReadOnly = true;
-                                txtLocation.Text = "";
-                            }
-                            // 판독결과가 위에 해당하지 않는다면 항목, 세부항목, 부위, 위치 입력할 수 있도록
-                            else
-                            {
-                                btnDetailClass.Enabled = true;
-                                btnDetailCode.Enabled = true;
-                                btnDetailPart.Enabled = true;
-                                txtLocation.ReadOnly = false;
-                            }
-
-                            if (txtJudgmentResult.Tag.ToString() != commonPopup._returnCodeValue)
-                            {
-                                txtDetailClass.Tag = "";
-                                txtDetailClass.Text = "";
-                                txtDetailCode.Tag = "";
-                                txtDetailCode.Text = "";
-                                txtDetailPart.Tag = "";
-                                txtDetailPart.Text = "";
-                            }
-
-                            txtJudgmentResult.Tag = commonPopup._returnCodeValue;
-                            txtJudgmentResult.Text = commonPopup._returnNameValue;
+                            // 항목
+                            txtDetailClass.Tag = "";
+                            txtDetailClass.Text = "";
+                            btnDetailClass.Enabled = false;
+                            // 세부항목
+                            txtDetailCode.Tag = "";
+                            txtDetailCode.Text = "";
+                            btnDetailCode.Enabled = false;
+                            // 부위
+                            txtDetailPart.Tag = "";
+                            txtDetailPart.Text = "";
+                            btnDetailPart.Enabled = false;
+                            // 위치
+                            txtLocation.ReadOnly = true;
+                            txtLocation.Text = "";
                         }
-                    };
+                        // 판독결과가 위에 해당하지 않는다면 항목, 세부항목, 부위, 위치 입력할 수 있도록
+                        else
+                        {
+                            btnDetailClass.Enabled = true;
+                            btnDetailCode.Enabled = true;
+                            btnDetailPart.Enabled = true;
+                            txtLocation.ReadOnly = false;
+                        }
+
+                        if (txtJudgmentResult.Tag.ToString() != commonPopup._returnCodeValue)
+                        {
+                            txtDetailClass.Tag = "";
+                            txtDetailClass.Text = "";
+                            txtDetailCode.Tag = "";
+                            txtDetailCode.Text = "";
+                            txtDetailPart.Tag = "";
+                            txtDetailPart.Text = "";
+                        }
+
+                        txtJudgmentResult.Tag = commonPopup._returnCodeValue;
+                        txtJudgmentResult.Text = commonPopup._returnNameValue;
+
+                        // 2021-01-19 유태근 - 판독결과가 합격이 아니라면 그 이후 팝업 자동 호출될 수 있도록
+                        if (commonPopup._returnCodeValue != "0") btnDetailClass.PerformClick();
+                    }
                     break;
 
                 // 항목(불량코드 중분류)
@@ -778,21 +787,19 @@ namespace XrayInspection.PopUp
                     commonPopup = new CS_CommonPopup("USP_SELECT_XRAYDECIPHER_POPUP_AIJUDGMENTRESULT", "MIDDLE", "항목", "4");
                     commonPopup.WindowState = FormWindowState.Normal;
                     commonPopup.StartPosition = FormStartPosition.CenterScreen;
-                    commonPopup.Show();
-                    commonPopup.Activate();
-                    commonPopup.FormClosed += (formSender, formE) =>
+                    if (commonPopup.ShowDialog() == DialogResult.OK)
                     {
-                        if (commonPopup._returnIsOK)
+                        if (txtDetailClass.Tag.ToString() != commonPopup._returnCodeValue)
                         {
-                            if (txtDetailClass.Tag.ToString() != commonPopup._returnCodeValue)
-                            {
-                                txtDetailCode.Tag = "";
-                                txtDetailCode.Text = "";
-                            }
-                            txtDetailClass.Tag = commonPopup._returnCodeValue;
-                            txtDetailClass.Text = commonPopup._returnNameValue;
+                            txtDetailCode.Tag = "";
+                            txtDetailCode.Text = "";
                         }
-                    };
+                        txtDetailClass.Tag = commonPopup._returnCodeValue;
+                        txtDetailClass.Text = commonPopup._returnNameValue;
+
+                        // 2021-01-19 유태근 - 그 이후 팝업 자동 호출될 수 있도록
+                        btnDetailCode.PerformClick();
+                    }
                     break;
 
                 // 세부항목(불량코드 소분류)
@@ -800,16 +807,14 @@ namespace XrayInspection.PopUp
                     commonPopup = new CS_CommonPopup("USP_SELECT_XRAYDECIPHER_POPUP_AIJUDGMENTRESULT", "DETAIL", "세부항목", txtDetailClass.Tag.ToString());
                     commonPopup.WindowState = FormWindowState.Normal;
                     commonPopup.StartPosition = FormStartPosition.CenterScreen;
-                    commonPopup.Show();
-                    commonPopup.Activate();
-                    commonPopup.FormClosed += (formSender, formE) =>
+                    if (commonPopup.ShowDialog() == DialogResult.OK)
                     {
-                        if (commonPopup._returnIsOK)
-                        {
-                            txtDetailCode.Tag = commonPopup._returnCodeValue;
-                            txtDetailCode.Text = commonPopup._returnNameValue;
-                        }
-                    };
+                        txtDetailCode.Tag = commonPopup._returnCodeValue;
+                        txtDetailCode.Text = commonPopup._returnNameValue;
+
+                        // 2021-01-19 유태근 - 그 이후 팝업 자동 호출될 수 있도록
+                        btnDetailPart.PerformClick();
+                    }
                     break;
 
                 // 부위(불량코드 중분류)
@@ -817,16 +822,14 @@ namespace XrayInspection.PopUp
                     commonPopup = new CS_CommonPopup("USP_SELECT_XRAYDECIPHER_POPUP_AIJUDGMENTRESULT", "MIDDLE", "부위", "5");
                     commonPopup.WindowState = FormWindowState.Normal;
                     commonPopup.StartPosition = FormStartPosition.CenterScreen;
-                    commonPopup.Show();
-                    commonPopup.Activate();
-                    commonPopup.FormClosed += (formSender, formE) =>
+                    if (commonPopup.ShowDialog() == DialogResult.OK)
                     {
-                        if (commonPopup._returnIsOK)
-                        {
-                            txtDetailPart.Tag = commonPopup._returnCodeValue;
-                            txtDetailPart.Text = commonPopup._returnNameValue;
-                        }
-                    };
+                        txtDetailPart.Tag = commonPopup._returnCodeValue;
+                        txtDetailPart.Text = commonPopup._returnNameValue;
+
+                        // 2021-01-19 유태근 - 부위 최종선택 후 위치로 포커스 강제이동
+                        txtLocation.Focus();
+                    }
                     break;
             }
         }

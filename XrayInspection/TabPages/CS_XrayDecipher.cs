@@ -41,7 +41,7 @@ namespace XrayInspection.UserControls
         string _productCode; // 도번
         string _productWeight; // 단중
         object _startTime; // 판독시작시간
-        string _workuserCreatTime; // 근무조 변경시간      
+        string _workuserCreatTime; // 근무조 변경시간  
 
         #endregion
 
@@ -81,6 +81,23 @@ namespace XrayInspection.UserControls
             btnJudgmentComplete.Click += BtnJudgmentComplete_Click;
             btnRefresh.Click += BtnRefresh_Click;
             btnPass.Click += BtnPass_Click;
+
+            txtLotSize.KeyPress += KeyPressRequiredInt;
+            txtPlanPageCount.KeyPress += KeyPressRequiredInt;
+        }
+
+        /// <summary>
+        /// 텍스트박스에서 숫자만 입력 가능하도록 처리
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void KeyPressRequiredInt(object sender, KeyPressEventArgs e)
+        {
+            // 숫자만 입력되도록 필터링(숫자와 백스페이스를 제외한 나머지를 바로 처리)
+            if (!(char.IsDigit(e.KeyChar) || e.KeyChar == Convert.ToChar(Keys.Back)))
+            {
+                e.Handled = true;
+            }
         }
 
         /// <summary>
@@ -108,6 +125,14 @@ namespace XrayInspection.UserControls
             {
                 MsgBoxHelper.Show("LOT크기와 계획본수는 필수입력입니다.");
                 return;
+            }
+            // 합격이 아닌 상태를 입력했는데 원클릭합격을 눌렀다면 알림
+            else if (txtJudgmentResult.Tag.ToString().Trim() != "0" && txtJudgmentResult.Tag.ToString().Trim() != "")
+            {
+                if (MsgBoxHelper.Show("현재 입력된 판정결과가 합격(0)이 아닙니다. \n그래도 합격처리 하시겠습니까?", MessageBoxButtons.YesNo) == DialogResult.No)
+                {
+                    return;
+                }
             }
             // 계획본수 대비 진행순번이 초과한다면 알림
             //else if (Convert.ToInt32(txtPlanPageCount.Text.Trim()) < Convert.ToInt32(txtProgressSequence.Text.Trim()))
@@ -161,7 +186,7 @@ namespace XrayInspection.UserControls
         }
 
         /// <summary>
-        /// 버튼 활성화 유무에 따라 색깔처리
+        /// 녹화시작, 종료버튼 활성화 유무에 따라 색깔처리
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -169,8 +194,21 @@ namespace XrayInspection.UserControls
         {
             Button btn = sender as Button;
 
-            btn.ForeColor = btn.Enabled == false ? Color.Black : Color.White;
-            btn.BackColor = btn.Enabled == false ? Color.Yellow : Color.DimGray;
+            switch (btn.Name)
+            {
+                // 녹화시작
+                case "btnStart":
+                    btn.Text = btn.Enabled == false ? "녹화중" : "녹화시작(-)";
+                    btn.ForeColor = btn.Enabled == false ? Color.Black : Color.White;
+                    btn.BackColor = btn.Enabled == false ? Color.Yellow : Color.Red;
+                    break;
+
+                // 녹화종료
+                case "btnEnd":
+                    btn.ForeColor = btn.Enabled == false ? Color.Black : Color.White;
+                    btn.BackColor = btn.Enabled == false ? Color.Yellow : Color.Blue;
+                    break;
+            }
         }
 
         /// <summary>
@@ -602,6 +640,7 @@ namespace XrayInspection.UserControls
                         txtUser.Text = ds.Tables[0].Rows[0]["MAKERNAME"].ToString();
                         txtUser.Tag = ds.Tables[0].Rows[0]["MAKERID"].ToString();
                         txtLotNo.Text = ds.Tables[0].Rows[0]["LOTID"].ToString();
+                        txtSequenceByPallet.Text = ds.Tables[0].Rows[0]["INSPECTSEQUENCE"].ToString() + " / " + ds.Tables[0].Rows[0]["PALLETCOUNT"].ToString(); // 파렛트 순번
 
                         // 검사계획/진행현황
                         List<SqlParameter> parameters2 = new List<SqlParameter>();
@@ -613,6 +652,7 @@ namespace XrayInspection.UserControls
                         txtInspectionStd.Text = "0";
                         txtPlanPageCount.Text = "0";
                         txtSequenceByProduct.Text = "1";
+                        txtComment2.Text = "";
 
                         if (ds2.Tables.Count > 0)
                         {
@@ -621,15 +661,10 @@ namespace XrayInspection.UserControls
                                 txtLotSize.Text = ds2.Tables[0].Rows[0]["PRODUCTIONQTY"].ToString(); // LOT크기
                                 txtInspectionStd.Text = ds2.Tables[0].Rows[0]["INSPECTRATE"].ToString(); // 검사기준(%)
                                 txtPlanPageCount.Text = ds2.Tables[0].Rows[0]["INSPECTQTY"].ToString(); // 계획본수
-                                txtSequenceByProduct.Text = ds2.Tables[0].Rows[0]["INSPECTSEQUENCE"].ToString();
+                                txtSequenceByProduct.Text = ds2.Tables[0].Rows[0]["INSPECTSEQUENCE"].ToString() + " / " + ds2.Tables[0].Rows[0]["INSPECTQTY"].ToString(); // 제품별 순번
+                                txtComment2.Text = ds2.Tables[0].Rows[0]["COMMENTS"].ToString(); // 계획본수
                             }
                         }
-
-                        // 검사계획/진행현황
-                        //txtLotSize.Text = ds.Tables[0].Rows[0]["PRODUCTIONQTY"].ToString();
-                        //txtInspectionStd.Text = ds.Tables[0].Rows[0]["INSPECTRATE"].ToString();
-                        //txtPlanPageCount.Text = ds.Tables[0].Rows[0]["INSPECTQTY"].ToString();
-                        //txtProgressSequence.Text = ds.Tables[0].Rows[0]["INSPECTSEQUENCE"].ToString();
 
                         _lotState = ds.Tables[0].Rows[0]["LOTSTATE"].ToString(); // 현재 LOT상태
                         _originalLotId = ds.Tables[0].Rows[0]["LOTID"].ToString(); // 최초 검색 LOT ID
@@ -652,6 +687,7 @@ namespace XrayInspection.UserControls
                         txtUser.Text = "";
                         txtUser.Tag = "";
                         txtLotNo.Text = "";
+                        txtSequenceByPallet.Text = "0 / 0";
                     }
                 }
             }
@@ -854,6 +890,7 @@ namespace XrayInspection.UserControls
                 parameters.Add("@LOTSIZE", Convert.ToInt32(txtLotSize.Text));
                 parameters.Add("@INSPECTQTY", txtPlanPageCount.Text);
                 parameters.Add("@INSPECTRATE", Convert.ToInt32(txtInspectionStd.Text));
+                parameters.Add("@COMMENTS", txtComment2.Text);
 
                 SqlParameter[] sqlParameters = _dbManager.GetSqlParameters(parameters);
 
@@ -1000,6 +1037,15 @@ namespace XrayInspection.UserControls
         private void SearchTimer_Tick(object sender, EventArgs e)
         {
             AIJudgmentInfoSearch();
+
+            if (btnStart.Text.Contains("..."))
+            {
+                btnStart.Text = btnStart.Text.Replace(".", "");
+            }
+            else
+            {
+                btnStart.Text += ".";
+            }
         }
 
         /// <summary>
@@ -1141,12 +1187,14 @@ namespace XrayInspection.UserControls
                 {
                     CopyPath = Properties.Settings.Default.OKVideoPath + txtLotNo.Text + ".mp4";
                     File.Copy(OriginalPath, CopyPath, true);
+                    File.Delete(OriginalPath);
                 }
                 // 불합격(NG)
                 else
                 {
                     CopyPath = Properties.Settings.Default.NGVideoPath + txtLotNo.Text + ".mp4";
                     File.Copy(OriginalPath, CopyPath, true);
+                    File.Delete(OriginalPath);
                 }
             }
             catch (Exception ex)
@@ -1175,14 +1223,9 @@ namespace XrayInspection.UserControls
                     // TXRAY검사정보 테이블에 현재 날짜, 근무조, 도번에 해당하는 데이터가 있는지 확인
                     string InspectionInfoSelectSql = "SELECT  FMKEY " +
                                                      "FROM    TXRAY검사정보 " +
-                                                     "WHERE   F검사일시 = '" + _workuserCreatTime + "' " +
-                                                     "AND     F근무조 = '" + txtShift.Text + "' " +
-                                                     "AND     F도번 = '" + _productCode + "' ";
-
-                    //// TXRAY검사정보 테이블에 현재 작업지시번호에 해당하는 데이터가 있는지 확인
-                    //string InspectionInfoSelectSql = "SELECT  FMKEY " +
-                    //                                 "FROM    TXRAY검사정보 " +
-                    //                                 "WHERE   FWORKORDERNO = '" + _workorderNumber + "'";
+                                                     "WHERE   F검사일시 = '" + _workuserCreatTime.Trim() + "' " +
+                                                     "AND     F근무조 = '" + txtShift.Text.Trim() + "' " +
+                                                     "AND     F도번 = '" + _productCode.Trim() + "' ";
 
                     // TXRAY실데이타 테이블의 FMKEY컬럼
                     int fmKey = -1;
@@ -1245,9 +1288,9 @@ namespace XrayInspection.UserControls
 
                             string InspectionInfoReSelectSql = "SELECT  FMKEY " +
                                                                "FROM    TXRAY검사정보 " +
-                                                               "WHERE   F검사일시 = '" + _workuserCreatTime + "' " +
-                                                               "AND     F근무조 = '" + txtShift.Text + "' " +
-                                                               "AND     F도번 = '" + _productCode + "' ";
+                                                               "WHERE   F검사일시 = '" + _workuserCreatTime.Trim() + "' " +
+                                                               "AND     F근무조 = '" + txtShift.Text.Trim() + "' " +
+                                                               "AND     F도번 = '" + _productCode.Trim() + "' ";
 
                             adp = new OleDbDataAdapter(InspectionInfoReSelectSql, conn);
                             adp.Fill(newDs);
@@ -1266,14 +1309,15 @@ namespace XrayInspection.UserControls
                             fmKey = ds.Tables[0].Rows[0].Field<int>("FMKEY");
                         }
 
-                        // 2021-01-19 유태근 - LOT크기 변경시 TXRAY검사정보 테이블에 업데이트
+                        // 2021-01-19 유태근 - LOT크기, 비고 TXRAY검사정보 테이블에 업데이트
                         DataSet updateDs = new DataSet();
 
                         string InspectionInfoUpdateSql = "UPDATE TXRAY검사정보 " +
                                                          "SET    FLOT크기 = '" + Convert.ToInt32(txtLotSize.Text.Trim()) + "' " +
-                                                         "WHERE  F검사일시 = '" + _workuserCreatTime + "' " +
-                                                         "AND    F근무조 = '" + txtShift.Text + "' " +
-                                                         "AND    F도번 = '" + _productCode + "' ";
+                                                         "      ,F비고 = '" + txtComment2.Text + "' " +
+                                                         "WHERE  F검사일시 = '" + _workuserCreatTime.Trim() + "' " +
+                                                         "AND    F근무조 = '" + txtShift.Text.Trim() + "' " +
+                                                         "AND    F도번 = '" + _productCode.Trim() + "' ";
 
                         adp = new OleDbDataAdapter(InspectionInfoUpdateSql, conn);
                         adp.Fill(updateDs);
@@ -1284,10 +1328,28 @@ namespace XrayInspection.UserControls
                     {
                         string pCnt = Regex.Replace(txtJudgmentResult.Tag.ToString().Trim(), @"[^0-9]", "");
                         string iCnt = Regex.Replace(txtDetailClass.Tag.ToString().Trim(), @"[^0-9]", "");
-                        string passCntColumn = txtJudgmentResult.Tag.ToString().Trim().Equals("") ? "F합격0" : "F합격" + pCnt;
+                        string passCntColumn = "F합격" + pCnt;
                         string itemCntColumn = txtDetailClass.Tag.ToString().Trim().Equals("") ? "F항목0" : "F항목" + iCnt;
                         string lastResult = (txtJudgmentResult.Tag.ToString().Trim() == "3") ? "부적합" : "합격";
                         string filePath = lastResult == "합격" ? @".\DBMOVIE_J\" + txtLotNo.Text + ".mp4" : @".\DBMOVIE_E\" + txtLotNo.Text + ".mp4";
+                        string contents = "";
+
+                        if (string.IsNullOrWhiteSpace(txtDetailClass.Text) && string.IsNullOrWhiteSpace(txtDetailCode.Text))
+                        {
+                            contents = "";
+                        }
+                        else if (!string.IsNullOrWhiteSpace(txtDetailClass.Text) && string.IsNullOrWhiteSpace(txtDetailCode.Text))
+                        {
+                            contents = txtDetailClass.Text;
+                        }
+                        else if (!string.IsNullOrWhiteSpace(txtDetailClass.Text) && !string.IsNullOrWhiteSpace(txtDetailCode.Text))
+                        {
+                            contents = txtDetailClass.Text + "(" + txtDetailCode.Text + ")";
+                        }
+                        else if (string.IsNullOrWhiteSpace(txtDetailClass.Text) && !string.IsNullOrWhiteSpace(txtDetailCode.Text))
+                        {
+                            contents = "(" + txtDetailCode.Text + ")";
+                        }
 
                         conn.Open();
                         string InspectionDataInsertSql = "INSERT INTO TXRAY실데이타 (FMKEY, F검사원, F성형자, F제품구분, F근무조, F검사일시, FLOTNO, F판독결과, " + passCntColumn + ", " + itemCntColumn + ", " + "F확인사항_항목, F확인사항_재질, F확인사항_위치, F판정, FPATH, F측정시작시간, F측정종료시간) " +
@@ -1304,7 +1366,7 @@ namespace XrayInspection.UserControls
                         comm.Parameters.AddWithValue("@F판독결과", Convert.ToInt32(txtJudgmentResult.Tag));
                         comm.Parameters.AddWithValue(passCntColumn, 1);
                         comm.Parameters.AddWithValue(itemCntColumn, txtDetailClass.Tag.ToString().Equals("") ? 0 : 1);
-                        comm.Parameters.AddWithValue("@F확인사항_항목", txtDetailClass.Text + "(" + txtDetailCode.Text + ")");
+                        comm.Parameters.AddWithValue("@F확인사항_항목", contents);
                         comm.Parameters.AddWithValue("@F확인사항_재질", txtDetailPart.Text);
                         comm.Parameters.AddWithValue("@F확인사항_위치", txtLocation.Text);
                         comm.Parameters.AddWithValue("@F판정", lastResult);
@@ -1344,9 +1406,9 @@ namespace XrayInspection.UserControls
                     // TXRAY검사정보 테이블에 현재 날짜, 근무조, 도번에 해당하는 데이터가 있는지 확인
                     string InspectionInfoSelectSql = "SELECT  FMKEY " +
                                                      "FROM    TXRAY검사정보 " +
-                                                     "WHERE   F검사일시 = '" + _workuserCreatTime + "'" +
-                                                     "AND     F근무조 = '" + txtShift.Text + "'" +
-                                                     "AND     F도번 = '" + _productCode + "'";
+                                                     "WHERE   F검사일시 = '" + _workuserCreatTime.Trim() + "'" +
+                                                     "AND     F근무조 = '" + txtShift.Text.Trim() + "'" +
+                                                     "AND     F도번 = '" + _productCode.Trim() + "'";
 
                     //// TXRAY검사정보 테이블에 현재 작업지시번호에 해당하는 데이터가 있는지 확인
                     //string InspectionInfoSelectSql = "SELECT  FMKEY " +
@@ -1412,7 +1474,9 @@ namespace XrayInspection.UserControls
 
                             string InspectionInfoReSelectSql = "SELECT  FMKEY " +
                                                                "FROM    TXRAY검사정보 " +
-                                                               "WHERE   FWORKORDERNO = '" + _workorderNumber + "'";
+                                                               "WHERE   F검사일시 = '" + _workuserCreatTime.Trim() + "'" +
+                                                               "AND     F근무조 = '" + txtShift.Text.Trim() + "'" +
+                                                               "AND     F도번 = '" + _productCode.Trim() + "'";
 
                             adp = new OleDbDataAdapter(InspectionInfoReSelectSql, conn);
                             adp.Fill(newDs);
@@ -1431,14 +1495,15 @@ namespace XrayInspection.UserControls
                             fmKey = ds.Tables[0].Rows[0].Field<int>("FMKEY");
                         }
 
-                        // 2021-01-19 유태근 - LOT크기 변경시 TXRAY검사정보 테이블에 업데이트
+                        // 2021-01-19 유태근 - LOT크기, 비고 TXRAY검사정보 테이블에 업데이트
                         DataSet updateDs = new DataSet();
 
                         string InspectionInfoUpdateSql = "UPDATE TXRAY검사정보 " +
                                                          "SET    FLOT크기 = '" + Convert.ToInt32(txtLotSize.Text.Trim()) + "' " +
-                                                         "WHERE  F검사일시 = '" + _workuserCreatTime + "' " +
-                                                         "AND    F근무조 = '" + txtShift.Text + "' " +
-                                                         "AND    F도번 = '" + _productCode + "' ";
+                                                         "      ,F비고 = '" + txtComment2.Text + "' " +
+                                                         "WHERE  F검사일시 = '" + _workuserCreatTime.Trim() + "' " +
+                                                         "AND    F근무조 = '" + txtShift.Text.Trim() + "' " +
+                                                         "AND    F도번 = '" + _productCode.Trim() + "' ";
 
                         adp = new OleDbDataAdapter(InspectionInfoUpdateSql, conn);
                         adp.Fill(updateDs);
@@ -1449,10 +1514,28 @@ namespace XrayInspection.UserControls
                     {
                         string pCnt = Regex.Replace(txtJudgmentResult.Tag.ToString(), @"[^0-9]", "");
                         string iCnt = Regex.Replace(txtDetailClass.Tag.ToString(), @"[^0-9]", "");
-                        string passCntColumn = txtJudgmentResult.Tag.ToString().Equals("") ? "F합격0" : "F합격" + pCnt;
+                        string passCntColumn = "F합격" + pCnt;
                         string itemCntColumn = txtDetailClass.Tag.ToString().Equals("") ? "F항목0" : "F항목" + iCnt;
                         string lastResult = (txtJudgmentResult.Tag.ToString().Trim() == "3") ? "부적합" : "합격";
                         string filePath = lastResult == "합격" ? @".\DBMOVIE_J\" + txtLotNo.Text + ".mp4" : @".\DBMOVIE_E\" + txtLotNo.Text + ".mp4";
+                        string contents = "";
+
+                        if (string.IsNullOrWhiteSpace(txtDetailClass.Text) && string.IsNullOrWhiteSpace(txtDetailCode.Text))
+                        {
+                            contents = "";
+                        }
+                        else if (!string.IsNullOrWhiteSpace(txtDetailClass.Text) && string.IsNullOrWhiteSpace(txtDetailCode.Text))
+                        {
+                            contents = txtDetailClass.Text;
+                        }
+                        else if (!string.IsNullOrWhiteSpace(txtDetailClass.Text) && !string.IsNullOrWhiteSpace(txtDetailCode.Text))
+                        {
+                            contents = txtDetailClass.Text + "(" + txtDetailCode.Text + ")";
+                        }
+                        else if (string.IsNullOrWhiteSpace(txtDetailClass.Text) && !string.IsNullOrWhiteSpace(txtDetailCode.Text))
+                        {
+                            contents = "(" + txtDetailCode.Text + ")";
+                        }
 
                         conn.Open();
                         string InspectionDataInsertSql = "INSERT INTO TXRAY실데이타 (FMKEY, F검사원, F성형자, F제품구분, F근무조, F검사일시, FLOTNO, F판독결과, " + passCntColumn + ", " + itemCntColumn + ", " + "F확인사항_항목, F확인사항_재질, F확인사항_위치, F판정, FPATH, F측정시작시간, F측정종료시간) " +
@@ -1469,7 +1552,7 @@ namespace XrayInspection.UserControls
                         comm.Parameters.AddWithValue("@F판독결과", Convert.ToInt32(txtJudgmentResult.Tag));
                         comm.Parameters.AddWithValue(passCntColumn, 1);
                         comm.Parameters.AddWithValue(itemCntColumn, txtDetailClass.Tag.ToString().Equals("") ? 0 : 1);
-                        comm.Parameters.AddWithValue("@F확인사항_항목", txtDetailClass.Text);
+                        comm.Parameters.AddWithValue("@F확인사항_항목", contents);
                         comm.Parameters.AddWithValue("@F확인사항_재질", txtDetailPart.Text);
                         comm.Parameters.AddWithValue("@F확인사항_위치", txtLocation.Text);
                         comm.Parameters.AddWithValue("@F판정", lastResult);

@@ -273,8 +273,8 @@ namespace XrayInspection.PopUp
                         screen.btnJudgmentComplete.PerformClick();
                     }
                 }
-                // F12일때 합격처리
-                else if (e.KeyCode == Keys.F12)
+                // Enter일때 합격처리
+                else if (e.KeyCode == Keys.Enter)
                 {
                     foreach (Control control in panelXrayDecipher.Controls)
                     {
