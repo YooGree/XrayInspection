@@ -32,7 +32,6 @@ namespace XrayInspection.PopUp
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.btnSearch = new System.Windows.Forms.Button();
@@ -52,15 +51,15 @@ namespace XrayInspection.PopUp
             // 
             // lblTitle
             // 
-            this.lblTitle.Size = new System.Drawing.Size(443, 30);
+            this.lblTitle.Size = new System.Drawing.Size(462, 30);
             // 
             // lblFooter
             // 
-            this.lblFooter.Size = new System.Drawing.Size(443, 30);
+            this.lblFooter.Size = new System.Drawing.Size(462, 30);
             // 
             // panelLogo_MICube
             // 
-            this.panelLogo_MICube.Location = new System.Drawing.Point(279, 0);
+            this.panelLogo_MICube.Location = new System.Drawing.Point(298, 0);
             // 
             // tableLayoutPanel1
             // 
@@ -77,15 +76,15 @@ namespace XrayInspection.PopUp
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(443, 378);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(462, 419);
             this.tableLayoutPanel1.TabIndex = 3;
             // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 4;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tableLayoutPanel2.Controls.Add(this.btnSearch, 3, 0);
             this.tableLayoutPanel2.Controls.Add(this.lblSearchLabel, 0, 0);
@@ -95,7 +94,7 @@ namespace XrayInspection.PopUp
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(437, 34);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(456, 34);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // btnSearch
@@ -104,9 +103,9 @@ namespace XrayInspection.PopUp
             this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSearch.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btnSearch.ForeColor = System.Drawing.Color.White;
-            this.btnSearch.Location = new System.Drawing.Point(359, 3);
+            this.btnSearch.Location = new System.Drawing.Point(379, 3);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(75, 28);
+            this.btnSearch.Size = new System.Drawing.Size(74, 28);
             this.btnSearch.TabIndex = 2;
             this.btnSearch.Text = "조회";
             this.btnSearch.UseVisualStyleBackColor = false;
@@ -115,11 +114,12 @@ namespace XrayInspection.PopUp
             // 
             this.lblSearchLabel.AutoSize = true;
             this.lblSearchLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblSearchLabel.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lblSearchLabel.ForeColor = System.Drawing.Color.White;
             this.lblSearchLabel.Location = new System.Drawing.Point(3, 3);
             this.lblSearchLabel.Margin = new System.Windows.Forms.Padding(3);
             this.lblSearchLabel.Name = "lblSearchLabel";
-            this.lblSearchLabel.Size = new System.Drawing.Size(94, 28);
+            this.lblSearchLabel.Size = new System.Drawing.Size(114, 28);
             this.lblSearchLabel.TabIndex = 0;
             this.lblSearchLabel.Text = "조회조건";
             this.lblSearchLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -127,21 +127,21 @@ namespace XrayInspection.PopUp
             // txtSearchText
             // 
             this.txtSearchText.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtSearchText.Location = new System.Drawing.Point(103, 5);
-            this.txtSearchText.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
+            this.txtSearchText.Location = new System.Drawing.Point(123, 7);
+            this.txtSearchText.Margin = new System.Windows.Forms.Padding(3, 7, 3, 3);
             this.txtSearchText.Name = "txtSearchText";
-            this.txtSearchText.Size = new System.Drawing.Size(148, 23);
+            this.txtSearchText.Size = new System.Drawing.Size(150, 23);
             this.txtSearchText.TabIndex = 1;
             // 
             // gbxMain
             // 
             this.gbxMain.Controls.Add(this.grdMain);
             this.gbxMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gbxMain.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.gbxMain.Font = new System.Drawing.Font("굴림", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.gbxMain.ForeColor = System.Drawing.Color.White;
             this.gbxMain.Location = new System.Drawing.Point(3, 43);
             this.gbxMain.Name = "gbxMain";
-            this.gbxMain.Size = new System.Drawing.Size(437, 292);
+            this.gbxMain.Size = new System.Drawing.Size(456, 333);
             this.gbxMain.TabIndex = 1;
             this.gbxMain.TabStop = false;
             this.gbxMain.Text = "공통팝업";
@@ -150,35 +150,27 @@ namespace XrayInspection.PopUp
             // 
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ControlDark;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("굴림", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.grdMain.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.grdMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdMain.ColumnHeadersHeight = 30;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.LightGray;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("굴림", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.grdMain.DefaultCellStyle = dataGridViewCellStyle2;
             this.grdMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grdMain.EnableHeadersVisualStyles = false;
-            this.grdMain.Location = new System.Drawing.Point(3, 17);
+            this.grdMain.Location = new System.Drawing.Point(3, 26);
             this.grdMain.Name = "grdMain";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grdMain.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.grdMain.RowTemplate.Height = 23;
-            this.grdMain.Size = new System.Drawing.Size(431, 272);
+            this.grdMain.Size = new System.Drawing.Size(450, 304);
             this.grdMain.TabIndex = 1;
             // 
             // flowLayoutPanel2
@@ -187,9 +179,9 @@ namespace XrayInspection.PopUp
             this.flowLayoutPanel2.Controls.Add(this.btnOK);
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 341);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 382);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(437, 34);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(456, 34);
             this.flowLayoutPanel2.TabIndex = 2;
             // 
             // btnClose
@@ -198,7 +190,7 @@ namespace XrayInspection.PopUp
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClose.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btnClose.ForeColor = System.Drawing.Color.White;
-            this.btnClose.Location = new System.Drawing.Point(359, 3);
+            this.btnClose.Location = new System.Drawing.Point(378, 3);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 28);
             this.btnClose.TabIndex = 0;
@@ -211,7 +203,7 @@ namespace XrayInspection.PopUp
             this.btnOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOK.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btnOK.ForeColor = System.Drawing.Color.White;
-            this.btnOK.Location = new System.Drawing.Point(278, 3);
+            this.btnOK.Location = new System.Drawing.Point(297, 3);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 28);
             this.btnOK.TabIndex = 1;
@@ -220,7 +212,7 @@ namespace XrayInspection.PopUp
             // 
             // CS_CommonPopup
             // 
-            this.ClientSize = new System.Drawing.Size(443, 438);
+            this.ClientSize = new System.Drawing.Size(462, 479);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "CS_CommonPopup";
             this.Text = "공통팝업";

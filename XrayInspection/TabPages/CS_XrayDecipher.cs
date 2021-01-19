@@ -144,6 +144,11 @@ namespace XrayInspection.UserControls
                 {
                     System.Threading.Thread.Sleep(2000);
                     loadingForm.Close(); // 종료시 실행할 이벤트
+
+                    if (string.IsNullOrWhiteSpace(txtProductName.Text.Trim()))
+                    {
+                        MsgBoxHelper.Show("다음작업이 등록되어있지 않습니다. 작업계획을 등록해주세요.");
+                    }
                 };
                 
                 worker.RunWorkerAsync(); // 백그라운드로 비동기 실행
@@ -247,6 +252,11 @@ namespace XrayInspection.UserControls
                 {
                     System.Threading.Thread.Sleep(2000);
                     loadingForm.Close(); // 종료시 실행할 이벤트
+
+                    if (string.IsNullOrWhiteSpace(txtProductName.Text.Trim()))
+                    {
+                        MsgBoxHelper.Show("다음작업이 등록되어있지 않습니다. 작업계획을 등록해주세요.");
+                    }
                 };
 
                 worker.RunWorkerAsync(); // 백그라운드로 비동기 실행
@@ -279,7 +289,7 @@ namespace XrayInspection.UserControls
             if (string.IsNullOrWhiteSpace(txtProductName.Text)
                 || string.IsNullOrWhiteSpace(txtLotNo.Text))
             {
-                MsgBoxHelper.Show("현재 시작 가능한 LOT이 없습니다.");
+                MsgBoxHelper.Show("현재 시작 가능한 LOT이 없습니다. 작업계획을 등록해주세요.");
                 return;
             }
 
@@ -355,6 +365,9 @@ namespace XrayInspection.UserControls
 
                         txtJudgmentResult.Tag = commonPopup._returnCodeValue;
                         txtJudgmentResult.Text = commonPopup._returnNameValue;
+
+                        // 2021-01-19 유태근 - 판독결과가 합격이 아니라면 그 이후 팝업 자동 호출될 수 있도록
+                        if (commonPopup._returnCodeValue != "0") btnDetailClass.PerformClick();                   
                     }
                     break;
 
@@ -372,6 +385,9 @@ namespace XrayInspection.UserControls
                         }
                         txtDetailClass.Tag = commonPopup._returnCodeValue;
                         txtDetailClass.Text = commonPopup._returnNameValue;
+
+                        // 2021-01-19 유태근 - 그 이후 팝업 자동 호출될 수 있도록
+                        btnDetailCode.PerformClick();
                     }
                     break;
 
@@ -384,6 +400,9 @@ namespace XrayInspection.UserControls
                     {
                         txtDetailCode.Tag = commonPopup._returnCodeValue;
                         txtDetailCode.Text = commonPopup._returnNameValue;
+
+                        // 2021-01-19 유태근 - 그 이후 팝업 자동 호출될 수 있도록
+                        btnDetailPart.PerformClick();
                     }
                     break;
 
@@ -396,6 +415,9 @@ namespace XrayInspection.UserControls
                     {
                         txtDetailPart.Tag = commonPopup._returnCodeValue;
                         txtDetailPart.Text = commonPopup._returnNameValue;
+
+                        // 2021-01-19 유태근 - 부위 최종선택 후 위치로 포커스 강제이동
+                        txtLocation.Focus();
                     }
                     break;
             }
@@ -590,7 +612,7 @@ namespace XrayInspection.UserControls
                         txtLotSize.Text = "0";
                         txtInspectionStd.Text = "0";
                         txtPlanPageCount.Text = "0";
-                        txtProgressSequence.Text = "1";
+                        txtSequenceByProduct.Text = "1";
 
                         if (ds2.Tables.Count > 0)
                         {
@@ -599,7 +621,7 @@ namespace XrayInspection.UserControls
                                 txtLotSize.Text = ds2.Tables[0].Rows[0]["PRODUCTIONQTY"].ToString(); // LOT크기
                                 txtInspectionStd.Text = ds2.Tables[0].Rows[0]["INSPECTRATE"].ToString(); // 검사기준(%)
                                 txtPlanPageCount.Text = ds2.Tables[0].Rows[0]["INSPECTQTY"].ToString(); // 계획본수
-                                txtProgressSequence.Text = ds2.Tables[0].Rows[0]["INSPECTSEQUENCE"].ToString();
+                                txtSequenceByProduct.Text = ds2.Tables[0].Rows[0]["INSPECTSEQUENCE"].ToString();
                             }
                         }
 
@@ -825,7 +847,7 @@ namespace XrayInspection.UserControls
             try
             {
                 Dictionary<string, object> parameters = new Dictionary<string, object>();
-                parameters.Add("@INSERFLAG", txtProgressSequence.Text == "1" ? "Y" : "N");
+                parameters.Add("@INSERFLAG", txtSequenceByProduct.Text == "1" ? "Y" : "N");
                 parameters.Add("@SITE", Properties.Settings.Default.Site);
                 parameters.Add("@SHIFTID", comboInspector.Tag);
                 parameters.Add("@PRODUCTCODE", _productCode);

@@ -213,6 +213,9 @@ namespace XrayInspection.PopUp
         /// <param name="type"></param>
         private void InitializeGrid()
         {
+            grdMain.DefaultCellStyle.ForeColor = Color.Black;
+            grdMain.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+
             grdMain.AutoGenerateColumns = false;
             grdMain.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             grdMain.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomCenter;
