@@ -142,7 +142,7 @@ namespace XrayInspection.UserControls
 
                 worker.RunWorkerCompleted += (completeSender, args) =>
                 {
-                    System.Threading.Thread.Sleep(4000);
+                    System.Threading.Thread.Sleep(2000);
                     loadingForm.Close(); // 종료시 실행할 이벤트
                 };
                 
@@ -245,7 +245,7 @@ namespace XrayInspection.UserControls
 
                 worker.RunWorkerCompleted += (completeSender, args) =>
                 {
-                    System.Threading.Thread.Sleep(4000);
+                    System.Threading.Thread.Sleep(2000);
                     loadingForm.Close(); // 종료시 실행할 이벤트
                 };
 
@@ -1201,7 +1201,7 @@ namespace XrayInspection.UserControls
 
                             var comm = new OleDbCommand(InspectionInfoInsertSql, conn);
                             comm.Parameters.AddWithValue("@F품명KEY", fid);
-                            comm.Parameters.AddWithValue("@F검사일시", DateTime.Now.ToString("yyyyMMdd"));
+                            comm.Parameters.AddWithValue("@F검사일시", _workuserCreatTime);
                             comm.Parameters.AddWithValue("@F근무조", comboInspector.Tag);
                             comm.Parameters.AddWithValue("@F고객명", _customerName);
                             comm.Parameters.AddWithValue("@F사용처", txtUsedPlace.Text);
@@ -1223,7 +1223,9 @@ namespace XrayInspection.UserControls
 
                             string InspectionInfoReSelectSql = "SELECT  FMKEY " +
                                                                "FROM    TXRAY검사정보 " +
-                                                               "WHERE   FWORKORDERNO = '" + _workorderNumber + "'";
+                                                               "WHERE   F검사일시 = '" + _workuserCreatTime + "' " +
+                                                               "AND     F근무조 = '" + txtShift.Text + "' " +
+                                                               "AND     F도번 = '" + _productCode + "' ";
 
                             adp = new OleDbDataAdapter(InspectionInfoReSelectSql, conn);
                             adp.Fill(newDs);
@@ -1241,6 +1243,18 @@ namespace XrayInspection.UserControls
                         {
                             fmKey = ds.Tables[0].Rows[0].Field<int>("FMKEY");
                         }
+
+                        // 2021-01-19 유태근 - LOT크기 변경시 TXRAY검사정보 테이블에 업데이트
+                        DataSet updateDs = new DataSet();
+
+                        string InspectionInfoUpdateSql = "UPDATE TXRAY검사정보 " +
+                                                         "SET    FLOT크기 = '" + Convert.ToInt32(txtLotSize.Text.Trim()) + "' " +
+                                                         "WHERE  F검사일시 = '" + _workuserCreatTime + "' " +
+                                                         "AND    F근무조 = '" + txtShift.Text + "' " +
+                                                         "AND    F도번 = '" + _productCode + "' ";
+
+                        adp = new OleDbDataAdapter(InspectionInfoUpdateSql, conn);
+                        adp.Fill(updateDs);
                     }
 
                     // FMKEY가 삽입됬다면 XRAY실데이타 테이블에 데이터 삽입
@@ -1263,7 +1277,7 @@ namespace XrayInspection.UserControls
                         comm.Parameters.AddWithValue("@F성형자", txtUser.Tag.ToString());
                         comm.Parameters.AddWithValue("@F제품구분", _productType);
                         comm.Parameters.AddWithValue("@F근무조", comboInspector.Tag.ToString());
-                        comm.Parameters.AddWithValue("@F검사일시", DateTime.Now.ToString("yyyyMMdd"));
+                        comm.Parameters.AddWithValue("@F검사일시", _workuserCreatTime);
                         comm.Parameters.AddWithValue("@FLOTNO", txtLotNo.Text);
                         comm.Parameters.AddWithValue("@F판독결과", Convert.ToInt32(txtJudgmentResult.Tag));
                         comm.Parameters.AddWithValue(passCntColumn, 1);
@@ -1308,7 +1322,7 @@ namespace XrayInspection.UserControls
                     // TXRAY검사정보 테이블에 현재 날짜, 근무조, 도번에 해당하는 데이터가 있는지 확인
                     string InspectionInfoSelectSql = "SELECT  FMKEY " +
                                                      "FROM    TXRAY검사정보 " +
-                                                     "WHERE   F검사일시 = '" + DateTime.Now.ToString("yyyyMMdd") + "'" +
+                                                     "WHERE   F검사일시 = '" + _workuserCreatTime + "'" +
                                                      "AND     F근무조 = '" + txtShift.Text + "'" +
                                                      "AND     F도번 = '" + _productCode + "'";
 
@@ -1352,7 +1366,7 @@ namespace XrayInspection.UserControls
 
                                     var comm = new OleDbCommand(InspectionInfoInsertSql, conn);
                                     comm.Parameters.AddWithValue("@F품명KEY", fid);
-                                    comm.Parameters.AddWithValue("@F검사일시", DateTime.Now.ToString("yyyyMMdd"));
+                                    comm.Parameters.AddWithValue("@F검사일시", _workuserCreatTime);
                                     comm.Parameters.AddWithValue("@F근무조", comboInspector.Tag);
                                     comm.Parameters.AddWithValue("@F고객명", _customerName);
                                     comm.Parameters.AddWithValue("@F사용처", txtUsedPlace.Text);
@@ -1394,6 +1408,18 @@ namespace XrayInspection.UserControls
                         {
                             fmKey = ds.Tables[0].Rows[0].Field<int>("FMKEY");
                         }
+
+                        // 2021-01-19 유태근 - LOT크기 변경시 TXRAY검사정보 테이블에 업데이트
+                        DataSet updateDs = new DataSet();
+
+                        string InspectionInfoUpdateSql = "UPDATE TXRAY검사정보 " +
+                                                         "SET    FLOT크기 = '" + Convert.ToInt32(txtLotSize.Text.Trim()) + "' " +
+                                                         "WHERE  F검사일시 = '" + _workuserCreatTime + "' " +
+                                                         "AND    F근무조 = '" + txtShift.Text + "' " +
+                                                         "AND    F도번 = '" + _productCode + "' ";
+
+                        adp = new OleDbDataAdapter(InspectionInfoUpdateSql, conn);
+                        adp.Fill(updateDs);
                     }
 
                     // FMKEY가 삽입됬다면 XRAY실데이타 테이블에 데이터 삽입
@@ -1416,7 +1442,7 @@ namespace XrayInspection.UserControls
                         comm.Parameters.AddWithValue("@F성형자", txtUser.Tag.ToString());
                         comm.Parameters.AddWithValue("@F제품구분", _productType);
                         comm.Parameters.AddWithValue("@F근무조", comboInspector.Tag.ToString());
-                        comm.Parameters.AddWithValue("@F검사일시", DateTime.Now.ToString("yyyyMMdd"));
+                        comm.Parameters.AddWithValue("@F검사일시", _workuserCreatTime);
                         comm.Parameters.AddWithValue("@FLOTNO", txtLotNo.Text);
                         comm.Parameters.AddWithValue("@F판독결과", Convert.ToInt32(txtJudgmentResult.Tag));
                         comm.Parameters.AddWithValue(passCntColumn, 1);
@@ -1446,9 +1472,6 @@ namespace XrayInspection.UserControls
         /// </summary>
         private void JudgmentComplete()
         {
-            // 아래에 데이터 로딩 등 오래 걸리는 작업 
-            //System.Threading.Thread.Sleep(5000);
-
             // 판정결과 판단하여 동영상 OK 혹은 NG 폴더로 분기
             VideoMoveDirectory();
 
