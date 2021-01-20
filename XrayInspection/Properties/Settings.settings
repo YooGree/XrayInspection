@@ -26,11 +26,11 @@
     <Setting Name="NGVideoPath" Type="System.String" Scope="User">
       <Value Profile="(Default)">D://05. 조선내화 프로젝트//03.Etc//Video//NG//</Value>
     </Setting>
-    <Setting Name="MSAccessPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Provider=Microsoft.Jet.OLEDB.4.0;Data Source=D://05. 조선내화 프로젝트//02.Document//MSAccess//XRAYDB.mdb</Value>
-    </Setting>
     <Setting Name="IsMSAccessConnect" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="MSAccessPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Provider=Microsoft.Jet.OLEDB.4.0;Data Source=D://05. 조선내화 프로젝트//02.Document//MSAccess//XDB.mdb</Value>
     </Setting>
   </Settings>
 </SettingsFile>

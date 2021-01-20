@@ -216,7 +216,7 @@ namespace XrayInspection.PopUp
             this.comboFrameCount.FormattingEnabled = true;
             this.comboFrameCount.Location = new System.Drawing.Point(113, 3);
             this.comboFrameCount.Name = "comboFrameCount";
-            this.comboFrameCount.Size = new System.Drawing.Size(87, 28);
+            this.comboFrameCount.Size = new System.Drawing.Size(87, 23);
             this.comboFrameCount.TabIndex = 12;
             // 
             // btnStartEnd
@@ -513,10 +513,10 @@ namespace XrayInspection.PopUp
             // 
             this.picMain.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.picMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.picMain.Location = new System.Drawing.Point(3, 25);
+            this.picMain.Location = new System.Drawing.Point(3, 20);
             this.picMain.Name = "picMain";
             this.picMain.Padding = new System.Windows.Forms.Padding(3);
-            this.picMain.Size = new System.Drawing.Size(956, 620);
+            this.picMain.Size = new System.Drawing.Size(956, 625);
             this.picMain.TabIndex = 8;
             this.picMain.TabStop = false;
             // 
@@ -573,14 +573,14 @@ namespace XrayInspection.PopUp
             this.grdAIDecipherStatus.DefaultCellStyle = dataGridViewCellStyle2;
             this.grdAIDecipherStatus.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grdAIDecipherStatus.EnableHeadersVisualStyles = false;
-            this.grdAIDecipherStatus.Location = new System.Drawing.Point(3, 28);
+            this.grdAIDecipherStatus.Location = new System.Drawing.Point(3, 23);
             this.grdAIDecipherStatus.Name = "grdAIDecipherStatus";
             this.grdAIDecipherStatus.RowHeadersVisible = false;
             this.grdAIDecipherStatus.RowHeadersWidth = 51;
             this.grdAIDecipherStatus.RowTemplate.Height = 23;
             this.grdAIDecipherStatus.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.grdAIDecipherStatus.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.grdAIDecipherStatus.Size = new System.Drawing.Size(404, 338);
+            this.grdAIDecipherStatus.Size = new System.Drawing.Size(404, 343);
             this.grdAIDecipherStatus.TabIndex = 0;
             // 
             // gbxJudgmentResult
@@ -618,7 +618,7 @@ namespace XrayInspection.PopUp
             this.tableLayoutPanel17.Controls.Add(this.tableLayoutPanel22, 2, 6);
             this.tableLayoutPanel17.Controls.Add(this.tableLayoutPanel29, 0, 8);
             this.tableLayoutPanel17.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel17.Location = new System.Drawing.Point(3, 29);
+            this.tableLayoutPanel17.Location = new System.Drawing.Point(3, 24);
             this.tableLayoutPanel17.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tableLayoutPanel17.Name = "tableLayoutPanel17";
             this.tableLayoutPanel17.RowCount = 10;
@@ -632,7 +632,7 @@ namespace XrayInspection.PopUp
             this.tableLayoutPanel17.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 4F));
             this.tableLayoutPanel17.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44F));
             this.tableLayoutPanel17.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel17.Size = new System.Drawing.Size(404, 242);
+            this.tableLayoutPanel17.Size = new System.Drawing.Size(404, 247);
             this.tableLayoutPanel17.TabIndex = 1;
             // 
             // tableLayoutPanel26
@@ -658,7 +658,7 @@ namespace XrayInspection.PopUp
             this.txtDetailCode.Location = new System.Drawing.Point(83, 6);
             this.txtDetailCode.Margin = new System.Windows.Forms.Padding(3, 6, 3, 4);
             this.txtDetailCode.Name = "txtDetailCode";
-            this.txtDetailCode.Size = new System.Drawing.Size(80, 27);
+            this.txtDetailCode.Size = new System.Drawing.Size(80, 23);
             this.txtDetailCode.TabIndex = 13;
             this.txtDetailCode.Tag = " ";
             // 
@@ -697,7 +697,7 @@ namespace XrayInspection.PopUp
             this.txtDetailPart.Location = new System.Drawing.Point(83, 6);
             this.txtDetailPart.Margin = new System.Windows.Forms.Padding(3, 6, 3, 4);
             this.txtDetailPart.Name = "txtDetailPart";
-            this.txtDetailPart.Size = new System.Drawing.Size(80, 27);
+            this.txtDetailPart.Size = new System.Drawing.Size(80, 23);
             this.txtDetailPart.TabIndex = 13;
             this.txtDetailPart.Tag = " ";
             // 
@@ -750,7 +750,7 @@ namespace XrayInspection.PopUp
             this.comboInspector.Location = new System.Drawing.Point(83, 6);
             this.comboInspector.Margin = new System.Windows.Forms.Padding(3, 6, 3, 4);
             this.comboInspector.Name = "comboInspector";
-            this.comboInspector.Size = new System.Drawing.Size(110, 25);
+            this.comboInspector.Size = new System.Drawing.Size(110, 21);
             this.comboInspector.TabIndex = 1;
             // 
             // tableLayoutPanel23
@@ -777,7 +777,7 @@ namespace XrayInspection.PopUp
             this.txtJudgmentResult.Margin = new System.Windows.Forms.Padding(3, 6, 3, 4);
             this.txtJudgmentResult.Name = "txtJudgmentResult";
             this.txtJudgmentResult.ReadOnly = true;
-            this.txtJudgmentResult.Size = new System.Drawing.Size(80, 27);
+            this.txtJudgmentResult.Size = new System.Drawing.Size(80, 23);
             this.txtJudgmentResult.TabIndex = 12;
             this.txtJudgmentResult.Tag = " ";
             // 
@@ -817,7 +817,7 @@ namespace XrayInspection.PopUp
             this.txtDetailClass.Location = new System.Drawing.Point(83, 6);
             this.txtDetailClass.Margin = new System.Windows.Forms.Padding(3, 6, 3, 4);
             this.txtDetailClass.Name = "txtDetailClass";
-            this.txtDetailClass.Size = new System.Drawing.Size(80, 27);
+            this.txtDetailClass.Size = new System.Drawing.Size(80, 23);
             this.txtDetailClass.TabIndex = 13;
             this.txtDetailClass.Tag = " ";
             // 
@@ -903,7 +903,7 @@ namespace XrayInspection.PopUp
             this.comboMaker.Location = new System.Drawing.Point(83, 6);
             this.comboMaker.Margin = new System.Windows.Forms.Padding(3, 6, 3, 4);
             this.comboMaker.Name = "comboMaker";
-            this.comboMaker.Size = new System.Drawing.Size(110, 25);
+            this.comboMaker.Size = new System.Drawing.Size(110, 21);
             this.comboMaker.TabIndex = 2;
             // 
             // lblMaker
@@ -957,7 +957,7 @@ namespace XrayInspection.PopUp
             this.txtLocation.Location = new System.Drawing.Point(83, 6);
             this.txtLocation.Margin = new System.Windows.Forms.Padding(3, 6, 3, 4);
             this.txtLocation.Name = "txtLocation";
-            this.txtLocation.Size = new System.Drawing.Size(110, 27);
+            this.txtLocation.Size = new System.Drawing.Size(110, 23);
             this.txtLocation.TabIndex = 13;
             this.txtLocation.TabStop = false;
             // 
@@ -997,7 +997,7 @@ namespace XrayInspection.PopUp
             this.txtComment.Location = new System.Drawing.Point(83, 6);
             this.txtComment.Margin = new System.Windows.Forms.Padding(3, 6, 3, 4);
             this.txtComment.Name = "txtComment";
-            this.txtComment.Size = new System.Drawing.Size(312, 27);
+            this.txtComment.Size = new System.Drawing.Size(312, 23);
             this.txtComment.TabIndex = 13;
             this.txtComment.TabStop = false;
             // 

@@ -121,19 +121,6 @@ namespace XrayInspection.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=D://05. 조선내화 프로젝트//02.Document//MSAc" +
-            "cess//XRAYDB.mdb")]
-        public string MSAccessPath {
-            get {
-                return ((string)(this["MSAccessPath"]));
-            }
-            set {
-                this["MSAccessPath"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool IsMSAccessConnect {
             get {
@@ -141,6 +128,19 @@ namespace XrayInspection.Properties {
             }
             set {
                 this["IsMSAccessConnect"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=D://05. 조선내화 프로젝트//02.Document//MSAc" +
+            "cess//XDB.mdb")]
+        public string MSAccessPath {
+            get {
+                return ((string)(this["MSAccessPath"]));
+            }
+            set {
+                this["MSAccessPath"] = value;
             }
         }
     }

@@ -82,8 +82,39 @@ namespace XrayInspection.UserControls
             CS_XrayImagePopup popup = new CS_XrayImagePopup(grdAIjubgmentHistory.Rows[e.RowIndex]);
             popup.WindowState = FormWindowState.Normal;
             popup.StartPosition = FormStartPosition.CenterScreen;
-            if (popup.ShowDialog() == DialogResult.OK) Search();         
-            popup.Activate();
+            if (popup.ShowDialog() == DialogResult.OK)
+            {
+                Search();
+
+                //// 판정결과가 합격 - 불합격으로 수정됬다면, 불합격 폴더로 영상 이동
+                //if (_originalResult == "0" || _originalResult == "1" || _originalResult == "2")
+                //{
+                //    if (txtJudgmentResult.Tag.Equals("3"))
+                //    {
+                //        string OriginalPath = _currentRow.Cells["FILEPATH"].Value.ToString() + _currentRow.Cells["LOTID"].Value.ToString() + ".mp4";
+                //        string CopyPath;
+
+                //        CopyPath = Properties.Settings.Default.NGVideoPath + _currentRow.Cells["LOTID"].Value.ToString() + ".mp4";
+                //        File.Move(OriginalPath, CopyPath);
+                //        //File.Copy(OriginalPath, CopyPath, true);
+                //        //File.Delete(OriginalPath);
+                //    }
+                //}
+                //// 판정결과가 불합격 - 합격으로 수정됬다면, 합격 폴더로 영상 이동
+                //else
+                //{
+                //    if (txtJudgmentResult.Tag.Equals("0") || txtJudgmentResult.Tag.Equals("1") || txtJudgmentResult.Tag.Equals("2"))
+                //    {
+                //        string OriginalPath = Properties.Settings.Default.NGVideoPath + _currentRow.Cells["LOTID"].Value.ToString() + ".mp4";
+                //        string CopyPath;
+
+                //        CopyPath = _currentRow.Cells["FILEPATH"].Value.ToString() + _currentRow.Cells["LOTID"].Value.ToString() + ".mp4";
+                //        File.Move(OriginalPath, CopyPath);
+                //        //File.Copy(OriginalPath, CopyPath, true);
+                //        //File.Delete(OriginalPath);
+                //    }
+                //}
+            }       
         }
 
         /// <summary>
@@ -393,6 +424,7 @@ namespace XrayInspection.UserControls
             CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "DEFECTPARTTEXT", "DEFECTPARTTEXT", "DEFECTPARTTEXT", typeof(string), 100, false, false, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "LOCATION", "LOCATION", "LOCATION", typeof(string), 100, false, false, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "COMMENTS", "COMMENTS", "COMMENTS", typeof(string), 100, false, false, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "FILEPATH", "FILEPATH", "FILEPATH", typeof(string), 100, false, false, DataGridViewContentAlignment.MiddleCenter, 10);
         }
 
         #endregion

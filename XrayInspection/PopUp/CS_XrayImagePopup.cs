@@ -3,11 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.OleDb;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using XrayInspection.UserControls;
@@ -33,6 +35,8 @@ namespace XrayInspection.PopUp
         string _makeDirectory = string.Empty;
         string _fileName = string.Empty;
         string _filePath = string.Empty;
+        string _workuserCreatTime; // 근무조 변경시간  
+        string _originalResult; // 팝업 최초 진입시 판정결과값
 
         #endregion
 
@@ -280,6 +284,9 @@ namespace XrayInspection.PopUp
             {
                 try
                 {
+                    // MSAccessDB에 데이터 수정
+                    UpdateMSAccessData();
+
                     Dictionary<string, object> parameters = new Dictionary<string, object>();
                     parameters.Add("@SITE", Properties.Settings.Default.Site);
                     parameters.Add("@LOTNO", _currentRow.Cells["LOTID"].Value.ToString());
@@ -299,11 +306,38 @@ namespace XrayInspection.PopUp
 
                     int saveResult = _dbManager.CallNonSelectProcedure("USP_UPDATE_AIJUBGMENTHISTORY_AIJUDGMENTRESULT", sqlParameters);
                     if (saveResult > 0)
-                    {
+                    {                        
                         Console.WriteLine("AI 판독결과 수정성공!");
                         _endFlag = true;
                         this.DialogResult = DialogResult.OK;
                         this.Close();
+
+                        // 판정결과가 합격 - 불합격으로 수정됬다면, 불합격 폴더로 영상 이동
+                        if (_originalResult == "0" || _originalResult == "1" || _originalResult == "2")
+                        {
+                            if (txtJudgmentResult.Tag.Equals("3"))
+                            {
+                                string OriginalPath = _currentRow.Cells["FILEPATH"].Value.ToString() + _currentRow.Cells["LOTID"].Value.ToString() + ".mp4";
+                                string CopyPath;
+
+                                CopyPath = Properties.Settings.Default.NGVideoPath + _currentRow.Cells["LOTID"].Value.ToString() + ".mp4";
+                                File.Copy(OriginalPath, CopyPath, true);
+                                //File.Delete(OriginalPath);
+                            }
+                        }
+                        // 판정결과가 불합격 - 합격으로 수정됬다면, 합격 폴더로 영상 이동
+                        else
+                        {
+                            if (txtJudgmentResult.Tag.Equals("0") || txtJudgmentResult.Tag.Equals("1") || txtJudgmentResult.Tag.Equals("2"))
+                            {
+                                string OriginalPath = Properties.Settings.Default.NGVideoPath + _currentRow.Cells["LOTID"].Value.ToString() + ".mp4";
+                                string CopyPath;
+
+                                CopyPath = _currentRow.Cells["FILEPATH"].Value.ToString() + _currentRow.Cells["LOTID"].Value.ToString() + ".mp4";
+                                File.Copy(OriginalPath, CopyPath, true);
+                                //File.Delete(OriginalPath);
+                            }
+                        }
                     }
                     else Console.WriteLine("AI 판독결과 수정실패!");
                 }
@@ -337,6 +371,9 @@ namespace XrayInspection.PopUp
                 lblResult.ForeColor = Color.CornflowerBlue;
             else
                 lblResult.ForeColor = Color.Crimson;
+
+            // 최초 판정결과코드 저장
+            _originalResult = _currentRow.Cells["LASTRESULTCODE"].Value.ToString();
 
             // 콤보박스 설정
             BindingList<object> frameCount = new BindingList<object>();
@@ -381,7 +418,8 @@ namespace XrayInspection.PopUp
                 || _currentRow.Cells["LASTRESULTCODE"].Value.ToString() == "1"
                 || _currentRow.Cells["LASTRESULTCODE"].Value.ToString() == "2")
             {
-                filePath = Properties.Settings.Default.OKVideoPath;
+                //filePath = Properties.Settings.Default.OKVideoPath;
+                filePath = _currentRow.Cells["FILEPATH"].Value.ToString();
             }
             else
             {
@@ -619,6 +657,7 @@ namespace XrayInspection.PopUp
                     // 2021-01-05 유태근 - 검사자의 근무조는 작업계획등록에서 바꾸지 않는 한 판정화면에서는 고정
                     string shiftiD = ds.Tables[0].AsEnumerable().Where(r => r["USERID"].Equals(comboInspector.SelectedValue)).CopyToDataTable().Rows[0]["SHIFTID"].ToString();
                     comboInspector.Tag = shiftiD;
+                    _workuserCreatTime = ds.Tables[0].AsEnumerable().Where(r => r["USERID"].Equals(comboInspector.SelectedValue)).CopyToDataTable().Rows[0]["WORKUSERCREATEDTIME"].ToString();
 
                     if (ds.Tables.Count == 0)
                     {
@@ -699,6 +738,141 @@ namespace XrayInspection.PopUp
             txtDetailPart.Text = _currentRow.Cells["DEFECTPARTTEXT"].Value.ToString();
             txtLocation.Text = _currentRow.Cells["LOCATION"].Value.ToString();
             txtComment.Text = _currentRow.Cells["COMMENTS"].Value.ToString();
+        }
+
+        /// <summary>
+        /// MSAccess DataBase에 수정된 검사정보를 넣는다.
+        /// </summary>
+        private void UpdateMSAccessData()
+        {
+            // MSAccess DB 연결여부가 True일때만 분기
+            if (Properties.Settings.Default.IsMSAccessConnect)
+            {
+                try
+                {
+                    DataSet ds = new DataSet();
+
+                    string connStr = Properties.Settings.Default.MSAccessPath;
+                    OleDbConnection conn = new OleDbConnection(connStr);
+                    OleDbDataAdapter adp;
+
+                    // TXRAY검사정보 테이블에 현재 날짜, 근무조, 도번에 해당하는 데이터가 있는지 확인
+                    string InspectionInfoSelectSql = "SELECT  FMKEY " +
+                                                     "FROM    TXRAY검사정보 " +
+                                                     "WHERE   F검사일시 = '" + _workuserCreatTime.Trim() + "' " +
+                                                     "AND     F근무조 = '" + comboInspector.Tag.ToString().Trim() + "' " +
+                                                     "AND     F도번 = '" + _currentRow.Cells["PRODUCTCODE"].Value.ToString().Trim() + "' ";
+
+                    // TXRAY실데이타 테이블의 FMKEY컬럼
+                    int fmKey = -1;
+
+                    adp = new OleDbDataAdapter(InspectionInfoSelectSql, conn);
+                    adp.Fill(ds);
+
+                    if (ds.Tables.Count > 0)
+                    {
+                        // TXRAY실데이타 테이블에 데이터를 넣기위한 분기
+                        if (ds.Tables[0].Rows.Count > 0)
+                        {
+                            fmKey = ds.Tables[0].Rows[0].Field<int>("FMKEY");
+
+                            // FMKEY가 삽입됬다면 XRAY실데이타 테이블에 데이터 삽입
+                            if (fmKey != -1)
+                            {
+                                string pCnt = Regex.Replace(txtJudgmentResult.Tag.ToString().Trim(), @"[^0-9]", "");
+                                string iCnt = Regex.Replace(txtDetailClass.Tag.ToString().Trim(), @"[^0-9]", "");
+                                string passCntColumn = "F합격" + pCnt;
+                                string itemCntColumn = txtDetailClass.Tag.ToString().Trim().Equals("") ? "F항목0" : "F항목" + iCnt;
+                                string lastResult = (txtJudgmentResult.Tag.ToString().Trim() == "3") ? "부적합" : "합격";
+                                string contents = "";
+
+                                if (string.IsNullOrWhiteSpace(txtDetailClass.Text) && string.IsNullOrWhiteSpace(txtDetailCode.Text))
+                                {
+                                    contents = "";
+                                }
+                                else if (!string.IsNullOrWhiteSpace(txtDetailClass.Text) && string.IsNullOrWhiteSpace(txtDetailCode.Text))
+                                {
+                                    contents = txtDetailClass.Text;
+                                }
+                                else if (!string.IsNullOrWhiteSpace(txtDetailClass.Text) && !string.IsNullOrWhiteSpace(txtDetailCode.Text))
+                                {
+                                    contents = txtDetailClass.Text + "(" + txtDetailCode.Text + ")";
+                                }
+                                else if (string.IsNullOrWhiteSpace(txtDetailClass.Text) && !string.IsNullOrWhiteSpace(txtDetailCode.Text))
+                                {
+                                    contents = "(" + txtDetailCode.Text + ")";
+                                }
+
+                                // TXRAY실데이타 테이블 합격, 항목 0으로 전부 초기화
+                                conn.Open();
+
+                                string InspectionInfoUpdateSql1 = "UPDATE TXRAY실데이타 " +
+                                                                  "SET    F합격0 = 0 " +
+                                                                  "      ,F합격1 = 0 " +
+                                                                  "      ,F합격2 = 0 " +
+                                                                  "      ,F합격3 = 0 " +
+                                                                  "      ,F항목0 = 0 " +
+                                                                  "      ,F항목1 = 0 " +
+                                                                  "      ,F항목2 = 0 " +
+                                                                  "      ,F항목3 = 0 " +
+                                                                  "      ,F항목4 = 0 " +
+                                                                  "      ,F항목5 = 0 " +
+                                                                  "      ,F항목6 = 0 " +
+                                                                  "      ,F항목7 = 0 " +
+                                                                  "      ,F항목8 = 0 " +
+                                                                  "      ,F항목9 = 0 " +
+                                                                  "WHERE  FMKEY = ? " +
+                                                                  "AND    FLOTNO = ? ";
+
+                                var comm1 = new OleDbCommand(InspectionInfoUpdateSql1, conn);
+                                comm1.Parameters.AddWithValue("@FMKEY", fmKey);
+                                comm1.Parameters.AddWithValue("@FLOTNO", _currentRow.Cells["LOTID"].Value);
+
+                                int cnt1 = comm1.ExecuteNonQuery();
+                                conn.Close();
+
+                                // TXRAY실데이타 테이블 사용자가 변경한 값으로 업데이트
+                                conn.Open();
+
+                                string InspectionInfoUpdateSql2 = "UPDATE TXRAY실데이타 " +
+                                                                  "SET    F검사원 = ? " +
+                                                                  "      ,F성형자 = ? " +
+                                                                  "      ,F판독결과 = ? " +
+                                                                  "," +   passCntColumn + " = ? " +
+                                                                  "," +   itemCntColumn + " = ? " +
+                                                                  "      ,F확인사항_항목 = ? " +
+                                                                  "      ,F확인사항_재질 = ? " +
+                                                                  "      ,F확인사항_위치 = ? " +
+                                                                  "      ,F판정 = ? " +
+                                                                  "WHERE  FMKEY = ? " +
+                                                                  "AND    FLOTNO = ? ";
+
+                                var comm2 = new OleDbCommand(InspectionInfoUpdateSql2, conn);
+                                comm2.Parameters.AddWithValue("@F검사원", comboInspector.Text.Trim());
+                                comm2.Parameters.AddWithValue("@F성형자", comboMaker.SelectedValue.ToString().Trim());
+                                comm2.Parameters.AddWithValue("@F판독결과", Convert.ToInt32(txtJudgmentResult.Tag));
+                                comm2.Parameters.AddWithValue(passCntColumn, 1);
+                                comm2.Parameters.AddWithValue(itemCntColumn, txtDetailClass.Tag.ToString().Equals("") ? 0 : 1);
+                                comm2.Parameters.AddWithValue("@F확인사항_항목", contents);
+                                comm2.Parameters.AddWithValue("@F확인사항_재질", txtDetailPart.Text);
+                                comm2.Parameters.AddWithValue("@F확인사항_위치", txtLocation.Text);
+                                comm2.Parameters.AddWithValue("@F판정", lastResult);
+                                comm2.Parameters.AddWithValue("@FMKEY", fmKey);
+                                comm2.Parameters.AddWithValue("@FLOTNO", _currentRow.Cells["LOTID"].Value);
+
+                                int cnt2 = comm2.ExecuteNonQuery();
+                                conn.Close();                   
+                            }
+                            else return;
+                        }
+                        else return;                     
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MsgBoxHelper.Error(ex.Message);
+                }
+            }
         }
 
         #endregion
