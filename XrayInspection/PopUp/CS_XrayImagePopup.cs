@@ -387,19 +387,7 @@ namespace XrayInspection.PopUp
             {
                 filePath = Properties.Settings.Default.NGVideoPath;
             }
-    
-            // 테스트 필요
-            //NG일때
-            //if (_currentRow.Cells["LASTRESULTCODE"].Value.ToString() == "3")
-            //{
-            //    filePath = Properties.Settings.Default.NGVideoPath;
-            //}
-            //OK일때
-            //else
-            //{
-            //    filePath = Properties.Settings.Default.OKVideoPath;
-            //}
-
+   
             _fileName = fileName;
             _filePath = filePath;
             lblFileName.Text = fileName;

@@ -368,6 +368,7 @@ namespace XrayInspection.UserControls
             grdAIjubgmentHistory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             grdAIjubgmentHistory.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomCenter;
             grdAIjubgmentHistory.AllowUserToAddRows = false;
+            grdAIjubgmentHistory.MultiSelect = false;
 
             CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "Site", "SITE", "SITE", typeof(string), 100, false, false, DataGridViewContentAlignment.MiddleLeft, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "고객", "CUSTOMER", "CUSTOMER", typeof(string), 150, true, true, DataGridViewContentAlignment.MiddleLeft, 10);

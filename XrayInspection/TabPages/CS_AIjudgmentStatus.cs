@@ -244,7 +244,9 @@ namespace XrayInspection.UserControls
                         txtProductName.Text = ds.Tables[0].Rows[0]["PRODUCTNAME"].ToString();
                         txtProductCode.Text = ds.Tables[0].Rows[0]["PRODUCTCODE"].ToString();
                         txtUser.Text = ds.Tables[0].Rows[0]["MAKERNAME"].ToString();
+                        txtUser.Tag = ds.Tables[0].Rows[0]["MAKERID"].ToString();
                         txtLotNo.Text = ds.Tables[0].Rows[0]["LOTID"].ToString();
+                        txtSequenceByPallet.Text = ds.Tables[0].Rows[0]["INSPECTSEQUENCE"].ToString() + " / " + ds.Tables[0].Rows[0]["PALLETCOUNT"].ToString(); // 파렛트 순번
 
                         // 검사계획/진행현황
                         List<SqlParameter> parameters2 = new List<SqlParameter>();
@@ -252,10 +254,11 @@ namespace XrayInspection.UserControls
                         parameters2.Add(new SqlParameter("@PRODUCTCODE", txtProductCode.Text)); // 도번
                         DataSet ds2 = _dbManager.CallSelectProcedure_ds("USP_SELECT_XRAYDECIPHER_SHIFTWORKINFO", parameters2);
 
-                        txtLotSize.Text = "";
-                        txtInspectionStd.Text = "";
-                        txtPlanPageCount.Text = "";
-                        txtProgressSequence.Text = "1";
+                        txtLotSize.Text = "0";
+                        txtInspectionStd.Text = "0";
+                        txtPlanPageCount.Text = "0";
+                        txtSequenceByProduct.Text = "1";
+                        txtComment2.Text = "";
 
                         if (ds2.Tables.Count > 0)
                         {
@@ -264,15 +267,73 @@ namespace XrayInspection.UserControls
                                 txtLotSize.Text = ds2.Tables[0].Rows[0]["PRODUCTIONQTY"].ToString(); // LOT크기
                                 txtInspectionStd.Text = ds2.Tables[0].Rows[0]["INSPECTRATE"].ToString(); // 검사기준(%)
                                 txtPlanPageCount.Text = ds2.Tables[0].Rows[0]["INSPECTQTY"].ToString(); // 계획본수
-                                txtProgressSequence.Text = ds2.Tables[0].Rows[0]["INSPECTSEQUENCE"].ToString();
+                                txtSequenceByProduct.Text = ds2.Tables[0].Rows[0]["INSPECTSEQUENCE"].ToString() + " / " + ds2.Tables[0].Rows[0]["INSPECTQTY"].ToString(); // 제품별 순번
+                                txtComment2.Text = ds2.Tables[0].Rows[0]["COMMENTS"].ToString(); // 비고
                             }
+                        }
+                    }
+                    else
+                    {
+                        txtCustomer.Text = "";
+                        txtUsedPlace.Text = "";
+                        txtProductName.Text = "";
+                        txtProductCode.Text = "";
+                        txtUser.Text = "";
+                        txtUser.Tag = "";
+                        txtLotNo.Text = "";
+                        txtSequenceByPallet.Text = "0";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 화면 최초 로드시 검사자 조회
+        /// </summary>
+        public void InspectorInfoSearch()
+        {
+            try
+            {
+                List<SqlParameter> parameters = new List<SqlParameter>();
+                parameters.Add(new SqlParameter("@SITE", Properties.Settings.Default.Site)); // Site
+
+                DataSet ds = _dbManager.CallSelectProcedure_ds("USP_SELECT_XRAYDECIPHER_INSPECTORINFO", parameters);
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    // 조회조건 콤보박스 세팅
+                    comboInspector.DataSource = ds.Tables[0];
+                    comboInspector.DisplayMember = "USERNAME";
+                    comboInspector.ValueMember = "USERID";
+                    comboInspector.SelectedIndex = 0;
+                    comboInspector.DropDownStyle = ComboBoxStyle.DropDownList;
+                    // 2021-01-05 유태근 - 검사자의 근무조는 작업계획등록에서 바꾸지 않는 한 판정화면에서는 고정
+                    string shiftiD = ds.Tables[0].AsEnumerable().Where(r => r["USERID"].Equals(comboInspector.SelectedValue)).CopyToDataTable().Rows[0]["SHIFTID"].ToString();
+                    comboInspector.Tag = shiftiD;
+                    txtShift.Text = shiftiD;
+
+                    if (ds.Tables.Count == 0)
+                    {
+                        MessageBox.Show("Error");
+                    }
+                    else
+                    {
+                        if (ds.Tables[0].Rows.Count > 0)
+                        {
+                            comboInspector.SelectedValue = ds.Tables[0].Rows[0]["USERID"].ToString();
+                            comboInspector.Text = ds.Tables[0].Rows[0]["USERNAME"].ToString();
+                            comboInspector.Tag = ds.Tables[0].Rows[0]["SHIFTID"].ToString();
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("제품정보 조회실패!");
+                Console.WriteLine(ex.Message);
             }
         }
 
@@ -343,6 +404,9 @@ namespace XrayInspection.UserControls
 
             // 제품정보 및 검사계획/진행현황에 데이터 바인딩
             ProductInfoSearch();
+
+            // 판정결과 - 검사자 조회
+            InspectorInfoSearch();
 
             // 작업현황 조회
             JobInfoSearch();

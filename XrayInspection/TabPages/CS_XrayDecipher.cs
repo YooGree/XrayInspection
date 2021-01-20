@@ -32,7 +32,6 @@ namespace XrayInspection.UserControls
         DBManager _dbManager = new DBManager(); // XRAY_DB 연결객체
         AIDBManager _aiDbManager = new AIDBManager(); // AI_DB 연결객체
         Timer _searchTimer = new Timer();
-        bool _deleteFlag;
         string _lotState; // 현재 LOT상태
         string _originalLotId; // 최초검색 LOT ID
         string _workorderNumber; // 현재 WorkOrder번호
@@ -687,7 +686,7 @@ namespace XrayInspection.UserControls
                         txtUser.Text = "";
                         txtUser.Tag = "";
                         txtLotNo.Text = "";
-                        txtSequenceByPallet.Text = "0 / 0";
+                        txtSequenceByPallet.Text = "0";
                     }
                 }
             }
@@ -905,30 +904,6 @@ namespace XrayInspection.UserControls
         }
 
         /// <summary>
-        /// Lot Size 사용자가 입력한 크기로 변경
-        /// </summary>
-        //private void UpdateLotSize()
-        //{
-        //    try
-        //    {
-        //        Dictionary<string, object> parameters = new Dictionary<string, object>();
-        //        parameters.Add("@SITE", Properties.Settings.Default.Site);
-        //        parameters.Add("@WORKORDERNO", _workorderNumber);
-        //        parameters.Add("@LOTSIZE", Convert.ToInt32(txtLotSize.Text));
-
-        //        SqlParameter[] sqlParameters = _dbManager.GetSqlParameters(parameters);
-
-        //        int saveResult = _dbManager.CallNonSelectProcedure("USP_UPDATE_XRAYDECIPHER_LOTSIZE", sqlParameters);
-        //        if (saveResult > 0) Console.WriteLine("LOT크기 수정성공!");
-        //        else Console.WriteLine("LOT크기 수정실패!");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine(ex.Message);
-        //    }
-        //}
-
-        /// <summary>
         /// 기존 LOTID 사용자가 입력한 LOTID로 변경
         /// </summary>
         private void UpdateLotNo()
@@ -988,6 +963,29 @@ namespace XrayInspection.UserControls
                 SqlParameter[] sqlParameters = _dbManager.GetSqlParameters(parameters);
 
                 int saveResult = _dbManager.CallNonSelectProcedure("USP_UPDATE_XRAYDECIPHER_AIJUDGMENTRESULT", sqlParameters);
+            }
+            catch (Exception ex)
+            {
+                MsgBoxHelper.Error(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 영상녹화 시작시 해당 LOT의 레코드 데이터 최초삭제
+        /// </summary>
+        private void DeleteInspectionRecord()
+        {
+            try
+            {
+                Dictionary<string, object> parameters = new Dictionary<string, object>();
+                parameters.Add("@SITE", Properties.Settings.Default.Site);
+                parameters.Add("@LOTNO", txtLotNo.Text.Trim());
+
+                SqlParameter[] deleteSqlPamaters = _dbManager.GetSqlParameters(parameters);
+
+                int deleteResult = _dbManager.CallNonSelectProcedure("USP_DELETE_XRAYDECIPHER_INSPECTRECORD", deleteSqlPamaters);
+                if (deleteResult > 0) Console.WriteLine("프레임데이터 삭제성공!");
+                else Console.WriteLine("프레임데이터 삭제실패!");
             }
             catch (Exception ex)
             {
@@ -1071,8 +1069,6 @@ namespace XrayInspection.UserControls
         /// </summary>
         private void StartRecording()
         {
-            _deleteFlag = true;
-
             // 최초조회 LOT ID랑 현재 TextBox의 LOT ID랑 다른지 Check
             if (!_originalLotId.Trim().Equals(txtLotNo.Text.Trim()))
             {
@@ -1082,9 +1078,14 @@ namespace XrayInspection.UserControls
                     // MC_LotInspect의 LOT ID 수정
                     UpdateLotNo();
                 }
+                else
+                {
+                    MsgBoxHelper.Show("현재 수정하려는 LOTID는 이미 존재하는 LOTID입니다.");
+                    return;
+                }
             }
 
-            // LOT ID 수정불가능
+            // 녹화중에는 LOT ID 수정불가능
             txtLotNo.ReadOnly = true;
 
             // 시작시간이 없다면 화면에서 시작버튼을 누른 시간을 시작시간으로 세팅
@@ -1097,6 +1098,9 @@ namespace XrayInspection.UserControls
                 if (_startTime is DateTime)
                     _startTime = Convert.ToDateTime(_startTime).ToString("yyyyMMddHHmmss");
             }
+
+            // MC_InspectRecord 테이블에 해당 LOT에 해당하는 데이터 삭제
+            DeleteInspectionRecord();
 
             // 녹화서버에 메세지 전송
             string sendData = "START " + txtLotNo.Text + "," + txtProductName.Text;
@@ -1724,17 +1728,18 @@ namespace XrayInspection.UserControls
                 parameters.Add("@FILENAME", fileName);
                 parameters.Add("@FRAMENO", frameNo);
                 
+                // 2021-01-20 최초 녹화시작시 중복키 에러로 주석처리(서버로부터 데이터를 받기 전 삭제처리로 수정)
                 // 데이터 삭제
-                SqlParameter[] deleteSqlPamaters = _dbManager.GetSqlParameters(parameters);              
+                //SqlParameter[] deleteSqlPamaters = _dbManager.GetSqlParameters(parameters);              
 
-                while (_deleteFlag)
-                {
-                    int deleteResult = _dbManager.CallNonSelectProcedure("USP_DELETE_XRAYDECIPHER_INSPECTRECORD", deleteSqlPamaters);
-                    if (deleteResult > 0) Console.WriteLine("프레임데이터 삭제성공!");                  
-                    else Console.WriteLine("프레임데이터 삭제실패!");
+                //while (_deleteFlag)
+                //{
+                //    int deleteResult = _dbManager.CallNonSelectProcedure("USP_DELETE_XRAYDECIPHER_INSPECTRECORD", deleteSqlPamaters);
+                //    if (deleteResult > 0) Console.WriteLine("프레임데이터 삭제성공!");                  
+                //    else Console.WriteLine("프레임데이터 삭제실패!");
 
-                    _deleteFlag = false;
-                }
+                //    _deleteFlag = false;
+                //}
 
                 SqlParameter[] insertSqlPamaters = _dbManager.GetSqlParameters(parameters);
 
