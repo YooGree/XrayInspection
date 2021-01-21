@@ -73,7 +73,7 @@ namespace XrayInspection.UserControls
             grdUser.RowPostPaint += GrdUser_RowPostPaint;
             grdUser.CellValueChanged += GrdAIjubgmentHistory_CellValueChanged;
             grdUser.CellBeginEdit += GrdAIjubgmentHistory_CellBeginEdit;
-            grdUser.EditingControlShowing += GrdUser_EditingControlShowing;
+            //grdUser.EditingControlShowing += GrdUser_EditingControlShowing;
             comboUserType.SelectedValueChanged += ComboUserType_SelectedValueChanged;
         }
 
