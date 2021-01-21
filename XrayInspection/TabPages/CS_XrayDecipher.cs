@@ -766,10 +766,15 @@ namespace XrayInspection.UserControls
                     {
                         // 조회조건 콤보박스 세팅
                         comboSaveVideoPath.DataSource = ds.Tables[0];
+                        comboSaveVideoPath.Tag = ds.Tables[0].Rows[0]["RELATIVEPATH"];
                         comboSaveVideoPath.DisplayMember = "PATH";
                         comboSaveVideoPath.ValueMember = "SEQUENCE";
                         comboSaveVideoPath.SelectedIndex = 0;
                         comboSaveVideoPath.DropDownStyle = ComboBoxStyle.DropDownList;
+                        comboSaveVideoPath.SelectedValueChanged += (s, e) =>
+                        {
+                            comboSaveVideoPath.Tag = ds.Tables[0].AsEnumerable().Where(r => r["SEQUENCE"].Equals(comboSaveVideoPath.SelectedValue)).CopyToDataTable().Rows[0]["RELATIVEPATH"].ToString();
+                        };
                     }
                 }
                 else
@@ -1024,7 +1029,7 @@ namespace XrayInspection.UserControls
                 parameters.Add("@COMMENT", txtComment.Text);
                 parameters.Add("@AIRESULTCODE", "(TEST)CODE_OK");
                 parameters.Add("@AIRESULTCODENAME", "(TEST)CODENAME_OK");
-                parameters.Add("@FILEPATH", comboSaveVideoPath.Text);
+                parameters.Add("@FILEPATH", filePath);
 
                 SqlParameter[] sqlParameters = _dbManager.GetSqlParameters(parameters);
 
@@ -1405,8 +1410,8 @@ namespace XrayInspection.UserControls
                         string passCntColumn = "F합격" + pCnt;
                         string itemCntColumn = txtDetailClass.Tag.ToString().Trim().Equals("") ? "F항목0" : "F항목" + iCnt;
                         string lastResult = (txtJudgmentResult.Tag.ToString().Trim() == "3") ? "부적합" : "합격";
-                        string filePath = lastResult == "합격" ? @".\DBMOVIE_J\" + txtLotNo.Text + ".mp4" : @".\DBMOVIE_E\" + txtLotNo.Text + ".mp4";
-                        //string filePath = lastResult == "합격" ? comboSaveVideoPath.Text + txtLotNo.Text + ".mp4" : @".\DBMOVIE_E\" + txtLotNo.Text + ".mp4";
+                        string filePath = lastResult == "합격" ? comboSaveVideoPath.Tag + txtLotNo.Text + ".mp4" : @".\DBMOVIE_E\" + txtLotNo.Text + ".mp4";
+                        //string filePath = lastResult == "합격" ? @".\DBMOVIE_J\" + txtLotNo.Text + ".mp4" : @".\DBMOVIE_E\" + txtLotNo.Text + ".mp4";
                         string contents = "";
 
                         if (string.IsNullOrWhiteSpace(txtDetailClass.Text) && string.IsNullOrWhiteSpace(txtDetailCode.Text))
