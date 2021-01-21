@@ -73,6 +73,7 @@ namespace XrayInspection.UserControls
             grdUser.RowPostPaint += GrdUser_RowPostPaint;
             grdUser.CellValueChanged += GrdAIjubgmentHistory_CellValueChanged;
             grdUser.CellBeginEdit += GrdAIjubgmentHistory_CellBeginEdit;
+            grdUser.EditingControlShowing += GrdUser_EditingControlShowing;
             comboUserType.SelectedValueChanged += ComboUserType_SelectedValueChanged;
         }
 
@@ -84,6 +85,57 @@ namespace XrayInspection.UserControls
         private void ComboUserType_SelectedValueChanged(object sender, EventArgs e)
         {
             Search();
+        }
+
+        /// <summary>
+        /// 특정셀에 숫자만 입력가능하도록 처리
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void GrdUser_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            string name = grdUser.CurrentCell.OwningColumn.Name;
+
+            // 순번
+            if (name == "SEQUENCE")
+                e.Control.KeyPress += new KeyPressEventHandler(txtCheckNumeric_KeyPress_OnlyNumber);
+            else
+                e.Control.KeyPress -= new KeyPressEventHandler(txtCheckNumeric_KeyPress_OnlyNumber);
+
+            // 사번
+            if (name == "USERNUMBER")
+                e.Control.KeyPress += new KeyPressEventHandler(txtCheckNumeric_KeyPress_OnlyNumberByUserNumber);
+            else
+                e.Control.KeyPress -= new KeyPressEventHandler(txtCheckNumeric_KeyPress_OnlyNumberByUserNumber);
+        }
+
+        /// <summary>
+        /// 숫자만 입력가능
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtCheckNumeric_KeyPress_OnlyNumber(object sender, KeyPressEventArgs e)
+        {
+            if (!(char.IsDigit(e.KeyChar) || e.KeyChar == Convert.ToChar(Keys.Back)))
+                e.Handled = true;
+        }
+
+        /// <summary>
+        /// 숫자만 입력가능(8자리 제한)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtCheckNumeric_KeyPress_OnlyNumberByUserNumber(object sender, KeyPressEventArgs e)
+        {
+            object value = grdUser.CurrentCell.EditedFormattedValue;
+
+            if (!(char.IsDigit(e.KeyChar) || e.KeyChar == Convert.ToChar(Keys.Back))) 
+                e.Handled = true;
+            else
+            {
+                if (value.ToString().Length > 6 && e.KeyChar != Convert.ToChar(Keys.Back))
+                    e.Handled = true;
+            }
         }
 
         /// <summary>
@@ -192,19 +244,21 @@ namespace XrayInspection.UserControls
         /// <param name="e"></param>
         private void BtnAddRow_Click(object sender, EventArgs e)
         {
-            _lastRowIndex = _searchDt.Rows.Count;
+            _searchDt.Rows.Add();
+            grdUser.DataSource = _searchDt;
+            grdUser.EndEdit();
 
-            if (_searchDt.Rows.Count == 0)
-            {           
-                grdUser.Rows.Add();
-                grdUser.EndEdit();
-            }
-            else
-            {
-                _searchDt.Rows.Add();
-                grdUser.DataSource = _searchDt;
-                grdUser.EndEdit();
-            }
+            //if (grdUser.Rows.Count == 0)
+            //{
+            //    grdUser.Rows.Add();
+            //    grdUser.EndEdit();
+            //}
+            //else
+            //{
+            //    _searchDt.Rows.Add();
+            //    grdUser.DataSource = _searchDt;
+            //    grdUser.EndEdit();
+            //}
 
             // 최초 행 생성시 사용자 순번생성
             //int maxSeq = 0;
@@ -431,7 +485,7 @@ namespace XrayInspection.UserControls
                 {
                     if (ex.Message.Contains("중복 키"))
                     {
-                        MsgBoxHelper.Error("중복된 사용자 ID가 존재합니다.");
+                        MsgBoxHelper.Error("중복된 순번이 존재합니다.");
                     }
                     else
                     {
@@ -477,9 +531,24 @@ namespace XrayInspection.UserControls
             grdUser.AllowUserToAddRows = false;
 
             CommonFuction.SetDataGridViewColumnStyle(grdUser, "순번", "SEQUENCE", "SEQUENCE", typeof(int), 100, false, true, DataGridViewContentAlignment.MiddleCenter, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdUser, "사번", "USERNUMBER", "USERNUMBER", typeof(string), 200, false, true, DataGridViewContentAlignment.MiddleCenter, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdUser, "사용자명", "USERNAME", "USERNAME", typeof(string), 200, false, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdUser, "사번", "USERNUMBER", "USERNUMBER", typeof(int), 150, false, true, DataGridViewContentAlignment.MiddleLeft, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdUser, "사용자명", "USERNAME", "USERNAME", typeof(string), 150, false, true, DataGridViewContentAlignment.MiddleLeft, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdUser, "재직유무", "EMPLOYMENTSTATUS", "EMPLOYMENTSTATUS", typeof(string), 120, false, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdUser, "행변경타입", "ROWTYPE", "ROWTYPE", typeof(string), 100, false, false, DataGridViewContentAlignment.MiddleLeft, 10);
+
+            // 콤보박스컬럼 설정
+            // 재직유무
+            DataGridViewComboBoxCell comboCol = new DataGridViewComboBoxCell();
+            BindingList<object> status = new BindingList<object>();
+            status.Add(new { Text = "재직", Value = "재직" });
+            status.Add(new { Text = "퇴사", Value = "퇴사" });
+            comboCol.DataSource = status;
+            comboCol.DisplayMember = "Text";
+            comboCol.ValueMember = "Value";
+            //comboCol.SelectedValue = "3";
+            //comboCol.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            grdUser.Columns["EMPLOYMENTSTATUS"].CellTemplate = comboCol;
         }
 
         #endregion
