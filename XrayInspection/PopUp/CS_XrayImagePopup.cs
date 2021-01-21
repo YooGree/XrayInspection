@@ -37,6 +37,7 @@ namespace XrayInspection.PopUp
         string _filePath = string.Empty;
         string _workuserCreatTime; // 근무조 변경시간  
         string _originalResult; // 팝업 최초 진입시 판정결과값
+        string _currentFilePath; // 현재 DB에 저장되어있는 합격경로값
 
         #endregion
 
@@ -287,6 +288,51 @@ namespace XrayInspection.PopUp
                     // MSAccessDB에 데이터 수정
                     UpdateMSAccessData();
 
+                    string filePath = "";
+
+                    // 판정결과가 합격 - 불합격으로 수정됬다면, 불합격 폴더로 영상 복사
+                    if (_originalResult == "0" || _originalResult == "1" || _originalResult == "2")
+                    {
+                        // 합격 -> 불합격
+                        if (txtJudgmentResult.Tag.Equals("3"))
+                        {
+                            string OriginalPath = _currentRow.Cells["FILEPATH"].Value.ToString() + _currentRow.Cells["LOTID"].Value.ToString() + ".mp4";
+                            string CopyPath;
+
+                            CopyPath = Properties.Settings.Default.NGVideoPath + _currentRow.Cells["LOTID"].Value.ToString() + ".mp4";
+                            File.Copy(OriginalPath, CopyPath, true);
+                            //File.Delete(OriginalPath);
+
+                            filePath = Properties.Settings.Default.NGVideoPath;
+                        }
+                        // 합격 -> 합격
+                        else
+                        {
+                            filePath = _currentRow.Cells["FILEPATH"].Value.ToString();
+                        }
+                    }
+                    // 판정결과가 불합격 - 합격으로 수정됬다면, 합격 폴더로 영상 복사
+                    else
+                    {
+                        // 불합격 - 합격
+                        if (txtJudgmentResult.Tag.Equals("0") || txtJudgmentResult.Tag.Equals("1") || txtJudgmentResult.Tag.Equals("2"))
+                        {
+                            string OriginalPath = Properties.Settings.Default.NGVideoPath + _currentRow.Cells["LOTID"].Value.ToString() + ".mp4";
+                            string CopyPath;
+
+                            CopyPath = _currentFilePath + _currentRow.Cells["LOTID"].Value.ToString() + ".mp4";
+                            File.Copy(OriginalPath, CopyPath, true);
+                            //File.Delete(OriginalPath);
+
+                            filePath = _currentFilePath;
+                        }
+                        // 불합격 - 불합격
+                        else
+                        {
+                            filePath = Properties.Settings.Default.NGVideoPath;
+                        }
+                    }
+
                     Dictionary<string, object> parameters = new Dictionary<string, object>();
                     parameters.Add("@SITE", Properties.Settings.Default.Site);
                     parameters.Add("@LOTNO", _currentRow.Cells["LOTID"].Value.ToString());
@@ -301,6 +347,7 @@ namespace XrayInspection.PopUp
                     parameters.Add("@DETAILPARTNAME", txtDetailPart.Text);
                     parameters.Add("@LOCATION", txtLocation.Text);
                     parameters.Add("@COMMENT", txtComment.Text);
+                    parameters.Add("@FILEPATH", filePath);
 
                     SqlParameter[] sqlParameters = _dbManager.GetSqlParameters(parameters);
 
@@ -311,33 +358,6 @@ namespace XrayInspection.PopUp
                         _endFlag = true;
                         this.DialogResult = DialogResult.OK;
                         this.Close();
-
-                        // 판정결과가 합격 - 불합격으로 수정됬다면, 불합격 폴더로 영상 이동
-                        if (_originalResult == "0" || _originalResult == "1" || _originalResult == "2")
-                        {
-                            if (txtJudgmentResult.Tag.Equals("3"))
-                            {
-                                string OriginalPath = _currentRow.Cells["FILEPATH"].Value.ToString() + _currentRow.Cells["LOTID"].Value.ToString() + ".mp4";
-                                string CopyPath;
-
-                                CopyPath = Properties.Settings.Default.NGVideoPath + _currentRow.Cells["LOTID"].Value.ToString() + ".mp4";
-                                File.Copy(OriginalPath, CopyPath, true);
-                                //File.Delete(OriginalPath);
-                            }
-                        }
-                        // 판정결과가 불합격 - 합격으로 수정됬다면, 합격 폴더로 영상 이동
-                        else
-                        {
-                            if (txtJudgmentResult.Tag.Equals("0") || txtJudgmentResult.Tag.Equals("1") || txtJudgmentResult.Tag.Equals("2"))
-                            {
-                                string OriginalPath = Properties.Settings.Default.NGVideoPath + _currentRow.Cells["LOTID"].Value.ToString() + ".mp4";
-                                string CopyPath;
-
-                                CopyPath = _currentRow.Cells["FILEPATH"].Value.ToString() + _currentRow.Cells["LOTID"].Value.ToString() + ".mp4";
-                                File.Copy(OriginalPath, CopyPath, true);
-                                //File.Delete(OriginalPath);
-                            }
-                        }
                     }
                     else Console.WriteLine("AI 판독결과 수정실패!");
                 }
@@ -396,6 +416,9 @@ namespace XrayInspection.PopUp
             // 성형자 콤보박스 데이터 바인딩
             MakerInfoSearch();
 
+            // 현재 합격 동영상 지정경로 설정
+            SetPassVideoPath();
+
             // 특정경로에 저장된 동영상파일 불러오기
             GetMediaFile();
 
@@ -418,7 +441,6 @@ namespace XrayInspection.PopUp
                 || _currentRow.Cells["LASTRESULTCODE"].Value.ToString() == "1"
                 || _currentRow.Cells["LASTRESULTCODE"].Value.ToString() == "2")
             {
-                //filePath = Properties.Settings.Default.OKVideoPath;
                 filePath = _currentRow.Cells["FILEPATH"].Value.ToString();
             }
             else
@@ -722,6 +744,33 @@ namespace XrayInspection.PopUp
         }
 
         /// <summary>
+        /// 현재 합격 동영상 파일경로
+        /// </summary>
+        private void SetPassVideoPath()
+        {
+            try
+            {
+                List<SqlParameter> parameters = new List<SqlParameter>();
+                parameters.Add(new SqlParameter("@SITE", Properties.Settings.Default.Site)); // Site
+                parameters.Add(new SqlParameter("@TYPE", "OK"));
+
+                DataSet ds = _dbManager.CallSelectProcedure_ds("USP_SELECT_XRAYDECIPHER_SAVEVIDEOPATH", parameters);
+
+                if (ds.Tables.Count > 0)
+                {
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        _currentFilePath = ds.Tables[0].Rows[0]["PATH"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        /// <summary>
         /// AI 판독결과 바인딩
         /// </summary>
        private void AIJudgmentInfoSearch()
@@ -779,6 +828,40 @@ namespace XrayInspection.PopUp
                             // FMKEY가 삽입됬다면 XRAY실데이타 테이블에 데이터 삽입
                             if (fmKey != -1)
                             {
+                                string filePath = "";
+
+                                // 판정결과가 합격 - 불합격으로 수정됬다면, 불합격 폴더로 파일경로 지정
+                                if (_originalResult == "0" || _originalResult == "1" || _originalResult == "2")
+                                {
+                                    // 합격 -> 불합격
+                                    if (txtJudgmentResult.Tag.Equals("3"))
+                                    {
+                                        //filePath = Properties.Settings.Default.NGVideoPath + _currentRow.Cells["LOTID"].Value.ToString() + ".mp4";
+                                        filePath = "불합격경로" + _currentRow.Cells["LOTID"].Value.ToString() + ".mp4";
+                                    }
+                                    // 합격 -> 합격
+                                    else
+                                    {
+                                        //filePath = _currentRow.Cells["FILEPATH"].Value.ToString() + _currentRow.Cells["LOTID"].Value.ToString() + ".mp4";
+                                        filePath =  "합격경로" + _currentRow.Cells["LOTID"].Value.ToString() + ".mp4";
+                                    }
+                                }
+                                // 판정결과가 불합격 - 합격으로 수정됬다면, (현재 지정된)합격 폴더로 파일경로 지정
+                                else
+                                {
+                                    // 불합격 -> 합격
+                                    if (txtJudgmentResult.Tag.Equals("0") || txtJudgmentResult.Tag.Equals("1") || txtJudgmentResult.Tag.Equals("2"))
+                                    {
+                                        //filePath = _currentFilePath + _currentRow.Cells["LOTID"].Value.ToString() + ".mp4";
+                                        filePath = "합격경로" + _currentRow.Cells["LOTID"].Value.ToString() + ".mp4";
+                                    }
+                                    // 불합격 -> 불합격
+                                    else
+                                    {
+                                        filePath = "불합격경로" + _currentRow.Cells["LOTID"].Value.ToString() + ".mp4";
+                                    }
+                                }
+
                                 string pCnt = Regex.Replace(txtJudgmentResult.Tag.ToString().Trim(), @"[^0-9]", "");
                                 string iCnt = Regex.Replace(txtDetailClass.Tag.ToString().Trim(), @"[^0-9]", "");
                                 string passCntColumn = "F합격" + pCnt;
@@ -844,6 +927,7 @@ namespace XrayInspection.PopUp
                                                                   "      ,F확인사항_재질 = ? " +
                                                                   "      ,F확인사항_위치 = ? " +
                                                                   "      ,F판정 = ? " +
+                                                                  "      ,FPATH = ? " +
                                                                   "WHERE  FMKEY = ? " +
                                                                   "AND    FLOTNO = ? ";
 
@@ -857,6 +941,7 @@ namespace XrayInspection.PopUp
                                 comm2.Parameters.AddWithValue("@F확인사항_재질", txtDetailPart.Text);
                                 comm2.Parameters.AddWithValue("@F확인사항_위치", txtLocation.Text);
                                 comm2.Parameters.AddWithValue("@F판정", lastResult);
+                                comm2.Parameters.AddWithValue("@FPATH", filePath);
                                 comm2.Parameters.AddWithValue("@FMKEY", fmKey);
                                 comm2.Parameters.AddWithValue("@FLOTNO", _currentRow.Cells["LOTID"].Value);
 

@@ -956,6 +956,7 @@ namespace XrayInspection.PopUp
             this.txtLocation.Font = new System.Drawing.Font("굴림", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.txtLocation.Location = new System.Drawing.Point(83, 6);
             this.txtLocation.Margin = new System.Windows.Forms.Padding(3, 6, 3, 4);
+            this.txtLocation.MaxLength = 4;
             this.txtLocation.Name = "txtLocation";
             this.txtLocation.Size = new System.Drawing.Size(110, 23);
             this.txtLocation.TabIndex = 13;

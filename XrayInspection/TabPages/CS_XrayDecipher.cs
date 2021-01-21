@@ -1001,10 +1001,10 @@ namespace XrayInspection.UserControls
                 // MSAccessDB에 데이터 저장
                 InsertMSAccessDataByNonProduct();
 
-                //string filePath = "";
+                string filePath = "";
 
-                //if (txtJudgmentResult.Tag.Equals("3")) filePath = Properties.Settings.Default.NGVideoPath;
-                //else filePath = comboSaveVideoPath.Text;
+                if (txtJudgmentResult.Tag.Equals("3")) filePath = Properties.Settings.Default.NGVideoPath;
+                else filePath = comboSaveVideoPath.Text;
 
                 Dictionary<string, object> parameters = new Dictionary<string, object>();
                 parameters.Add("@SITE", Properties.Settings.Default.Site);
