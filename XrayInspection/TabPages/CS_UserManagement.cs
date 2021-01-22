@@ -73,7 +73,7 @@ namespace XrayInspection.UserControls
             grdUser.RowPostPaint += GrdUser_RowPostPaint;
             grdUser.CellValueChanged += GrdAIjubgmentHistory_CellValueChanged;
             grdUser.CellBeginEdit += GrdAIjubgmentHistory_CellBeginEdit;
-            //grdUser.EditingControlShowing += GrdUser_EditingControlShowing;
+            grdUser.EditingControlShowing += new DataGridViewEditingControlShowingEventHandler(GrdUser_EditingControlShowing);
             comboUserType.SelectedValueChanged += ComboUserType_SelectedValueChanged;
         }
 
@@ -88,26 +88,45 @@ namespace XrayInspection.UserControls
         }
 
         /// <summary>
-        /// 특정셀에 숫자만 입력가능하도록 처리
+        /// 사번 7자리로 제한
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void GrdUser_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
-            string name = grdUser.CurrentCell.OwningColumn.Name;
+            if (e.Control is TextBox)
+            {
+                string name = grdUser.CurrentCell.OwningColumn.Name;
 
-            // 순번
-            if (name == "SEQUENCE")
-                e.Control.KeyPress += new KeyPressEventHandler(txtCheckNumeric_KeyPress_OnlyNumber);
-            else
-                e.Control.KeyPress -= new KeyPressEventHandler(txtCheckNumeric_KeyPress_OnlyNumber);
-
-            // 사번
-            if (name == "USERNUMBER")
-                e.Control.KeyPress += new KeyPressEventHandler(txtCheckNumeric_KeyPress_OnlyNumberByUserNumber);
-            else
-                e.Control.KeyPress -= new KeyPressEventHandler(txtCheckNumeric_KeyPress_OnlyNumberByUserNumber);
+                // 사번
+                if (name == "USERNUMBER")
+                {
+                    (e.Control as TextBox).MaxLength = 7;
+                }
+            }
         }
+
+        /// <summary>
+        /// 특정셀에 숫자만 입력가능하도록 처리
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        //private void GrdUser_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        //{
+        //    string name = grdUser.CurrentCell.OwningColumn.Name;
+
+        //    // 순번
+        //    if (name == "SEQUENCE")
+        //        e.Control.KeyPress += new KeyPressEventHandler(txtCheckNumeric_KeyPress_OnlyNumber);
+        //    else
+        //        e.Control.KeyPress -= new KeyPressEventHandler(txtCheckNumeric_KeyPress_OnlyNumber);
+
+        //    // 사번
+        //    if (name == "USERNUMBER")
+        //        e.Control.KeyPress += new KeyPressEventHandler(txtCheckNumeric_KeyPress_OnlyNumberByUserNumber);
+        //    else
+        //        e.Control.KeyPress -= new KeyPressEventHandler(txtCheckNumeric_KeyPress_OnlyNumberByUserNumber);
+        //}
 
         /// <summary>
         /// 숫자만 입력가능
@@ -459,7 +478,7 @@ namespace XrayInspection.UserControls
 
             if (MsgBoxHelper.Show("저장하시겠습니까?", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
-                try
+                try           
                 {
                     DBManager dbManager = new DBManager();
 

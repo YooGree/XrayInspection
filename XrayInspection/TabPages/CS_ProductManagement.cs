@@ -190,6 +190,7 @@ namespace XrayInspection.UserControls
                 _searchDt.Rows.Add(addRow);
                 grdNewProduct.DataSource = _searchDt;
                 grdNewProduct.Rows[grdNewProduct.Rows.Count - 1].DefaultCellStyle.BackColor = Color.LightSkyBlue;
+                grdNewProduct.CurrentCell = grdNewProduct.Rows[grdNewProduct.Rows.Count - 1].Cells["PRODUCTNAME"];
 
                 // 기존품목 그리드에 행 삭제
                 grdOriginalProduct.Rows.Remove(addViewRow);
@@ -209,6 +210,7 @@ namespace XrayInspection.UserControls
                     addRow["ROWTYPE"] = rowChangeType.NORMAL;
                     _searchDt2.Rows.Add(addRow);
                     grdOriginalProduct.DataSource = _searchDt2;
+                    grdOriginalProduct.CurrentCell = grdOriginalProduct.Rows[grdOriginalProduct.Rows.Count - 1].Cells["CUSTOMER"];
 
                     // 신규품목 그리드에 행 삭제
                     grdNewProduct.Rows.Remove(addViewRow);
