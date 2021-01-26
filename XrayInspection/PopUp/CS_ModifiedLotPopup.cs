@@ -97,8 +97,8 @@ namespace XrayInspection.PopUp
 
                         int SaveResult = dbManager.CallNonSelectProcedure("USP_UPDATE_XRAYDECIPHER_LOTNO", sqlPamaters);
 
-                        if (SaveResult > 0) MsgBoxHelper.Show("변경하였습니다.");                      
-                        else MsgBoxHelper.Show("변경에 실패하였습니다");
+                        if (SaveResult > 0) Console.WriteLine("변경성공!");                      
+                        else Console.WriteLine("변경실패!");
 
                         this.DialogResult = DialogResult.OK;
                         this.Close();
