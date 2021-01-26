@@ -80,9 +80,26 @@ namespace XrayInspection.UserControls
             btnJudgmentComplete.Click += BtnJudgmentComplete_Click;
             btnRefresh.Click += BtnRefresh_Click;
             btnPass.Click += BtnPass_Click;
+            btnModifiedLotNo.Click += BtnModifiedLotNo_Click;
 
             txtLotSize.KeyPress += KeyPressRequiredInt;
             txtPlanPageCount.KeyPress += KeyPressRequiredInt;
+        }
+        
+        /// <summary>
+        /// LOT NO 수정팝업
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnModifiedLotNo_Click(object sender, EventArgs e)
+        {
+            CS_ModifiedLotPopup lotPopup = new CS_ModifiedLotPopup(txtLotNo.Text);
+            lotPopup.WindowState = FormWindowState.Normal;
+            lotPopup.StartPosition = FormStartPosition.CenterScreen;
+            if (lotPopup.ShowDialog() == DialogResult.OK)
+            {
+                Rebinding();
+            }
         }
 
         /// <summary>

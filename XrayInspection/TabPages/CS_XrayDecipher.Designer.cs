@@ -29,8 +29,8 @@ namespace XrayInspection.UserControls
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.lblTitle = new System.Windows.Forms.Label();
@@ -139,18 +139,19 @@ namespace XrayInspection.UserControls
             this.txtComment2 = new System.Windows.Forms.TextBox();
             this.lblComment2 = new System.Windows.Forms.Label();
             this.gbxRecording = new System.Windows.Forms.GroupBox();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.btnPass = new System.Windows.Forms.Button();
-            this.btnStart = new System.Windows.Forms.Button();
-            this.btnEnd = new System.Windows.Forms.Button();
-            this.btnJudgmentComplete = new System.Windows.Forms.Button();
-            this.btnRefresh = new System.Windows.Forms.Button();
             this.tableLayoutPanel34 = new System.Windows.Forms.TableLayoutPanel();
             this.gbxVideoPath = new System.Windows.Forms.GroupBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel35 = new System.Windows.Forms.TableLayoutPanel();
             this.lblSaveVideoPath = new System.Windows.Forms.Label();
             this.comboSaveVideoPath = new System.Windows.Forms.ComboBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.btnPass = new System.Windows.Forms.Button();
+            this.btnStart = new System.Windows.Forms.Button();
+            this.btnEnd = new System.Windows.Forms.Button();
+            this.btnJudgmentComplete = new System.Windows.Forms.Button();
+            this.btnRefresh = new System.Windows.Forms.Button();
+            this.btnModifiedLotNo = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
             this.splitContainer3.Panel1.SuspendLayout();
@@ -204,11 +205,11 @@ namespace XrayInspection.UserControls
             this.tableLayoutPanel31.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.gbxRecording.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.tableLayoutPanel34.SuspendLayout();
             this.gbxVideoPath.SuspendLayout();
             this.panel3.SuspendLayout();
             this.tableLayoutPanel35.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -286,23 +287,23 @@ namespace XrayInspection.UserControls
             // 
             // grdAIDecipherStatus
             // 
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.ControlDark;
-            dataGridViewCellStyle13.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle13.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grdAIDecipherStatus.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grdAIDecipherStatus.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
             this.grdAIDecipherStatus.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle14.BackColor = System.Drawing.Color.LightGray;
-            dataGridViewCellStyle14.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle14.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.grdAIDecipherStatus.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grdAIDecipherStatus.DefaultCellStyle = dataGridViewCellStyle12;
             this.grdAIDecipherStatus.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grdAIDecipherStatus.EnableHeadersVisualStyles = false;
             this.grdAIDecipherStatus.Location = new System.Drawing.Point(3, 20);
@@ -611,10 +612,12 @@ namespace XrayInspection.UserControls
             // 
             // tableLayoutPanel15
             // 
-            this.tableLayoutPanel15.ColumnCount = 2;
+            this.tableLayoutPanel15.ColumnCount = 3;
             this.tableLayoutPanel14.SetColumnSpan(this.tableLayoutPanel15, 2);
             this.tableLayoutPanel15.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 158F));
             this.tableLayoutPanel15.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel15.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanel15.Controls.Add(this.btnModifiedLotNo, 0, 0);
             this.tableLayoutPanel15.Controls.Add(this.txtLotNo, 0, 0);
             this.tableLayoutPanel15.Controls.Add(this.lblLotNo, 0, 0);
             this.tableLayoutPanel15.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -628,12 +631,14 @@ namespace XrayInspection.UserControls
             // 
             // txtLotNo
             // 
+            this.txtLotNo.BackColor = System.Drawing.SystemColors.Control;
             this.txtLotNo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtLotNo.Font = new System.Drawing.Font("굴림", 35F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.txtLotNo.Location = new System.Drawing.Point(161, 5);
             this.txtLotNo.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.txtLotNo.Name = "txtLotNo";
-            this.txtLotNo.Size = new System.Drawing.Size(638, 61);
+            this.txtLotNo.ReadOnly = true;
+            this.txtLotNo.Size = new System.Drawing.Size(538, 61);
             this.txtLotNo.TabIndex = 1;
             // 
             // lblLotNo
@@ -1765,6 +1770,84 @@ namespace XrayInspection.UserControls
             this.gbxRecording.TabStop = false;
             this.gbxRecording.Text = "녹화";
             // 
+            // tableLayoutPanel34
+            // 
+            this.tableLayoutPanel34.ColumnCount = 1;
+            this.tableLayoutPanel34.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel34.Controls.Add(this.gbxVideoPath, 0, 1);
+            this.tableLayoutPanel34.Controls.Add(this.panel2, 0, 0);
+            this.tableLayoutPanel34.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel34.Location = new System.Drawing.Point(3, 20);
+            this.tableLayoutPanel34.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel34.Name = "tableLayoutPanel34";
+            this.tableLayoutPanel34.RowCount = 2;
+            this.tableLayoutPanel34.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80F));
+            this.tableLayoutPanel34.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel34.Size = new System.Drawing.Size(536, 358);
+            this.tableLayoutPanel34.TabIndex = 0;
+            // 
+            // gbxVideoPath
+            // 
+            this.gbxVideoPath.Controls.Add(this.panel3);
+            this.gbxVideoPath.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gbxVideoPath.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.gbxVideoPath.ForeColor = System.Drawing.Color.White;
+            this.gbxVideoPath.Location = new System.Drawing.Point(3, 289);
+            this.gbxVideoPath.Name = "gbxVideoPath";
+            this.gbxVideoPath.Size = new System.Drawing.Size(530, 66);
+            this.gbxVideoPath.TabIndex = 5;
+            this.gbxVideoPath.TabStop = false;
+            this.gbxVideoPath.Text = "녹화경로";
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.tableLayoutPanel35);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(3, 20);
+            this.panel3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(524, 43);
+            this.panel3.TabIndex = 5;
+            // 
+            // tableLayoutPanel35
+            // 
+            this.tableLayoutPanel35.ColumnCount = 2;
+            this.tableLayoutPanel35.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 158F));
+            this.tableLayoutPanel35.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel35.Controls.Add(this.lblSaveVideoPath, 0, 0);
+            this.tableLayoutPanel35.Controls.Add(this.comboSaveVideoPath, 1, 0);
+            this.tableLayoutPanel35.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tableLayoutPanel35.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel35.Name = "tableLayoutPanel35";
+            this.tableLayoutPanel35.RowCount = 1;
+            this.tableLayoutPanel35.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel35.Size = new System.Drawing.Size(524, 35);
+            this.tableLayoutPanel35.TabIndex = 1000;
+            // 
+            // lblSaveVideoPath
+            // 
+            this.lblSaveVideoPath.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblSaveVideoPath.Font = new System.Drawing.Font("굴림", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lblSaveVideoPath.Location = new System.Drawing.Point(3, 3);
+            this.lblSaveVideoPath.Margin = new System.Windows.Forms.Padding(3);
+            this.lblSaveVideoPath.Name = "lblSaveVideoPath";
+            this.lblSaveVideoPath.Size = new System.Drawing.Size(152, 29);
+            this.lblSaveVideoPath.TabIndex = 0;
+            this.lblSaveVideoPath.Text = "합 격 경 로";
+            this.lblSaveVideoPath.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // comboSaveVideoPath
+            // 
+            this.comboSaveVideoPath.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comboSaveVideoPath.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.comboSaveVideoPath.FormattingEnabled = true;
+            this.comboSaveVideoPath.Location = new System.Drawing.Point(161, 10);
+            this.comboSaveVideoPath.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.comboSaveVideoPath.Name = "comboSaveVideoPath";
+            this.comboSaveVideoPath.Size = new System.Drawing.Size(360, 23);
+            this.comboSaveVideoPath.TabIndex = 3;
+            this.comboSaveVideoPath.TabStop = false;
+            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.btnPass);
@@ -1850,83 +1933,21 @@ namespace XrayInspection.UserControls
             this.btnRefresh.Text = "새로고침(F5)";
             this.btnRefresh.UseVisualStyleBackColor = false;
             // 
-            // tableLayoutPanel34
+            // btnModifiedLotNo
             // 
-            this.tableLayoutPanel34.ColumnCount = 1;
-            this.tableLayoutPanel34.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel34.Controls.Add(this.gbxVideoPath, 0, 1);
-            this.tableLayoutPanel34.Controls.Add(this.panel2, 0, 0);
-            this.tableLayoutPanel34.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel34.Location = new System.Drawing.Point(3, 20);
-            this.tableLayoutPanel34.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel34.Name = "tableLayoutPanel34";
-            this.tableLayoutPanel34.RowCount = 2;
-            this.tableLayoutPanel34.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80F));
-            this.tableLayoutPanel34.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel34.Size = new System.Drawing.Size(536, 358);
-            this.tableLayoutPanel34.TabIndex = 0;
-            // 
-            // gbxVideoPath
-            // 
-            this.gbxVideoPath.Controls.Add(this.panel3);
-            this.gbxVideoPath.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gbxVideoPath.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.gbxVideoPath.ForeColor = System.Drawing.Color.White;
-            this.gbxVideoPath.Location = new System.Drawing.Point(3, 289);
-            this.gbxVideoPath.Name = "gbxVideoPath";
-            this.gbxVideoPath.Size = new System.Drawing.Size(530, 66);
-            this.gbxVideoPath.TabIndex = 5;
-            this.gbxVideoPath.TabStop = false;
-            this.gbxVideoPath.Text = "녹화경로";
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.tableLayoutPanel35);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(3, 20);
-            this.panel3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(524, 43);
-            this.panel3.TabIndex = 5;
-            // 
-            // tableLayoutPanel35
-            // 
-            this.tableLayoutPanel35.ColumnCount = 2;
-            this.tableLayoutPanel35.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 158F));
-            this.tableLayoutPanel35.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel35.Controls.Add(this.lblSaveVideoPath, 0, 0);
-            this.tableLayoutPanel35.Controls.Add(this.comboSaveVideoPath, 1, 0);
-            this.tableLayoutPanel35.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel35.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel35.Name = "tableLayoutPanel35";
-            this.tableLayoutPanel35.RowCount = 1;
-            this.tableLayoutPanel35.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel35.Size = new System.Drawing.Size(524, 35);
-            this.tableLayoutPanel35.TabIndex = 1000;
-            // 
-            // lblSaveVideoPath
-            // 
-            this.lblSaveVideoPath.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblSaveVideoPath.Font = new System.Drawing.Font("굴림", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lblSaveVideoPath.Location = new System.Drawing.Point(3, 3);
-            this.lblSaveVideoPath.Margin = new System.Windows.Forms.Padding(3);
-            this.lblSaveVideoPath.Name = "lblSaveVideoPath";
-            this.lblSaveVideoPath.Size = new System.Drawing.Size(152, 29);
-            this.lblSaveVideoPath.TabIndex = 0;
-            this.lblSaveVideoPath.Text = "합 격 경 로";
-            this.lblSaveVideoPath.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // comboSaveVideoPath
-            // 
-            this.comboSaveVideoPath.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.comboSaveVideoPath.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.comboSaveVideoPath.FormattingEnabled = true;
-            this.comboSaveVideoPath.Location = new System.Drawing.Point(161, 10);
-            this.comboSaveVideoPath.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.comboSaveVideoPath.Name = "comboSaveVideoPath";
-            this.comboSaveVideoPath.Size = new System.Drawing.Size(360, 23);
-            this.comboSaveVideoPath.TabIndex = 3;
-            this.comboSaveVideoPath.TabStop = false;
+            this.btnModifiedLotNo.BackColor = System.Drawing.Color.DimGray;
+            this.btnModifiedLotNo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnModifiedLotNo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnModifiedLotNo.Font = new System.Drawing.Font("굴림", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btnModifiedLotNo.ForeColor = System.Drawing.Color.White;
+            this.btnModifiedLotNo.Location = new System.Drawing.Point(705, 5);
+            this.btnModifiedLotNo.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
+            this.btnModifiedLotNo.Name = "btnModifiedLotNo";
+            this.btnModifiedLotNo.Size = new System.Drawing.Size(94, 49);
+            this.btnModifiedLotNo.TabIndex = 6;
+            this.btnModifiedLotNo.TabStop = false;
+            this.btnModifiedLotNo.Text = "수정";
+            this.btnModifiedLotNo.UseVisualStyleBackColor = false;
             // 
             // CS_XrayDecipher
             // 
@@ -2009,11 +2030,11 @@ namespace XrayInspection.UserControls
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
             this.gbxRecording.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
             this.tableLayoutPanel34.ResumeLayout(false);
             this.gbxVideoPath.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.tableLayoutPanel35.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -2140,5 +2161,6 @@ namespace XrayInspection.UserControls
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel35;
         private System.Windows.Forms.Label lblSaveVideoPath;
         private System.Windows.Forms.ComboBox comboSaveVideoPath;
+        public System.Windows.Forms.Button btnModifiedLotNo;
     }
 }
