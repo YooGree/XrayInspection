@@ -1642,24 +1642,24 @@ namespace XrayInspection.UserControls
                 {
                     Console.WriteLine("프레임데이터 저장성공!");
 
-                    //string path = Properties.Settings.Default.ImagePath + lotNo + "_" + frameNo.ToString() + ".png";
-                    //string base64FileData = GetImage(path);
+                    string path = Properties.Settings.Default.ImagePath + lotNo + "_" + frameNo.ToString() + ".png";
+                    string base64FileData = GetImage(path);
 
-                    //// AI_DB에 이미지 데이터 저장
-                    //Dictionary<string, object> aiParameters = new Dictionary<string, object>();
-                    //aiParameters.Add("@FILENAME", fileName);
-                    //aiParameters.Add("@FILEDATA", base64FileData);
-                    //aiParameters.Add("@TXNID", "XRAY_INSPECT");
-                    //aiParameters.Add("@USERID", "admin");
-                    //aiParameters.Add("@MACHINE", "1");
-                    //aiParameters.Add("@PRODID", txtProductName.Text);
-                    //aiParameters.Add("@LOTID", lotNo);
+                    // AI_DB에 이미지 데이터 저장
+                    Dictionary<string, object> aiParameters = new Dictionary<string, object>();
+                    aiParameters.Add("@FILENAME", fileName);
+                    aiParameters.Add("@FILEDATA", base64FileData);
+                    aiParameters.Add("@TXNID", "XRAY_INSPECT");
+                    aiParameters.Add("@USERID", "admin");
+                    aiParameters.Add("@MACHINE", "1");
+                    aiParameters.Add("@PRODID", txtProductName.Text);
+                    aiParameters.Add("@LOTID", lotNo);
 
-                    //SqlParameter[] aiSqlParameters = _aiDbManager.GetSqlParameters(aiParameters);
+                    SqlParameter[] aiSqlParameters = _aiDbManager.GetSqlParameters(aiParameters);
 
-                    //int aiSaveResult = _aiDbManager.CallNonSelectProcedure("AI_SET_IBA_RECORD_IMAGE", aiSqlParameters);
-                    //if (aiSaveResult > 0) Console.WriteLine("AI 데이터 저장성공!");
-                    //else Console.WriteLine("AI 데이터 저장실패!");
+                    int aiSaveResult = _aiDbManager.CallNonSelectProcedure("AI_SET_IBA_RECORD_IMAGE", aiSqlParameters);
+                    if (aiSaveResult > 0) Console.WriteLine("AI 데이터 저장성공!");
+                    else Console.WriteLine("AI 데이터 저장실패!");
                 }                            
                 else Console.WriteLine("프레임데이터 저장실패!");              
             }
