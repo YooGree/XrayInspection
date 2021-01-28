@@ -526,13 +526,13 @@ namespace XrayInspection.UserControls
             this.lblTitle.Text = "AI 판정정보";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // CS_AIjubgmentInfo
+            // CS_AIjudgmentInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Name = "CS_AIjubgmentInfo";
+            this.Name = "CS_AIjudgmentInfo";
             this.Size = new System.Drawing.Size(1074, 627);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.gbxProductInfo.ResumeLayout(false);

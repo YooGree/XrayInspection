@@ -713,6 +713,7 @@ namespace XrayInspection.PopUp
             {
                 List<SqlParameter> parameters = new List<SqlParameter>();
                 parameters.Add(new SqlParameter("@SITE", Properties.Settings.Default.Site)); // Site
+                parameters.Add(new SqlParameter("@MAKER", "")); // 성형자번호
 
                 DataSet ds = _dbManager.CallSelectProcedure_ds("USP_SELECT_MAKERINFO", parameters);
 

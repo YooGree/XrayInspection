@@ -246,6 +246,12 @@
     <Compile Include="TabPages\CS_AIjudgmentStatus.Designer.cs">
       <DependentUpon>CS_AIjudgmentStatus.cs</DependentUpon>
     </Compile>
+    <Compile Include="TabPages\CS_HandworkReg.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TabPages\CS_HandworkReg.Designer.cs">
+      <DependentUpon>CS_HandworkReg.cs</DependentUpon>
+    </Compile>
     <Compile Include="TabPages\CS_XrayDecipher.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -448,6 +454,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TabPages\CS_AIjudgmentStatus.resx">
       <DependentUpon>CS_AIjudgmentStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TabPages\CS_HandworkReg.resx">
+      <DependentUpon>CS_HandworkReg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TabPages\CS_XrayDecipher.resx">
       <DependentUpon>CS_XrayDecipher.cs</DependentUpon>

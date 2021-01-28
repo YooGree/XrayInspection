@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CS_MainForm));
             this.p_Report = new System.Windows.Forms.Panel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -68,9 +68,7 @@
             this.btnSearchWorkorder = new System.Windows.Forms.Button();
             this.btnAIJudgmentStatus = new System.Windows.Forms.Button();
             this.btnAIJudgmentHistory = new System.Windows.Forms.Button();
-            this.btnAIJubgmentInfo = new System.Windows.Forms.Button();
             this.btnPopupWorkerChange = new System.Windows.Forms.Button();
-            this.panelAIjudgmentInfo = new System.Windows.Forms.Panel();
             this.panelAIjudgmentHistory = new System.Windows.Forms.Panel();
             this.panelUserManagement = new System.Windows.Forms.Panel();
             this.panelDefectCodeManagement = new System.Windows.Forms.Panel();
@@ -80,6 +78,8 @@
             this.panelXrayDecipher = new System.Windows.Forms.Panel();
             this.panelSearchWorkorder = new System.Windows.Forms.Panel();
             this.panelAIjudgmentStatus = new System.Windows.Forms.Panel();
+            this.panelHandworkReg = new System.Windows.Forms.Panel();
+            this.btnHandworkReg = new System.Windows.Forms.Button();
             this.tableLayoutPanel3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -163,29 +163,29 @@
             // 
             this.dataGridView2.AllowUserToAddRows = false;
             this.dataGridView2.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(249)))));
-            this.dataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(249)))));
+            this.dataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
             this.dataGridView2.BackgroundColor = System.Drawing.Color.White;
             this.dataGridView2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridView2.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dataGridView2.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.LightSteelBlue;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.LightSteelBlue;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.SteelBlue;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.SteelBlue;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle9;
             this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView2.EnableHeadersVisualStyles = false;
             this.dataGridView2.Location = new System.Drawing.Point(3, 3);
@@ -230,29 +230,29 @@
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(249)))));
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(249)))));
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle10;
             this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.LightSteelBlue;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.Color.LightSteelBlue;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.SteelBlue;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.SteelBlue;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle12;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridView1.EnableHeadersVisualStyles = false;
@@ -496,7 +496,7 @@
             this.flowLayoutPanel3.Controls.Add(this.btnSearchWorkorder);
             this.flowLayoutPanel3.Controls.Add(this.btnAIJudgmentStatus);
             this.flowLayoutPanel3.Controls.Add(this.btnAIJudgmentHistory);
-            this.flowLayoutPanel3.Controls.Add(this.btnAIJubgmentInfo);
+            this.flowLayoutPanel3.Controls.Add(this.btnHandworkReg);
             this.flowLayoutPanel3.Controls.Add(this.btnPopupWorkerChange);
             this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel3.Location = new System.Drawing.Point(0, 0);
@@ -686,27 +686,6 @@
             this.btnAIJudgmentHistory.Text = "AI 판정이력";
             this.btnAIJudgmentHistory.UseVisualStyleBackColor = false;
             // 
-            // btnAIJubgmentInfo
-            // 
-            this.btnAIJubgmentInfo.BackColor = System.Drawing.Color.Transparent;
-            this.btnAIJubgmentInfo.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAIJubgmentInfo.FlatAppearance.BorderColor = System.Drawing.Color.LightSlateGray;
-            this.btnAIJubgmentInfo.FlatAppearance.BorderSize = 0;
-            this.btnAIJubgmentInfo.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
-            this.btnAIJubgmentInfo.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro;
-            this.btnAIJubgmentInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAIJubgmentInfo.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btnAIJubgmentInfo.ForeColor = System.Drawing.SystemColors.Window;
-            this.btnAIJubgmentInfo.Image = ((System.Drawing.Image)(resources.GetObject("btnAIJubgmentInfo.Image")));
-            this.btnAIJubgmentInfo.Location = new System.Drawing.Point(887, 2);
-            this.btnAIJubgmentInfo.Margin = new System.Windows.Forms.Padding(2);
-            this.btnAIJubgmentInfo.Name = "btnAIJubgmentInfo";
-            this.btnAIJubgmentInfo.Size = new System.Drawing.Size(92, 33);
-            this.btnAIJubgmentInfo.TabIndex = 40;
-            this.btnAIJubgmentInfo.Text = "AI 판정정보";
-            this.btnAIJubgmentInfo.UseVisualStyleBackColor = false;
-            this.btnAIJubgmentInfo.Visible = false;
-            // 
             // btnPopupWorkerChange
             // 
             this.btnPopupWorkerChange.BackColor = System.Drawing.Color.Transparent;
@@ -726,17 +705,6 @@
             this.btnPopupWorkerChange.TabIndex = 48;
             this.btnPopupWorkerChange.Text = "작업자변경";
             this.btnPopupWorkerChange.UseVisualStyleBackColor = false;
-            // 
-            // panelAIjudgmentInfo
-            // 
-            this.panelAIjudgmentInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelAIjudgmentInfo.Location = new System.Drawing.Point(0, 75);
-            this.panelAIjudgmentInfo.Margin = new System.Windows.Forms.Padding(2);
-            this.panelAIjudgmentInfo.Name = "panelAIjudgmentInfo";
-            this.panelAIjudgmentInfo.Size = new System.Drawing.Size(1246, 645);
-            this.panelAIjudgmentInfo.TabIndex = 39;
             // 
             // panelAIjudgmentHistory
             // 
@@ -838,16 +806,47 @@
             this.panelAIjudgmentStatus.Size = new System.Drawing.Size(1246, 645);
             this.panelAIjudgmentStatus.TabIndex = 48;
             // 
+            // panelHandworkReg
+            // 
+            this.panelHandworkReg.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelHandworkReg.Location = new System.Drawing.Point(0, 75);
+            this.panelHandworkReg.Margin = new System.Windows.Forms.Padding(2);
+            this.panelHandworkReg.Name = "panelHandworkReg";
+            this.panelHandworkReg.Size = new System.Drawing.Size(1246, 645);
+            this.panelHandworkReg.TabIndex = 49;
+            // 
+            // btnHandworkReg
+            // 
+            this.btnHandworkReg.BackColor = System.Drawing.Color.Transparent;
+            this.btnHandworkReg.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnHandworkReg.FlatAppearance.BorderColor = System.Drawing.Color.LightSlateGray;
+            this.btnHandworkReg.FlatAppearance.BorderSize = 0;
+            this.btnHandworkReg.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
+            this.btnHandworkReg.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro;
+            this.btnHandworkReg.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHandworkReg.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btnHandworkReg.ForeColor = System.Drawing.SystemColors.Window;
+            this.btnHandworkReg.Image = ((System.Drawing.Image)(resources.GetObject("btnHandworkReg.Image")));
+            this.btnHandworkReg.Location = new System.Drawing.Point(887, 2);
+            this.btnHandworkReg.Margin = new System.Windows.Forms.Padding(2);
+            this.btnHandworkReg.Name = "btnHandworkReg";
+            this.btnHandworkReg.Size = new System.Drawing.Size(92, 33);
+            this.btnHandworkReg.TabIndex = 49;
+            this.btnHandworkReg.Text = "수작업등록";
+            this.btnHandworkReg.UseVisualStyleBackColor = false;
+            // 
             // CS_MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1246, 752);
+            this.Controls.Add(this.panelHandworkReg);
             this.Controls.Add(this.panelXrayDecipher);
             this.Controls.Add(this.tableLayoutPanel6);
             this.Controls.Add(this.p_Report);
             this.Controls.Add(this.panelSetting);
-            this.Controls.Add(this.panelAIjudgmentInfo);
             this.Controls.Add(this.panelAIjudgmentHistory);
             this.Controls.Add(this.panelUserManagement);
             this.Controls.Add(this.panelDefectCodeManagement);
@@ -869,11 +868,11 @@
             this.Controls.SetChildIndex(this.panelDefectCodeManagement, 0);
             this.Controls.SetChildIndex(this.panelUserManagement, 0);
             this.Controls.SetChildIndex(this.panelAIjudgmentHistory, 0);
-            this.Controls.SetChildIndex(this.panelAIjudgmentInfo, 0);
             this.Controls.SetChildIndex(this.panelSetting, 0);
             this.Controls.SetChildIndex(this.p_Report, 0);
             this.Controls.SetChildIndex(this.tableLayoutPanel6, 0);
             this.Controls.SetChildIndex(this.panelXrayDecipher, 0);
+            this.Controls.SetChildIndex(this.panelHandworkReg, 0);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
@@ -918,8 +917,6 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
         public System.Windows.Forms.Button btnAIJudgmentHistory;
         public System.Windows.Forms.Button btnReport;
-        private System.Windows.Forms.Panel panelAIjudgmentInfo;
-        public System.Windows.Forms.Button btnAIJubgmentInfo;
         private System.Windows.Forms.Panel panelAIjudgmentHistory;
         public System.Windows.Forms.Button btnUserManagement;
         private System.Windows.Forms.Panel panelUserManagement;
@@ -936,5 +933,7 @@
         public System.Windows.Forms.Button btnAIJudgmentStatus;
         private System.Windows.Forms.Panel panelAIjudgmentStatus;
         public System.Windows.Forms.Button btnPopupWorkerChange;
+        private System.Windows.Forms.Panel panelHandworkReg;
+        public System.Windows.Forms.Button btnHandworkReg;
     }
 }
