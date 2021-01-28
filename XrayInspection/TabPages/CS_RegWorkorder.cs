@@ -68,6 +68,12 @@ namespace XrayInspection.UserControls
             grdWorkorder.RowPostPaint += GrdWorkorder_RowPostPaint;
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            MMWorkeUserChange mMWorkeUserChange = new MMWorkeUserChange();
+            mMWorkeUserChange.ShowDialog();
+        }
+
         /// <summary>
         /// 그리드 행번호 보여주기
         /// </summary>
@@ -241,7 +247,6 @@ namespace XrayInspection.UserControls
             {
                 MsgBoxHelper.Error(ex.Message);
             }
-
         }
 
         #endregion
@@ -261,6 +266,12 @@ namespace XrayInspection.UserControls
                 if (grdWorkorder.Rows.Count == 0)
                 {
                     MsgBoxHelper.Show("저장할 데이터가 없습니다.");
+                    return;
+                }
+                // 2021-01-28 유태근 - 해당 제품이 등록되어 있지 않은 상태라면 알림
+                else if (!IsRegProduct(grdWorkorder.Rows[0].Cells["ModelName"].Value.ToString()))
+                {
+                    MsgBoxHelper.Show("해당 제품이 등록되어 있지 않습니다. \n제품을 등록 후 진행해주세요.");
                     return;
                 }
                 else
@@ -367,12 +378,45 @@ namespace XrayInspection.UserControls
             CommonFuction.SetDataGridViewColumnStyle(grdWorkorder, "판독결과", "LastResult", "LastResult", typeof(string), 80, true, true, DataGridViewContentAlignment.MiddleLeft, 10);
         }
 
-        #endregion
-
-        private void button1_Click(object sender, EventArgs e)
+        /// <summary>
+        /// 파라미터로 들어온 품목명이 MC_Product 테이블에 있는지 확인
+        /// </summary>
+        /// <param name="productName"></param>
+        /// <returns></returns>
+        private bool IsRegProduct(string productName)
         {
-            MMWorkeUserChange mMWorkeUserChange = new MMWorkeUserChange();
-            mMWorkeUserChange.ShowDialog();
+            bool IsReg = true;
+
+            try
+            {
+                DBManager dbManager = new DBManager();
+                List<SqlParameter> parameters = new List<SqlParameter>();
+                parameters.Add(new SqlParameter("@SITE", Properties.Settings.Default.Site)); 
+                parameters.Add(new SqlParameter("@PRODUCTID", productName)); 
+
+                DataSet ds = dbManager.CallSelectProcedure_ds("USP_SELECT_REGWORKORDERINFO_REGPRODUCT", parameters);
+
+                if (ds.Tables.Count > 0)
+                {
+                    // 등록이 안되어있음
+                    if (ds.Tables[0].Rows.Count < 1)
+                    {
+                        IsReg = false;
+                    }
+                    // 등록이 되어있음
+                    else
+                    {
+                        IsReg = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return IsReg;
         }
+        #endregion
     }
 }

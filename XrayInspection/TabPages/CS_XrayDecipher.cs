@@ -84,8 +84,19 @@ namespace XrayInspection.UserControls
 
             txtLotSize.KeyPress += KeyPressRequiredInt;
             txtPlanPageCount.KeyPress += KeyPressRequiredInt;
+            comboSaveVideoPath.SelectedValueChanged += ComboSaveVideoPath_SelectedValueChanged;
         }
-        
+
+        /// <summary>
+        /// 드라이브 경로가 바뀔때마다 해당 경로의 용량을 표시
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ComboSaveVideoPath_SelectedValueChanged(object sender, EventArgs e)
+        {
+            GetDriveSize(comboSaveVideoPath.Text);
+        }
+
         /// <summary>
         /// LOT NO 수정팝업
         /// </summary>
@@ -793,11 +804,74 @@ namespace XrayInspection.UserControls
                             comboSaveVideoPath.Tag = ds.Tables[0].AsEnumerable().Where(r => r["SEQUENCE"].Equals(comboSaveVideoPath.SelectedValue)).CopyToDataTable().Rows[0]["RELATIVEPATH"].ToString();
                         };
                     }
+
+                    // 드라이브 용량 가져오기 
+                    GetDriveSize(ds.Tables[0].Rows[0]["PATH"].ToString());
                 }
                 else
                 {
                     MessageBox.Show("Error");
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 드라이브 찾기
+        /// </summary>
+        private void GetDriveSize(string path)
+        {
+            DriveInfo[] drives = DriveInfo.GetDrives();
+            string selectDriveName = string.Empty;
+
+            // 본사 내부 테스트용(로컬 드라이브 기준)
+            if (path.Contains("C:/")) selectDriveName = "C";
+            else if (path.Contains("D:/")) selectDriveName = "D";
+
+            // 조선내화 프로그램 적용(네트워크 드라이브 기준)
+            //if (path.Contains("//J//")) selectDriveName = "J";
+            //else if (path.Contains("//G//")) selectDriveName = "G";
+            //else if (path.Contains("//H//")) selectDriveName = "H";
+            //else if (path.Contains("//I//")) selectDriveName = "I";
+            //else if (path.Contains("//K//")) selectDriveName = "K";
+
+            foreach (DriveInfo drive in drives)
+            {
+                if (drive.DriveType == DriveType.Fixed)
+                //if (drive.DriveType == DriveType.Network)
+                {
+                    if (drive.Name.Contains(selectDriveName))
+                    {
+                        SetDriveSize(drive, proDriveSize, lblDriveSize); 
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 드라이브 전체용량, 사용량, 남은용량 구하기
+        /// </summary>
+        private void SetDriveSize(DriveInfo drive, ProgressBar pro, Label lb)
+        {
+            string driveName = string.Empty;
+            string totalSize = string.Empty;
+            string freeSize = string.Empty;
+            string usage = string.Empty;
+
+            try
+            {
+                driveName = drive.Name.Substring(0, 1);
+                totalSize = Convert.ToInt32(drive.TotalSize / 1024 / 1024 / 1024).ToString(); // 전체용량
+                freeSize = Convert.ToInt32(drive.AvailableFreeSpace / 1024 / 1024 / 1024).ToString(); // 남은용량
+                usage = (Convert.ToInt32(totalSize) - Convert.ToInt32(freeSize)).ToString(); // 사용용량
+
+                pro.Maximum = Convert.ToInt32(totalSize);
+                pro.Value = Convert.ToInt32(usage);
+
+                lb.Text = string.Format("{0}GB 중 {1}GB 사용가능", totalSize, freeSize);
             }
             catch (Exception ex)
             {
@@ -1177,7 +1251,7 @@ namespace XrayInspection.UserControls
             }
 
             // 녹화중에는 LOT ID 수정불가능
-            txtLotNo.ReadOnly = true;
+            // txtLotNo.ReadOnly = true;
 
             // 시작시간이 없다면 화면에서 시작버튼을 누른 시간을 시작시간으로 세팅
             if (_startTime.Equals(DBNull.Value))
@@ -1214,7 +1288,7 @@ namespace XrayInspection.UserControls
         private void EndRecording()
         {
             // LOT ID 수정가능
-            txtLotNo.ReadOnly = false;
+            // txtLotNo.ReadOnly = false;
 
             // 녹화서버에 메세지 전송
             string sendData = "END " + txtLotNo.Text + "," + txtProductName.Text;
@@ -1659,24 +1733,28 @@ namespace XrayInspection.UserControls
                 {
                     Console.WriteLine("프레임데이터 저장성공!");
 
-                    string path = Properties.Settings.Default.ImagePath + lotNo + "_" + frameNo.ToString() + ".png";
-                    string base64FileData = GetImage(path);
+                    // 2021-01-28 유태근 - AI Server 연결여부가 True일때 처리
+                    if (Properties.Settings.Default.IsAIServerConnect)
+                    {
+                        string path = Properties.Settings.Default.ImagePath + lotNo + "_" + frameNo.ToString() + ".png";
+                        string base64FileData = GetImage(path);
 
-                    // AI_DB에 이미지 데이터 저장
-                    Dictionary<string, object> aiParameters = new Dictionary<string, object>();
-                    aiParameters.Add("@FILENAME", fileName);
-                    aiParameters.Add("@FILEDATA", base64FileData);
-                    aiParameters.Add("@TXNID", "XRAY_INSPECT");
-                    aiParameters.Add("@USERID", "admin");
-                    aiParameters.Add("@MACHINE", "1");
-                    aiParameters.Add("@PRODID", txtProductName.Text);
-                    aiParameters.Add("@LOTID", lotNo);
+                        // AI_DB에 이미지 데이터 저장
+                        Dictionary<string, object> aiParameters = new Dictionary<string, object>();
+                        aiParameters.Add("@FILENAME", fileName);
+                        aiParameters.Add("@FILEDATA", base64FileData);
+                        aiParameters.Add("@TXNID", "XRAY_INSPECT");
+                        aiParameters.Add("@USERID", "admin");
+                        aiParameters.Add("@MACHINE", "1");
+                        aiParameters.Add("@PRODID", txtProductName.Text);
+                        aiParameters.Add("@LOTID", lotNo);
 
-                    SqlParameter[] aiSqlParameters = _aiDbManager.GetSqlParameters(aiParameters);
+                        SqlParameter[] aiSqlParameters = _aiDbManager.GetSqlParameters(aiParameters);
 
-                    int aiSaveResult = _aiDbManager.CallNonSelectProcedure("AI_SET_IBA_RECORD_IMAGE", aiSqlParameters);
-                    if (aiSaveResult > 0) Console.WriteLine("AI 데이터 저장성공!");
-                    else Console.WriteLine("AI 데이터 저장실패!");
+                        int aiSaveResult = _aiDbManager.CallNonSelectProcedure("AI_SET_IBA_RECORD_IMAGE", aiSqlParameters);
+                        if (aiSaveResult > 0) Console.WriteLine("AI 데이터 저장성공!");
+                        else Console.WriteLine("AI 데이터 저장실패!");
+                    }
                 }                            
                 else Console.WriteLine("프레임데이터 저장실패!");              
             }
