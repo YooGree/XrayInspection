@@ -20,7 +20,7 @@ namespace XrayInspection.UserControls
     /// 설        명  : 수작업 등록화면
     /// 이        력  : 
     /// </summary>
-    public partial class CS_HandworkReg : UserControl
+    public partial class CS_ManualInputLot : UserControl
     {
         #region 변수
 
@@ -45,7 +45,7 @@ namespace XrayInspection.UserControls
         /// <summary>
         /// 생성자
         /// </summary>
-        public CS_HandworkReg()
+        public CS_ManualInputLot()
         {
             InitializeComponent();
             InitializeControlSetting();
@@ -98,6 +98,7 @@ namespace XrayInspection.UserControls
             dt.Columns.Add("PRODUCTID", typeof(string));
             dt.Columns.Add("PRODUCTCODE", typeof(string));
             dt.Columns.Add("MAKER", typeof(string));
+            dt.Columns.Add("MAKERNAME", typeof(string));
             dt.Columns.Add("LOTNO", typeof(string));
             dt.Columns.Add("ROWTYPE", typeof(string));
 
@@ -105,19 +106,18 @@ namespace XrayInspection.UserControls
             for (int i = 0; i < 50; i++)
             {
                 DataRow dRow = dt.NewRow();
-                dRow["PRODUCTID"] = txtProductName.Text = row.Cells["PRODUCTID"].Value.ToString();
-                dRow["PRODUCTCODE"] = txtProductName.Text = row.Cells["PRODUCTCODE"].Value.ToString();
+                dRow["PRODUCTID"] = row.Cells["PRODUCTID"].Value.ToString();
+                dRow["PRODUCTCODE"] = row.Cells["PRODUCTCODE"].Value.ToString();
+                dRow["MAKER"] = string.Empty;
+                dRow["MAKERNAME"] = string.Empty;
+                dRow["LOTNO"] = string.Empty;
                 dRow["ROWTYPE"] = rowChangeType.CREATE;
 
                 dt.Rows.Add(dRow);
             }
 
             grdRegLot.DataSource = dt;
-
-            foreach (DataGridViewRow vRow in grdRegLot.Rows)
-            {
-                vRow.DefaultCellStyle.BackColor = Color.LightSkyBlue;
-            }
+            grdRegLot.DefaultCellStyle.BackColor = Color.LightSkyBlue;
         }
 
         /// <summary>
@@ -129,7 +129,11 @@ namespace XrayInspection.UserControls
         {
             if (grdRegLot.CurrentCell != null && grdRegLot.CurrentCell.OwningColumn.Name == "MAKER")
             {
-                if (string.IsNullOrWhiteSpace(grdRegLot.CurrentRow.Cells["MAKER"].Value.ToString())) return;
+                if (string.IsNullOrWhiteSpace(grdRegLot.CurrentRow.Cells["MAKER"].Value.ToString()))
+                {
+                    grdRegLot.CurrentRow.Cells["MAKERNAME"].Value = string.Empty;
+                    return;
+                }
 
                 grdRegLot.CurrentRow.Cells["MAKERNAME"].Value = GetMakerName(grdRegLot.CurrentRow.Cells["MAKER"].Value);
             }        
@@ -171,9 +175,6 @@ namespace XrayInspection.UserControls
                 selectedRow.Cells["MAKER"].Value = string.Empty;
                 selectedRow.Cells["MAKERNAME"].Value = string.Empty;
                 selectedRow.Cells["LOTNO"].Value = string.Empty;
-                selectedRow.Cells["PRODUCTID"].Value = string.Empty;
-                selectedRow.Cells["PRODUCTCODE"].Value = string.Empty;
-                selectedRow.Cells["ROWTYPE"].Value = rowChangeType.CREATE;
             }
         }
 
@@ -204,7 +205,7 @@ namespace XrayInspection.UserControls
                 parameters.Add(new SqlParameter("@PRODUCTCODE", txtSearchProductCode.Text)); // 도번
 
 
-                DataSet ds = dbManager.CallSelectProcedure_ds("USP_SELECT_HANDWORKREG", parameters);
+                DataSet ds = dbManager.CallSelectProcedure_ds("USP_SELECT_MANUALINPUTLOT", parameters);
 
                 if (ds.Tables.Count == 0)
                 {
@@ -234,45 +235,80 @@ namespace XrayInspection.UserControls
         /// <param name="e"></param>
         private void BtnSave_Click(object sender, EventArgs e)
         {
-            // 그리드뷰에 행이 한개도 없으면 Return
-            if (grdRegLot.Rows.Count == 0)
+            if ((grdRegLot.DataSource as DataTable).AsEnumerable().Where(r => !string.IsNullOrWhiteSpace(r["MAKER"].ToString())
+                                                                           || !string.IsNullOrWhiteSpace(r["LOTNO"].ToString())).Count() < 1)
             {
                 MsgBoxHelper.Show("저장할 데이터가 없습니다.");
                 return;
             }
-            else
+
+            // 저장할 DataTable 가공
+            DataTable saveDt = (grdRegLot.DataSource as DataTable).AsEnumerable().Where(r => !string.IsNullOrWhiteSpace(r["MAKER"].ToString())
+                                                                                          || !string.IsNullOrWhiteSpace(r["LOTNO"].ToString())).CopyToDataTable();
+
+            foreach (DataRow saveRow in saveDt.Rows)
             {
-                // 그리드에 신규, 수정, 삭제행이 없으면 Return
-                if ((grdProduct.DataSource as DataTable).AsEnumerable().Where(r => r["ROWTYPE"].Equals("CREATE")
-                                                                                || r["ROWTYPE"].Equals("MODIFIY")
-                                                                                || r["ROWTYPE"].Equals("DELETE")).Count() == 0)
+                if (string.IsNullOrWhiteSpace(saveRow["MAKER"].ToString()) && string.IsNullOrWhiteSpace(saveRow["LOTNO"].ToString()))
                 {
-                    MsgBoxHelper.Show("저장할 데이터가 없습니다.");
-                    return;
+                    saveDt.Rows.Remove(saveRow);
                 }
             }
 
+            // 유효성 체크로직 시작
+            // 성형자번호를 입력했는데 성형자명이 바인딩 되지 않은 행이 있다면 알림
+            if (saveDt.AsEnumerable().Where(r => !string.IsNullOrWhiteSpace(r["MAKER"].ToString()) && string.IsNullOrWhiteSpace(r["MAKERNAME"].ToString())).Count() > 0)
+            {
+                MsgBoxHelper.Show("잘못된 성형자번호가 존재합니다. \n확인 후 저장해주세요.");
+                return;
+            }
+            // 성형자는 입력했지만 LOT NO를 입력하지 않은 행이 있다면 알림
+            else if (saveDt.AsEnumerable().Where(r => !string.IsNullOrWhiteSpace(r["MAKER"].ToString()) && string.IsNullOrWhiteSpace(r["LOTNO"].ToString())).Count() > 0)
+            {
+                MsgBoxHelper.Show("성형자가 입력됬지만, LOT NO가 입력되지 않은 행이 존재합니다. \n확인 후 저장해주세요.");
+                return;
+            }
+            // LOT NO는 입력했지만 성형자를 입력하지 않은 행이 있다면 알림
+            else if (saveDt.AsEnumerable().Where(r => !string.IsNullOrWhiteSpace(r["LOTNO"].ToString()) && string.IsNullOrWhiteSpace(r["MAKER"].ToString())).Count() > 0)
+            {
+                MsgBoxHelper.Show("LOT NO가 입력됬지만, 성형자가 입력되지 않은 행이 존재합니다. \n확인 후 저장해주세요.");
+                return;
+            }
+
+            // 저장
             if (MsgBoxHelper.Show("저장하시겠습니까?", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
                 try           
                 {
+                    string productName = txtProductName.Text; 
+                    string makerList = "";  
+                    string lotList = "";
+
+                    foreach (DataRow saveRow in saveDt.Rows)
+                    {
+                        makerList += saveRow["MAKER"] + "#";
+                        lotList += saveRow["LOTNO"] + "#";
+                    }
+
                     DBManager dbManager = new DBManager();
 
                     Dictionary<string, object> parameters = new Dictionary<string, object>();
-                    parameters.Add("@SAVEDATATABLE", grdProduct.DataSource as DataTable);
+                    parameters.Add("@SITE", Properties.Settings.Default.Site);
+                    parameters.Add("@PRODUCTNAME", productName);
+                    parameters.Add("@MAKERLIST", makerList);
+                    parameters.Add("@LOTLIST", lotList);
 
                     SqlParameter[] sqlPamaters = dbManager.GetSqlParameters(parameters);
 
-                    int SaveResult = dbManager.CallNonSelectProcedure("USP_UPSERT_USERMANAGEMENT", sqlPamaters);
+                    int saveResult = dbManager.CallNonSelectProcedure("USP_INSERT_MANUALINPUTLOT", sqlPamaters);
 
-                    if (SaveResult > 0)
+                    if (saveResult > 0)
                     {
                         MsgBoxHelper.Show("저장하였습니다.");
                         Search(); // 재조회
                     }
                     else
                     {
-                        MsgBoxHelper.Show("저장에 실패하였습니다");
+                        MsgBoxHelper.Show("저장된 데이터가 없습니다.");
                     }
                 }
                 catch (Exception ex)

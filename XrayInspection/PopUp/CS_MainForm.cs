@@ -47,7 +47,7 @@ namespace XrayInspection.PopUp
             SearchWorkorder, // 작업계획조회
             AIJudgmentStatus, // AI 판정현황
             AIJudgmentHistory, // AI 판정이력
-            HandworkReg, // 수작업등록
+            ManualInputLot, // 수작업등록
             Report,
             Main
         }
@@ -154,10 +154,10 @@ namespace XrayInspection.PopUp
                     }
                 }
                 // 수작업등록 화면 보여주기
-                else if (value == selectedType.HandworkReg)
+                else if (value == selectedType.ManualInputLot)
                 {
-                    panelHandworkReg.BringToFront();
-                    btnHandworkReg.Font = CommonFuction.BoldFont;
+                    panelManualInputLot.BringToFront();
+                    btnManualInputLot.Font = CommonFuction.BoldFont;
                 }
                 else if (value == selectedType.Report)
                 {
@@ -201,7 +201,7 @@ namespace XrayInspection.PopUp
             btnSearchWorkorder.Click += BtnMenu_Click;
             btnAIJudgmentStatus.Click += BtnMenu_Click;
             btnAIJudgmentHistory.Click += BtnMenu_Click;
-            btnHandworkReg.Click += BtnMenu_Click;
+            btnManualInputLot.Click += BtnMenu_Click;
             btnPopupWorkerChange.Click += BtnPopupWorkerChange_Click;
 
             btnReport.Click += Btn_Report_Click;
@@ -332,11 +332,11 @@ namespace XrayInspection.PopUp
                     }
                 }
                 // 수작업등록
-                else if (btnHandworkReg.Font.Bold)
+                else if (btnManualInputLot.Font.Bold)
                 {
-                    foreach (Control control in panelHandworkReg.Controls)
+                    foreach (Control control in panelManualInputLot.Controls)
                     {
-                        CS_HandworkReg screen = (CS_HandworkReg)control;
+                        CS_ManualInputLot screen = (CS_ManualInputLot)control;
                         screen.Search();
                     }
                 }
@@ -456,7 +456,7 @@ namespace XrayInspection.PopUp
             panelXrayDecipher.BringToFront();
             btnXrayDecipher.Font = CommonFuction.BoldFont;
 
-            btnList = new List<Button>() { btnXrayDecipher, btnSetting, btnUserManagement, btnDefectCodeManagement, btnProductManagement, btnRegWorkorder, btnSearchWorkorder, btnAIJudgmentStatus, btnAIJudgmentHistory, btnHandworkReg, btnReport };
+            btnList = new List<Button>() { btnXrayDecipher, btnSetting, btnUserManagement, btnDefectCodeManagement, btnProductManagement, btnRegWorkorder, btnSearchWorkorder, btnAIJudgmentStatus, btnAIJudgmentHistory, btnManualInputLot, btnReport };
 
             // Xray판독화면 판넬에 세팅
             CS_XrayDecipher XrayDecipher = new CS_XrayDecipher();
@@ -495,8 +495,8 @@ namespace XrayInspection.PopUp
             panelAIjudgmentHistory.Controls.Add(AIjudgmentHistory);
 
             // 수작업등록화면 판넬에 세팅 
-            CS_HandworkReg HandworkReg = new CS_HandworkReg();
-            panelHandworkReg.Controls.Add(HandworkReg);
+            CS_ManualInputLot ManualInputLot = new CS_ManualInputLot();
+            panelManualInputLot.Controls.Add(ManualInputLot);
 
             MMManagedReportControl Report = new MMManagedReportControl();
             p_Report.Controls.Add(Report);
@@ -510,7 +510,7 @@ namespace XrayInspection.PopUp
             btnSearchWorkorder.Tag = selectedType.SearchWorkorder; // 작업계획조회
             btnAIJudgmentStatus.Tag = selectedType.AIJudgmentStatus; // AI 판정현황
             btnAIJudgmentHistory.Tag = selectedType.AIJudgmentHistory; // AI 판정이력
-            btnHandworkReg.Tag = selectedType.HandworkReg; // 수작업등록
+            btnManualInputLot.Tag = selectedType.ManualInputLot; // 수작업등록
             btnReport.Tag = selectedType.Report;
         }
 
