@@ -830,20 +830,20 @@ namespace XrayInspection.UserControls
                 string selectDriveName = string.Empty;
 
                 // 본사 내부 테스트용(로컬 드라이브 기준)
-                //if (path.Contains("C:/")) selectDriveName = "C";
-                //else if (path.Contains("D:/")) selectDriveName = "D";
+                if (path.Contains("C:/")) selectDriveName = "C";
+                else if (path.Contains("D:/")) selectDriveName = "D";
 
                 // 조선내화 프로그램 적용(네트워크 드라이브 기준)
-                if (path.Contains("//J//")) selectDriveName = "J";
-                else if (path.Contains("//G//")) selectDriveName = "G";
-                else if (path.Contains("//H//")) selectDriveName = "H";
-                else if (path.Contains("//I//")) selectDriveName = "I";
-                else if (path.Contains("//K//")) selectDriveName = "K";
+                //if (path.Contains("//J//")) selectDriveName = "J";
+                //else if (path.Contains("//G//")) selectDriveName = "G";
+                //else if (path.Contains("//H//")) selectDriveName = "H";
+                //else if (path.Contains("//I//")) selectDriveName = "I";
+                //else if (path.Contains("//K//")) selectDriveName = "K";
 
                 foreach (DriveInfo drive in drives)
                 {
-                    //if (drive.DriveType == DriveType.Fixed)
-                    if (drive.DriveType == DriveType.Network)
+                    if (drive.DriveType == DriveType.Fixed)
+                    //if (drive.DriveType == DriveType.Network)
                     {
                         if (drive.Name.Contains(selectDriveName))
                         {
