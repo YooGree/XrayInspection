@@ -1361,15 +1361,15 @@ namespace XrayInspection.UserControls
                 if (txtJudgmentResult.Tag.Equals("0") || txtJudgmentResult.Tag.Equals("1") || txtJudgmentResult.Tag.Equals("2"))
 
                 {
-                    //CopyPath = Properties.Settings.Default.OKVideoPath + txtLotNo.Text + ".mp4";
-                    CopyPath = comboSaveVideoPath.Text + txtLotNo.Text + ".mp4";
+                    //CopyPath = Properties.Settings.Default.OKVideoPath + txtLotNo.Text + ".mpeg";
+                    CopyPath = comboSaveVideoPath.Text + txtLotNo.Text + ".mpeg";
                     File.Copy(OriginalPath, CopyPath, true);
                     File.Delete(OriginalPath);
                 }
                 // 불합격(NG)
                 else
                 {
-                    CopyPath = Properties.Settings.Default.NGVideoPath + txtLotNo.Text + ".mp4";
+                    CopyPath = Properties.Settings.Default.NGVideoPath + txtLotNo.Text + ".mpeg";
                     File.Copy(OriginalPath, CopyPath, true);
                     File.Delete(OriginalPath);
                 }
@@ -1508,8 +1508,8 @@ namespace XrayInspection.UserControls
                         string passCntColumn = "F합격" + pCnt;
                         string itemCntColumn = txtDetailClass.Tag.ToString().Trim().Equals("") ? "F항목0" : "F항목" + iCnt;
                         string lastResult = (txtJudgmentResult.Tag.ToString().Trim() == "3") ? "부적합" : "합격";
-                        string filePath = lastResult == "합격" ? comboSaveVideoPath.Tag + txtLotNo.Text + ".mp4" : @".\DBMOVIE_E\" + txtLotNo.Text + ".mp4";
-                        //string filePath = lastResult == "합격" ? @".\DBMOVIE_J\" + txtLotNo.Text + ".mp4" : @".\DBMOVIE_E\" + txtLotNo.Text + ".mp4";
+                        string filePath = lastResult == "합격" ? comboSaveVideoPath.Tag + txtLotNo.Text + ".mpeg" : @".\DBMOVIE_E\" + txtLotNo.Text + ".mpeg";
+                        //string filePath = lastResult == "합격" ? @".\DBMOVIE_J\" + txtLotNo.Text + ".mpeg" : @".\DBMOVIE_E\" + txtLotNo.Text + ".mpeg";
                         string contents = "";
 
                         if (string.IsNullOrWhiteSpace(txtDetailClass.Text) && string.IsNullOrWhiteSpace(txtDetailCode.Text))

@@ -297,8 +297,8 @@ namespace XrayInspection.PopUp
                         // 합격 -> 불합격
                         if (txtJudgmentResult.Tag.Equals("3"))
                         {
-                            string OriginalPath = _currentRow.Cells["FILEPATH"].Value.ToString() + _currentRow.Cells["LOTID"].Value.ToString() + ".mp4";
-                            string CopyPath = Properties.Settings.Default.NGVideoPath + _currentRow.Cells["LOTID"].Value.ToString() + ".mp4";
+                            string OriginalPath = _currentRow.Cells["FILEPATH"].Value.ToString() + _currentRow.Cells["LOTID"].Value.ToString() + ".mpeg";
+                            string CopyPath = Properties.Settings.Default.NGVideoPath + _currentRow.Cells["LOTID"].Value.ToString() + ".mpeg";
 
                             if (!OriginalPath.Trim().Equals(CopyPath.Trim())) File.Copy(OriginalPath, CopyPath, true);
 
@@ -307,8 +307,8 @@ namespace XrayInspection.PopUp
                         // 합격 -> 합격
                         else
                         {
-                            string OriginalPath = _currentRow.Cells["FILEPATH"].Value.ToString() + _currentRow.Cells["LOTID"].Value.ToString() + ".mp4";
-                            string CopyPath = _currentFilePath + _currentRow.Cells["LOTID"].Value.ToString() + ".mp4";
+                            string OriginalPath = _currentRow.Cells["FILEPATH"].Value.ToString() + _currentRow.Cells["LOTID"].Value.ToString() + ".mpeg";
+                            string CopyPath = _currentFilePath + _currentRow.Cells["LOTID"].Value.ToString() + ".mpeg";
 
                             if (!OriginalPath.Trim().Equals(CopyPath.Trim())) File.Copy(OriginalPath, CopyPath, true);
 
@@ -321,8 +321,8 @@ namespace XrayInspection.PopUp
                         // 불합격 - 합격
                         if (txtJudgmentResult.Tag.Equals("0") || txtJudgmentResult.Tag.Equals("1") || txtJudgmentResult.Tag.Equals("2"))
                         {
-                            string OriginalPath = Properties.Settings.Default.NGVideoPath + _currentRow.Cells["LOTID"].Value.ToString() + ".mp4";
-                            string CopyPath = _currentFilePath + _currentRow.Cells["LOTID"].Value.ToString() + ".mp4";
+                            string OriginalPath = Properties.Settings.Default.NGVideoPath + _currentRow.Cells["LOTID"].Value.ToString() + ".mpeg";
+                            string CopyPath = _currentFilePath + _currentRow.Cells["LOTID"].Value.ToString() + ".mpeg";
 
                             if (!OriginalPath.Trim().Equals(CopyPath.Trim())) File.Copy(OriginalPath, CopyPath, true);
 
@@ -436,7 +436,7 @@ namespace XrayInspection.PopUp
         /// </summary>
         private void GetMediaFile()
         {
-            string fileName = _currentRow.Cells["LOTID"].Value.ToString() + ".mp4";
+            string fileName = _currentRow.Cells["LOTID"].Value.ToString() + ".mpeg";
             string filePath = "";
 
             if (_currentRow.Cells["LASTRESULTCODE"].Value.ToString() == "0"
@@ -840,12 +840,12 @@ namespace XrayInspection.PopUp
                                     // 합격 -> 불합격
                                     if (txtJudgmentResult.Tag.Equals("3"))
                                     {
-                                        filePath = @".\DBMOVIE_E\" + _currentRow.Cells["LOTID"].Value.ToString() + ".mp4";
+                                        filePath = @".\DBMOVIE_E\" + _currentRow.Cells["LOTID"].Value.ToString() + ".mpeg";
                                     }
                                     // 합격 -> 합격
                                     else
                                     {
-                                        filePath = _currentFileRelativePath + _currentRow.Cells["LOTID"].Value.ToString() + ".mp4";
+                                        filePath = _currentFileRelativePath + _currentRow.Cells["LOTID"].Value.ToString() + ".mpeg";
                                     }
                                 }
                                 // 판정결과가 불합격 - 합격으로 수정됬다면, (현재 지정된)합격 폴더로 파일경로 지정
@@ -854,12 +854,12 @@ namespace XrayInspection.PopUp
                                     // 불합격 -> 합격
                                     if (txtJudgmentResult.Tag.Equals("0") || txtJudgmentResult.Tag.Equals("1") || txtJudgmentResult.Tag.Equals("2"))
                                     {
-                                        filePath = _currentFileRelativePath + _currentRow.Cells["LOTID"].Value.ToString() + ".mp4";
+                                        filePath = _currentFileRelativePath + _currentRow.Cells["LOTID"].Value.ToString() + ".mpeg";
                                     }
                                     // 불합격 -> 불합격
                                     else
                                     {
-                                        filePath = @".\DBMOVIE_E\" + _currentRow.Cells["LOTID"].Value.ToString() + ".mp4";
+                                        filePath = @".\DBMOVIE_E\" + _currentRow.Cells["LOTID"].Value.ToString() + ".mpeg";
                                     }
                                 }
 
