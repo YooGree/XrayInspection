@@ -196,7 +196,7 @@ namespace XrayInspection.UserControls
                     System.Threading.Thread.Sleep(2000);
                     loadingForm.Close(); // 종료시 실행할 이벤트
 
-                    if (string.IsNullOrWhiteSpace(txtProductName.Text.Trim()))
+                    if (string.IsNullOrWhiteSpace(txtProductCode.Text.Trim()))
                     {
                         MsgBoxHelper.Show("다음작업이 등록되어있지 않습니다. 작업계획을 등록해주세요.");
                     }
@@ -316,7 +316,7 @@ namespace XrayInspection.UserControls
                     System.Threading.Thread.Sleep(2000);
                     loadingForm.Close(); // 종료시 실행할 이벤트
 
-                    if (string.IsNullOrWhiteSpace(txtProductName.Text.Trim()))
+                    if (string.IsNullOrWhiteSpace(txtProductCode.Text.Trim()))
                     {
                         MsgBoxHelper.Show("다음작업이 등록되어있지 않습니다. 작업계획을 등록해주세요.");
                     }
@@ -349,7 +349,7 @@ namespace XrayInspection.UserControls
         public void BtnStart_Click(object sender, EventArgs e)
         {
             // MC_LotInspect에 Ready인 데이터가 없다면 녹화시작 불가능
-            if (string.IsNullOrWhiteSpace(txtProductName.Text)
+            if (string.IsNullOrWhiteSpace(txtProductCode.Text)
                 || string.IsNullOrWhiteSpace(txtLotNo.Text))
             {
                 MsgBoxHelper.Show("현재 시작 가능한 LOT이 없습니다. 작업계획을 등록해주세요.");
@@ -1420,7 +1420,7 @@ namespace XrayInspection.UserControls
                             // T품목마스타 테이블에서 현재 품목명에 해당하는 F품명KEY를 조회(현재는 테이블에 키가 잡혀있지 않아 여러행이 검색됨)
                             string productSelectSql = "SELECT  FID " +
                                                       "FROM    T품명마스타 " +
-                                                      "WHERE   F품명 = '" + txtProductName.Text + "'";
+                                                      "WHERE   F도번 = '" + txtProductCode.Text.Trim() + "'";
 
                             adp = new OleDbDataAdapter(productSelectSql, conn);
                             adp.Fill(productDs);
@@ -1753,7 +1753,7 @@ namespace XrayInspection.UserControls
                         aiParameters.Add("@TXNID", "XRAY_INSPECT");
                         aiParameters.Add("@USERID", "admin");
                         aiParameters.Add("@MACHINE", "1");
-                        aiParameters.Add("@PRODID", txtProductName.Text);
+                        aiParameters.Add("@PRODID", txtProductCode.Text);
                         aiParameters.Add("@LOTID", lotNo);
 
                         SqlParameter[] aiSqlParameters = _aiDbManager.GetSqlParameters(aiParameters);

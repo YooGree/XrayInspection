@@ -178,7 +178,7 @@ namespace XrayInspection.UserControls
             {
                 // 신규품목 그리드에 행 추가
                 DataRow addRow = _searchDt.NewRow();
-                addRow["PRODUCTID"] = addViewRow.Cells["PRODUCTNAME"].Value; 
+                addRow["PRODUCTID"] = addViewRow.Cells["PRODUCTCODE"].Value; 
                 addRow["PRODUCTNAME"] = addViewRow.Cells["PRODUCTNAME"].Value;
                 addRow["PRODUCTCODE"] = addViewRow.Cells["PRODUCTCODE"].Value;
                 addRow["CUSTOMER"] = addViewRow.Cells["CUSTOMER"].Value;
@@ -465,7 +465,7 @@ namespace XrayInspection.UserControls
             grdNewProduct.AllowUserToAddRows = false;
             grdNewProduct.SelectionMode = DataGridViewSelectionMode.CellSelect;
 
-            CommonFuction.SetDataGridViewColumnStyle(grdNewProduct, "제품명", "PRODUCTNAME", "PRODUCTNAME", typeof(string), 250, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdNewProduct, "제품명", "PRODUCTNAME", "PRODUCTNAME", typeof(string), 250, false, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdNewProduct, "제품구분", "PRODUCTTYPE", "PRODUCTTYPE", typeof(string), 100, false, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdNewProduct, "도번", "PRODUCTCODE", "PRODUCTCODE", typeof(string), 150, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdNewProduct, "고객명", "CUSTOMER", "CUSTOMER", typeof(string), 150, true, true, DataGridViewContentAlignment.MiddleCenter, 10);

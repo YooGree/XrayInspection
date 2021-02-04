@@ -361,18 +361,18 @@ namespace XrayInspection.UserControls
             grdWorkorder.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
             CommonFuction.SetDataGridViewColumnStyle(grdWorkorder, "순번", "InspectSequence", "InspectSequence", typeof(int), 50, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdWorkorder, "거래처", "Customer", "Customer", typeof(string), 200, true, true, DataGridViewContentAlignment.MiddleLeft, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdWorkorder, "거래처", "Customer", "Customer", typeof(string), 200, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdWorkorder, "사용처", "UsedPlace", "UsedPlace", typeof(string), 100, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdWorkorder, "품명", "ProductID", "ProductID", typeof(string), 220, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdWorkorder, "품명", "ProductName", "ProductName", typeof(string), 220, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdWorkorder, "도번", "ProductCode", "ProductCode", typeof(string), 80, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdWorkorder, "생산년도", "MakeYear", "MakeYear", typeof(string), 80, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdWorkorder, "Input LotID", "InputLotID", "InputLotID", typeof(string), 100, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdWorkorder, "LotID", "LotID", "LotID", typeof(string), 150, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdWorkorder, "성형자", "Maker", "Maker", typeof(string), 100, true, true, DataGridViewContentAlignment.MiddleLeft, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdWorkorder, "검사자", "Inspector", "Inspector", typeof(string), 100, true, true, DataGridViewContentAlignment.MiddleLeft, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdWorkorder, "진행상태", "LotState", "LotState", typeof(string),80, true, true, DataGridViewContentAlignment.MiddleLeft, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdWorkorder, "판독결과", "LastResult", "LastResult", typeof(string), 80, true, true, DataGridViewContentAlignment.MiddleLeft, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdWorkorder, "작업시간", "ModifiedTime", "ModifiedTime", typeof(string), 150, true, true, DataGridViewContentAlignment.MiddleLeft, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdWorkorder, "성형자", "Maker", "Maker", typeof(string), 100, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdWorkorder, "검사자", "Inspector", "Inspector", typeof(string), 100, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdWorkorder, "진행상태", "LotState", "LotState", typeof(string),80, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdWorkorder, "판독결과", "LastResult", "LastResult", typeof(string), 80, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdWorkorder, "작업시간", "ModifiedTime", "ModifiedTime", typeof(string), 150, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
         }
 
         #endregion

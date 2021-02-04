@@ -269,7 +269,7 @@ namespace XrayInspection.UserControls
                     return;
                 }
                 // 2021-01-28 유태근 - 해당 제품이 등록되어 있지 않은 상태라면 알림
-                else if (!IsRegProduct(grdWorkorder.Rows[0].Cells["ModelName"].Value.ToString()))
+                else if (!IsRegProduct(grdWorkorder.Rows[0].Cells["ProductCode"].Value.ToString()))
                 {
                     MsgBoxHelper.Show("해당 제품이 등록되어 있지 않습니다. \n제품을 등록 후 진행해주세요.");
                     return;
@@ -365,25 +365,25 @@ namespace XrayInspection.UserControls
 
             //CommonFuction.SetDataGridViewColumnStyle(grdWorkorder, "순번", "sequence", "sequence", typeof(int), 50, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdWorkorder, "작업지시번호", "WorkorderNo", "WorkorderNo", typeof(string), 150, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdWorkorder, "거래처", "Customer", "Customer", typeof(string), 200, true, true, DataGridViewContentAlignment.MiddleLeft, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdWorkorder, "거래처", "Customer", "Customer", typeof(string), 200, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdWorkorder, "사용처", "UsedPlace", "UsedPlace", typeof(string), 100, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdWorkorder, "도번", "ProductCode", "ProductCode", typeof(string), 120, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdWorkorder, "품명", "ModelName", "ModelName", typeof(string), 220, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdWorkorder, "도번", "ProductCode", "ProductCode", typeof(string), 80, true, false, DataGridViewContentAlignment.MiddleLeft, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdWorkorder, "생산년도", "MakeYear", "MakeYear", typeof(string), 100, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdWorkorder, "Input LotID", "InputLotID", "InputLotID", typeof(string), 100, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdWorkorder, "LotID", "LotID", "LotID", typeof(string), 150, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdWorkorder, "성형자", "Maker", "Maker", typeof(string), 100, true, true, DataGridViewContentAlignment.MiddleLeft, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdWorkorder, "검사자", "Inspector", "Inspector", typeof(string), 100, true, true, DataGridViewContentAlignment.MiddleLeft, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdWorkorder, "진행상태", "LotState", "LotState", typeof(string),80, true, true, DataGridViewContentAlignment.MiddleLeft, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdWorkorder, "판독결과", "LastResult", "LastResult", typeof(string), 80, true, true, DataGridViewContentAlignment.MiddleLeft, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdWorkorder, "성형자", "Maker", "Maker", typeof(string), 100, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdWorkorder, "검사자", "Inspector", "Inspector", typeof(string), 100, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdWorkorder, "진행상태", "LotState", "LotState", typeof(string),80, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdWorkorder, "판독결과", "LastResult", "LastResult", typeof(string), 80, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
         }
 
         /// <summary>
-        /// 파라미터로 들어온 품목명이 MC_Product 테이블에 있는지 확인
+        /// 파라미터로 들어온 도번이 MC_Product 테이블에 있는지 확인
         /// </summary>
         /// <param name="productName"></param>
         /// <returns></returns>
-        private bool IsRegProduct(string productName)
+        private bool IsRegProduct(string productCode)
         {
             bool IsReg = true;
 
@@ -392,7 +392,7 @@ namespace XrayInspection.UserControls
                 DBManager dbManager = new DBManager();
                 List<SqlParameter> parameters = new List<SqlParameter>();
                 parameters.Add(new SqlParameter("@SITE", Properties.Settings.Default.Site)); 
-                parameters.Add(new SqlParameter("@PRODUCTID", productName)); 
+                parameters.Add(new SqlParameter("@PRODUCTCODE", productCode)); 
 
                 DataSet ds = dbManager.CallSelectProcedure_ds("USP_SELECT_REGWORKORDERINFO_REGPRODUCT", parameters);
 

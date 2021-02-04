@@ -114,12 +114,12 @@ namespace XrayInspection.UserControls
             this.tableLayoutPanel2.Controls.Add(this.lblProductName, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.comboSearchType, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.lblSearchType, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.txtProductCode, 1, 6);
+            this.tableLayoutPanel2.Controls.Add(this.txtProductCode, 1, 2);
             this.tableLayoutPanel2.Controls.Add(this.txtProductWeight, 1, 5);
-            this.tableLayoutPanel2.Controls.Add(this.txtCustomer, 1, 2);
-            this.tableLayoutPanel2.Controls.Add(this.lblProductCode, 0, 6);
+            this.tableLayoutPanel2.Controls.Add(this.txtCustomer, 1, 6);
+            this.tableLayoutPanel2.Controls.Add(this.lblProductCode, 0, 2);
             this.tableLayoutPanel2.Controls.Add(this.lblProductWeight, 0, 5);
-            this.tableLayoutPanel2.Controls.Add(this.lblCustomer, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.lblCustomer, 0, 6);
             this.tableLayoutPanel2.Controls.Add(this.lblProductType, 0, 4);
             this.tableLayoutPanel2.Controls.Add(this.lblUsePlace, 0, 3);
             this.tableLayoutPanel2.Controls.Add(this.txtUsePlace, 1, 3);
@@ -188,7 +188,7 @@ namespace XrayInspection.UserControls
             // txtProductCode
             // 
             this.txtProductCode.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtProductCode.Location = new System.Drawing.Point(83, 250);
+            this.txtProductCode.Location = new System.Drawing.Point(83, 90);
             this.txtProductCode.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.txtProductCode.Name = "txtProductCode";
             this.txtProductCode.Size = new System.Drawing.Size(116, 21);
@@ -206,7 +206,7 @@ namespace XrayInspection.UserControls
             // txtCustomer
             // 
             this.txtCustomer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtCustomer.Location = new System.Drawing.Point(83, 90);
+            this.txtCustomer.Location = new System.Drawing.Point(83, 250);
             this.txtCustomer.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.txtCustomer.Name = "txtCustomer";
             this.txtCustomer.Size = new System.Drawing.Size(116, 21);
@@ -215,7 +215,7 @@ namespace XrayInspection.UserControls
             // lblProductCode
             // 
             this.lblProductCode.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblProductCode.Location = new System.Drawing.Point(3, 243);
+            this.lblProductCode.Location = new System.Drawing.Point(3, 83);
             this.lblProductCode.Margin = new System.Windows.Forms.Padding(3);
             this.lblProductCode.Name = "lblProductCode";
             this.lblProductCode.Size = new System.Drawing.Size(74, 34);
@@ -238,7 +238,7 @@ namespace XrayInspection.UserControls
             // 
             this.lblCustomer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblCustomer.ForeColor = System.Drawing.Color.White;
-            this.lblCustomer.Location = new System.Drawing.Point(3, 83);
+            this.lblCustomer.Location = new System.Drawing.Point(3, 243);
             this.lblCustomer.Margin = new System.Windows.Forms.Padding(3);
             this.lblCustomer.Name = "lblCustomer";
             this.lblCustomer.Size = new System.Drawing.Size(74, 34);
@@ -399,7 +399,7 @@ namespace XrayInspection.UserControls
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.LightGray;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
@@ -438,7 +438,7 @@ namespace XrayInspection.UserControls
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = System.Drawing.Color.LightGray;
             dataGridViewCellStyle4.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
