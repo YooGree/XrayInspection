@@ -375,7 +375,7 @@ namespace XrayInspection.UserControls
             CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "Site", "SITE", "SITE", typeof(string), 100, false, false, DataGridViewContentAlignment.MiddleLeft, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "고객", "CUSTOMER", "CUSTOMER", typeof(string), 150, true, true, DataGridViewContentAlignment.MiddleLeft, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "도번", "PRODUCTCODE", "PRODUCTCODE", typeof(string), 150, true, true, DataGridViewContentAlignment.MiddleLeft, 10);
-            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "품번", "PRODUCTID", "PRODUCTID", typeof(string), 250, true, true, DataGridViewContentAlignment.MiddleLeft, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "품명", "PRODUCTNAME", "PRODUCTNAME", typeof(string), 250, true, true, DataGridViewContentAlignment.MiddleLeft, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "LOT번호", "LOTID", "LOTID", typeof(string), 200, true, true, DataGridViewContentAlignment.MiddleLeft, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "검사자", "INSPECTORNAME", "INSPECTORNAME", typeof(string), 120, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "검사일자", "INSPECTIONDATE", "INSPECTIONDATE", typeof(string), 200, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
