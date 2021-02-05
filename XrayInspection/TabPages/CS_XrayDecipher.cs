@@ -156,10 +156,13 @@ namespace XrayInspection.UserControls
             // 합격이 아닌 상태를 입력했는데 원클릭합격을 눌렀다면 알림
             else if (txtJudgmentResult.Tag.ToString().Trim() != "0" && txtJudgmentResult.Tag.ToString().Trim() != "")
             {
-                if (MsgBoxHelper.Show("현재 입력된 판정결과가 합격(0)이 아닙니다. \n그래도 합격처리 하시겠습니까?", MessageBoxButtons.YesNo) == DialogResult.No)
-                {
-                    return;
-                }
+                MsgBoxHelper.Show("현재 입력된 판정결과가 합격(0)이 아닙니다. \n합격(0)이 아닌경우에는 판정완료 버튼을 눌러서 진행해주세요.");
+                return;
+
+                //if (MsgBoxHelper.Show("현재 입력된 판정결과가 합격(0)이 아닙니다. \n그래도 합격처리 하시겠습니까?", MessageBoxButtons.YesNo) == DialogResult.No)
+                //{
+                //    return;
+                //}
             }
             // 계획본수 대비 진행순번이 초과한다면 알림
             //else if (Convert.ToInt32(txtPlanPageCount.Text.Trim()) < Convert.ToInt32(txtProgressSequence.Text.Trim()))
