@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using OpenCvSharp;
 
 namespace XrayInspection.UserControls
 {
@@ -1360,6 +1361,9 @@ namespace XrayInspection.UserControls
                 string OriginalPath = Properties.Settings.Default.VideoPath + txtLotNo.Text + ".mp4";
                 string CopyPath;
 
+                // 비디오가 해당경로에 재생가능한 상태인지 체크
+                // if (!VideoFileCheck(OriginalPath)) return;
+
                 // 합격(OK)
                 if (txtJudgmentResult.Tag.Equals("0") || txtJudgmentResult.Tag.Equals("1") || txtJudgmentResult.Tag.Equals("2"))
 
@@ -1381,6 +1385,43 @@ namespace XrayInspection.UserControls
             {
                 MsgBoxHelper.Error(ex.Message);
             }
+        }
+
+        /// <summary>
+        /// 비디오가 해당 영상경로에 재생 가능한 상태로 존재하는지 확인
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        private bool VideoFileCheck(string filePath)
+        {
+            bool flag = true;
+
+            for (int i = 0; i < 5; i++)
+            {
+                VideoCapture video = new VideoCapture(filePath);
+                Mat frame = new Mat();
+
+                video.Read(frame);
+
+                if (frame.Empty()) flag = false;
+                else
+                {
+                    flag = true;
+                    
+                    video.Dispose();
+                    break;
+                }
+                
+                video.Dispose();
+                System.Threading.Thread.Sleep(1000);
+            }
+
+            if (!flag)
+            {
+                MessageBox.Show("영상파일에 문제가 있습니다. \n재녹화가 필요합니다.");
+            }
+
+            return flag;
         }
 
         /// <summary>
@@ -1572,6 +1613,11 @@ namespace XrayInspection.UserControls
         /// </summary>
         private void JudgmentComplete()
         {
+            string OriginalPath = Properties.Settings.Default.VideoPath + txtLotNo.Text + ".mp4";
+
+            // 비디오가 해당경로에 재생가능한 상태인지 체크
+            if (!VideoFileCheck(OriginalPath)) return;
+
             // 판정결과 판단하여 동영상 OK 혹은 NG 폴더로 분기
             VideoMoveDirectory();
 
