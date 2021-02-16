@@ -82,6 +82,7 @@ namespace XrayInspection.UserControls
             btnRefresh.Click += BtnRefresh_Click;
             btnPass.Click += BtnPass_Click;
             btnModifiedLotNo.Click += BtnModifiedLotNo_Click;
+            btnModifiedComment2.Click += BtnModifiedComment2_Click;
 
             txtLotSize.KeyPress += KeyPressRequiredInt;
             txtPlanPageCount.KeyPress += KeyPressRequiredInt;
@@ -96,6 +97,22 @@ namespace XrayInspection.UserControls
         private void ComboSaveVideoPath_SelectedValueChanged(object sender, EventArgs e)
         {
             GetDriveSize(comboSaveVideoPath.Text);
+        }
+
+        /// <summary>
+        /// 비고 수정팝업
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnModifiedComment2_Click(object sender, EventArgs e)
+        {
+            CS_ModifiedCommentPopup lotPopup = new CS_ModifiedCommentPopup(txtProductCode.Text, txtComment2.Text);
+            lotPopup.WindowState = FormWindowState.Normal;
+            lotPopup.StartPosition = FormStartPosition.CenterScreen;
+            if (lotPopup.ShowDialog() == DialogResult.OK)
+            {
+                Rebinding();
+            }
         }
 
         /// <summary>
@@ -691,7 +708,7 @@ namespace XrayInspection.UserControls
                                 txtInspectionStd.Text = ds2.Tables[0].Rows[0]["INSPECTRATE"].ToString(); // 검사기준(%)
                                 txtPlanPageCount.Text = ds2.Tables[0].Rows[0]["INSPECTQTY"].ToString(); // 계획본수
                                 txtSequenceByProduct.Text = ds2.Tables[0].Rows[0]["INSPECTSEQUENCE"].ToString() + " / " + ds2.Tables[0].Rows[0]["INSPECTQTY"].ToString(); // 제품별 순번
-                                txtComment2.Text = ds2.Tables[0].Rows[0]["COMMENTS"].ToString(); // 계획본수
+                                txtComment2.Text = ds2.Tables[0].Rows[0]["COMMENTS"].ToString(); // 비고
                             }
                         }
 

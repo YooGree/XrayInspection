@@ -29,8 +29,8 @@ namespace XrayInspection.UserControls
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle33 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle34 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.lblTitle = new System.Windows.Forms.Label();
@@ -142,6 +142,10 @@ namespace XrayInspection.UserControls
             this.gbxRecording = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel34 = new System.Windows.Forms.TableLayoutPanel();
             this.gbxVideoPath = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel36 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel37 = new System.Windows.Forms.TableLayoutPanel();
+            this.lblDriveSize = new System.Windows.Forms.Label();
+            this.proDriveSize = new System.Windows.Forms.ProgressBar();
             this.tableLayoutPanel35 = new System.Windows.Forms.TableLayoutPanel();
             this.lblSaveVideoPath = new System.Windows.Forms.Label();
             this.comboSaveVideoPath = new System.Windows.Forms.ComboBox();
@@ -151,10 +155,7 @@ namespace XrayInspection.UserControls
             this.btnEnd = new System.Windows.Forms.Button();
             this.btnJudgmentComplete = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
-            this.tableLayoutPanel36 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel37 = new System.Windows.Forms.TableLayoutPanel();
-            this.lblDriveSize = new System.Windows.Forms.Label();
-            this.proDriveSize = new System.Windows.Forms.ProgressBar();
+            this.btnModifiedComment2 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
             this.splitContainer3.Panel1.SuspendLayout();
@@ -210,10 +211,10 @@ namespace XrayInspection.UserControls
             this.gbxRecording.SuspendLayout();
             this.tableLayoutPanel34.SuspendLayout();
             this.gbxVideoPath.SuspendLayout();
-            this.tableLayoutPanel35.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.tableLayoutPanel36.SuspendLayout();
             this.tableLayoutPanel37.SuspendLayout();
+            this.tableLayoutPanel35.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -291,23 +292,23 @@ namespace XrayInspection.UserControls
             // 
             // grdAIDecipherStatus
             // 
-            dataGridViewCellStyle33.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle33.BackColor = System.Drawing.SystemColors.ControlDark;
-            dataGridViewCellStyle33.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle33.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle33.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle33.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle33.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grdAIDecipherStatus.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle33;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grdAIDecipherStatus.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.grdAIDecipherStatus.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle34.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle34.BackColor = System.Drawing.Color.LightGray;
-            dataGridViewCellStyle34.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle34.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle34.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle34.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle34.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.grdAIDecipherStatus.DefaultCellStyle = dataGridViewCellStyle34;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grdAIDecipherStatus.DefaultCellStyle = dataGridViewCellStyle2;
             this.grdAIDecipherStatus.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grdAIDecipherStatus.EnableHeadersVisualStyles = false;
             this.grdAIDecipherStatus.Location = new System.Drawing.Point(3, 20);
@@ -1740,10 +1741,12 @@ namespace XrayInspection.UserControls
             // 
             // tableLayoutPanel4
             // 
-            this.tableLayoutPanel4.ColumnCount = 2;
+            this.tableLayoutPanel4.ColumnCount = 3;
             this.tableLayoutPanel13.SetColumnSpan(this.tableLayoutPanel4, 4);
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 158F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanel4.Controls.Add(this.btnModifiedComment2, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.txtComment2, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.lblComment2, 0, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1761,7 +1764,8 @@ namespace XrayInspection.UserControls
             this.txtComment2.Location = new System.Drawing.Point(161, 5);
             this.txtComment2.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.txtComment2.Name = "txtComment2";
-            this.txtComment2.Size = new System.Drawing.Size(366, 35);
+            this.txtComment2.ReadOnly = true;
+            this.txtComment2.Size = new System.Drawing.Size(266, 35);
             this.txtComment2.TabIndex = 1;
             // 
             // lblComment2
@@ -1818,6 +1822,58 @@ namespace XrayInspection.UserControls
             this.gbxVideoPath.TabIndex = 5;
             this.gbxVideoPath.TabStop = false;
             this.gbxVideoPath.Text = "녹화경로";
+            // 
+            // tableLayoutPanel36
+            // 
+            this.tableLayoutPanel36.ColumnCount = 1;
+            this.tableLayoutPanel36.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel36.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel36.Controls.Add(this.tableLayoutPanel37, 0, 1);
+            this.tableLayoutPanel36.Controls.Add(this.tableLayoutPanel35, 0, 0);
+            this.tableLayoutPanel36.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel36.Location = new System.Drawing.Point(3, 20);
+            this.tableLayoutPanel36.Name = "tableLayoutPanel36";
+            this.tableLayoutPanel36.RowCount = 2;
+            this.tableLayoutPanel36.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel36.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel36.Size = new System.Drawing.Size(524, 79);
+            this.tableLayoutPanel36.TabIndex = 1001;
+            // 
+            // tableLayoutPanel37
+            // 
+            this.tableLayoutPanel37.ColumnCount = 2;
+            this.tableLayoutPanel37.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 170F));
+            this.tableLayoutPanel37.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel37.Controls.Add(this.lblDriveSize, 0, 0);
+            this.tableLayoutPanel37.Controls.Add(this.proDriveSize, 1, 0);
+            this.tableLayoutPanel37.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel37.Location = new System.Drawing.Point(3, 42);
+            this.tableLayoutPanel37.Name = "tableLayoutPanel37";
+            this.tableLayoutPanel37.RowCount = 1;
+            this.tableLayoutPanel37.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel37.Size = new System.Drawing.Size(518, 34);
+            this.tableLayoutPanel37.TabIndex = 1001;
+            // 
+            // lblDriveSize
+            // 
+            this.lblDriveSize.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblDriveSize.Font = new System.Drawing.Font("굴림", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lblDriveSize.Location = new System.Drawing.Point(6, 5);
+            this.lblDriveSize.Margin = new System.Windows.Forms.Padding(6, 5, 3, 3);
+            this.lblDriveSize.Name = "lblDriveSize";
+            this.lblDriveSize.Size = new System.Drawing.Size(161, 26);
+            this.lblDriveSize.TabIndex = 0;
+            this.lblDriveSize.Text = "전체용량 / 사용가능용량";
+            this.lblDriveSize.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // proDriveSize
+            // 
+            this.proDriveSize.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.proDriveSize.Location = new System.Drawing.Point(173, 5);
+            this.proDriveSize.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
+            this.proDriveSize.Name = "proDriveSize";
+            this.proDriveSize.Size = new System.Drawing.Size(342, 26);
+            this.proDriveSize.TabIndex = 1;
             // 
             // tableLayoutPanel35
             // 
@@ -1943,57 +1999,21 @@ namespace XrayInspection.UserControls
             this.btnRefresh.Text = "새로고침(F5)";
             this.btnRefresh.UseVisualStyleBackColor = false;
             // 
-            // tableLayoutPanel36
+            // btnModifiedComment2
             // 
-            this.tableLayoutPanel36.ColumnCount = 1;
-            this.tableLayoutPanel36.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel36.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel36.Controls.Add(this.tableLayoutPanel37, 0, 1);
-            this.tableLayoutPanel36.Controls.Add(this.tableLayoutPanel35, 0, 0);
-            this.tableLayoutPanel36.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel36.Location = new System.Drawing.Point(3, 20);
-            this.tableLayoutPanel36.Name = "tableLayoutPanel36";
-            this.tableLayoutPanel36.RowCount = 2;
-            this.tableLayoutPanel36.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel36.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel36.Size = new System.Drawing.Size(524, 79);
-            this.tableLayoutPanel36.TabIndex = 1001;
-            // 
-            // tableLayoutPanel37
-            // 
-            this.tableLayoutPanel37.ColumnCount = 2;
-            this.tableLayoutPanel37.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 170F));
-            this.tableLayoutPanel37.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel37.Controls.Add(this.lblDriveSize, 0, 0);
-            this.tableLayoutPanel37.Controls.Add(this.proDriveSize, 1, 0);
-            this.tableLayoutPanel37.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel37.Location = new System.Drawing.Point(3, 42);
-            this.tableLayoutPanel37.Name = "tableLayoutPanel37";
-            this.tableLayoutPanel37.RowCount = 1;
-            this.tableLayoutPanel37.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel37.Size = new System.Drawing.Size(518, 34);
-            this.tableLayoutPanel37.TabIndex = 1001;
-            // 
-            // lblDriveSize
-            // 
-            this.lblDriveSize.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblDriveSize.Font = new System.Drawing.Font("굴림", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lblDriveSize.Location = new System.Drawing.Point(6, 5);
-            this.lblDriveSize.Margin = new System.Windows.Forms.Padding(6, 5, 3, 3);
-            this.lblDriveSize.Name = "lblDriveSize";
-            this.lblDriveSize.Size = new System.Drawing.Size(161, 26);
-            this.lblDriveSize.TabIndex = 0;
-            this.lblDriveSize.Text = "전체용량 / 사용가능용량";
-            this.lblDriveSize.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // proDriveSize
-            // 
-            this.proDriveSize.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.proDriveSize.Location = new System.Drawing.Point(173, 5);
-            this.proDriveSize.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
-            this.proDriveSize.Name = "proDriveSize";
-            this.proDriveSize.Size = new System.Drawing.Size(342, 26);
-            this.proDriveSize.TabIndex = 1;
+            this.btnModifiedComment2.BackColor = System.Drawing.Color.DimGray;
+            this.btnModifiedComment2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnModifiedComment2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnModifiedComment2.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Bold);
+            this.btnModifiedComment2.ForeColor = System.Drawing.Color.White;
+            this.btnModifiedComment2.Location = new System.Drawing.Point(433, 6);
+            this.btnModifiedComment2.Margin = new System.Windows.Forms.Padding(3, 6, 3, 3);
+            this.btnModifiedComment2.Name = "btnModifiedComment2";
+            this.btnModifiedComment2.Size = new System.Drawing.Size(94, 20);
+            this.btnModifiedComment2.TabIndex = 7;
+            this.btnModifiedComment2.TabStop = false;
+            this.btnModifiedComment2.Text = "수정";
+            this.btnModifiedComment2.UseVisualStyleBackColor = false;
             // 
             // CS_XrayDecipher
             // 
@@ -2078,10 +2098,10 @@ namespace XrayInspection.UserControls
             this.gbxRecording.ResumeLayout(false);
             this.tableLayoutPanel34.ResumeLayout(false);
             this.gbxVideoPath.ResumeLayout(false);
-            this.tableLayoutPanel35.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
             this.tableLayoutPanel36.ResumeLayout(false);
             this.tableLayoutPanel37.ResumeLayout(false);
+            this.tableLayoutPanel35.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -2212,5 +2232,6 @@ namespace XrayInspection.UserControls
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel37;
         private System.Windows.Forms.Label lblDriveSize;
         private System.Windows.Forms.ProgressBar proDriveSize;
+        public System.Windows.Forms.Button btnModifiedComment2;
     }
 }
