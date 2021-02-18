@@ -111,7 +111,8 @@ namespace XrayInspection.UserControls
             lotPopup.StartPosition = FormStartPosition.CenterScreen;
             if (lotPopup.ShowDialog() == DialogResult.OK)
             {
-                Rebinding();
+                txtComment2.Text = lotPopup._currentComment;
+                //Rebinding();
             }
         }
 

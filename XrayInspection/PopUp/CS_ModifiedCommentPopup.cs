@@ -16,7 +16,7 @@ namespace XrayInspection.PopUp
     /// 작   성   자  : 유태근
     /// 작   성   일  : 2021-02-16
     /// 설        명  : Xray 판독화면에서 비고를 수정하기 위해 호출되는 팝업이다.
-    /// 이        력  : 
+    /// 이        력  : 2021-02-18 유태근 / 저장 클릭시 디비 업데이트가 아닌 화면상에서의 바인딩으로 변경
     /// </summary>
     public partial class CS_ModifiedCommentPopup : ParentsPop
     {
@@ -85,29 +85,35 @@ namespace XrayInspection.PopUp
             {
                 if (MsgBoxHelper.Show("비고를 변경하시겠습니까?", MessageBoxButtons.OKCancel) == DialogResult.OK)
                 {
-                    try
-                    {
-                        DBManager dbManager = new DBManager();
 
-                        Dictionary<string, object> parameters = new Dictionary<string, object>();
-                        parameters.Add("@SITE", Properties.Settings.Default.Site);
-                        parameters.Add("@PRODUCTCODE", _productCode);
-                        parameters.Add("@CURRENTCOMMENT", txtComment.Text);
+                    _currentComment = txtComment.Text;
 
-                        SqlParameter[] sqlPamaters = dbManager.GetSqlParameters(parameters);
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                    
+                    //try
+                    //{
+                    //    DBManager dbManager = new DBManager();
 
-                        int SaveResult = dbManager.CallNonSelectProcedure("USP_UPDATE_XRAYDECIPHER_COMMENT", sqlPamaters);
+                    //    Dictionary<string, object> parameters = new Dictionary<string, object>();
+                    //    parameters.Add("@SITE", Properties.Settings.Default.Site);
+                    //    parameters.Add("@PRODUCTCODE", _productCode);
+                    //    parameters.Add("@CURRENTCOMMENT", txtComment.Text);
 
-                        if (SaveResult > 0) Console.WriteLine("변경성공!");                      
-                        else Console.WriteLine("변경실패!");
+                    //    SqlParameter[] sqlPamaters = dbManager.GetSqlParameters(parameters);
 
-                        this.DialogResult = DialogResult.OK;
-                        this.Close();
-                    }
-                    catch (Exception ex)
-                    {
-                        MsgBoxHelper.Error(ex.Message);
-                    }
+                    //    int SaveResult = dbManager.CallNonSelectProcedure("USP_UPDATE_XRAYDECIPHER_COMMENT", sqlPamaters);
+
+                    //    if (SaveResult > 0) Console.WriteLine("변경성공!");                      
+                    //    else Console.WriteLine("변경실패!");
+
+                    //    this.DialogResult = DialogResult.OK;
+                    //    this.Close();
+                    //}
+                    //catch (Exception ex)
+                    //{
+                    //    MsgBoxHelper.Error(ex.Message);
+                    //}
                 }
             }
         }

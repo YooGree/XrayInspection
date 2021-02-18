@@ -137,6 +137,7 @@ namespace XrayInspection.UserControls
             this.lblSequenceByPallet = new System.Windows.Forms.Label();
             this.txtSequenceByPallet = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnModifiedComment2 = new System.Windows.Forms.Button();
             this.txtComment2 = new System.Windows.Forms.TextBox();
             this.lblComment2 = new System.Windows.Forms.Label();
             this.gbxRecording = new System.Windows.Forms.GroupBox();
@@ -155,7 +156,6 @@ namespace XrayInspection.UserControls
             this.btnEnd = new System.Windows.Forms.Button();
             this.btnJudgmentComplete = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
-            this.btnModifiedComment2 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
             this.splitContainer3.Panel1.SuspendLayout();
@@ -1757,6 +1757,22 @@ namespace XrayInspection.UserControls
             this.tableLayoutPanel4.Size = new System.Drawing.Size(530, 29);
             this.tableLayoutPanel4.TabIndex = 3;
             // 
+            // btnModifiedComment2
+            // 
+            this.btnModifiedComment2.BackColor = System.Drawing.Color.DimGray;
+            this.btnModifiedComment2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnModifiedComment2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnModifiedComment2.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Bold);
+            this.btnModifiedComment2.ForeColor = System.Drawing.Color.White;
+            this.btnModifiedComment2.Location = new System.Drawing.Point(433, 6);
+            this.btnModifiedComment2.Margin = new System.Windows.Forms.Padding(3, 6, 3, 3);
+            this.btnModifiedComment2.Name = "btnModifiedComment2";
+            this.btnModifiedComment2.Size = new System.Drawing.Size(94, 20);
+            this.btnModifiedComment2.TabIndex = 7;
+            this.btnModifiedComment2.TabStop = false;
+            this.btnModifiedComment2.Text = "수정";
+            this.btnModifiedComment2.UseVisualStyleBackColor = false;
+            // 
             // txtComment2
             // 
             this.txtComment2.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1998,22 +2014,6 @@ namespace XrayInspection.UserControls
             this.btnRefresh.TabStop = false;
             this.btnRefresh.Text = "새로고침(F5)";
             this.btnRefresh.UseVisualStyleBackColor = false;
-            // 
-            // btnModifiedComment2
-            // 
-            this.btnModifiedComment2.BackColor = System.Drawing.Color.DimGray;
-            this.btnModifiedComment2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnModifiedComment2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnModifiedComment2.Font = new System.Drawing.Font("굴림", 11F, System.Drawing.FontStyle.Bold);
-            this.btnModifiedComment2.ForeColor = System.Drawing.Color.White;
-            this.btnModifiedComment2.Location = new System.Drawing.Point(433, 6);
-            this.btnModifiedComment2.Margin = new System.Windows.Forms.Padding(3, 6, 3, 3);
-            this.btnModifiedComment2.Name = "btnModifiedComment2";
-            this.btnModifiedComment2.Size = new System.Drawing.Size(94, 20);
-            this.btnModifiedComment2.TabIndex = 7;
-            this.btnModifiedComment2.TabStop = false;
-            this.btnModifiedComment2.Text = "수정";
-            this.btnModifiedComment2.UseVisualStyleBackColor = false;
             // 
             // CS_XrayDecipher
             // 

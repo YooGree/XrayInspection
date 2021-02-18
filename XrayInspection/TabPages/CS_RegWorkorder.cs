@@ -64,8 +64,22 @@ namespace XrayInspection.UserControls
         {
             btnExport.Click += BtnExport_Click;
             btnSave.Click += BtnSave_Click;
+            btnReset.Click += BtnReset_Click;
 
             grdWorkorder.RowPostPaint += GrdWorkorder_RowPostPaint;
+        }
+
+        /// <summary>
+        /// 작업계획등록 초기화
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnReset_Click(object sender, EventArgs e)
+        {
+            if (MsgBoxHelper.Show("현재 저장된 작업계획을 초기화하시겠습니까?", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                DeleteWorkPlan();
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -417,6 +431,33 @@ namespace XrayInspection.UserControls
 
             return IsReg;
         }
+
+        /// <summary>
+        /// 현재 저장되어있는 작업계획를 삭제한다.
+        /// </summary>
+        private void DeleteWorkPlan()
+        {
+            try
+            {
+                DBManager dbManager = new DBManager();
+                Dictionary<string, object> parameters = new Dictionary<string, object>();
+                parameters.Add("@SITE", Properties.Settings.Default.Site);
+
+                SqlParameter[] sqlParameters = dbManager.GetSqlParameters(parameters);
+
+                int saveResult = dbManager.CallNonSelectProcedure("USP_DELETE_WORKORDERINFO", sqlParameters);
+
+                if (saveResult > 0) Console.WriteLine("작업계획 초기화 성공!");
+                else Console.WriteLine("작업계획 초기화 실패!");
+
+                Search(); // 재조회
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
         #endregion
     }
 }
