@@ -29,8 +29,10 @@ namespace XrayInspection.UserControls
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.gbxSearchCondition = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -49,20 +51,29 @@ namespace XrayInspection.UserControls
             this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
             this.radioAll = new System.Windows.Forms.RadioButton();
             this.radioNormal = new System.Windows.Forms.RadioButton();
-            this.gbxFrameInfo = new System.Windows.Forms.GroupBox();
+            this.radioDefect = new System.Windows.Forms.RadioButton();
+            this.gbxAIjubgmentHistory = new System.Windows.Forms.GroupBox();
             this.grdAIjubgmentHistory = new System.Windows.Forms.DataGridView();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnExport = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.radioDefect = new System.Windows.Forms.RadioButton();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.gbxAIjubgmentHistory2 = new System.Windows.Forms.GroupBox();
+            this.grdAIjubgmentHistory2 = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel1.SuspendLayout();
             this.gbxSearchCondition.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.flowLayoutPanel4.SuspendLayout();
-            this.gbxFrameInfo.SuspendLayout();
+            this.gbxAIjubgmentHistory.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdAIjubgmentHistory)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
+            this.gbxAIjubgmentHistory2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdAIjubgmentHistory2)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -71,9 +82,9 @@ namespace XrayInspection.UserControls
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
             this.tableLayoutPanel1.Controls.Add(this.gbxSearchCondition, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.gbxFrameInfo, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.lblTitle, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.splitContainer2, 1, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -297,43 +308,54 @@ namespace XrayInspection.UserControls
             this.radioNormal.Text = "정상";
             this.radioNormal.UseVisualStyleBackColor = true;
             // 
-            // gbxFrameInfo
+            // radioDefect
             // 
-            this.gbxFrameInfo.Controls.Add(this.grdAIjubgmentHistory);
-            this.gbxFrameInfo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gbxFrameInfo.ForeColor = System.Drawing.Color.White;
-            this.gbxFrameInfo.Location = new System.Drawing.Point(217, 43);
-            this.gbxFrameInfo.Name = "gbxFrameInfo";
-            this.gbxFrameInfo.Size = new System.Drawing.Size(854, 581);
-            this.gbxFrameInfo.TabIndex = 1;
-            this.gbxFrameInfo.TabStop = false;
-            this.gbxFrameInfo.Text = "판정 이력정보";
+            this.radioDefect.Dock = System.Windows.Forms.DockStyle.Top;
+            this.radioDefect.Location = new System.Drawing.Point(3, 63);
+            this.radioDefect.Name = "radioDefect";
+            this.radioDefect.Size = new System.Drawing.Size(56, 24);
+            this.radioDefect.TabIndex = 4;
+            this.radioDefect.TabStop = true;
+            this.radioDefect.Text = "불량";
+            this.radioDefect.UseVisualStyleBackColor = true;
+            // 
+            // gbxAIjubgmentHistory
+            // 
+            this.gbxAIjubgmentHistory.Controls.Add(this.grdAIjubgmentHistory);
+            this.gbxAIjubgmentHistory.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gbxAIjubgmentHistory.ForeColor = System.Drawing.Color.White;
+            this.gbxAIjubgmentHistory.Location = new System.Drawing.Point(0, 0);
+            this.gbxAIjubgmentHistory.Name = "gbxAIjubgmentHistory";
+            this.gbxAIjubgmentHistory.Size = new System.Drawing.Size(854, 358);
+            this.gbxAIjubgmentHistory.TabIndex = 1;
+            this.gbxAIjubgmentHistory.TabStop = false;
+            this.gbxAIjubgmentHistory.Text = "판정 이력정보";
             // 
             // grdAIjubgmentHistory
             // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.ControlDark;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grdAIjubgmentHistory.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grdAIjubgmentHistory.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.grdAIjubgmentHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.LightGray;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.grdAIjubgmentHistory.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grdAIjubgmentHistory.DefaultCellStyle = dataGridViewCellStyle8;
             this.grdAIjubgmentHistory.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grdAIjubgmentHistory.EnableHeadersVisualStyles = false;
             this.grdAIjubgmentHistory.Location = new System.Drawing.Point(3, 17);
             this.grdAIjubgmentHistory.Name = "grdAIjubgmentHistory";
             this.grdAIjubgmentHistory.RowTemplate.Height = 23;
-            this.grdAIjubgmentHistory.Size = new System.Drawing.Size(848, 561);
+            this.grdAIjubgmentHistory.Size = new System.Drawing.Size(848, 338);
             this.grdAIjubgmentHistory.TabIndex = 0;
             // 
             // flowLayoutPanel1
@@ -373,24 +395,70 @@ namespace XrayInspection.UserControls
             this.lblTitle.Text = "AI 판정이력";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // radioDefect
+            // splitContainer2
             // 
-            this.radioDefect.Dock = System.Windows.Forms.DockStyle.Top;
-            this.radioDefect.Location = new System.Drawing.Point(3, 63);
-            this.radioDefect.Name = "radioDefect";
-            this.radioDefect.Size = new System.Drawing.Size(56, 24);
-            this.radioDefect.TabIndex = 4;
-            this.radioDefect.TabStop = true;
-            this.radioDefect.Text = "불량";
-            this.radioDefect.UseVisualStyleBackColor = true;
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(217, 43);
+            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // CS_AIjubgmentHistory
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.gbxAIjubgmentHistory);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.gbxAIjubgmentHistory2);
+            this.splitContainer2.Size = new System.Drawing.Size(854, 581);
+            this.splitContainer2.SplitterDistance = 358;
+            this.splitContainer2.TabIndex = 4;
+            // 
+            // gbxAIjubgmentHistory2
+            // 
+            this.gbxAIjubgmentHistory2.Controls.Add(this.grdAIjubgmentHistory2);
+            this.gbxAIjubgmentHistory2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gbxAIjubgmentHistory2.ForeColor = System.Drawing.Color.White;
+            this.gbxAIjubgmentHistory2.Location = new System.Drawing.Point(0, 0);
+            this.gbxAIjubgmentHistory2.Name = "gbxAIjubgmentHistory2";
+            this.gbxAIjubgmentHistory2.Size = new System.Drawing.Size(854, 219);
+            this.gbxAIjubgmentHistory2.TabIndex = 2;
+            this.gbxAIjubgmentHistory2.TabStop = false;
+            this.gbxAIjubgmentHistory2.Text = "월별 판정 집계정보";
+            // 
+            // grdAIjubgmentHistory2
+            // 
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grdAIjubgmentHistory2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            this.grdAIjubgmentHistory2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grdAIjubgmentHistory2.DefaultCellStyle = dataGridViewCellStyle6;
+            this.grdAIjubgmentHistory2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdAIjubgmentHistory2.EnableHeadersVisualStyles = false;
+            this.grdAIjubgmentHistory2.Location = new System.Drawing.Point(3, 17);
+            this.grdAIjubgmentHistory2.Name = "grdAIjubgmentHistory2";
+            this.grdAIjubgmentHistory2.RowTemplate.Height = 23;
+            this.grdAIjubgmentHistory2.Size = new System.Drawing.Size(848, 199);
+            this.grdAIjubgmentHistory2.TabIndex = 0;
+            // 
+            // CS_AIjudgmentHistory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Name = "CS_AIjubgmentHistory";
+            this.Name = "CS_AIjudgmentHistory";
             this.Size = new System.Drawing.Size(1074, 627);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.gbxSearchCondition.ResumeLayout(false);
@@ -398,9 +466,15 @@ namespace XrayInspection.UserControls
             this.tableLayoutPanel2.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.flowLayoutPanel4.ResumeLayout(false);
-            this.gbxFrameInfo.ResumeLayout(false);
+            this.gbxAIjubgmentHistory.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grdAIjubgmentHistory)).EndInit();
             this.flowLayoutPanel1.ResumeLayout(false);
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
+            this.gbxAIjubgmentHistory2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grdAIjubgmentHistory2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -409,7 +483,7 @@ namespace XrayInspection.UserControls
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.GroupBox gbxSearchCondition;
-        private System.Windows.Forms.GroupBox gbxFrameInfo;
+        private System.Windows.Forms.GroupBox gbxAIjubgmentHistory;
         private System.Windows.Forms.DataGridView grdAIjubgmentHistory;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
@@ -431,5 +505,8 @@ namespace XrayInspection.UserControls
         private System.Windows.Forms.Button btnExport;
         private System.Windows.Forms.Label lblJudgmentResult;
         private System.Windows.Forms.RadioButton radioDefect;
+        private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.GroupBox gbxAIjubgmentHistory2;
+        private System.Windows.Forms.DataGridView grdAIjubgmentHistory2;
     }
 }

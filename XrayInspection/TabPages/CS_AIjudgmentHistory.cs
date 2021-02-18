@@ -68,6 +68,7 @@ namespace XrayInspection.UserControls
             btnSearch.Click += BtnSearch_Click;
 
             grdAIjubgmentHistory.RowPostPaint += GrdAIjubgmentHistory_RowPostPaint;
+            grdAIjubgmentHistory2.RowPostPaint += GrdAIjubgmentHistory_RowPostPaint2;
 
             grdAIjubgmentHistory.CellDoubleClick += GrdAIjubgmentHistory_CellDoubleClick;
         }
@@ -86,6 +87,17 @@ namespace XrayInspection.UserControls
             {
                 Search();
             }       
+        }
+
+        /// <summary>
+        /// 그리드 행번호 보여주기
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void GrdAIjubgmentHistory_RowPostPaint2(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            Rectangle rect = new Rectangle(e.RowBounds.Location.X, e.RowBounds.Location.Y, grdAIjubgmentHistory2.RowHeadersWidth - 4, e.RowBounds.Height);
+            TextRenderer.DrawText(e.Graphics, (e.RowIndex + 1).ToString(), grdAIjubgmentHistory2.RowHeadersDefaultCellStyle.Font, rect, grdAIjubgmentHistory2.RowHeadersDefaultCellStyle.ForeColor, TextFormatFlags.VerticalCenter | TextFormatFlags.Right);
         }
 
         /// <summary>
@@ -259,6 +271,7 @@ namespace XrayInspection.UserControls
                     _searchDt = ds.Tables[0];
                     _OriginalSearchDt = _searchDt.Copy();
                     grdAIjubgmentHistory.DataSource = _searchDt;
+                    grdAIjubgmentHistory2.DataSource = ds.Tables[1];
                 }
             }
             catch (Exception ex)
@@ -364,6 +377,7 @@ namespace XrayInspection.UserControls
         /// </summary>
         private void InitializeGrid()
         {
+            // 판정이력 그리드
             grdAIjubgmentHistory.DefaultCellStyle.ForeColor = Color.Black;
 
             grdAIjubgmentHistory.AutoGenerateColumns = false;
@@ -396,6 +410,25 @@ namespace XrayInspection.UserControls
             CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "LOCATION", "LOCATION", "LOCATION", typeof(string), 100, false, false, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "COMMENTS", "COMMENTS", "COMMENTS", typeof(string), 100, false, false, DataGridViewContentAlignment.MiddleCenter, 10);
             CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory, "FILEPATH", "FILEPATH", "FILEPATH", typeof(string), 100, false, false, DataGridViewContentAlignment.MiddleCenter, 10);
+
+            // 월별 판정이력 그리드
+            grdAIjubgmentHistory2.DefaultCellStyle.ForeColor = Color.Black;
+
+            grdAIjubgmentHistory2.AutoGenerateColumns = false;
+            grdAIjubgmentHistory2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            grdAIjubgmentHistory2.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomCenter;
+            grdAIjubgmentHistory2.AllowUserToAddRows = false;
+            grdAIjubgmentHistory2.MultiSelect = false;
+
+            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory2, "기준년월", "CCYYMM", "CCYYMM", typeof(string), 120, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory2, "제품ID", "PRODUCTID", "PRODUCTID", typeof(string), 150, true, true, DataGridViewContentAlignment.MiddleLeft, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory2, "제품명", "PRODUCTNAME", "PRODUCTNAME", typeof(string), 250, true, true, DataGridViewContentAlignment.MiddleLeft, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory2, "고객명", "CUSTOMER", "CUSTOMER", typeof(string), 150, true, true, DataGridViewContentAlignment.MiddleLeft, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory2, "판정결과(코드)", "LASTRESULT", "LASTRESULT", typeof(string), 150, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory2, "판정결과", "DEFECTCODENAME", "DEFECTCODENAME", typeof(string), 150, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory2, "항목명", "DEFECTNAME", "DEFECTNAME", typeof(string), 200, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory2, "갯수", "CNT", "CNT", typeof(int), 80, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
+            CommonFuction.SetDataGridViewColumnStyle(grdAIjubgmentHistory2, "총갯수", "TOT_CNT", "TOT_CNT", typeof(int), 80, true, true, DataGridViewContentAlignment.MiddleCenter, 10);
         }
 
         #endregion
