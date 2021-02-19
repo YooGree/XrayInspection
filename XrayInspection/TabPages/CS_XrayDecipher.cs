@@ -927,18 +927,22 @@ namespace XrayInspection.UserControls
                 {
                     grdAIDecipherStatus.DataSource = ds.Tables[0];
 
-                    if (ds.Tables[0].Rows.Count > 0)
+                    if (ds.Tables[1].Rows.Count > 0)
                     {
-                        // NG가 한건이라도 있을시 AI판정결과 NG로 세팅
-                        if (ds.Tables[0].AsEnumerable().Where(r => r["AIRESULT"].Equals("NG")).Count() > 0)
+                        if (ds.Tables[1].Rows[0]["AIRESULT"].Equals("OK"))
+                        {
+                            txtAiResult.Text = "OK";
+                            txtAiResult.BackColor = Color.CornflowerBlue;
+                        }
+                        else if (ds.Tables[1].Rows[0]["AIRESULT"].Equals("NG"))
                         {
                             txtAiResult.Text = "NG";
                             txtAiResult.BackColor = Color.MediumVioletRed;
                         }
                         else
                         {
-                            txtAiResult.Text = "OK";
-                            txtAiResult.BackColor = Color.CornflowerBlue;
+                            txtAiResult.Text = "None";
+                            txtAiResult.BackColor = Color.Lavender;
                         }
                     }
                     else
@@ -946,6 +950,26 @@ namespace XrayInspection.UserControls
                         txtAiResult.Text = "None";
                         txtAiResult.BackColor = Color.Lavender;
                     }
+
+                    //if (ds.Tables[0].Rows.Count > 0)
+                    //{
+                    //    // NG가 한건이라도 있을시 AI판정결과 NG로 세팅
+                    //    if (ds.Tables[0].AsEnumerable().Where(r => r["AIRESULT"].Equals("NG")).Count() > 0)
+                    //    {
+                    //        txtAiResult.Text = "NG";
+                    //        txtAiResult.BackColor = Color.MediumVioletRed;
+                    //    }
+                    //    else
+                    //    {
+                    //        txtAiResult.Text = "OK";
+                    //        txtAiResult.BackColor = Color.CornflowerBlue;
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    txtAiResult.Text = "None";
+                    //    txtAiResult.BackColor = Color.Lavender;
+                    //}
                 }
             }
             catch (Exception ex)
@@ -1147,8 +1171,8 @@ namespace XrayInspection.UserControls
                 parameters.Add("@DETAILPARTNAME", txtDetailPart.Text);
                 parameters.Add("@LOCATION", txtLocation.Text);
                 parameters.Add("@COMMENT", txtComment.Text);
-                parameters.Add("@AIRESULTCODE", "(TEST)CODE_OK");
-                parameters.Add("@AIRESULTCODENAME", "(TEST)CODENAME_OK");
+                parameters.Add("@AIRESULTCODE", txtAiResult.Text);
+                parameters.Add("@AIRESULTCODENAME", txtAiResult.Text);
                 parameters.Add("@FILEPATH", filePath);
 
                 SqlParameter[] sqlParameters = _dbManager.GetSqlParameters(parameters);
