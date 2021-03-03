@@ -653,7 +653,7 @@ namespace XrayInspection.UserControls
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) 
             {
                 Console.WriteLine(ex.Message);
             }
@@ -710,6 +710,12 @@ namespace XrayInspection.UserControls
                                 txtPlanPageCount.Text = ds2.Tables[0].Rows[0]["INSPECTQTY"].ToString(); // 계획본수
                                 txtSequenceByProduct.Text = ds2.Tables[0].Rows[0]["INSPECTSEQUENCE"].ToString() + " / " + ds2.Tables[0].Rows[0]["INSPECTQTY"].ToString(); // 제품별 순번
                                 txtComment2.Text = ds2.Tables[0].Rows[0]["COMMENTS"].ToString(); // 비고
+
+                                // 검사수량이 계획수량보다 크다면 메세지 알림 띄워주기
+                                if (Convert.ToInt32(ds2.Tables[0].Rows[0]["INSPECTSEQUENCE"]) > Convert.ToInt32(ds2.Tables[0].Rows[0]["INSPECTQTY"]))
+                                {
+                                    MsgBoxHelper.Show("검사수량이 계획수량을 초과했습니다.");  
+                                }
                             }
                         }
 
